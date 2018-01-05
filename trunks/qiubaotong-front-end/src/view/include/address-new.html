@@ -1,0 +1,57 @@
+<template id="address-new">
+<section>
+    <!--头-->
+    <div class="header tex-c">
+      <a href="javascript:;" class="back"><img src="/img/back.png" @click="goBack()" /></a>
+      {{isNew ? '新增' : '编辑'}}地址
+    </div>
+    <div class="scroll">
+    <!--头 end-->
+    <div class="weui_cells weui_cells_form marhead font14">
+          <div class="weui_cell pad-lr">
+              <div class="weui_cell_hd"><label class="weui_label">姓名</label></div>
+              <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" type="text"  placeholder="您的姓名" v-model="name" v-bind:value="addr_edit.name" maxlength="8"/>
+              </div>
+          </div>
+
+          <div class="weui_cell pad-lr">
+              <div class="weui_cell_hd"><label class="weui_label">联系电话</label></div>
+              <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" type="text"  placeholder="手机号码或固定电话" v-model="mobile" maxlength="15" v-bind:value="addr_edit.mobile"/>
+              </div>
+          </div>
+
+          <div class="weui_cell pad-lr">
+              <div class="weui_cell_hd"><label class="weui_label">所在地区</label></div>
+              <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" type="text"  placeholder="请选择地区" readonly v-bind:value="addr_edit.cityName" v-model='cityName' @click="changeCity()"/>
+              </div>
+          </div>
+
+          <div class="weui_cell pad-lr">
+              <div class="weui_cell_hd"><label class="weui_label">街道地址</label></div>
+              <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" type="text" placeholder="请输入街道地址"  v-model='addr' v-bind:value="addr_edit.address" maxlength="32"/>
+              </div>
+          </div>
+
+          <div class="weui_cell weui_cell_switch pad-lr" for="s11">
+            <div class="weui_cell_bd weui_cell_primary ">
+                <p class="mar-r">设为默认地址</p>
+            </div>
+              <div class="weui_cell_ft">
+                  <input type="checkbox" class="weui_switch" v-model="def" v-bind:checked="addr_edit.def">
+              </div>
+          </div>
+      </div>
+      <div class="pad-lr font12 mar-t" style="color:#15ca5f;">
+          温馨提示:姓名请填写球包主人真实姓名
+      </div>
+      <div style="padding:20px 15px;">
+          <a href="javascript:;" class="weui_btn weui_btn_primary font14" style="padding: 2px 0;" @click="save()">保存</a>
+          <a href="javascript:;" class="weui_btn weui_btn_warn font14" style="padding: 2px 0;" v-show="!isNew" @click="delete()">删除地址</a>
+      </div>
+      </div>
+<section>
+</template>

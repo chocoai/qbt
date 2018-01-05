@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<title>球包通</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="球包,球包快递,高尔夫">
+    <meta name="description" content="顺丰旗下的高尔夫球包和行李快递服务品牌，安全、可靠并保证您的高尔夫球包准时到达目的地">
+    <!-- Bootstrap -->
+	<link href="<%=static_url%>/css/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" href="<%=static_url%>/css/normalize.css">
+	<!--我的-->
+	<link href="<%=static_url%>/css/globle.css" rel="stylesheet" type="text/css">
+	<link href="<%=static_url%>/css/idangerous.swiper.css" rel="stylesheet" type="text/css" >
+	<link href="<%=static_url%>/css/newbag.css" rel="stylesheet" type="text/css">
+	<link href="<%=static_url%>/css/shop.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<header class="header">
+    	<nav class="navbar scrolled">
+      		<div class="container">
+          		<div class="navbar-header">
+             		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                 		<span class="sr-only">切换导航</span>
+                 		<span class="icon-bar"></span>
+                 		<span class="icon-bar"></span>
+                 		<span class="icon-bar"></span>
+             		</button>
+             		<a href="/"><img src="<%=static_url%>/images/logo-nav.png" alt="" style="max-height: 32px;margin-top:13px;"></a>
+          		</div>
+          		<div class="collapse navbar-collapse" id="navbar-collapse">
+              		<ul class="nav navbar-nav">
+                  		<li><a href="/" class="main-nav-link current">主页</a> </li>
+		                <li><a href="/order.html" class="main-nav-link ">球包快递</a></li>
+		                <li><a href="/track.html" class="main-nav-link">球包追踪</a></li>
+		                <li><a href="/raiders.html" class="main-nav-link">球包通攻略</a></li>
+		                <li><a href="/service.html" class="main-nav-link ">客服中心</a></li>
+		                <li><a href="/about.html" class="main-nav-link ">关于我们</a></li>
+		                <li><a href="/news/" class="main-nav-link ">球包通新闻</a></li>
+		                <li><a href="tel:400-609-0990;" style="font-weight:700;"><img src="<%=static_url%>/images/nav-tel.png" alt="" style="height:25px;margin-right:15px;">400-609-0990</a></li>
+              		</ul>
+          		</div>
+      		</div>
+    	</nav>
+    </header>
+    <img style="position: absolute;top:50%;left:50%;transform: translate(-50%,-55%);max-width: 80%" src="<%=static_url%>/images/404.png">
+<script src="<%=static_url%>/assets/jquery.min.js"></script>
+<script src="<%=static_url%>/assets/bootstrap.min.js"></script>
+</body>
+</html>

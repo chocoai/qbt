@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>球包通</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="{{{/css/main.min.css}}}">
+</head>
+<body ontouchstart>
+  <div class="container">
+    <div class="tex-c" style="color: #7e7e7f;font-weight: bold;">
+        <img src="/img/build.png" style="display: block;margin: 80px auto 10px;"/>
+        系统升级中，稍后尝试！
+    </div>
+  </div>
+</body>
+</html>

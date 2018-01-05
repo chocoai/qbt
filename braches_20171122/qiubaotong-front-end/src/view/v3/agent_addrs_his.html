@@ -1,0 +1,48 @@
+<template id="agent_address_his_select">
+    <section class="page">
+        <!--<tel-contact></tel-contact>-->
+        <div class="weui-tab">
+            <div class="weui-tab__panel">
+                <div class="page__bd">
+                    <div class="weui-search-bar" id="searchBar">
+                        <div class="weui-search-bar__form">
+                            <div class="weui-search-bar__box" style="padding: 0 40px">
+                                <i class="weui-icon-search" style="line-height: 45px;font-size: 18px"></i>
+                                <input v-model="addressK" type="search" class="weui-search-bar__input"
+                                       placeholder="输入关键字搜索" required="" style="height: 35px;font-size: 18px">
+                                <a @click="addressK = ''" href="javascript:" class="weui-icon-clear"
+                                   style="line-height: 45px;font-size: 18px"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-for="item in filterAddrList" class="weui-panel weui-panel_access">
+                    <div @click="save(item)" class="weui-panel__bd">
+                        <!--非球场地址-->
+                        <div class="weui-media-box weui-media-box_text" v-if="item.addressType!=1">
+                            <h4 class="weui-media-box__title">{{item.cityName}}</h4>
+                            <p class="weui-media-box__desc">{{item.address}}</p>
+                        </div>
+                        <!--球场地址-->
+                        <div class="weui-media-box weui-media-box_text" v-if="item.addressType==1">
+                            <h4 class="weui-media-box__title">{{item.addressName}}</h4>
+                            <p class="weui-media-box__desc">{{item.address}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div v-show="filterAddrList.length==0" style="text-align:center;padding-top:50px">
+                    <img src="/img/empty.png" width="120"/>
+                    <p style="padding-top: 20px;color:#cdcdcd;font-size:18px">还没有历史地址！</p>
+                </div>
+
+            </div>
+        </div>
+        <footer class="footer footer-ios">
+            <div class="weui-flex">
+                <div @click="goBack" class="weui-flex__item footer-cancel">
+                    <p>返回</p>
+                </div>
+            </div>
+        </footer>
+    </section>
+</template>

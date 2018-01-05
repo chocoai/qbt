@@ -1,0 +1,1 @@
+next(null,{"code":"0000","msg":"ok","datas":{"id":71,"createTime":1482916188000,"updateTime":1482935438000,"number":"VIP16122800299","vipNo":"67560206","userId":0,"payAmount":2000.00,"payMethod":2,"name":"银卡","userName":"实体卡","mobile":"18888888888","validDesc":"1年","valid":365,"settlementStatus":1,"payId":115,"payNumber":"161228200000047","payBakNo":null,"vipTypeId":10}})

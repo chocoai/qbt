@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="timeSetCtrl">
+<div class="container containerWidthAuto">
+    <div class="row">
+        <div class="col-sm-12 mb8">
+            <div class="form-inline pull-right">
+                <div class="form-group marginRight5">
+                    <label>起始日期(年度)：</label>
+                    <div class="inputDateClose">
+                        <input ng-model="startDate" type="text" class="form-control datePicker" placeholder="选择年度" readonly>
+                        <button ng-click="startDate = ''" class="clearTime">x</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button ng-click="getList()" class="btn btn-primary marginRight5">搜索</button>
+                    <button ng-click="add()" class="btn btn-primary">新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered table-striped table-hover">
+            	<thead>
+                    <th>节假日名称</th>
+                    <th>开始日期</th>
+                    <th>结束日期</th>
+                    <th>调整日期</th>
+                    <th>参考日期</th>
+                    <th>操作</th>
+            	</thead>
+                <tbody>
+                    <tr ng-repeat="item in lists">
+	                    <td>
+                            <a ng-click="update(item.id,item.name)" href="javascript:;">{{item.name}}</a>
+                        </td>
+                        <td>{{item.startDate | date : 'yyyy-MM-dd'}}</td>
+                        <td>{{item.endDate | date : 'yyyy-MM-dd'}}</td>
+                        <td>{{item.adjustDate | date : 'yyyy-MM-dd'}}</td>
+                        <td>{{item.referenceDate | date : 'yyyy-MM-dd'}}</td>
+	                    <td>
+                            <button ng-click="layerDelete(item.id)" class="btn btn-danger btn-sm">删除</button>
+                        </td>
+	                </tr>
+                </tbody>
+            </table>
+            <article style="font-size: 12px;color:#777">
+                <p>注：周日（不包含节假日）的时效以隔天星期一作为参考，如星期一为节假日，则本周日不调整；节假日最后一天为周六，则本节假日不调整。</p>
+            </article>
+            <pagination page="page" change="getList(page)"></pagination>
+        </div>
+    </div>
+</div>
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/timeSetCtrl.js}}}"></script>
+</body>
+</html>

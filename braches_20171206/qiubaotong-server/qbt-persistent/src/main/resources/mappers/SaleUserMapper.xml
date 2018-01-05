@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.SaleUserMapper">
+
+	<resultMap id="BaseResultMap" type="SaleUser">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="salesman_code" property="salesmanCode" />
+		<result column="user_id" property="userId" />
+		<result column="name" property="name" />
+		<result column="mobile" property="mobile" />
+		<result column="idcard" property="idcard" />
+		<result column="idcard_url" property="idcardUrl" />
+		<result column="email" property="email" />
+		<result column="company" property="company" />
+		<result column="qrcode" property="qrcode" />
+		<result column="type" property="type" />
+		<result column="type_value" property="typeValue" />
+		<result column="subscribe_value" property="subscribeValue" />
+		<result column="apply_status" property="applyStatus" />
+		<result column="apply_time" property="applyTime" />
+		<result column="status" property="status" />
+		<result column="status_time" property="statusTime" />
+		<result column="sys_user_id" property="sysUserId" />
+		<result column="sys_user_name" property="sysUserName" />
+		<result column="sys_user_mobile" property="sysUserMobile" />
+		<result column="first_type" property="firstType" />
+		<result column="first_type_value" property="firstTypeValue" />
+		<result column="order_day_type" property="orderDayType" />
+		<result column="order_day_value" property="orderDayValue" />
+		<result column="activity_id" property="activityId" />
+	</resultMap>
+	
+	<resultMap id="BossResultMap" type="SaleUserDto" extends="BaseResultMap">
+		<result column="qrcode_create_info_name" property="qrcodeCreateInfoName" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, salesman_code, user_id, name, mobile, idcard,
+		idcard_url, email,company, qrcode, type, type_value, subscribe_value, 
+		apply_status, apply_time, status, status_time, sys_user_id, sys_user_name, sys_user_mobile, 
+		first_type, first_type_value, order_day_type, order_day_value, activity_id
+	</sql>
+
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select <include refid="Base_Column_List" />
+		from sale_user 
+		where id = #{id}
+	</select>
+
+	<insert id="insert" parameterType="SaleUser" keyProperty="id" useGeneratedKeys="true">
+		insert into sale_user (
+			create_time, 
+			salesman_code,
+			user_id, 
+			name, 
+			mobile,
+			idcard, 
+			idcard_url, 
+			email,
+			company, 
+			qrcode, 
+			type,
+			type_value, 
+			subscribe_value, 
+			apply_status,
+			apply_time,
+			status,
+			status_time,
+			sys_user_id, 
+			sys_user_name,
+			sys_user_mobile,
+			first_type, 
+			first_type_value, 
+			order_day_type, 
+			order_day_value,
+			activity_id
+		) values (
+			#{createTime},
+			#{salesmanCode},
+			#{userId}, 
+			#{name}, 
+			#{mobile},
+			#{idcard}, 
+			#{idcardUrl},
+			#{email},
+			#{company}, 
+			#{qrcode}, 
+			#{type},
+			#{typeValue}, 
+			#{subscribeValue},
+			#{applyStatus},
+			#{applyTime},
+			#{status},
+			#{statusTime},
+			#{sysUserId},
+			#{sysUserName}, 
+			#{sysUserMobile},
+			#{firstType}, 
+			#{firstTypeValue}, 
+			#{orderDayType}, 
+			#{orderDayValue},
+			#{activityId}
+		)
+	</insert>
+
+	<update id="updateById" parameterType="SaleUser">
+		update sale_user
+		<set>
+			<if test="salesmanCode != null">
+				salesman_code = #{salesmanCode},
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="idcard != null">
+				idcard = #{idcard},
+			</if>
+			<if test="idcardUrl != null">
+				idcard_url = #{idcardUrl},
+			</if>
+			<if test="email != null">
+				email = #{email},
+			</if>
+			<if test="company != null">
+				company = #{company},
+			</if>
+			<if test="qrcode != null">
+				qrcode = #{qrcode},
+			</if>
+			<if test="type != null">
+				type = #{type},
+			</if>
+			<if test="typeValue != null">
+				type_value = #{typeValue},
+			</if>
+			<if test="subscribeValue != null">
+				subscribe_value = #{subscribeValue},
+			</if>
+			<if test="applyStatus != null">
+				apply_status = #{applyStatus},
+			</if>
+			<if test="applyTime != null">
+				apply_time = #{applyTime},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="statusTime != null">
+				status_time = #{statusTime},
+			</if>
+			<if test="sysUserId != null">
+				sys_user_id = #{sysUserId},
+			</if>
+			<if test="sysUserName != null">
+				sys_user_name = #{sysUserName},
+			</if>
+			<if test="sysUserMobile != null">
+				sys_user_mobile = #{sysUserMobile},
+			</if>
+			<if test="firstType != null">
+				first_type = #{firstType},
+			</if>
+			<if test="firstTypeValue != null">
+				first_type_value = #{firstTypeValue},
+			</if>
+			<if test="orderDayType != null">
+				order_day_type = #{orderDayType},
+			</if>
+			<if test="orderDayValue != null">
+				order_day_value = #{orderDayValue}, 
+			</if>
+			<if test="activityId != null">
+				activity_id = #{activityId}, 
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<select id="findByCode" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sale_user
+		where salesman_code = #{code} and apply_status = 2 and status = 1
+	</select>
+	
+	<select id="findByUserId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sale_user
+		where user_id = #{userId}
+	</select>
+	
+	<select id="findByPage" resultMap="BossResultMap">
+		select
+			su.id, 
+			su.create_time, 
+			su.salesman_code, 
+			su.user_id, 
+			su.name, 
+			su.mobile, 
+			su.idcard,
+			su.idcard_url, 
+			su.email,
+			su.company, 
+			su.qrcode, 
+			su.type, 
+			su.type_value, 
+			su.subscribe_value, 
+			su.apply_status, 
+			su.apply_time, 
+			su.status, 
+			su.status_time, 
+			su.sys_user_id, 
+			su.sys_user_name, 
+			su.sys_user_mobile, 
+			su.first_type, 
+			su.first_type_value, 
+			su.order_day_type, 
+			su.order_day_value,
+			sqi.qrcode_create_info_name 
+		from sale_user su left join sale_qrcode_info sqi on su.salesman_code = sqi.salesman_code
+		<where>
+			<if test="condition.startDate != null">
+				<![CDATA[
+					and date(su.create_time) >= date(#{condition.startDate})  
+				]]> 
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+					and date(su.create_time) <= date(#{condition.endDate})  
+				]]> 
+			</if>
+			<if test="condition.salesmanCode != null and condition.salesmanCode != ''">
+				and su.salesman_code like concat('%',#{condition.salesmanCode},'%') 
+			</if>
+			<if test="condition.name != null and condition.name != ''">
+				and su.name like concat('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.mobile != null and condition.mobile != ''">
+				and su.mobile like concat('%',#{condition.mobile},'%') 
+			</if>
+			<if test="condition.idcard != null and condition.idcard != ''">
+				and su.idcard like concat('%',#{condition.idcard},'%') 
+			</if>
+			<if test="condition.company != null and condition.company != ''">
+				and su.company like concat('%',#{condition.company},'%') 
+			</if>
+			<if test="condition.type != null">
+				and su.type = #{condition.type} 
+			</if>
+			<if test="condition.status != null">
+				and su.status = #{condition.status} 
+			</if>
+			<if test="condition.isApply != null and condition.isApply">
+				and su.apply_status = 2 
+			</if>
+			<if test="condition.isApply != null and !condition.isApply">
+				and su.apply_status != 2 
+			</if>
+			<if test="condition.qrcodeCreateInfoName != null and condition.qrcodeCreateInfoName != ''">
+				and sqi.qrcode_create_info_name like concat('%',#{condition.qrcodeCreateInfoName},'%') 
+			</if>
+			
+		</where>
+		order by su.id desc 
+	</select>
+	
+	<update id="updateForBoss" parameterType="SaleUser">
+		update sale_user
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="idcard != null">
+				idcard = #{idcard},
+			</if>
+			<if test="idcardUrl != null">
+				idcard_url = #{idcardUrl},
+			</if>
+			<if test="email != null">
+				email = #{email},
+			</if>
+			<if test="company != null">
+				company = #{company},
+			</if>
+			<if test="type != null">
+				type = #{type},
+			</if>
+			<if test="typeValue != null">
+				type_value = #{typeValue},
+			</if>
+			<if test="subscribeValue != null">
+				subscribe_value = #{subscribeValue},
+			</if>
+			<if test="firstType != null">
+				first_type = #{firstType},
+			</if>
+			<if test="firstTypeValue != null">
+				first_type_value = #{firstTypeValue},
+			</if>
+			<if test="orderDayType != null">
+				order_day_type = #{orderDayType},
+			</if>
+			<if test="orderDayValue != null">
+				order_day_value = #{orderDayValue},
+			</if>
+			<if test="qrcode != null">
+				qrcode = #{qrcode},
+			</if>
+			<if test="activityId != null">
+				activity_id = #{activityId}, 
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="udpateBatch" parameterType="com.qbt.persistent.dto.SaleUserDto">
+		update sale_user
+		<set>
+			<if test="type != null">
+				type = #{type},
+			</if>
+			<if test="typeValue != null">
+				type_value = #{typeValue},
+			</if>
+			<if test="subscribeValue != null">
+				subscribe_value = #{subscribeValue},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="statusTime != null">
+				status_time = #{statusTime},
+			</if>
+		</set>
+		where 
+			id in 
+			<foreach collection="ids" item="id" index="i" separator="," open="(" close=")">
+				#{id}
+			</foreach>
+	</update>
+	
+	<select id="existCode" resultType="java.lang.Integer">
+		select count(1) from sale_user where user_id != #{userId} and salesman_code = #{code} 
+	</select>
+	
+	<update id="updateForWechatApply"  parameterType="SaleUser">
+		update sale_user 
+		<set>
+			salesman_code = #{salesmanCode},
+			name = #{name},
+			mobile = #{mobile},
+			idcard = #{idcard},
+			idcard_url = #{idcardUrl},
+			company = #{company},
+			qrcode = #{qrcode},
+			type = #{type},
+			type_value = #{typeValue},
+			subscribe_value = #{subscribeValue},
+			apply_status = #{applyStatus},
+			status = #{status},
+			first_type = #{firstType},
+			first_type_value = #{firstTypeValue},
+			order_day_type = #{orderDayType},
+			order_day_value = #{orderDayValue},
+			activity_id = #{activityId}
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="auditSaleUser"  parameterType="SaleUser">
+		update sale_user 
+		<set>
+			salesman_code = #{salesmanCode},
+			qrcode = #{qrcode},
+			type = #{type},
+			type_value = #{typeValue},
+			subscribe_value = #{subscribeValue},
+			apply_status = #{applyStatus},
+			apply_time = #{applyTime},
+			status = #{status},
+			status_time = #{statusTime},
+			first_type = #{firstType},
+			first_type_value = #{firstTypeValue},
+			order_day_type = #{orderDayType},
+			order_day_value = #{orderDayValue},
+			sys_user_id = #{sysUserId},
+			sys_user_name = #{sysUserName},
+			sys_user_mobile = #{sysUserMobile} ,
+			activity_id = #{activityId}
+		</set>
+		where id = #{id}
+	</update>
+	 
+	<select id="listByApplyStatus" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sale_user
+		where apply_status = #{applyStatus} 
+	</select>
+	
+	
+	
+</mapper>

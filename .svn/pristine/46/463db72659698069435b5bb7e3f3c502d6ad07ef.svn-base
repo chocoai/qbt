@@ -1,0 +1,14 @@
+package com.qbt.persistent.mapper;
+
+import java.util.List;
+
+import com.qbt.common.entity.PageEntity;
+import com.qbt.persistent.entity.TicketPackageActivity;
+
+public interface TicketPackageActivityMapper {
+	
+	int insert(TicketPackageActivity activity);
+	
+	List<TicketPackageActivity> findByPage(PageEntity<TicketPackageActivity> pageEntity);
+
+}

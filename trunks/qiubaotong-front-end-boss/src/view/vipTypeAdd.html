@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="vipTypeDetailCtrl">
+<div class="container containerWidthAuto">
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label>会员卡类型名称：</label>
+				<input ng-model="name" type="text" class="form-control" placeholder="输入会员卡类型" maxlength="20">
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label>购买金额：</label>
+				<input ng-model="amount" type="number" class="form-control" placeholder="输入购买金额" min="0">
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label>下单金额：</label>
+				<input ng-model="orderAmount" type="number" class="form-control" placeholder="输入下单金额" min="0">
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label>状态：</label>
+				<select ng-model="status" class="form-control" ng-disabled="true">
+					<option value="1">启用</option>
+					<option value="2">禁用</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label>有效期(天)：</label>
+				<input ng-model="valid" type="number" class="form-control" placeholder="输入有效期(天)" min="0">
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label>有效期描述：</label>
+				<input type="text" ng-model="validDesc" class="form-control" maxlength="20" placeholder="输入有效期描述">
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="form-group">
+				<label>细则：</label>
+				<textarea ng-model="rules" class="form-control" maxlength="" placeholder="输入细则">
+				</textarea>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="form-group">
+				<button type="button" class="btn btn-primary" ng-click="addVipType()">提交</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/vipTypeDetailCtrl.js}}}"></script>
+</body>
+</html>

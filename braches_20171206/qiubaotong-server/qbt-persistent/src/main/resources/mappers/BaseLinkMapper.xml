@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseLinkMapper">
+	<resultMap id="BaseResultMap" type="BaseLink">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="name" property="name" />
+		<result column="url" property="url" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, name, url
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from base_link
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="BaseLink" keyProperty="id" useGeneratedKeys="true">
+		insert into base_link (
+			create_time, 
+			name,
+			url
+		) values (
+			#{createTime},
+			#{name},
+			#{url}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="BaseLink">
+	   update base_link
+	   <set>
+	     <if test="name != null">
+	       name= #{name},
+	     </if>
+	     <if test="url != null">
+	       url= #{url},
+	     </if>
+	    
+	   </set>
+	   where id = #{id}
+	</update>
+	
+	<delete id="delete">
+	delete from base_link where id = #{id}
+	</delete>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+	 select
+	 <include refid="Base_Column_List" />
+	 from base_link
+	 <where>
+	     <if test="condition.name != null and condition.name != ''">
+	       AND name LIKE CONCAT('%',#{condition.name},'%') 
+	     </if>
+	     <if test="condition.url != null and condition.url != ''">
+	       AND url LIKE CONCAT('%',#{condition.url},'%') 
+	     </if>
+	     
+	 </where>
+	 <choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findByCondition" resultMap="BaseResultMap" parameterType="BaseLink">
+		select
+		 <include refid="Base_Column_List" />
+		 from base_link
+		  <where>
+		   <if test="name != null">
+		      name = #{name}
+		   </if>
+		  </where>
+	</select>
+	
+	<select id="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from base_link
+	</select>
+</mapper>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+  <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body ng-controller="qrcodeManageCtrl">
+  <div class="container containerWidthAuto">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group form-inline">
+          <label for="codeName">渠道名称：</label>
+          <input type="text" id="codeName" class="form-control" placeholder="请输入渠道名称" ng-model="codeNm">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group form-inline">
+          <label for="identifyNum">识别码：</label>
+          <input type="text" id="identifyNum" class="form-control" placeholder="请输入渠道名称" ng-model="identify">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group form-inline">
+          <label for="remark">备注：</label>
+          <input type="text" id="remark" class="form-control" placeholder="备注" ng-model="mark">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-8">
+        <div class="form-group form-inline">
+          <button class="btn btn-primary" ng-click="getList()">搜索</button>
+          <button class="btn btn-primary" ng-click="addCode()">新增</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table table-bordered table-striped table-hover">
+          <thead>
+            <th>序号</th>
+            <th>渠道名称</th>
+            <th>识别码</th>
+            <th>状态</th>
+            <th>备注</th>
+            <th>操作</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in list track by $index | orderBy:item.createTime:reverse">
+              <td>{{$index+1}}</td>
+              <td><a ng-click="updateCode(item.id)" href="javascript:void(0)">{{item.name}}</a></td>
+              <td>{{item.channelQrcodeCode}}</td>
+              <td>
+                <label ng-class="{'label-success':item.status===1,'label-danger':item.status===2}" class="label">{{item.status===2?"禁用":"启用"}}</label>
+              </td>
+              <td>{{item.remark}}</td>
+              <td>
+                <button class="btn btn-sm" ng-class="{'btn-danger':item.status===1,'btn-success':item.status===2}" ng-click="updateStatus(item.id,item.status)">{{item.status===1 ? '禁用' : '启用'}}</button>
+                <button class="btn btn-info" ng-click="goCode(item.channelQrcodeCode)">用户列表</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination page="page" change="getList(page)"></pagination>
+      </div>
+    </div>
+  </div>
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/qrcodeManageCtrl.js}}}"></script>
+</body>
+</html>

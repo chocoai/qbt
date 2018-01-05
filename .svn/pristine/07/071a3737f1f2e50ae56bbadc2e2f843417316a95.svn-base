@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.TicketPackageMapper">
+
+	<resultMap id="BaseResultMap" type="TicketPackage">
+		<id column="id" property="id" />
+		<result column="order_id" property="orderId" />
+		<result column="activity_name" property="activityName" />
+		<result column="type" property="type" />
+		<result column="expiration_time" property="expirationTime" />
+		<result column="effective_day" property="effectiveDay" />
+		<result column="activate_time" property="activateTime" />
+		<result column="activate_user" property="activateuser" />
+		<result column="activate_phone_number" property="activatePhoneNumber" />
+		<result column="code" property="code" />
+		<result column="code_status" property="codeStatus" />
+		<result column="status" property="status" />
+		<result column="active_status" property="activeStatus" />
+		<result column="ticket_type" property="ticketType" />
+		<result column="operator_id" property="operatorId" />
+		<result column="operator_name" property="operatorName" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, order_id, activity_name, type, expiration_time, effective_day, activate_time,
+		activate_user, activate_phone_number, code, code_status, status, active_status, 
+		ticket_type, operator_id, operator_name
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM ticket_package 
+		WHERE id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="TicketPackage" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO ticket_package (
+			order_id, activity_name, type, expiration_time, effective_day, activate_time,
+			activate_user, activate_phone_number, code, code_status, status, active_status, 
+			ticket_type, operator_id, operator_name
+		)
+		VALUES (
+			#{orderId},
+			#{activityName},
+			#{type}, 
+			#{expirationTime}, 
+			#{effectiveDay},
+			#{activateTime}, 
+			#{activateUser}, 
+			#{activatePhoneNumber}, 
+			#{code}, 
+			#{codeStatus}, 
+			#{status}, 
+			#{activeStatus}, 
+			#{ticketType}, 
+			#{operatorId}, 
+			#{operatorName}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="TicketPackage">
+		UPDATE ticket_package 
+		<set>
+			<!-- 
+			<if test="orderId != null">
+				order_id = #{orderId},
+			</if>
+			-->
+			<if test="activityName != null">
+				activity_name = #{activityName},
+			</if>
+			<if test="type != null">
+				type = #{type},
+			</if>
+			<if test="expirationTime != null">
+				expiration_time = #{expirationTime},
+			</if>
+			<if test="effectiveDay != null">
+				effective_day = #{effectiveDay},
+			</if>
+			<if test="activateTime != null">
+				activate_time = #{activateTime},
+			</if>
+			<if test="activateUser != null">
+				activate_user = #{activateUser},
+			</if>
+			<if test="activatePhoneNumber != null">
+				activate_phone_number = #{activatePhoneNumber},
+			</if>
+			<if test="code != null">
+				code = #{code},
+			</if>
+			<if test="codeStatus != null">
+				code_status = #{codeStatus},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="activeStatus != null">
+				active_status = #{activeStatus},
+			</if>
+			<if test="ticketType != null">
+				ticket_type = #{ticketType},
+			</if>
+			<if test="operatorId != null">
+				operator_id = #{operatorId},
+			</if>
+			<if test="operatorName != null">
+				operator_name = #{operatorName},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM ticket_package
+		<where>
+			<if test="condition.orderId != null and condition.orderId != ''">
+				AND order_id = #{condition.orderId} 
+			</if>
+			<if test="condition.activityName != null and condition.activityName != ''">
+				AND activity_name LIKE CONCAT('%',#{condition.activityName},'%') 
+			</if>
+			<if test="condition.code != null and condition.code != ''">
+				AND code LIKE CONCAT('%',#{condition.code},'%') 
+			</if>
+			<if test="condition.operatorName != null and condition.operatorName != ''">
+				AND operator_name LIKE CONCAT('%',#{condition.operatorName},'%') 
+			</if>
+			<if test="condition.activateUser != null and condition.activateUser != ''">
+				AND activate_user LIKE CONCAT('%',#{condition.activateUser},'%') 
+			</if>
+			<if test="condition.activatePhoneNumber != null and condition.activatePhoneNumber != ''">
+				AND activate_phone_number LIKE CONCAT('%',#{condition.activatePhoneNumber},'%') 
+			</if>
+			<if test="condition.ticketType != null and condition.ticketType != ''">
+				AND ticket_type LIKE CONCAT('%',#{condition.ticketType},'%') 
+			</if>
+			<if test="condition.type != null">
+				AND type = #{condition.type} 
+			</if>
+			<if test="condition.status != null">
+				AND status = #{condition.status} 
+			</if>
+			<if test="condition.codeStatus != null">
+				AND code_status = #{condition.codeStatus} 
+			</if>
+			<if test="condition.activeStatus != null">
+				AND active_status = #{condition.activeStatus} 
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose> 		
+	</select>
+		
+</mapper>

@@ -1,0 +1,45 @@
+package com.qbt.service.impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.qbt.common.entity.PageEntity;
+import com.qbt.persistent.entity.Ticket;
+import com.qbt.persistent.mapper.TicketMapper;
+import com.qbt.service.TicketService;
+
+@Service
+public class TicketServiceImpl implements TicketService {
+	
+	@Resource
+	private TicketMapper ticketMapper;
+	
+	@Override
+	public List<Ticket> findByPage(PageEntity<Ticket> pageEntity) {
+		return ticketMapper.findByPage(pageEntity);
+	}
+
+	@Override
+	public Ticket findById(Integer id) {
+		return ticketMapper.selectById(id);
+	}
+
+	@Override
+	public int insert(Ticket ticket) {
+		ticketMapper.insert(ticket);
+		return ticket.getId();
+	}
+
+	@Override
+	public int update(Ticket ticket) {
+		if(ticket.getId() > 0){
+			int count = ticketMapper.updateById(ticket);			
+			return count;
+		}
+		return 0;
+	}
+
+}

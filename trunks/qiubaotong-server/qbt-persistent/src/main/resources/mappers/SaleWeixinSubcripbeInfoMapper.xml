@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.SaleWeixinSubcripbeInfoMapper">
+	<resultMap id="BaseResultMap" type="SaleWeixinSubcripbeInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="subcripbe_time" property="subcripbeTime"
+			jdbcType="TIMESTAMP" />
+		<result column="sale_id" property="saleId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="nickname" property="nickname" jdbcType="VARCHAR" />
+		<result column="amount" property="amount" jdbcType="DECIMAL" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="settle_status" property="settleStatus"
+			jdbcType="INTEGER" />
+		<result column="settle_time" property="settleTime" jdbcType="TIMESTAMP" />
+		<result column="sys_user_id" property="sysUserId" jdbcType="INTEGER" />
+		<result column="sys_user_name" property="sysUserName" jdbcType="VARCHAR" />
+		<result column="settle_method" property="settleMethod"
+			jdbcType="INTEGER" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap type="SaleWeixinSubcripbeInfoDto" id="DtoResultMap"
+		extends="BaseResultMap">
+		<result column="settle_number" property="settleNumber" />
+		<result column="settle_amount" property="settleAmount" />
+	</resultMap>
+
+	<resultMap type="SaleSubcripbeInfoDto" id="SubcripbeInfoDtoMap">
+		<result column="company" property="company" />
+		<result column="idcard" property="idcard" />
+		<result column="mobile" property="mobile" />
+		<result column="name" property="name" />
+		<result column="salesman_code" property="salesmanCode" />
+		<result column="total_amount" property="totalAmount" />
+		<result column="num" property="num" />
+		<result column="amount" property="amount" />
+		<result column="sale_id" property="saleId" />
+		<result column="order_date" property="orderDate" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, create_time, subcripbe_time, sale_id, user_id, nickname, amount,
+		status, settle_status,
+		settle_time, sys_user_id, sys_user_name, settle_method, remark
+	</sql>
+
+	<select id="findByid" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sale_weixin_subcripbe_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+
+	<select id="reportSubcripbeInfoPage" resultMap="SubcripbeInfoDtoMap">
+		select
+		su.salesman_code,so.sale_id,
+		su.`name`,su.idcard,su.mobile,
+		su.company,su.type,su.type_value,
+		so.amount,
+		sum(so.amount) as total_amount,
+		count(so.id) as num
+		from sale_weixin_subcripbe_info so left join sale_user su on
+		so.sale_id=su.id
+		<where>
+			<if test="condition.startDate != null">
+			<![CDATA[
+			 and date(so.create_time) >= date(#{condition.startDate}) 
+			]]>
+			</if>
+			<if test="condition.endDate != null">
+			<![CDATA[
+			and date(so.create_time) <= date(#{condition.endDate}) 
+			]]>
+			</if>
+			<if test="condition.salesmanCode != null and condition.salesmanCode != ''">
+				and su.salesman_code like concat('%',#{condition.salesmanCode},'%')
+			</if>
+			<if test="condition.name != null and condition.name != ''">
+				and su.name like concat('%',#{condition.name},'%')
+			</if>
+			<if test="condition.mobile != null and condition.mobile != ''">
+				and su.mobile like concat('%',#{condition.mobile},'%')
+			</if>
+			<if test="condition.settleStatus > 0">
+				and so.settle_status = #{condition.settleStatus}
+			</if>
+		</where>
+		group by so.sale_id,so.amount
+	</select>
+
+
+	<insert id="insert" parameterType="SaleWeixinSubcripbeInfo">
+		insert into sale_weixin_subcripbe_info (create_time, subcripbe_time,
+		sale_id, user_id, nickname,
+		amount, status, settle_status,
+		settle_time, sys_user_id, sys_user_name,
+		settle_method, remark)
+		values (#{createTime,jdbcType=TIMESTAMP},
+		#{subcripbeTime,jdbcType=TIMESTAMP},
+		#{saleId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR},
+		#{amount,jdbcType=DECIMAL}, #{status,jdbcType=INTEGER},
+		#{settleStatus,jdbcType=INTEGER},
+		#{settleTime,jdbcType=TIMESTAMP}, #{sysUserId,jdbcType=INTEGER}, #{sysUserName,jdbcType=VARCHAR},
+		#{settleMethod,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="update">
+		update sale_weixin_subcripbe_info
+		<set>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="subcripbeTime != null">
+				subcripbe_time = #{subcripbeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="saleId != null">
+				sale_id = #{saleId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="nickname != null">
+				nickname = #{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				amount = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="settleStatus != null">
+				settle_status = #{settleStatus,jdbcType=INTEGER},
+			</if>
+			<if test="settleTime != null">
+				settle_time = #{settleTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sysUserId != null">
+				sys_user_id = #{sysUserId,jdbcType=INTEGER},
+			</if>
+			<if test="sysUserName != null">
+				sys_user_name = #{sysUserName,jdbcType=VARCHAR},
+			</if>
+			<if test="settleMethod != null">
+				settle_method = #{settleMethod,jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="settleAbleInfo" parameterType="SaleWeixinSubcripbeInfoDto"
+		resultMap="DtoResultMap">
+		select count(1) settle_number, sum(amount) settle_amount
+		from sale_weixin_subcripbe_info
+		<where>
+			status = 1
+			and settle_status = 1
+			<if test="saleId != null">
+				and sale_id = #{saleId}
+			</if>
+			<if test="startDate != null">
+				<![CDATA[
+				and date(subcripbe_time) >= date(#{startDate}) 
+				]]>
+			</if>
+			<if test="endDate != null">
+				<![CDATA[
+				and date(subcripbe_time) <= date(#{endDate}) 
+				]]>
+			</if>
+		</where>
+	</select>
+
+	<update id="settleOrder" parameterType="SaleWeixinSubcripbeInfoDto">
+		update sale_weixin_subcripbe_info
+		<set>
+			<if test="settleMethod != null">
+				settle_method = #{settleMethod},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			settle_status = 2,
+			settle_time = now(),
+			sys_user_id = #{sysUserId},
+			sys_user_name = #{sysUserName}
+		</set>
+		<where>
+			status = 1
+			and settle_status = 1
+			<if test="saleId != null">
+				and sale_id = #{saleId}
+			</if>
+			<if test="startDate != null">
+				<![CDATA[
+				and date(subcripbe_time) >= date(#{startDate}) 
+				]]>
+			</if>
+			<if test="endDate != null">
+				<![CDATA[
+				and date(subcripbe_time) <= date(#{endDate}) 
+				]]>
+			</if>
+		</where>
+	</update>
+
+	<select id="findByPageBySaleId" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sale_weixin_subcripbe_info
+		<where>
+			<if test="condition.saleId > 0">
+				AND sale_id = #{condition.saleId}
+			</if>
+			<if test="condition.startDate != null">
+				<![CDATA[
+				and date(create_time) >= date(#{condition.startDate}) 
+				]]>
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+				and date(create_time) <= date(#{condition.endDate}) 
+				]]>
+			</if>
+		</where>
+		order by create_time desc
+	</select>
+
+	<select id="wechatUserSubcripbeList" parameterType="SaleSubcripbeInfoDto"
+		resultMap="SubcripbeInfoDtoMap">
+		select
+		sale_id,
+		date(create_time) order_date,
+		count(1) num,
+		sum(amount) total_amount
+		from sale_weixin_subcripbe_info
+		<where>
+			status in (1, 2)
+			<if test="saleId != null">
+				and sale_id = #{saleId}
+			</if>
+			<if test="settleStatus != null and settleStatus > 0">
+				and settle_status = #{settleStatus}
+			</if>
+			<if test="queryDate != null">
+				and date_format(create_time,'%Y-%m') = #{queryDate}
+			</if>
+		</where>
+		GROUP BY sale_id,date(create_time)
+		order by order_date desc
+	</select>
+
+</mapper>

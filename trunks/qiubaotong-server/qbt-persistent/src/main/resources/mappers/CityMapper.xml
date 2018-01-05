@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.CityMapper">
+		<resultMap id="BaseResultMap" type="com.qbt.persistent.entity.City">
+				<result column="city_id" property="id"  />
+				<result column="name" property="name"  />
+				<result column="course_amount" property="courseAmount" />
+				<result column="status" property="status"  />	
+				
+		</resultMap>
+
+		<insert id="insert" parameterType="City">
+		INSERT INTO city (
+			city_id, 
+			name,
+			course_amount, 
+			status
+			
+		)
+		VALUES (
+			#{id},
+			#{name},
+			#{courseAmount}, 
+			#{status}
+			
+		)
+		</insert>
+		
+
+
+	 <select id="getCities" resultMap="BaseResultMap"> 
+	 	 select a.id city_id ,a.`name` as name,count(*) as course_amount, city.status
+			from 
+			(
+				select 	bsa.tree_id, substring_index(substring_index(bsa.tree_id,',',2),',',-1) id, 
+						substring_index(substring_index(bc.tree_path,',',2),',',-1) name
+						from base_course bc
+				left join base_sf_area bsa
+							on 	bc.area_id = bsa.id
+							where bc.is_delete =0 
+			)a 
+			left join 	city 
+					on  city.city_id = a.id
+			 <where>
+				<if test="condition.name != null and condition.name != ''">
+					AND a.name LIKE CONCAT('%',#{condition.name},'%') 
+				</if>
+			</where>
+			GROUP BY  	a.id
+	 </select>
+	
+	<update id="update" parameterType="City">
+		UPDATE city 
+		<set>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			
+		</set>
+		WHERE city_id = #{id}
+	</update>
+	
+	<delete id="deleteAll">
+	
+		TRUNCATE TABLE city;
+	</delete>
+	
+	<delete id="delete">
+	
+		delete from city where city_id = #{id}
+
+	</delete>
+	
+	<select id="listHotCity" resultMap="BaseResultMap"> 
+		select * from city where status ='1' 
+			
+	</select>
+	
+	
+	
+</mapper>

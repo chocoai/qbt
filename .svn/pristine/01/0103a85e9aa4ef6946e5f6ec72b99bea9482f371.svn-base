@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseAirportMapper">
+
+	<resultMap id="BaseResultMap" type="BaseAirport">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="area_id" property="areaId" jdbcType="INTEGER" />
+		<result column="tree_path" property="treePath" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="contact" property="contact" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="lon" property="lon" jdbcType="VARCHAR" />
+		<result column="lat" property="lat" jdbcType="VARCHAR" />
+		<result column="is_delete" property="isDelete" jdbcType="BOOLEAN"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="first_letter" property="firstLetter" />
+		
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, create_time, name, area_id, tree_path, address, contact, mobile, lon, 
+		lat, is_delete, remark, first_letter
+	</sql>
+
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from base_airport
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<insert id="insert" parameterType="BaseAirport" useGeneratedKeys="true" keyProperty="id">
+		insert into base_airport (create_time, name,
+		area_id, tree_path, address,
+		contact, mobile, lon, lat, remark, first_letter)
+		values (#{createTime}, #{name,jdbcType=VARCHAR},
+		#{areaId,jdbcType=INTEGER}, #{treePath,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR},
+		#{contact,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{lon,jdbcType=VARCHAR},
+		#{lat,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{firstLetter})
+	</insert>
+
+	<update id="updateById" parameterType="BaseAirport">
+		update base_airport
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="areaId != null">
+				area_id = #{areaId,jdbcType=INTEGER},
+			</if>
+			<if test="treePath != null">
+				tree_path = #{treePath,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="contact != null">
+				contact = #{contact,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="lon != null">
+				lon = #{lon,jdbcType=VARCHAR},
+			</if>
+			<if test="lat != null">
+				lat = #{lat,jdbcType=VARCHAR},
+			</if>
+			<if test="firstLetter != null">
+				first_letter = #{firstLetter,jdbcType=VARCHAR},
+			</if>
+				remark = #{remark,jdbcType=VARCHAR},
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="findList" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from base_airport where is_delete = false order by first_letter
+	</select>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from base_airport 
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				and name like concat('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.isDelete != null">
+				AND is_delete = #{condition.isDelete}
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findByCondition" parameterType="BaseAirport" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from base_airport 
+		<where>
+			<if test="name != null">
+				and name = #{name} 
+			</if>
+			<if test="areaId != null">
+				and area_id = #{areaId} 
+			</if>
+			<if test="treePath != null">
+				and tree_path = #{treePath} 
+			</if>
+			<if test="address != null">
+				and address = #{address} 
+			</if>
+			<if test="contact != null">
+				and contact = #{contact} 
+			</if>
+			<if test="mobile != null">
+				and mobile = #{mobile} 
+			</if>
+			<if test="lon != null">
+				and lon = #{lon} 
+			</if>
+			<if test="lat != null">
+				and lat = #{lat} 
+			</if>
+		</where>
+	</select>
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from base_airport where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<select id="list" resultMap="BaseResultMap"> 
+	select * from base_airport where is_delete = false
+	</select>
+	
+	<delete id="delete">
+		update base_airport set is_delete = #{isDelete} where id = #{id}
+    </delete>
+	
+	
+</mapper>

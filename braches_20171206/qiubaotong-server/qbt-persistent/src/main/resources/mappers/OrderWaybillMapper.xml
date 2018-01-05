@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderWaybillMapper">
+
+	<resultMap id="BaseResultMap" type="OrderWaybill">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="order_id" property="orderId" jdbcType="INTEGER" />
+		<result column="mail_no" property="mailNo" jdbcType="VARCHAR" />
+		<result column="sf_id" property="sfId" jdbcType="VARCHAR" />
+		<result column="accept_time" property="acceptTime" jdbcType="TIMESTAMP" />
+		<result column="accept_address" property="acceptAddress" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="op_code" property="opCode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, order_id, mail_no, sf_id, accept_time, accept_address, remark,
+		op_code
+	</sql>
+	
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from order_waybill
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<insert id="insert" parameterType="OrderWaybill" keyProperty="id" useGeneratedKeys="true">
+		insert into order_waybill (order_id, mail_no,
+		sf_id, accept_time, accept_address,
+		remark, op_code)
+		values (#{orderId,jdbcType=INTEGER},
+		#{mailNo,jdbcType=VARCHAR},
+		#{sfId,jdbcType=VARCHAR}, #{acceptTime,jdbcType=TIMESTAMP}, #{acceptAddress,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{opCode,jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="updateById" parameterType="OrderWaybill">
+		update order_waybill
+		<set>
+			<if test="orderId != null">
+				order_id = #{orderId,jdbcType=INTEGER},
+			</if>
+			<if test="mailNo != null">
+				mail_no = #{mailNo,jdbcType=VARCHAR},
+			</if>
+			<if test="sfId != null">
+				sf_id = #{sfId,jdbcType=VARCHAR},
+			</if>
+			<if test="acceptTime != null">
+				accept_time = #{acceptTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="acceptAddress != null">
+				accept_address = #{acceptAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="opCode != null">
+				op_code = #{opCode,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="findByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from order_waybill
+		where order_id = #{orderId,jdbcType=INTEGER} order by accept_time desc
+	</select>
+	
+	<select id="exists" resultType="int">
+		select
+		count(id)
+		from order_waybill
+		where sf_id = #{sfid}
+	</select>
+	
+</mapper>

@@ -1,0 +1,80 @@
+<template id="shoplist-list">
+<section class="section">
+<!--头-->
+<div class="header tex-c bg-white">
+    <a href="javascript:history.back();" class="back"><img src="/img/back.png" /></a>
+    球包清单
+</div>
+<!--头 end-->
+<div class="scroll" style="padding-bottom:50px;">
+    <div class="marhead">
+    <!--内容-->
+    <section class="detailde-list bg-white" v-for="item in order_list" :class="{'invalid': item.status == 2}">
+        <div class="weui_cells_title">
+            <div style="display:inline-block;">预计到达:{{item.deliverDate}}</div>
+            <a href="javascript:;" class="font-80" @click="deleteOne(item)" style="float:right;">删除</a>
+        </div>
+        <div class="weui_cells flex" >
+            <div class="weui_cells_checkbox" @click="checkItem(item)">
+                <label class="weui_check_label">
+                    <div class="weui_cell_hd">
+                        <input type="checkbox" class="weui_check" name="checkbox1"  v-model="item.checked" disabled="disabled">
+                        <i class="weui_icon_checked"></i>
+                    </div>
+                </label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary font14" @click="detail(item)">
+                <p>取包信息:{{item.jContact}} {{item.jMobile}}</br>{{item.jTreePath}}{{item.jAddrName || item.jAddress}}<span class="font-fff icon" v-show="item.jActivity">满减</span></p>
+                <p>送包信息:{{item.dContact}} {{item.dMobile}}</br>{{item.dTreePath}}{{item.dAddrName || item.dAddress}}<span class="font-fff icon" v-show="item.dActivity">满减</span></p>
+                <div class="flex ">
+                    <div class="flex-1 text font-red">
+                        保价费:{{item.insuredFee | currency '￥'}}
+                    </div>
+                </div>
+                <div class="flex ">
+                    <div class="flex-1 text font-red">
+                        单价:{{item.freight| currency '￥'}} <span class="font-fff icon" v-show="item.status == 2">已失效</span>
+                    </div>
+                    <div class=" tex-r font-80 text" v-show="item.status != 2">
+                        <div class="add tex-c">
+                            <a href="javascript:;" @click.stop="updateOne(item,false)">-</a>
+                            <a href="javascript:;" class="in-text" @click.stop="">{{item.quantity}}</a>
+                            <a href="javascript:;" @click.stop="updateOne(item,true)">+</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="flex bg-white" v-show="order_list.length>0" style="margin:10px 0;">
+        <a href="javascript:;" class="flex-1 tex-c font-black font-blod" style="padding: 10px;" @click="goIndex()">继续下单</a>
+    </div>
+    <div style="margin-top:116px;text-align:center;" v-show="order_list.length==0">
+        <img src="/img/cart_empty.png" alt="" style="width:80px;"/>
+        <p style="margin-top:26px;" class="font-80">您的球包还未加入球包清单</p>
+        <a style="margin-top:14px;font-weight:600;color:#000;display:inline-block;" href="javascript:locationTo('index.html');">立即下单 ></a>
+    </div>
+    </div>
+</div>
+
+<div class="submit flex tex-c bg-white weui_cells_checkbox" style="position: absolute; bottom:0;" v-show="order_list.length>0">
+    <label class="weui_cell weui_check_label flex-1" @click="checkAll()">
+        <div class="weui_cell_hd">
+          <input type="checkbox" class="weui_check" name="checkbox3" v-model="checkedAll" disabled="disabled">
+          <i class="weui_icon_checked"></i>
+        </div>
+        <div class="weui_cell_bd weui_cell_primary">
+          <p class="mar-r">全选</p>
+        </div>
+    </label>
+    <div class="flex-1">
+        <span class="font-red">总计:{{totalAmt | currency '￥'}}</span>
+    </div>
+    <div class="flex-1">
+        <a href="javascript:;" style="background-color:#09bb07" @click="confirmOrder()">提交订单({{totalCount}})</a>
+    </div>
+</div>
+
+</section>
+</template>

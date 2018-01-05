@@ -1,0 +1,34 @@
+<template id="agent-user-search">
+    <section class="section bg" id="vip" style="padding-bottom:50px;">
+    <!--头-->
+        <div class="header tex-c bg-white" style="padding:0;height:44px;">
+            <div class="searchbar" style="line-height:24px;">
+              <div class="weui_search_bar" id="search_bar" style="padding:10px 10px;">
+                <a href="javascript:history.back();" class="back"><img src="/img/back.png" /></a>
+                    <div class="weui_search_outer" style="height:32px;line-height:32px;margin-left:40px">
+                        <div class="weui_search_inner">
+                            <i class="weui_icon_search" style="top:0;line-height:32px;"></i>
+                            <input id="userSearch" type="search" class="weui_search_input" placeholder="搜索客户姓名/编号/电话" v-model="keyword" autofocus>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="scroll marhead">
+            <div class="weui_cells weui_cells_access" style="margin-top:0px">
+                <a @click="save(item)" class="weui_cell" href="javascript:;" v-for="item in userList | filterBy keyword">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>{{item.name}}</p>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>{{item.userIdStr}}</p>
+                    </div>
+                    <div class="weui_cell_bd">
+                        <p>{{item.mobile}}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+</template>

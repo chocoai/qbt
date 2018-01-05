@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.SysResourceMapper" >
+  <resultMap id="BaseResultMap" type="SysResource" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="ioc" property="ioc" jdbcType="VARCHAR" />
+    <result column="plat_id" property="platId" jdbcType="INTEGER" />
+    <result column="super_id" property="superId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, url, ioc, plat_id, super_id, status,type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_resource
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="SysResource" >
+    insert into sys_resource (id, name, url, 
+      ioc, plat_id, super_id,type, 
+      status)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{ioc,jdbcType=VARCHAR}, #{platId,jdbcType=INTEGER}, #{superId,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
+  </insert>
+  <select id="list" resultMap="BaseResultMap">
+  select * from sys_resource
+  </select>
+  <select id="getBySuperId" resultMap="BaseResultMap">
+  select * from sys_resource where super_id = #{superId}
+  </select>
+  <!-- 根据自己的id拿到sysResourceList(这些list里面存放的sysResource的superId都是和自己的id相同) -->
+  <select id="getSysResourceListById" resultMap="BaseResultMap">
+  	select * from sys_resource where super_id = #{id}
+  </select>
+  <delete id="delete">
+  	delete from sys_resource where id=#{id}
+  </delete>
+  <select id="get" resultMap="BaseResultMap">
+  	select * from sys_resource where id = #{id}
+  </select>
+  
+  <update id="updateByPrimaryKey" parameterType="SysResource" >
+    update sys_resource
+    set 
+      name = #{name,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      ioc = #{ioc,jdbcType=VARCHAR},
+      plat_id = #{platId,jdbcType=INTEGER},
+      super_id = #{superId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sys_resource 
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY id desc 
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findByCondition" parameterType="SysResource" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" /> 
+		from sys_resource 
+		<where>
+			<if test="name != null">
+				and name = #{name} 
+			</if>
+		</where>
+	</select>
+	<select id="listByUserId" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+			sys_resource
+		WHERE
+			id IN (
+				SELECT
+					resource_id
+				FROM
+					sys_role_resource
+				WHERE
+					role_id in (
+						SELECT
+							role_id
+						FROM
+							sys_user_role
+						WHERE
+							user_id = #{userId} AND plat_id = #{platId}
+					)
+			)
+		order by super_id
+	</select>
+	
+</mapper>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.UserPackageTicketMapper">
+
+	<resultMap id="BaseResultMap" type="UserPackageTicket">
+		<id column="id" property="id" />
+		<result column="package_id" property="packageId" />
+		<result column="order_detail_id" property="orderDetailId" />
+		<result column="ticket_price" property="ticketPrice" />
+		<result column="ticket_name" property="ticketName" />
+		<result column="quantity" property="quantity" />
+		<result column="used_quantity" property="usedQuantity" />
+		<result column="use_limit" property="useLimit" />
+		<result column="use_status" property="useStatus" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, package_id, order_detail_id, ticket_price, ticket_name, quantity, used_quantity, use_limit, use_status,
+		create_time, update_time
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM user_package_ticket 
+		WHERE id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="UserPackageTicket" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO user_package_ticket (
+			package_id, order_detail_id, ticket_price, ticket_name, quantity, used_quantity, use_limit, use_status, 
+			create_time, update_time
+		)
+		VALUES (
+			#{packageId},
+			#{orderDetailId},
+			#{ticketPrice},
+			#{ticketName}, 
+			#{quantity}, 
+			#{usedQuantity},
+			#{useLimit}, 
+			#{useStatus}, 
+			#{createTime}, 
+			#{updateTime}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="UserPackageTicket">
+		UPDATE user_package_ticket 
+		<set>
+			<if test="packageId != null">
+				package_id = #{packageId},
+			</if>
+			<if test="orderDetailId != null">
+				order_detail_id = #{orderDetailId},
+			</if>
+			<if test="ticketPrice != null">
+				ticket_price = #{ticketPrice},
+			</if>
+			<if test="ticketName != null">
+				ticket_name = #{ticketName},
+			</if>
+			<if test="quantity != null">
+				quantity = #{quantity},
+			</if>
+			<if test="usedQuantity != null">
+				used_quantity = #{usedQuantity},
+			</if>
+			<if test="useLimit != null">
+				use_limit = #{useLimit},
+			</if>
+			<if test="useStatus != null">
+				use_status = #{useStatus},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM user_package_ticket
+		<where>
+			<if test="condition.packageId != null and condition.packageId != ''">
+				AND package_id = #{condition.packageId} 
+			</if>
+			<if test="condition.orderDetailId != null and condition.orderDetailId != ''">
+				AND order_detail_id = #{condition.orderDetailId} 
+			</if>
+			<if test="condition.ticketName != null and condition.ticketName != ''">
+				AND ticket_name LIKE CONCAT('%',#{condition.ticketName},'%') 
+			</if>
+			<if test="condition.useStatus != null">
+				AND use_status = #{condition.useStatus} 
+			</if>			
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose> 		
+	</select>
+	
+	<select id="findTicketsForOrderDetail" resultMap="BaseResultMap">
+		select upt.* from user_package_ticket upt, user_activity_package uap, user_activity_order_detail uaod WHERE
+		upt.order_detail_id = uap.order_detail_id and uaod.id = uap.order_detail_id and uaod.user_id = uap.user_id
+		and uap.id = upt.package_id and upt.order_detail_id = uaod.id
+		AND upt.order_detail_id = #{orderDetailId} 
+		<choose>
+			<otherwise>
+				ORDER BY upt.create_time desc 
+			</otherwise>
+		</choose> 		
+	</select>
+		
+</mapper>

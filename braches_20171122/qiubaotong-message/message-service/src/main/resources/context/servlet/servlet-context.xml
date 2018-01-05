@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:redis="http://www.springframework.org/schema/redis"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/redis
+       http://www.springframework.org/schema/redis/spring-redis-1.0.xsd">
+
+	<!-- HttpRequestHandler(s) the name must be the same as url-pattern defined in web.xml -->
+	
+	<bean id="emailHandler" name="/email" class="com.geling.msg.handler.impl.RequestMessageHandlerImpl">
+		<property name="messageHandler" ref="messageHandler"/>
+	</bean>			
+	
+	<bean id="smsHandler" name="/sms" class="com.geling.msg.handler.impl.RequestMessageHandlerImpl">
+		<property name="messageHandler" ref="messageHandler"/>
+	</bean>
+	
+	<bean id="wechatHandler" name="/wechat" class="com.geling.msg.handler.impl.RequestMessageHandlerImpl">
+		<property name="messageHandler" ref="messageHandler"/>
+	</bean>
+ 
+ 	<bean id="wechatGetToken" name="/getWechatToKen" class="com.geling.msg.handler.impl.RequestGetTokenHandlerImpl" >
+		<property name="messageHandler" ref="messageHandler"/>
+	</bean>
+ 
+    <bean id="redisSubListener" class="com.geling.msg.listener.impl.RedisSubListenerImpl">
+		<property name="redisSubHandler" ref="redisSubHandler" />
+    </bean>
+    
+    <redis:listener-container>
+        <!-- Subscriber Listener -->
+        <redis:listener ref="redisSubListener" method="onMessage" topic="geling.channel.message" />
+    </redis:listener-container>
+    
+
+</beans>

@@ -1,0 +1,20 @@
+<template id="bag-applyfail">
+<section>
+    <div class="inform-head">
+      <label>
+        <img src="/img/examine.png">
+      </label>
+      <p>
+        资料审核不通过,{{memo}}
+      </p>
+    </div>
+    <div style="margin-top: 0;">
+      <div class="weui_cells flex-box mar-t20">
+       <a href="tel:4006090990" class="weui_btn weui_btn_primary btn">联系球包通客服</a>
+      </div>
+      <div class="weui_cells flex-box mar-t20">
+       <a href="javascript:;" class="weui_btn weui_btn_primary btn" @click="goView('bag_workaddr_view')">再次申请</a>
+      </div>
+    </div>
+</section>
+</template>

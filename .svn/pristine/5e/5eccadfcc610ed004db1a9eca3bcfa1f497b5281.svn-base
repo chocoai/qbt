@@ -1,0 +1,1 @@
+@@include('../assets/components/timeline/index.min.js')

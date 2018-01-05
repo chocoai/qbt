@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BillAddressMapper">
+	 <resultMap id="BaseResultMap" type="com.qbt.persistent.entity.BillAddress" >
+	 	<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+	 	<result column="user_id" property="userId" />
+	 	<result column="bill_type" property="billType" />
+	 	<result column="org_type" property="orgType" />
+	 	<result column="title" property="title" />
+	 	<result column="email" property="email" />
+	 	<result column="name" property="name" />
+	 	<result column="telephone" property="telephone" />
+	 	<result column="address" property="address" />
+	 	<result column="tax_file_number" property="taxFileNumber" />
+	 	<result column="bank_number" property="bankNumber" />
+	 	<result column="company_address" property="companyAddress" />
+	 	<result column="company_telephone" property="companyTelephone" />
+	 	<result column="bank" property="bank" />
+	 	<result column="use_time" property="useTime" />
+	 </resultMap>
+	 <insert id="insert" parameterType="BillAddress" useGeneratedKeys="true" keyProperty="id">
+	 	insert into bill_address
+	 	(
+	 		create_time,
+	 		user_id,
+	 		bill_type,
+	 		org_type,
+	 		title,
+	 		email,
+	 		name,
+	 		telephone,
+	 		address,
+	 		tax_file_number,
+	 		bank_number,
+	 		company_address,
+	 		company_telephone,
+	 		bank,
+	 		use_time
+	 	)
+	 		values
+	 	(
+	 		#{createTime},
+	 		#{userId},
+	 		#{billType},
+	 		#{orgType},
+	 		#{title},
+	 		#{email},
+	 		#{name},
+	 		#{telephone},
+	 		#{address},
+	 		#{taxFileNumber},
+	 		#{bankNumber},
+	 		#{companyAddress},
+	 		#{companyTelephone},
+	 		#{bank},
+	 		#{useTime}
+	 	)
+	 </insert>
+	 
+	  <update id="updateById" parameterType="BillAddress">
+	 	update bill_address
+	 		<set>
+	 			<if test="billType != null">
+	 				bill_type = #{billType},
+	 			</if>
+	 			<if test="orgType != null">
+	 				org_type = #{orgType},
+	 			</if>
+	 			<if test="title != null">
+	 				title = #{title},
+	 			</if>
+	 			<if test="email != null">
+	 				email = #{email},
+	 			</if>
+	 			<if test="name != null">
+	 				name = #{name},
+	 			</if>
+	 			<if test="telephone != null">
+	 				telephone = #{telephone},
+	 			</if>
+	 			<if test="address != null">
+	 				address = #{address},
+	 			</if>
+	 			<if test="taxFileNumber != null">
+	 				tax_file_number = #{taxFileNumber},
+	 			</if>
+	 			<if test="bankNumber != null">
+	 				bank_number = #{bankNumber},
+	 			</if>
+	 			<if test="companyAddress != null">
+	 				company_address = #{companyAddress},
+	 			</if>
+	 			<if test="companyTelephone != null">
+	 				company_telephone = #{companyTelephone},
+	 			</if>
+	 			<if test="bank != null">
+	 				bank = #{bank},
+	 			</if>
+	 			<if test="useTime != null">
+	 				use_time = #{useTime},
+	 			</if>
+	 		</set>
+	 	where id = #{id}
+	 </update>
+
+	 <delete id="deleteById">
+	 	delete from bill_address
+	 		where id = #{id}
+	 </delete>
+	 <select id="isExistAddress" resultType="Integer">
+	 	select count(1) from bill_address
+	 		where
+	 			user_id = #{userId}
+	 			and bill_type = #{billType}
+	 			and org_type = #{orgType}
+	 			and title = #{title}
+	 			and email = #{email}
+	 			and name = #{name}
+	 			and telephone = #{telephone}
+	 			and address = #{address}
+	 			and tax_file_number = #{taxFileNumber}
+	 			and bank_number = #{bankNumber}
+		 		and company_address = #{companyAddress}
+		 		and company_telephone = #{companyTelephone}
+	 </select>
+	 
+	 <select id="findByProperty" resultMap="BaseResultMap">
+	 	select * from bill_address
+	 		where
+	 			user_id = #{userId}
+	 			and bill_type = #{billType}
+	 			and org_type = #{orgType}
+	 			and title = #{title}
+	 			<if test="email!=null and email != ''">
+	 				and email = #{email}
+	 			</if>
+	 			<if test="name!=null and name!=''">
+	 				and name = #{name}
+	 			</if>
+	 			<if test="telephone!=null and telephone!=''">
+	 				 and telephone = #{telephone}
+	 			</if>
+	 			<if test="address!=null and address!=''">
+	 				 and address = #{address}
+	 			</if>
+	 			<if test="taxFileNumber != null and taxFileNumber !=''">
+	 				and tax_file_number = #{taxFileNumber}
+	 			</if>
+	 			<if test="bankNumber != null and bankNumber !=''">
+	 				 and bank_number = #{bankNumber}
+	 			</if>
+	 			<if test="companyAddress != null and companyAddress !=''">
+	 				and company_address = #{companyAddress}
+	 			</if>
+	 			<if test="companyTelephone != null and companyTelephone !=''">
+	 				and company_telephone = #{companyTelephone}
+	 			</if>
+	 			<if test="bank != null and bank !=''">
+		 			and bank = #{bank}
+		 		</if>
+		 		limit 0,1
+	 </select>
+	 
+	  <select id="findByUserId" resultMap="BaseResultMap">
+	 	select * from bill_address
+	 		where
+	 			user_id = #{userId}
+	 			and org_type = #{orgType}
+	 </select>
+	 
+	 <select id="findLastUseByUserId" resultMap="BaseResultMap">
+			select * from bill_address t 
+			where t.user_id = #{userId}
+			GROUP BY t.use_time desc
+			LIMIT 0,1
+	 </select>
+</mapper>

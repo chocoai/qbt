@@ -1,0 +1,23 @@
+<template id="sale-data">
+<style>.weui_label{display: inline-block;}</style>
+<section class="section">
+<div class="header tex-c" style="background-color:#fff;">
+  <a href="javascript:;" @click="goView('sale_info_view')" class="back"><img src="/img/back.png" /></a>
+  个人资料
+</div>
+<div class="scroll marhead">
+    <div class="weui_panel mar-t" style="padding:10px 20px;line-height:2;">
+        <div><div class="weui_label">销售人员号:</div>{{detail.salesmanCode}}</div>
+        <div><div class="weui_label">姓名:</div>{{detail.name}}</div>
+        <div><div class="weui_label">手机号:</div>{{detail.mobile}}</div>
+        <div><div class="weui_label">身份证号:</div>{{detail.idcard}}</div>
+        <div><div class="weui_label">工作单位:</div>{{detail.company}}</div>
+    </div>
+    <div class="weui_panel" style="padding:10px 20px;line-height:2;">
+        <div>销售人员二维码：</div>
+        <img style="width:150px;height:auto;" :src="fbaseUrl + detail.qrcode" v-if="detail.qrcode" @click="showCode()">
+        <div>{{detail.salesmanCode}}</div>
+    </div>
+</div>
+</section>
+</template>

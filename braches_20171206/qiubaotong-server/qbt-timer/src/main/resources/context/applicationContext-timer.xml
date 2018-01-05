@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+        <!-- 自动检查延迟下单信息 -->
+        <bean id="autoOrderDelayTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoOrderDelayTimer"/>
+        </bean>
+        <bean id="autoOrderDelayTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoOrderDelayTimerTask"/>
+            <property name="cronExpression" value="${order_delay_timer_cron}"/>
+        </bean>
+        
+        <!-- 定时关闭订单 -->
+        <bean id="autoCloseOrderTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoCloseOrderTimer"/>
+        </bean>
+        <bean id="autoCloseOrderTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoCloseOrderTimerTask"/>
+            <property name="cronExpression" value="${order_close_timer_cron}"/>
+        </bean>
+        
+        <!-- 定时查询顺丰物流信息 -->
+        <bean id="autoOrderRouteTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoOrderRouteTimer"/>
+        </bean>
+        <bean id="autoOrderRouteTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoOrderRouteTimerTask"/>
+            <property name="cronExpression" value="${order_route_timer_cron}"/>
+        </bean>
+        
+        <!-- 定时确认订单 -->
+        <bean id="autoOrderConfirmTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoOrderConfirmTimer"/>
+        </bean>
+        <bean id="autoOrderConfirmTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoOrderConfirmTimerTask"/>
+            <property name="cronExpression" value="${order_confirm_timer_cron}"/>
+        </bean>
+        
+        <!-- 客服预约取件两小时内顺丰人员是否上门取件 -->
+        <bean id="autoOrderSendTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoOrderSendTimer"/>
+        </bean>
+        <bean id="autoOrderSendTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoOrderSendTimerTask"/>
+            <property name="cronExpression" value="${order_send_timer_cron}"/>
+        </bean>
+        
+        <!-- 客服确认预约取件超时 -->
+        <bean id="autoOrderTimeoutSendTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoOrderTimeoutSendTimer"/>
+        </bean>
+        <bean id="autoOrderTimeoutSendTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoOrderTimeoutSendTimerTask"/>
+            <property name="cronExpression" value="${order_timeout_send_timer_cron}"/>
+        </bean>
+        
+        <!-- 客服确认球包预计到达超时 -->
+        <bean id="autoOrderTimeoutDeliverTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoOrderTimeoutDeliverTimer"/>
+        </bean>
+        <bean id="autoOrderTimeoutDeliverTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoOrderTimeoutDeliverTimerTask"/>
+            <property name="cronExpression" value="${order_timeout_deliver_timer_cron}"/>
+        </bean>
+        
+        <!-- 定时清除订单客服跟踪表记录 -->
+        <bean id="autoTaskFlowCleanTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoTaskFlowCleanTimer"/>
+        </bean>
+        <bean id="autoTaskFlowCleanTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoTaskFlowCleanTimerTask"/>
+            <property name="cronExpression" value="${task_flow_clean_cron}"/>
+        </bean>
+        
+        <!-- 定时提醒券过期 -->
+        <bean id="autoExpireCouponTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoExpireCouponTimer"/>
+        </bean>
+        <bean id="autoExpireCouponTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoExpireCouponTimerTask"/>
+            <property name="cronExpression" value="${expire_coupon_cron}"/>
+        </bean>
+        
+        <!-- 球包预计到达时间前两个小时未被签收,提醒客服 -->
+        <bean id="autoOrderReminderDeliverTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoOrderReminderDeliverTimer"/>
+        </bean>
+        <bean id="autoOrderReminderDeliverTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoOrderReminderDeliverTimerTask"/>
+            <property name="cronExpression" value="${order_reminder_deliver_timer_cron}"/>
+        </bean>
+        
+        <!-- 定时更新微信用户关注状态 -->
+        <bean id="autoWechatUserSubcripbeTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoWechatUserSubcripbeTimer"/>
+        </bean>
+        <bean id="autoWechatUserSubcripbeTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoWechatUserSubcripbeTimerTask"/>
+            <property name="cronExpression" value="${wechat_user_subcripbe_timer_cron}"/>
+        </bean>
+        
+        <!-- 定时更新官网新闻阅读量 -->
+        <bean id="autoBaseNewsReadTimesTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoBaseNewsReadTimesTimer"/>
+        </bean>
+        <bean id="autoBaseNewsReadTimesTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoBaseNewsReadTimesTimerTask"/>
+            <property name="cronExpression" value="${base_news_readTimes_timer_cron}"/>
+        </bean>
+
+        <!-- 当代下订单于下单时间30分钟后未支付，发手机短信至该客户手机号或该销售 -->
+        <bean id="autoAfterHalfhourProxyUnpayTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoAfterHalfhourProxyUnpayTimer"/>
+        </bean>
+        <bean id="autoAfterHalfhourProxyUnpayTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoAfterHalfhourProxyUnpayTimerTask"/>
+            <property name="cronExpression" value="${after_halfhour_proxy_unpay_timer_cron}"/>
+        </bean>
+        
+        <!-- 当代下订单于下单时间60分钟后未支付，发手机短信至团队秘书(销售人员)手机号 -->
+        <bean id="autoAfterOnehourProxyUnpayTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoAfterOnehourProxyUnpayTimer"/>
+        </bean>
+        <bean id="autoAfterOnehourProxyUnpayTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoAfterOnehourProxyUnpayTimerTask"/>
+            <property name="cronExpression" value="${after_onehour_proxy_unpay_timer_cron}"/>
+        </bean>
+        
+        <!-- 定时清除顺丰发送日志 -->
+        <bean id="autoSfExpressLogCleanTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoSfExpressLogCleanTimer"/>
+        </bean>
+        <bean id="autoSfExpressLogCleanTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoSfExpressLogCleanTimerTask"/>
+            <property name="cronExpression" value="${sf_express_log_clean_timer_cron}"/>
+        </bean>
+        
+        <!-- 官网定时关闭订单 -->
+        <bean id="autoCloseOrderForOfficialTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoCloseOrderForOfficialTimer"/>
+        </bean>
+        <bean id="autoCloseOrderForOfficialTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoCloseOrderForOfficialTimerTask"/>
+            <property name="cronExpression" value="${order_close_for_official_timer_cron}"/>
+        </bean>
+        
+        
+        <!-- 用户订单地址统计过渡 -->
+        <bean id="autoUserOrderRouteTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoUserOrderRouteTimer"/>
+        </bean>
+        <bean id="autoUserOrderRouteTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoUserOrderRouteTimerTask"/>
+            <property name="cronExpression" value="${user_order_route_timer_cron}"/>
+        </bean>
+        
+        
+          <!-- 订单签收7天后自动设置为已确认收包 -->
+        <bean id="autoOrderConfirmReceiveTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoOrderConfirmReceiveTimer"/>
+        </bean>
+        <bean id="autoOrderConfirmReceiveTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoOrderConfirmReceiveTask"/>
+            <property name="cronExpression" value="${order_confirm_receive_cron}"/>
+        </bean>
+        
+        <!-- 销售二维码历史数据图片合成 
+        <bean id="autoSaleUserQrcodeComposeImageTimerTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="autoService"/>
+            <property name="targetMethod" value="autoSaleUserQrcodeComposeImageTimer"/>
+        </bean>
+        <bean id="autoSaleUserQrcodeComposeImageTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="autoSaleUserQrcodeComposeImageTimerTask"/>
+            <property name="cronExpression" value="${saleUser_qrcode_compose_image_timer_cron}"/>
+        </bean>
+        -->
+        
+        <bean id="auto" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+            <property name="triggers">
+                <list>
+                  <ref bean="autoOrderDelayTimer"/>
+                  <ref bean="autoCloseOrderTimer"/>
+                  <ref bean="autoOrderRouteTimer"/>
+                  <ref bean="autoOrderSendTimer"/>
+                  <ref bean="autoOrderTimeoutSendTimer"/>
+                  <ref bean="autoOrderTimeoutDeliverTimer"/>
+                  <ref bean="autoTaskFlowCleanTimer"/>
+                  <ref bean="autoExpireCouponTimer"/>
+                  <ref bean="autoOrderReminderDeliverTimer"/>
+                  <ref bean="autoBaseNewsReadTimesTimer"/>
+                  <!-- <ref bean="autoAfterHalfhourProxyUnpayTimer"/> -->
+                  <!-- <ref bean="autoAfterOnehourProxyUnpayTimer"/> -->
+                  <ref bean="autoSfExpressLogCleanTimer"/>
+                  <ref bean="autoCloseOrderForOfficialTimer"/>
+                  <ref bean="autoUserOrderRouteTimer"/>
+                  <ref bean="autoOrderConfirmReceiveTimer"/>
+                  <!-- 
+                  <ref bean="autoSaleUserQrcodeComposeImageTimer"/>
+                  -->
+                  
+                </list>
+            </property> 
+        </bean>
+</beans>

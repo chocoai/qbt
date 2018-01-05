@@ -1,0 +1,18 @@
+<ul class="pagination" style="float:right">
+    <div style="float:left;display:inline-block;padding-top:6px;margin-right:8px">总计：{{page.totalCount}} 当前页／总页数：{{currentPage}}/{{page.totalPage}}</div>
+    <li ng-class="{'disabled':!page || currentPage==1 || page.totalPage == 0}" ng-click="setCurrentPage(1)">
+        <a href="javascript:;"><i class="fa fa-angle-double-left"></i></a>
+    </li>
+    <li ng-class="{'disabled':!page || currentPage == 1 || page.totalPage == 0}" ng-click="setCurrentPage(currentPage - 1)">
+        <a href="javascript:;"><i class="fa fa-angle-left"></i></a>
+    </li>
+    <li ng-class="{'active': currentPage == page}" ng-repeat="page in pages track by $index" ng-click="setCurrentPage(page)">
+        <a href="javascript:;">{{page}}</a>
+    </li>
+    <li ng-class="{'disabled': !page || currentPage == page.totalPage || page.totalPage == 0}" ng-click="setCurrentPage(currentPage + 1)">
+        <a href="javascript:;"><i class="fa fa-angle-right"></i></a>
+    </li>
+    <li ng-class="{'disabled': !page || currentPage == page.totalPage || page.totalPage == 0}" ng-click="setCurrentPage(page.totalPage)">
+        <a href="javascript:;"><i class="fa fa-angle-double-right"></i></a>
+    </li>
+</ul>

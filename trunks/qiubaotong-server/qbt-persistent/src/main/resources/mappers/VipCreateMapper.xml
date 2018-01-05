@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.VipCreateMapper">
+
+	<resultMap id="BaseResultMap" type="VipCreate">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="name" property="name" />
+		<result column="number" property="number" />
+		<result column="end_time" property="endTime" />
+		<result column="vip_type_id" property="vipTypeId" />
+		<result column="vip_type_name" property="vipTypeName" />
+		<result column="vip_type_amount" property="vipTypeAmount" />
+		<result column="vip_type_valid_day" property="vipTypeValidDay" />
+		<result column="opt_user_id" property="optUserId" />
+		<result column="opt_user_name" property="optUserName" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, name, number, end_time, vip_type_id,
+		vip_type_name,
+		vip_type_amount, vip_type_valid_day, opt_user_id, opt_user_name
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from vip_create
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="VipCreate" keyProperty="id" useGeneratedKeys="true">
+		insert into vip_create (
+			create_time, 
+			update_time,
+			name, 
+			number, 
+			end_time,
+			vip_type_id, 
+			vip_type_name, 
+			vip_type_amount,
+			vip_type_valid_day, 
+			opt_user_id, 
+			opt_user_name
+		)
+		values (
+			#{createTime},
+			#{updateTime},
+			#{name}, 
+			#{number}, 
+			#{endTime},
+			#{vipTypeId}, 
+			#{vipTypeName},
+			#{vipTypeAmount},
+			#{vipTypeValidDay}, 
+			#{optUserId},
+			#{optUserName}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="VipCreate">
+		update vip_create
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="number != null">
+				number = #{number},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime},
+			</if>
+			<if test="vipTypeId != null">
+				vip_type_id = #{vipTypeId},
+			</if>
+			<if test="vipTypeName != null">
+				vip_type_name = #{vipTypeName},
+			</if>
+			<if test="vipTypeAmount != null">
+				vip_type_amount = #{vipTypeAmount},
+			</if>
+			<if test="vipTypeValidDay != null">
+				vip_type_valid_day = #{vipTypeValidDay},
+			</if>
+			<if test="optUserId != null">
+				opt_user_id = #{optUserId},
+			</if>
+			<if test="optUserName != null">
+				opt_user_name = #{optUserName},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from vip_create 
+		<where>
+			<if test="condition.createDate != null">
+				and date(create_time) = date(#{condition.createDate}) 
+			</if>
+			<if test="condition.name != null and condition.name != ''">
+				and name like concat('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.vipTypeId != null and condition.vipTypeId > 0">
+				and vip_type_id = #{condition.vipTypeId} 
+			</if>
+			<if test="condition.vipNo != null and condition.vipNo != ''">
+				and id in (select vip_create_id from vip_create_info where vip_no like concat('%',#{condition.vipNo},'%')) 
+			</if>
+		</where>
+		order by id desc 
+	</select>
+	
+	<select id="exist" resultType="java.lang.Integer">
+		select count(1) 
+		from vip_create 
+		where name = #{name}
+	</select>
+	
+</mapper>

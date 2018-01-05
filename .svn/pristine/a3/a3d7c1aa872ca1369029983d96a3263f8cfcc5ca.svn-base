@@ -1,0 +1,6 @@
+sms_url=app.cloopen.com
+sms_port=8883
+sms_account_id=8a48b5515018a0f401502d83ce5f2183
+sms_auth_token=0a2d28b84dea4596a7f1593fa95817b5
+sms_app_id=8a48b5515018a0f401504bdee7965cf6
+sms_timeout=10

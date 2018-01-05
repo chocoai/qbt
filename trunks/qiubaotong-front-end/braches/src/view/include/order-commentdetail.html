@@ -1,0 +1,108 @@
+<template id="order-commentdetail">
+<section class="section">
+    <!--头-->
+    <div class="header tex-c bg-white">
+      <a href="javascript:;" class="back" @click="goView('/list')"><img src="/img/back.png" /></a>
+      我的评价
+    </div>
+    <!--头 end-->
+    <div class="scroll">
+    <div class="marhead">
+        <div class="weui_cells evaluate">
+            <div class="weui_cell">
+                <div class="weui_cell_hd"><img src="/img/evaluate-cion01.png" /></div>
+                <div class="weui_cell_bd ">
+                    <p>客服服务评价</p>
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd"></div>
+                <div class="weui_cell_bd ">
+                    <p>客服服务</p>
+                </div>
+                <div class="weui_cell_ft weui_cell_primary">
+                    <div class="eva-star">
+                        <i class="star-o" v-bind:class="{'star-solid':detail.kfLevel>0}"></i>
+                        <i class="star-o" v-bind:class="{'star-solid':detail.kfLevel>1}"></i>
+                        <i class="star-o" v-bind:class="{'star-solid':detail.kfLevel>2}"></i>
+                        <i class="star-o" v-bind:class="{'star-solid':detail.kfLevel>3}"></i>
+                        <i class="star-o" v-bind:class="{'star-solid':detail.kfLevel>4}"></i>
+                    </div>
+                </div>
+            </div>
+         </div>
+
+         <div class="weui_cells evaluate">
+             <div class="weui_cell">
+                 <div class="weui_cell_hd"><img src="/img/evaluate-cion02.png" /></div>
+                 <div class="weui_cell_bd ">
+                     <p>物流服务评价</p>
+                 </div>
+             </div>
+             <div class="weui_cell">
+                 <div class="weui_cell_hd"></div>
+                 <div class="weui_cell_bd ">
+                     <p>球包包装</p>
+                 </div>
+                 <div class="weui_cell_ft weui_cell_primary">
+                     <div class="eva-star">
+                         <i class="star-o" v-bind:class="{'star-solid':detail.sfPackLevel>0}"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':detail.sfPackLevel>1}"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':detail.sfPackLevel>2}"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':detail.sfPackLevel>3}"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':detail.sfPackLevel>4}"></i>
+                     </div>
+                 </div>
+             </div>
+             <div class="weui_cell">
+                 <div class="weui_cell_hd"></div>
+                 <div class="weui_cell_bd ">
+                     <p>送货速度</p>
+                 </div>
+                 <div class="weui_cell_ft weui_cell_primary">
+                     <div class="eva-star">
+                         <i class="star-o" v-bind:class="{'star-solid':detail.sfDeliverLevel>0}"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':detail.sfDeliverLevel>1}"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':detail.sfDeliverLevel>2}"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':detail.sfDeliverLevel>3}"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':detail.sfDeliverLevel>4}"></i>
+                     </div>
+                 </div>
+             </div>
+             <div class="weui_cell">
+                 <div class="weui_cell_hd"></div>
+                 <div class="weui_cell_bd ">
+                     <p>配送服务态度</p>
+                 </div>
+                 <div class="weui_cell_ft weui_cell_primary">
+                     <div class="eva-star">
+                         <i class="star-o" v-bind:class="{'star-solid':detail.sfServiceLevel>0}"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':detail.sfServiceLevel>1}"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':detail.sfServiceLevel>2}"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':detail.sfServiceLevel>3}"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':detail.sfServiceLevel>4}"></i>
+                     </div>
+                 </div>
+             </div>
+          </div>
+
+          <div class="weui_cells evaluate">
+              <div class="weui_cell">
+                  <div class="weui_cell_hd"><img src="/img/evaluate-cion03.png" /></div>
+                  <div class="weui_cell_bd ">
+                      <p>评价</p>
+                  </div>
+              </div>
+              <div class="weui_cell" style="height:auto;">
+                  <p>{{detail.content}}</p>
+              </div>
+              <div class="weui_cell" v-if="detail.imgUrls.length>0" style="height:auto;">
+                  <div class="weui_cell_bd weui_cell_primary">
+                      <img class="weui_uploader_file" v-for="sub in detail.imgUrls" :src="fbaseUrl + sub" alt="" style="margin-bottom:0px;height:auto;" @click="showPic(sub,detail.imgUrls)"></img>
+                  </div>
+              </div>
+           </div>
+    </div>
+  </div>
+</section>
+</template>

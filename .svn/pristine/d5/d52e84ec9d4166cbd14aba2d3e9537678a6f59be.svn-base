@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseNewsMapper">
+	<resultMap id="BaseResultMap" type="com.qbt.persistent.entity.BaseNews">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="type" property="type" />
+		<result column="title" property="title" />
+		<result column="img_url" property="imgUrl" />
+		<result column="outline" property="outline" />
+		<result column="content" property="content" />
+		<result column="read_times" property="readTimes" />
+		<result column="status" property="status" />
+		<result column="keyword" property="keyword" />
+	    <result column="category_id" property="categoryId" />
+	    <result column="category_name" property="categoryName" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_time, type, title, img_url, outline, content, read_times,
+		status, keyword, category_id, category_name
+	</sql>
+
+	<insert id="insert" parameterType="com.qbt.persistent.entity.BaseNews"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into base_news (
+			create_time, 
+			type, 
+			title, 
+			img_url, 
+			outline, 
+			content, 
+			read_times, 
+			status,
+			keyword, 
+			category_id, 
+			category_name
+		)
+		values (
+			#{createTime}, 
+			#{type}, 
+			#{title}, 
+			#{imgUrl}, 
+			#{outline}, 
+			#{content}, 
+			#{readTimes},
+			#{status},
+			#{keyword}, 
+			#{categoryId},
+			#{categoryName}
+		)
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.qbt.persistent.entity.BaseMatchActivity">
+		update base_news
+		<set>
+			<if test="title != null">
+				title = #{title},
+			</if>
+			<if test="imgUrl != null">
+				img_url = #{imgUrl},
+			</if>
+			<if test="outline != null">
+				outline = #{outline},
+			</if>
+			<if test="content != null">
+				content = #{content},
+			</if>
+			<if test="keyword != null">
+				keyword = #{keyword},
+			</if>
+			<if test="categoryId != null">
+				category_id = #{categoryId},
+			</if>
+			<if test="categoryName != null">
+				category_name = #{categoryName},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_news
+		<where>
+			<if test="condition.title != null and condition.title != ''">
+				AND title LIKE CONCAT('%',#{condition.title},'%')
+			</if>
+			<if test="condition.categoryId != null">
+				AND category_id = #{condition.categoryId}
+			</if>
+			<if test="condition.keyword != null and condition.keyword != ''">
+				AND keyword LIKE CONCAT('%',#{condition.keyword},'%')
+			</if>
+			<if test="condition.createTime != null and condition.createTime != ''">
+				<![CDATA[
+					and date(create_time) = date(#{condition.createTime})  
+				]]>
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List"></include>
+		from base_news
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<update id="updateStatus">
+		update base_news set status = #{status} where id = #{id}
+	</update>
+
+	<delete id="deleteById">
+		delete from base_news where id = #{id}
+	</delete>
+
+	<select id="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from base_news 
+		<where>
+			<if test="categoryId != null and categoryId != 0">
+				AND category_id = #{categoryId}
+			</if>
+		</where>
+		ORDER BY create_time desc
+	</select>
+
+	<update id="updateReadTimesById">
+		UPDATE base_news SET read_times = #{readTimes} WHERE id = #{id}
+	</update>
+
+	<select id="findByPageOfficial" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_news
+		<where>
+			status = 1
+			<if test="condition.title != null and condition.title != ''">
+				AND title LIKE CONCAT('%',#{condition.title},'%')
+			</if>
+			<if test="condition.categoryId != null">
+				AND category_id = #{condition.categoryId}
+			</if>
+			<if test="condition.keyword != null and condition.keyword != ''">
+				AND keyword LIKE CONCAT('%',#{condition.keyword},'%')
+			</if>
+			<if test="condition.createTime != null and condition.createTime != ''">
+				<![CDATA[
+					and date(create_time) = date(#{condition.createTime})  
+				]]>
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="listGroupByCategoryId" resultMap="BaseResultMap">
+		<![CDATA[
+			select a1.* from base_news a1
+			inner join
+			(select a.category_id,a.create_time from base_news a left join base_news b
+			on a.category_id=b.category_id and a.create_time<=b.create_time 
+			WHERE a.status = 1
+			group by a.category_id,a.create_time
+			having count(b.create_time)<=3
+			)b1
+			on a1.category_id=b1.category_id and a1.create_time=b1.create_time
+			order by a1.category_id,a1.create_time desc
+		]]>
+	</select>
+
+</mapper>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.UrgentMapper">
+
+	<resultMap id="BaseResultMap" type="Urgent">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="name" property="name" />
+		<result column="price" property="price" />
+		<result column="from_province" property="fromProvince" />
+		<result column="from_city" property="fromCity" />
+		<result column="to_province" property="toProvince" />
+		<result column="to_city" property="toCity" />
+		<result column="operator" property="operator" />
+		<result column="operator_name" property="operatorName" />
+		<result column="description" property="description" />
+		
+		<result column="from_province_name" property="fromProvinceName" />
+		<result column="from_city_name" property="fromCityName" />
+		<result column="to_province_name" property="toProvinceName" />
+		<result column="to_city_name" property="toCityName" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, name, price, from_province, from_city, to_province, to_city,
+		operator, operator_name, description
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT 
+		e.id, e.create_time, e.update_time, e.name, e.price, e.from_province, e.from_city, e.to_province, e.to_city,
+		e.operator, e.operator_name, e.description,
+		a.name from_province_name, c.name from_city_name, b.name to_province_name, d.name to_city_name 
+		FROM urgent	e	
+		LEFT  JOIN base_sf_area a on e.from_province = a.id 
+		LEFT  JOIN base_sf_area b on e.to_province = b.id 
+		LEFT  JOIN base_sf_area c on e.from_city = c.id 
+		LEFT  JOIN base_sf_area d on e.to_city = d.id
+		WHERE e.id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="Urgent" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO urgent (
+			create_time, 
+			update_time,
+			name, 
+			price, 
+			from_province, 
+			from_city, 
+			to_province, 
+			to_city,
+			operator, operator_name, 
+			description
+		)
+		VALUES (
+			#{createTime},
+			#{updateTime},
+			#{name},
+			#{price}, 
+			#{fromProvince}, 
+			#{fromCity},
+			#{toProvince}, 
+			#{toCity},
+			#{operator},
+			#{operatorName},
+			#{description}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="Urgent">
+		UPDATE urgent 
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="fromProvince != null">
+				from_province = #{fromProvince},
+			</if>
+			<if test="fromCity != null">
+				from_city = #{fromCity},
+			</if>
+			<if test="toProvince != null">
+				to_province = #{toProvince},
+			</if>
+			<if test="toCity != null">
+				to_city = #{toCity},
+			</if>
+			<if test="operator != null">
+				operator = #{operator},
+			</if>
+			<if test="description != null">
+				description = #{description},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT 
+		e.id, e.create_time, e.update_time, e.name, e.price, e.from_province, e.from_city, e.to_province, e.to_city,
+		e.operator,e.operator_name, e.description,
+		a.name from_province_name, c.name from_city_name, b.name to_province_name, d.name to_city_name 
+		FROM urgent	e	
+		LEFT  JOIN base_sf_area a on e.from_province = a.id 
+		LEFT  JOIN base_sf_area b on e.to_province = b.id 
+		LEFT  JOIN base_sf_area c on e.from_city = c.id 
+		LEFT  JOIN base_sf_area d on e.to_city = d.id 
+		
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND e.name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.fromProvince != null and condition.fromProvince != ''">
+				AND e.from_province = #{condition.fromProvince} 
+			</if>
+			<if test="condition.fromCity != null and condition.fromCity != ''">
+				AND e.from_city = #{condition.fromCity} 
+			</if>
+			<if test="condition.toProvince != null and condition.toProvince != ''">
+				AND e.to_province = #{condition.toProvince} 
+			</if>
+			<if test="condition.toCity != null and condition.toCity != ''">
+				AND e.to_city = #{condition.toCity} 
+			</if>
+			
+		</where>
+		
+		ORDER BY e.name 
+	</select>
+	
+	<select id="findByCondition" parameterType="Urgent" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM urgent 
+		<where>
+			<if test="id != null and id > 0">
+				AND id = #{id} 
+			</if>
+			<if test="name != null">
+				AND name = #{name} 
+			</if>
+			<if test="fromProvince != null">
+				AND from_province = #{fromProvince}
+			</if>
+			<if test="fromCity != null">
+				AND from_city = #{fromCity}
+			</if>
+			<if test="toProvince != null">
+				AND to_province = #{toProvince}
+			</if>
+			<if test="toCity != null">
+				AND to_city = #{toCity}
+			</if>
+			<if test="operator != null">
+				AND operator = #{operator}
+			</if>
+			<if test="description != null">
+				AND description = #{description}
+			</if>
+		</where>
+	</select>
+	
+	<delete id="deleteById">
+		delete from urgent where id=#{id}
+	</delete>
+	
+</mapper>

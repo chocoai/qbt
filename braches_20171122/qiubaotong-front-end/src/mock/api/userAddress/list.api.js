@@ -1,0 +1,13 @@
+next(null,{
+    "code":"0000",
+    "msg":"",
+    "datas":[
+        {"id":1,'def':true,'labelType':1,"treeId":"1000001,1000002,1000003","userId":2,"areaId":110102,"address":"测试地址","mobile":"18688151344","name":"曾先磊","cityName":"北京,北京市,西城区","def":true},
+        {"id":2,"userId":2,"areaId":110102,"address":"测试地址2","mobile":"18688151356","name":"曾建中","cityName":"东京,北京市,西城区","def":false},
+        {"id":2,"userId":2,"areaId":110102,"address":"测试地址2","mobile":"18688151356","name":"曾建中","cityName":"西京,北京市,西城区","def":false},
+        {"id":2,"userId":2,"areaId":110102,"address":"测试地址2","mobile":"18688151356","name":"曾建中","cityName":"南京,北京市,西城区","def":false},
+        {"id":2,"userId":2,"areaId":110102,"address":"测试地址2","mobile":"18688151356","name":"曾建中","cityName":"北京,北京市,西城区","def":false},
+        {"id":2,"userId":2,"areaId":110102,"address":"测试地址2","mobile":"18688151356","name":"曾建中","cityName":"北京,北京市,西城区","def":false},
+        {"id":2,"userId":2,"areaId":110102,"address":"测试地址2","mobile":"18688151356","name":"曾建中","cityName":"北京,北京市,西城区","def":false}
+    ]
+})

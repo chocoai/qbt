@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.CouponMapper">
+
+	<resultMap id="BaseResultMap" type="Coupon">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="activity_id" property="activityId" />
+		<result column="code" property="code" />
+		<result column="type" property="type" />
+		<result column="amount" property="amount" />
+		<result column="start_time" property="startTime" />
+		<result column="end_time" property="endTime" />
+		<result column="description" property="description" />
+		<result column="status" property="status" />
+		<result column="claim_type" property="claimType" />
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="child_code" property="childCode" />
+		<result column="child_amount" property="childAmount" />
+		<result column="claim_time" property="claimTime" />
+		<result column="limit_amount" property="limitAmount" />
+		<result column="order_id" property="orderId" />
+		<result column="lock_status" property="lockStatus" />
+	</resultMap>
+
+	<resultMap id="BaseRstActivity" type="UserCouponActivity" extends="BaseResultMap">
+		<result column="name" property="name" />
+		<result column="activity_start_time" property="activityStartTime" />
+		<result column="activity_end_time" property="activityEndTime" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, activity_id, code, type, amount, start_time, end_time, 
+		description, status, child_code, child_amount, claim_time, claim_type,
+		user_id, user_name,limit_amount,order_id,lock_status
+	</sql>
+
+
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from coupon
+		where id = #{id}
+	</select>
+
+
+	<insert id="insert" parameterType="Coupon" keyProperty="id" useGeneratedKeys="true">
+		insert into coupon (
+			create_time, 
+			activity_id,
+			code,
+			child_code, 
+			type, 
+			amount,
+			child_amount,
+			start_time, 
+			end_time,
+			description, 
+			status,
+			claim_type,
+			user_id,
+			user_name,
+			claim_time,
+			limit_amount,
+			order_id,
+			lock_status
+		)
+		values (
+			#{createTime},
+			#{activityId},
+			#{code},
+			#{childCode},
+			#{type}, 
+			#{amount},
+			#{childAmount},
+			#{startTime}, 
+			#{endTime},
+			#{description}, 
+			#{status},
+			#{claimType},
+			#{userId},
+			#{userName},
+			#{claimTime},
+			#{limitAmount},
+			#{orderId},
+			#{lockStatus}
+		)
+	</insert>
+
+
+	<update id="updateById" parameterType="Coupon">
+		update coupon 
+		<set>
+			<if test="activityId != null">
+				activity_id = #{activityId},
+			</if>
+			<if test="code != null">
+				code = #{code},
+			</if>
+			<if test="childCode != null">
+				child_code = #{childCode},
+			</if>
+			<if test="type != null">
+				type = #{type},
+			</if>
+			<if test="amount != null">
+				amount = #{amount},
+			</if>
+			<if test="childAmount != null">
+				child_amount = #{childAmount},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime},
+			</if>
+			<if test="description != null">
+				description = #{description},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="claimType != null">
+				claim_type = #{claimType},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName},
+			</if>
+			<if test="claimTime != null">
+				claim_time = #{claimTime},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateUserIdById">
+		update coupon set user_id = #{userId} where id=#{id}
+	</update>
+
+	<!-- 根据用户查询用户券码 -->
+	<select id="selectUserCouponByUserId" resultMap="BaseRstActivity">
+		select 
+			act.name,
+			co.start_time,
+			co.end_time,
+			co.user_id,
+			co.type,
+			if(co.status = 1 and date(co.end_time) <![CDATA[<]]> CURRENT_DATE(),3,co.status) status,
+			co.claim_type,
+			co.user_name,
+			co.child_amount,
+			co.child_code,
+			co.limit_amount 
+		from 
+			coupon co,activity act 
+		<where>
+			act.id=co.activity_id 
+			and act.status=1 
+			and co.user_id = #{userId} 
+			<if test="status == 1 or status == 2">
+				and co.status = #{status}
+			</if>
+			<if test="status == 3">
+				and (co.status = 1 and date(co.end_time) <![CDATA[<]]> CURRENT_DATE())
+			</if>
+		</where> 
+		order by 
+			status,
+			type,
+			end_time,
+			child_amount desc
+	</select>
+
+	<!-- 领券绑定券码，更新关系 -->
+	<update id="updateByCode" parameterType="Coupon">
+		update coupon
+		set claim_time = #{claimTime},
+		claim_type = #{claimType},
+		user_id = #{userId},
+		user_name = #{userName}
+		where code = #{code}
+	</update>
+
+	<!-- 根据子券码查询券码信息 -->
+	<select id="selectByChildCode" resultMap="BaseResultMap">
+		select * from coupon where child_code = #{childCode}
+	</select>
+
+	<!--根据用户查询有效券码数量 -->
+	<select id="selectCouponCountByUserId" resultType="int">
+		<![CDATA[
+		select count(c.user_id) 
+		from coupon c 
+		where 
+			c.user_id = #{userId} 
+			and c.status = 1 
+			and date(c.end_time) >= CURRENT_DATE() 
+			and exists(select * from activity act where act.id = c.activity_id)
+		]]>
+	</select>
+
+	<!--根据活动id,查询所有券码 -->
+	<select id="selectCouponByActivityId" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from coupon where activity_id = #{activityId}
+	</select>
+
+	<!-- 根据券码查询所有的券 -->
+	<select id="selectCouponByCode" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from coupon where code = #{code}
+	</select>
+
+	<select id="findByPageBoss" resultMap="BaseRstActivity">
+		SELECT 
+			c.id, 
+			c.create_time, 
+			c.activity_id, 
+			c.code, 
+			c.type, 
+			c.amount,
+			c.description, 
+			c.status, 
+			c.child_code, 
+			c.child_amount,
+			c.claim_time, 
+			c.claim_type,
+			c.user_id, 
+			c.user_name,
+			a.name,
+			c.start_time,
+			c.end_time,
+			a.start_time activity_start_time,
+			a.end_time activity_end_time  
+		FROM coupon c LEFT JOIN activity a ON c.activity_id = a.id 
+		<where>
+			<if test="condition.activityId != null">
+				AND c.activity_id = #{condition.activityId} 
+			</if>
+			<if test="condition.name != null and condition.name != ''">
+				AND a.name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.code != null and condition.code != ''">
+				AND (c.code LIKE CONCAT('%',#{condition.code},'%') or c.child_code LIKE CONCAT('%',#{condition.code},'%')) 
+			</if>
+			<if test="condition.userName != null and condition.userName != ''">
+				AND c.user_name LIKE CONCAT('%',#{condition.userName},'%') 
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY c.create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="insertByBatch">
+		insert into coupon (
+			create_time, 
+			activity_id,
+			code,
+			child_code, 
+			type, 
+			amount,
+			child_amount,
+			start_time, 
+			end_time,
+			description, 
+			status,
+			claim_type,
+			user_id,
+			user_name,
+			claim_time,
+			limit_amount,
+			order_id,
+			lock_status
+		)
+		values 
+		<foreach collection="couponList" item="coupon" index="i" separator=",">
+		(
+			now(),
+			#{coupon.activityId},
+			#{coupon.code},
+			#{coupon.childCode},
+			#{coupon.type}, 
+			#{coupon.amount},
+			#{coupon.childAmount},
+			#{coupon.startTime}, 
+			#{coupon.endTime},
+			#{coupon.description}, 
+			#{coupon.status},
+			#{coupon.claimType},
+			#{coupon.userId},
+			#{coupon.userName},
+			#{coupon.claimTime},
+			#{coupon.limitAmount},
+			#{coupon.orderId},
+			#{coupon.lockStatus}
+		)
+		</foreach>
+	</insert>
+
+	<update id="updateStatusById">
+		update coupon set status=#{status} where id=#{id}
+	</update>
+	
+	<select id="findExpireCodesByDay" resultMap="BaseRstActivity">
+		select c.code,c.child_code,c.amount,c.child_amount,c.user_id,c.end_time 
+		from coupon c join activity a on c.activity_id=a.id 
+		where 
+			a.status=1 
+			and DATEDIFF(c.end_time, now()) = #{day} 
+			and c.status = 1 
+			and c.claim_type != 0 
+	</select>
+	
+	<select id="findAllCouponCode" resultMap="BaseResultMap">
+		select code,child_code from coupon
+	</select>
+	
+	<select id="getCoupon"  resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from coupon 
+		where 
+			user_id = 0 
+			and activity_id= #{activityId} 
+		ORDER BY id
+		limit 1	
+	</select>
+	
+	<update id="bindCoupon" parameterType="Coupon">
+		update coupon 
+		set 
+			user_id = #{userId},
+			order_id=#{orderId},
+			claim_time = now(),
+			lock_status=1,
+			claim_type=3,
+			user_name = #{userName} 
+		where 
+			code = #{code} 
+			and user_id = 0
+	</update>
+	
+	<update id="deblockingCoupon" parameterType="Integer">
+		update coupon set lock_status = 0 where order_id = #{orderId}
+	</update>
+	
+	<select id="isWinner" parameterType="Integer" resultType="Integer" >
+		select count(1) from coupon t where t.order_id = #{orderId}
+	</select>
+	
+	<select id="findWinnerInfo"  parameterType="Integer" resultMap="BaseRstActivity" >
+		select t1.user_name,t.name 
+		from activity t LEFT JOIN coupon t1 on t1.activity_id  = t.id
+ 		where t1.order_id = #{orderId}
+	</select>
+	
+</mapper>

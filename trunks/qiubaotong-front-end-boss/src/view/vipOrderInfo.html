@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="vipOrderInfoCtrl">
+    <div class="container containerWidthAuto">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-inline mb8">
+                    <div class="form-group">
+                        <label style="width:72px;" class="control-label">订单号：</label>
+                        <input style="min-width:200px" type="text" class="form-control" placeholder="输入订单号" ng-model="number">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-inline mb8">
+                <div class="form-group">
+                    <label style="width:72px;" class="control-label">订单状态：</label>
+                    <select style="min-width:200px" class="form-control" ng-model="orderStatus">
+                       <option value="">全部</option>
+                       <option value="{{item.type}}" ng-repeat="item in order_type">{{item.desc}}</option>
+                   </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-inline mb8">
+                  <div class="form-group">
+                      <label class="control-label">用户名：</label>
+                      <input style="min-width:200px" type="text" class="form-control" placeholder="输入用户名" ng-model="userName">
+                  </div>
+              </div>
+          </div> 
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group">
+                    <label style="width:72px;" class="control-label">运单号：</label>
+                    <input style="min-width:200px" type="text" class="form-control" placeholder="输入运单号" ng-model="mailNo">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group">
+                    <label style="width:72px;" class="control-label">物流状态：</label>
+                    <select style="min-width:200px" class="form-control" ng-model="deliveryStatus">
+                        <option value="">全部</option>
+                        <option value="{{item.type}}" ng-repeat="item in sf_type">{{item.desc}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+	      <div class="col-sm-4">
+	         <div class="form-inline mb8">
+	            <div class="form-group">
+	                <label class="control-label">手机号：</label>
+	                <input style="min-width:200px" type="text" class="form-control" placeholder="输入手机号" ng-model="mobile">
+	            </div>
+	          </div>
+	      </div>
+    </div>
+        <div class="row">
+          <div class="col-sm-4">
+              <div class="form-inline mb8">
+                  <div class="form-group">
+                      <label style="width:72px;" class="control-label">会员卡号：</label>
+                      <input style="min-width:200px" type="text" class="form-control" placeholder="输入会员卡号" ng-model="vipNo">
+                  </div>
+              </div>
+          </div>
+        <div class="col-sm-8">
+            <div class="form-group form-inline pull-right">
+                <button id="search" class="btn btn-primary" ng-click="getList()">搜索</button>
+            </div>
+        </div>
+   </div>
+    <div class="row">
+    <div class="col-sm-12">
+        <table class="table table-bordered table-hover table-striped table-condensed">
+            <thead>
+                <th>订单号</th>
+                <th>运单号</th>
+                <th>创建时间</th>
+                <th>实际支付金额</th>
+                <th>折扣金额</th>
+                <th>订单总金额</th>
+                <th>保价费</th>
+                <th class="qbt-font4">保价金额(万元)</th>
+                <th class="qbt-font4">订单状态</th>
+                <th class="qbt-font4">物流状态</th>
+                <th>会员卡号</th>
+                <th class="qbt-font3">用户名</th>
+                <th>手机号</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list track by $index">
+                  <td>
+                    <a href="javascript:void(0)" ng-click="detail(item.id)">{{item.number}}<i style="display:inline" class="fa"><img class="vip-icon" src="../img/vip.png"></i></a>
+                  </td>
+                  <td><a href="javascript:void(0)" ng-click="detail(item.id)">{{item.mailNo}}</a></td>
+                  <td>{{item.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                  <td>{{item.amount | number:2}}</td>
+                  <td>{{item.discount | number:2}}</td>
+                  <td>{{item.totalAmount | number:2}}</td>
+                  <td>{{item.insuredFee | number:2}}</td>
+                  <td>{{item.insuredValue | number:2}}</td>
+                  <td>{{item.orderStatus | commFilter:'order_type'}}</td>
+                  <td>
+                        <label ng-show="item.deliveryStatus != 2" class="label padding7-10" ng-class="{'label-info':item.deliveryStatus == 1,'label-blue':item.deliveryStatus == 3,'label-green':item.deliveryStatus == 4,'label-success':item.deliveryStatus == 5,'label-primary':item.deliveryStatus == 6,'label-warning':item.deliveryStatus == 7,}">{{item.deliveryStatus | commFilter:'sf_type'}}</label>
+                        <label ng-show="item.deliveryStatus == 2" ng-click="layerSendStatus2To4(item.id)" class="label padding7-10 label-default" style="cursor:pointer">
+                            {{item.deliveryStatus | commFilter:'sf_type'}}
+                        </label>
+                    </td>
+                   <td>{{item.vipNo}}</td>
+                   <td><a href="javascript:void(0)" ng-click="isWeixin(item.mobile,item.vipNo)">{{item.userName}}</a></td>
+                   <td>{{item.mobile}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <pagination page="page" change="getList(page)"></pagination>
+    </div>
+</div>
+</div>
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/vipOrderInfoCtrl.js}}}"></script>
+</body>
+</html>

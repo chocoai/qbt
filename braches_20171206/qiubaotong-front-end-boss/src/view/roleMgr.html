@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/jquery_ztree/css/zTreeStyle.css" rel="stylesheet" type="text/css">
+    <link href="/assets/smartMenu/smartMenu.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="roleMgrCtrl">
+<div class="container containerWidthAuto">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">角色信息</h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                       <input type="hidden" ng-model="roleId"/>
+                       <div class="form-group">
+                           <label class="col-sm-4 control-label" style="padding-right:0px;">平台：</label>
+                           <div class="col-sm-8">
+                               <select class="form-control" ng-model="platId" ng-change="changePalt()">
+                                   <option value="{{item.type}}" ng-repeat="item in platforms">{{item.desc}}</option>
+                               </select>
+                           </div>
+                       </div>
+                        <div class="form-group">
+                            <label for="ticket-subject" class="col-sm-4 control-label" style="padding-right:0px;">角色名称：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="ticket-subject" id="ticket-subject" placeholder="输入角色名称" ng-model="name" maxlength="20">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12" style="text-align:center">
+                                <button type="button" class="btn btn-primary btn-block" ng-click="role_add()">确定</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="panel panel-default" id="rolelist">
+                <div class="panel-heading">
+                    <h3 class="panel-title">用户列表</h3>
+                </div>
+                <div class="panel-body">
+                   <table class="table table-hover table-bordered">
+                        <thead>
+                            <th>用户名</th>
+                            <th>手机号</th>
+                        </thead>
+                        <tr ng-repeat="user in users">
+                            <td>{{user.name}}</td>
+                            <td>{{user.mobile}}</td>
+                        </tr>
+                   </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">授权资源项</h3>
+                </div>
+                <div class="panel-body">
+                    <ul id="tree" class="ztree" style="overflow:auto;"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default" id="rolelist">
+                <div class="panel-heading">
+                    <h3 class="panel-title">角色列表</h3>
+                </div>
+                <div class="panel-body">
+                   <table class="table table-hover table-bordered">
+                        <tr ng-repeat="role in roles">
+                            <td data = "{{role.id}}"><a class="" href="javascript:void(0);" ng-click="role_detail(role.id)">{{role.name}}</a></td>
+                        </tr>
+                   </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="/assets/jquery_ztree/js/jquery.ztree.core-3.5.js"></script>
+<script src="/assets/jquery_ztree/js/jquery.ztree.excheck-3.5.js"></script>
+<script src="/assets/smartMenu/jquery-smartMenu-min.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/roleMgr.js}}}"></script>
+</body>
+</html>

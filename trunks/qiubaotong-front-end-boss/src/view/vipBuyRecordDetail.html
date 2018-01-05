@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="vipBuyRecordDetailCtrl">
+<div class="container containerWidthAuto">
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">会员信息</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group form-inline">
+                        <span class="buy-record-span1">会员卡名称：</span>
+                        <span>{{name}}</span>
+                    </div>
+                    <div class="form-group form-inline">
+                        <span class="buy-record-span1">会员卡号：</span>
+                        <span>{{vipNo}}</span>
+                    </div>
+                    <div class="form-group form-inline">
+                        <span class="buy-record-span1">用户名：</span>
+                        <span>{{userName}}</span>
+                    </div>
+                    <div class="form-group forn-inline">
+                        <span class="buy-record-span1">手机号：</span>
+                        <span>{{mobile}}</span>
+                    </div>
+                    <div class="form-group form-inline">
+                        <span class="buy-record-span1">更新时间：</span>
+                        <span>{{updateTime | date : 'yyyy-MM-dd HH:mm:ss'}}</span>
+                    </div>
+                    <div class="form-group form-inline">
+                        <span class="buy-record-span1">有效期(天)：</span>
+                        <span>{{valid}}</span>
+                    </div>
+                    <div class="form-group form-inline">
+                        <div class="row">
+                            <div class="col-md-6" style="width:100px;padding-right:0">有效期描述：</div>
+                            <div class="col-md-6" style="padding-left:5px;" ng-bind-html="validDesc.replaceAll('\n','<br>') | to_trusted"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">订单信息</h3>
+                </div>
+                <div class="panel-body" style="min-height:275px;">
+                    <div class="form-group form-inline">
+                        <span class="buy-record-span2">订单号：</span>
+                        <span>{{number}}</span>
+                    </div>
+                    <div class="form-group form-inline">
+                        <span class="buy-record-span2">支付金额：</span>
+                        <span>{{payAmount | currency : '￥'}}</span>
+                    </div>
+                    <div class="form-group form-inline">
+                        <span class="buy-record-span2">支付方式：</span>
+                        <span>{{payMethod | commFilter : 'payMethod_active_type'}}</span>
+                    </div>
+                    <div class="form-group form-inline">
+                        <span class="buy-record-span2">收款状态：</span>
+                        <span class="marginRight5">{{settlementStatus == 1 ? '已收款 ' : '未收款'}}</span>
+                        
+                    </div>
+                    <div class="form-group form-inline">
+                        <span class="buy-record-span2">第三方支付流水号：</span>
+                        <span>{{payBakNo}}</span>
+                    </div>
+                    <div class="form-group form-inline">
+                        <span class="buy-record-span2">商户支付流水号：</span>
+                        <span>{{payNumber}}</span>
+                    </div>
+                    <div ng-show="vipCardType===1" class="form-group form-inline">
+                        <span class="buy-record-span2">销售人：</span>
+                        <span>{{salesmanName}}</span>
+                    </div>
+                    <div class="form-group form-inline">
+                        <button ng-click="layerChangeSettlementStatus()" ng-show="settlementStatus == 2 && payAmount !== null " class="btn btn-primary">确认收款</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/vipBuyRecordDetailCtrl.js}}}"></script>
+</body>
+</html>

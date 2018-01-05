@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseCourseInfoMapper">
+
+	<resultMap id="BaseResultMap" type="BaseCourseInfo">
+		<result column="course_id" property="courseId" />
+		<result column="golf_hole" property="golfHole" />
+		<result column="telephone" property="telephone" />
+		<result column="contact" property="contact" />
+		<result column="mobile" property="mobile" />
+		<result column="remark" property="remark" />
+		<result column="website" property="website" />
+		<result column="wechat" property="wechat" />
+		<result column="has_assistant" property="hasAssistant" />
+		<result column="sign_place" property="signPlace" />
+		<result column="send_place" property="sendPlace" />
+		<result column="start_work_time" property="startWorkTime" />
+		<result column="end_work_time" property="endWorkTime" />
+		<result column="bag_deposit_charge" property="bagDepositCharge" />
+		<result column="tee_time_interval" property="teeTimeInterval" />
+		<result column="tee_time_earliest" property="teeTimeEarliest" />
+		<result column="tee_time_latest" property="teeTimeLatest" />
+		<result column="transition_closed_begin_time" property="transitionClosedBeginTime" />
+		<result column="transition_closed_end_time" property="transitionClosedEndTime" />
+		<result column="weather" property="weather" />
+		<result column="description" property="description" />
+		<result column="introducing" property="introducing" />
+		<result column="introducing_href" property="introducingHref" />
+		<result column="product_intro" property="productIntro" />
+		<result column="feature_intro" property="featureIntro" />
+		<result column="food_intro" property="foodIntro" />
+		<result column="other_intro" property="otherIntro" />
+		
+		<result column="is_hotel" property="isHotel" />
+		<result column="hotel_address" property="hotelAddress" />
+		<result column="hotel_room_number" property="hotelRoomNumber" />
+		<result column="hotel_level" property="hotelLevel" />
+		<result column="hotel_area_limit" property="hotelAreaLimit" />
+		<result column="hotel_car_limit" property="hotelCarLimit" />
+		<result column="is_fee" property="isFee" />
+		<result column="start_time" property="startTime" />
+		<result column="brief" property="brief" />
+		<result column="check_message" property="checkMessage" />
+		<result column="light_vigorous_time" property="lightVigorousTime" />
+		<result column="business_time" property="businessTime" />
+		<result column="player_number" property="playerNumber" />
+		<result column="light_vigorous_player" property="lightVigorousPlayer" />
+		<result column="local_player_number" property="localPlayerNumber" />
+		<result column="nearest_sf" property="nearestSf" />
+		<result column="site_time" property="siteTime" />
+		<result column="sf_time" property="sfTime" />
+		<result column="temperature" property="temperature" />
+		<result column="rain" property="rain" />
+		<result column="nearest_workshop" property="nearestWorkshop" />
+		<result column="nearest_hotel" property="nearestHotel" />
+		<result column="nearest_hotel_room_number" property="nearestHotelRoomNumber" />
+		<result column="nearest_hotel_level" property="nearestHotelLevel" />
+		<result column="nearest_rail" property="nearestRail" />
+		<result column="highway_course" property="highwayCourse" />
+		<result column="is_join_bag" property="isJoinBag" />
+		<result column="join_bag_address" property="joinBagAddress" />
+		<result column="is_fee_bag" property="isFeeBag" />
+		<result column="put_bag_address" property="putBagAddress" />
+		<result column="is_collect_bag" property="isCollectBag" />
+		<result column="collect_bag_address" property="collectBagAddress" />
+		<result column="department" property="department" />
+		<result column="bag_worker" property="bagWorker" />
+		<result column="night_address" property="nightAddress" />
+		<result column="course_worker" property="courseWorker" />
+		<result column="course_front_worker" property="courseFrontWorker" />
+		<result column="police" property="police" />
+		<result column="urgent_person" property="urgentPerson" />
+		<result column="is_note" property="isNote" />
+		<result column="is_declare" property="isDeclare" />
+		<result column="is_ylb" property="isYlb" />
+		<result column="is_order" property="isOrder" />
+		<result column="is_posts" property="isPosts" />
+		<result column="is_declare_service" property="isDeclareService" />
+		
+		<result column="rest_time" property="restTime" />
+		<result column="other_player_number" property="otherPlayerNumber" />
+		<result column="goods_company" property="goodsCompany" />
+		<result column="nearest_practice_area" property="nearestPracticeArea" />
+		<result column="nearest_hotel_address" property="nearestHotelAddress" />
+		<result column="nearest_airport" property="nearestAirport" />
+		<result column="manager_sale" property="managerSale" />
+		<result column="urgent_person_wechat" property="urgentPersonWechat" />
+		<result column="nearest_hight_rail" property="nearestHightRail" />
+
+		<result column="manager_front_mobile" property="managerFrontMobile" />
+		<result column="manage_mobile" property="manageMobile" />
+		<result column="manager_sale_mobile" property="managerSaleMobile" />
+		<result column="bag_worker_mobile" property="bagWorkerMobile" />
+		
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		course_id, golf_hole, telephone, contact, mobile, remark, website, wechat,
+		has_assistant, sign_place, send_place, start_work_time, end_work_time,
+		bag_deposit_charge, tee_time_interval, tee_time_earliest, tee_time_latest,
+		transition_closed_begin_time, transition_closed_end_time, weather, description,
+		introducing, introducing_href, product_intro, feature_intro, food_intro, other_intro,
+		
+		is_hotel, hotel_address, hotel_room_number, hotel_level, hotel_area_limit, hotel_car_limit, 
+		is_fee, start_time, brief, check_message, light_vigorous_time, business_time, player_number, 
+		light_vigorous_player, local_player_number, nearest_sf, site_time, sf_time, temperature, rain, 
+		nearest_workshop, nearest_hotel, nearest_hotel_room_number, nearest_hotel_level,  nearest_rail,
+		highway_course, is_join_bag, join_bag_address, is_fee_bag, put_bag_address, is_collect_bag,
+		collect_bag_address, department, bag_worker, night_address, course_worker, course_front_worker, 
+		police, urgent_person, is_note, is_declare, is_ylb, is_order, is_posts, is_declare_service,
+		rest_time, other_player_number, goods_company, nearest_practice_area, nearest_hotel_address,
+		nearest_airport, manager_sale, urgent_person_wechat,nearest_hight_rail, manager_front_mobile,
+		manage_mobile, manager_sale_mobile, bag_worker_mobile
+		
+	</sql>
+	
+	<insert id="insert" parameterType="BaseCourseInfo">
+		insert into base_course_info (
+			course_id, 
+			golf_hole, 
+			telephone,
+			contact, 
+			mobile, 
+			remark,
+			website, 
+			wechat, 
+			has_assistant,
+			sign_place, 
+			send_place, 
+			start_work_time,
+			end_work_time, 
+			bag_deposit_charge, 
+			tee_time_interval,
+			tee_time_earliest, 
+			tee_time_latest, 
+			transition_closed_begin_time,
+			transition_closed_end_time, 
+			weather, 
+			description,
+			introducing, 
+			introducing_href, 
+			product_intro,
+			feature_intro, 
+			food_intro, 
+			other_intro,
+			is_hotel, 
+			hotel_address, 
+			hotel_room_number,
+			hotel_level, 
+			hotel_area_limit,
+			hotel_car_limit, 
+			is_fee,
+		 	start_time,
+		 	brief,
+		    check_message,
+		    light_vigorous_time,
+		    business_time,
+		    player_number, 
+			light_vigorous_player,
+		 	local_player_number,
+		 	nearest_sf, 
+		    site_time, 
+		    sf_time, 
+		    temperature, 
+		    rain, 
+		    nearest_workshop,
+		    nearest_hotel, 
+			nearest_hotel_room_number,
+		    nearest_hotel_level, 
+		    nearest_rail,
+			highway_course, 
+			is_join_bag,
+		 	join_bag_address,
+		  	is_fee_bag, 
+		  	put_bag_address, 
+		  	is_collect_bag,
+			collect_bag_address,
+		 	department,
+		  	bag_worker, 
+		  	night_address,
+		   	course_worker,
+		    course_front_worker, 
+			police, 
+			urgent_person, 
+			is_note, 
+			is_declare, 
+			is_ylb,
+		 	is_order,
+		 	is_posts,
+		 	is_declare_service,
+		 	rest_time,
+		 	other_player_number, 
+		 	goods_company, 
+		 	nearest_practice_area, 
+		 	nearest_hotel_address,
+			nearest_airport,
+			manager_sale, 
+			urgent_person_wechat,
+			nearest_hight_rail,
+			manager_front_mobile,
+			manage_mobile,
+			manager_sale_mobile, 
+			bag_worker_mobile
+		)
+		values (
+			#{courseId}, 
+			#{golfHole},
+			#{telephone},
+			#{contact}, 
+			#{mobile}, 
+			#{remark},
+			#{website}, 
+			#{wechat},
+			#{hasAssistant},
+			#{signPlace}, 
+			#{sendPlace}, 
+			#{startWorkTime},
+			#{endWorkTime}, 
+			#{bagDepositCharge},
+			#{teeTimeInterval},
+			#{teeTimeEarliest},
+			#{teeTimeLatest},
+			#{transitionClosedBeginTime},
+			#{transitionClosedEndTime},
+			#{weather}, 
+			#{description},
+			#{introducing},
+			#{introducingHref},
+			#{productIntro},
+			#{featureIntro},
+			#{foodIntro}, 
+			#{otherIntro},
+			#{isHotel},
+			#{hotelAddress},
+			#{hotelRoomNumber},
+			#{hotelLevel},
+			#{hotelAreaLimit},
+			#{hotelCarLimit},
+			#{isFee},
+			#{startTime},
+			#{brief},
+			#{checkMessage},
+			#{lightVigorousTime},
+			#{businessTime},
+			#{playerNumber},
+			#{lightVigorousPlayer},
+			#{localPlayerNumber},
+			#{nearestSf},
+			#{siteTime},
+			#{sfTime},
+			#{temperature},
+			#{rain},
+			#{nearestWorkshop},
+			#{nearestHotel},
+			#{nearestHotelRoomNumber},
+			#{nearestHotelLevel},
+			#{nearestRail},
+			#{highwayCourse},
+			#{isJoinBag},
+			#{joinBagAddress},
+			#{isFeeBag},
+			#{putBagAddress},
+			#{isCollectBag},
+			#{collectBagAddress},
+			#{department},
+			#{bagWorker},
+			#{nightAddress},
+			#{courseWorker},
+			#{courseFrontWorker},
+			#{police},
+			#{urgentPerson},
+			#{isNote},
+			#{isDeclare},
+			#{isYlb},
+			#{isOrder},
+			#{isPosts},
+			#{isDeclareService},
+			#{restTime},
+			#{otherPlayerNumber},
+			#{goodsCompany},
+			#{nearestPracticeArea},
+			#{nearestHotelAddress},
+			#{nearestAirport},
+			#{managerSale},
+			#{urgentPersonWechat},
+			#{nearestHightRail},
+			#{managerFrontMobile},
+			#{manageMobile},
+			#{managerSaleMobile},
+			#{bagWorkerMobile}
+			
+		)
+	</insert>
+	
+	<select id="selectByCourseId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from base_course_info where course_id = #{courseId}
+	</select>
+	
+	<update id="updateByCourseId" parameterType="BaseCourseInfo">
+		update base_course_info 
+		<set>
+			<if test="golfHole != null">
+				golf_hole = #{golfHole},
+			</if>
+			<if test="telephone != null">
+				telephone = #{telephone},
+			</if>
+			<if test="contact != null">
+				contact = #{contact},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			<if test="website != null">
+				website = #{website},
+			</if>
+			<if test="wechat != null">
+				wechat = #{wechat},
+			</if>
+			<if test="hasAssistant != null">
+				has_assistant = #{hasAssistant},
+			</if>
+			<if test="signPlace != null">
+				sign_place = #{signPlace},
+			</if>
+			<if test="sendPlace != null">
+				send_place = #{sendPlace},
+			</if>
+			<if test="startWorkTime != null">
+				start_work_time = #{startWorkTime},
+			</if>
+			<if test="endWorkTime != null">
+				end_work_time = #{endWorkTime},
+			</if>
+			<if test="bagDepositCharge != null">
+				bag_deposit_charge = #{bagDepositCharge},
+			</if>
+			<if test="teeTimeInterval != null">
+				tee_time_interval = #{teeTimeInterval},
+			</if>
+			<if test="teeTimeEarliest != null">
+				tee_time_earliest = #{teeTimeEarliest},
+			</if>
+			<if test="teeTimeLatest != null">
+				tee_time_latest = #{teeTimeLatest},
+			</if>
+			<if test="transitionClosedBeginTime != null">
+				transition_closed_begin_time = #{transitionClosedBeginTime},
+			</if>
+			<if test="transitionClosedEndTime != null">
+				transition_closed_end_time = #{transitionClosedEndTime},
+			</if>
+			<if test="weather != null">
+				weather = #{weather},
+			</if>
+			<if test="description != null">
+				description = #{description},
+			</if>
+			<if test="introducing != null">
+				introducing = #{introducing},
+			</if>
+			<if test="introducingHref != null">
+				introducing_href = #{introducingHref},
+			</if>
+			<if test="productIntro != null">
+				product_intro = #{productIntro},
+			</if>
+			<if test="featureIntro != null">
+				feature_intro = #{featureIntro},
+			</if>
+			<if test="foodIntro != null">
+				food_intro = #{foodIntro},
+			</if>
+			<if test="otherIntro != null">
+				other_intro = #{otherIntro},
+			</if>
+			<if test="isHotel != null">
+				is_hotel = #{isHotel},
+			</if>
+			<if test="hotelAddress != null">
+				hotel_address = #{hotelAddress},
+			</if>
+			<if test="hotelRoomNumber != null">
+				hotel_room_number = #{hotelRoomNumber},
+			</if>
+			<if test="hotelLevel != null">
+				hotel_level = #{hotelLevel},
+			</if>
+			<if test="hotelAreaLimit != null">
+				hotel_area_limit = #{hotelAreaLimit},
+			</if>
+			<if test="hotelCarLimit != null">
+				hotel_car_limit = #{hotelCarLimit},
+			</if>
+			<if test="isFee != null">
+				is_fee = #{isFee},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime},
+			</if>
+			<if test="brief != null">
+				brief = #{brief},
+			</if>
+			<if test="checkMessage != null">
+				check_message = #{checkMessage},
+			</if>
+			<if test="lightVigorousTime != null">
+				light_vigorous_time = #{lightVigorousTime},
+			</if>
+			<if test="businessTime != null">
+				business_time = #{businessTime},
+			</if>
+			<if test="playerNumber != null">
+				player_number = #{playerNumber},
+			</if>
+			<if test="lightVigorousPlayer != null">
+				light_vigorous_player = #{lightVigorousPlayer},
+			</if>
+			<if test="localPlayerNumber != null">
+				local_player_number = #{localPlayerNumber},
+			</if>
+			<if test="nearestSf != null">
+				nearest_sf = #{nearestSf},
+			</if>
+			<if test="siteTime != null">
+				site_time = #{siteTime},
+			</if>
+			<if test="sfTime != null">
+				sf_time = #{sfTime},
+			</if>
+			<if test="temperature != null">
+				temperature = #{temperature},
+			</if>
+			<if test="rain != null">
+				rain = #{rain},
+			</if>
+			<if test="nearestWorkshop != null">
+				nearest_workshop = #{nearestWorkshop},
+			</if>
+			<if test="nearestHotel != null">
+				nearest_hotel = #{nearestHotel},
+			</if>
+			<if test="nearestHotelRoomNumber != null">
+				nearest_hotel_room_number = #{nearestHotelRoomNumber},
+			</if>
+			<if test="nearestHotelLevel != null">
+				nearest_hotel_level = #{nearestHotelLevel},
+			</if>
+			<if test="nearestRail != null">
+				nearest_rail = #{nearestRail},
+			</if>
+			<if test="highwayCourse != null">
+				highway_course = #{highwayCourse},
+			</if>
+			<if test="isJoinBag != null">
+				is_join_bag = #{isJoinBag},
+			</if>
+			<if test="joinBagAddress != null">
+				join_bag_address = #{joinBagAddress},
+			</if>
+			<if test="isFeeBag != null">
+				is_fee_bag = #{isFeeBag},
+			</if>
+			<if test="putBagAddress != null">
+				put_bag_address = #{putBagAddress},
+			</if>
+			<if test="isCollectBag != null">
+				is_collect_bag = #{isCollectBag},
+			</if>
+			<if test="collectBagAddress != null">
+				collect_bag_address = #{collectBagAddress},
+			</if>
+			<if test="department != null">
+				department = #{department},
+			</if>
+			<if test="bagWorker != null">
+				bag_worker = #{bagWorker},
+			</if>
+			<if test="nightAddress != null">
+				night_address = #{nightAddress},
+			</if>
+			<if test="courseWorker != null">
+				course_worker = #{courseWorker},
+			</if>
+			<if test="courseFrontWorker != null">
+				course_front_worker = #{courseFrontWorker},
+			</if>
+			<if test="police != null">
+				police = #{police},
+			</if>
+			<if test="urgentPerson != null">
+				urgent_person = #{urgentPerson},
+			</if>
+			<if test="isNote != null">
+				is_note = #{isNote},
+			</if>
+			<if test="isDeclare != null">
+				is_declare = #{isDeclare},
+			</if>
+			<if test="isYlb != null">
+				is_ylb = #{isYlb},
+			</if>
+			<if test="isOrder != null">
+				is_order = #{isOrder},
+			</if>
+			<if test="isPosts != null">
+				is_posts = #{isPosts},
+			</if>
+			<if test="isDeclareService != null">
+				is_declare_service = #{isDeclareService},
+			</if>
+			<if test="restTime != null">
+				rest_time = #{restTime},
+			</if>
+			<if test="otherPlayerNumber != null">
+				other_player_number = #{otherPlayerNumber},
+			</if>
+			<if test="goodsCompany != null">
+				goods_company = #{goodsCompany},
+			</if>
+			<if test="nearestPracticeArea != null">
+				nearest_practice_area = #{nearestPracticeArea},
+			</if>
+			<if test="nearestHotelAddress != null">
+				nearest_hotel_address = #{nearestHotelAddress},
+			</if>
+			<if test="nearestAirport != null">
+				nearest_airport = #{nearestAirport},
+			</if>
+			<if test="managerSale != null">
+				manager_sale = #{managerSale},
+			</if>
+			<if test="urgentPersonWechat != null">
+				urgent_person_wechat = #{urgentPersonWechat},
+			</if>
+			<if test="nearestHightRail != null">
+				nearest_hight_rail = #{nearestHightRail},
+			</if>
+			<if test="managerFrontMobile != null">
+				manager_front_mobile = #{managerFrontMobile},
+			</if>
+			<if test="manageMobile != null">
+				manage_mobile = #{manageMobile},
+			</if>
+			<if test="managerSaleMobile != null">
+				manager_sale_mobile = #{managerSaleMobile},
+			</if>
+			<if test="bagWorkerMobile != null">
+				bag_worker_mobile = #{bagWorkerMobile},
+			</if>
+			
+		</set>
+		where course_id = #{courseId}
+	</update>
+	
+	<delete id="deleteByCourseId" parameterType="java.lang.Integer">
+		delete from base_course where course_id = #{courseId}
+	</delete>
+	
+	<select id="findByQyCourseId" resultMap="BaseResultMap">
+		select info.mobile,info.telephone
+		from base_course_info info where info.course_id = #{courseId} and  exists(select 'z' from base_course ba where ba.id=info.course_id and ba.status=1)
+	</select>
+	
+</mapper>

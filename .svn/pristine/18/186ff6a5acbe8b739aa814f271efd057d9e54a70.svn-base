@@ -1,0 +1,256 @@
+link:
+	https://oo6zwa.axshare.com/#g=1
+	https://z1tir5.axshare.com/#g=1
+	
+--礼品券规则
+TicketPackageRuleController
+	1.findByPage.api
+		TicketPackageRulePageVo param:
+			a.ruleName
+	2.add.api
+	3.update.api --can or can not?
+	4.findAllRules.api
+		returnParam : id,ruleName
+	5.findById.api
+	
+	Model:
+		TicketPackageRuleVo
+			ruleName
+			price
+			status
+			description
+			isStorageService
+			List<TicketPackageRuleConfVo>
+			
+		TicketPackageRuleConfVo
+			ruleId 
+			ticketPrice
+			payPrice
+			quantity
+			useLimit
+		
+		table data(ticket_package_rule):
+			id primary key
+			ruleName varchar
+			price float
+			status int
+			description varchar 
+			is_storage_service int
+			create_time
+			update_time	
+			operator_id
+			operator_name
+			
+			
+		
+		--规则  --- can update?
+		table data(ticket_package_rule_config): 
+			id primary key
+			rule_id Foreign Key
+			ticket_name
+			ticket_price	
+			pay_price
+			quantity
+			use_limit
+			create_time
+			update_time	
+
+=================================================			
+ticketPackageActivityController
+	1. findByPage.api
+			ticketPackageActivityPageVo param:
+			a.Keyword --???
+			b.name
+			
+	2. add.api
+	3. findById.api
+			activityId
+	4. export.api
+	
+	Model:
+	TicketPackageActivity		
+		activityName
+		effectiveDay
+		creatTime
+		ruleId
+		status
+	
+	
+
+		券包活动
+		table data(ticket_package_activity):	
+			id
+			activity_name
+			description
+			status
+			rule_id			
+			effective_day
+			create_time
+			operator_id
+			operator_name
+
+
+===================================================
+TicketPackageOrderController
+	1.findByPage.api
+		ticketPackageOrderPageVo param:
+			a.activityName
+			b.status
+			c.payStatus
+		return List<TicketPackageOrder>
+		
+	2.updateOrderStatus.api ----???
+	3.updatePackageStatus.api 		
+	4.findByOrderId.api	
+		return Model
+			TicketPackageOrder
+	5.findByPackageId.api	
+		return Model
+			TicketPackageVo
+
+	
+	Model:
+	TicketPackageOrderVo
+		activityId
+		activityName
+		type
+		purchaser
+		purchaserAddress
+		purchaserNumber
+		List<TicketPackageVo>
+		payStatus
+		proxyUser	
+		operator
+		
+	TicketPackageVo
+		order_id
+		activityName
+		type
+		expirationtime
+		effectiveDay
+		activateTime
+		activateuser  
+		activatephonenumber						
+		code
+		codeStatus
+		status(0 - inactive; 1 - active)
+		activestatus 激活状态
+		tickettype
+		operator
+		List<TicketVo>
+		
+	TicketVo
+		package_id
+		ticketPrice
+		ticketName		
+		quantity
+		used_quantity
+		useLimit
+		useStatus
+		
+		
+	活动购买记录
+	table data(user_activity_order):	
+		id
+		order_number
+		wechat_transaction_number
+		user_id (当前用户)		
+		type int (0 - e-ticket;1- paper ticket)
+		activity_id	
+		activity_name		
+		purchaser	
+		purchaser_phone_number int
+		purchaser_address	varchar			
+		status(0 - inactive; 1 - active)		
+		pay_status (0  - paid ; 1 - not paid)
+		proxy_user_id -生成客服
+		proxy_user
+		operator_id  -当前登录用户 操作员
+		operator_name
+		
+		create_time
+		update_time	
+	
+	
+	活动里面的礼包(多个)
+	table data(user_activity_order_detail):	
+			id
+			user_id
+			order_id 	
+			type int (0 - e-ticket;1- paper ticket)
+			expiration_time	date		
+			activate_user  
+			activate_phone_number	
+			activate_time	date	
+			
+			code varchar 
+			code_status 
+			
+			status(0 - inactive; 1 - active)
+			active_status (0 - inactive; 1 - active)
+					
+			package_type (0 - self use ; 1 - share to others but not accept;2 - accepted; 3 - shared)			 						
+			operator_id  
+			qr_code
+			create_time
+			update_time	
+	
+	活动里面的礼包
+	table data(user_activity_package):	
+			id
+			user_id
+			order_id
+			order_detail_id 		
+			status(0 - inactive; 1 - active; 2-  share to others but not accept 3 - shared;4 - finished)
+			
+			//package_type (0 - self use ; 1 - share to others but not accept;2 - accepted; 3 - shared)						 						
+			operator_id  		
+			create_time
+			update_time	
+			
+			
+	礼包里面的券		
+	table data(user_package_ticket):
+			id
+			package_id	
+			order_detail_id			
+			ticket_name
+			ticket_price - from rule
+			use_limit - from rule
+			comments
+			quantity   20/50
+			used_quantity			
+			
+			create_time
+			update_time			
+			
+============================================================
+ProxyTicketPacakgeController
+1. order.api (notification to user)
+		ProxyTicketPackageOrderVo
+			activityId
+			activityQuantity
+			totalAmount
+			userName
+			userPhoneNumber
+			userAddress
+			wechatId
+			comment
+2.list.api
+		ProxyTicketPackageActivityVo	
+				id
+				activityId
+				activityName
+				status
+				ruleId
+				TicketPackageRuleVo
+					ruleName
+					isStorageService
+					description
+3.activate.api
+		package_id
+		update active_status  = 1
+	
+
+4.pushPayment.api
+		return ProxyTicketPackageOrderVo

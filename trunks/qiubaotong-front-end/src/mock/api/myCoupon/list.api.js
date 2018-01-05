@@ -1,0 +1,15 @@
+next(null,{
+    "code":"0000",
+    "msg":"",
+    "datas":[
+        {"couponId":1,"type":1,"amount":100.0,"chlidAmount":20.0,"discount":null,"specialAmount":null,"amountDenomination":null,"description":"11","status":1,"startTime":1471056995000,"endTime":1471316199000,"name":"券码200","code":"123456","childCode":"1","limitAmount":0,"couponCount":1},
+        {"couponId":1,"type":1,"amount":100.0,"chlidAmount":20.0,"discount":null,"specialAmount":null,"amountDenomination":null,"description":"11","status":1,"startTime":1471056995000,"endTime":1471316199000,"name":"券码200","code":"123456","childCode":"2","limitAmount":100,"couponCount":5},
+        {"couponId":1,"type":1,"amount":100.0,"chlidAmount":30.0,"discount":null,"specialAmount":null,"amountDenomination":null,"description":"11","status":1,"startTime":1471056995000,"endTime":1471316199000,"name":"券码200","code":"123456","childCode":"3","limitAmount":300,"couponCount":4},
+        {"couponId":1,"type":1,"amount":100.0,"chlidAmount":30.0,"discount":null,"specialAmount":null,"amountDenomination":null,"description":"11","status":1,"startTime":1471056995000,"endTime":1471316199000,"name":"券码200","code":"123456","childCode":"4","limitAmount":0,"couponCount":2},
+        {"couponId":1,"type":1,"amount":100.0,"chlidAmount":20.0,"discount":null,"specialAmount":null,"amountDenomination":null,"description":"11","status":1,"startTime":1471056995000,"endTime":1471316199000,"name":"券码200","code":"123456","childCode":"5","limitAmount":100,"couponCount":1},
+        {"couponId":1,"type":1,"amount":100.0,"chlidAmount":20.0,"discount":null,"specialAmount":null,"amountDenomination":null,"description":"11","status":1,"startTime":1471056995000,"endTime":1471316199000,"name":"券码200","code":"123456","childCode":"6","limitAmount":100,"couponCount":2},
+        {"couponId":2,"type":1,"amount":100.0,"chlidAmount":20.0,"discount":null,"specialAmount":null,"amountDenomination":null,"description":"11","status":1,"startTime":1471056995000,"endTime":1471316199000,"name":"券码200","code":"123456","childCode":"7","limitAmount":100,"couponCount":3},
+        {"couponId":3,"type":1,"amount":100.0,"chlidAmount":20.0,"discount":null,"specialAmount":null,"amountDenomination":null,"description":"11","status":2,"startTime":1471056995000,"endTime":1471316199000,"name":"券码200","code":"123456","childCode":"8","couponCount":7},
+        {"couponId":4,"type":1,"amount":100.0,"chlidAmount":20.0,"discount":null,"specialAmount":null,"amountDenomination":null,"description":"11","status":3,"startTime":1471056995000,"endTime":1471316199000,"name":"券码200","code":"123456","childCode":"9","couponCount":10}
+    ]
+})

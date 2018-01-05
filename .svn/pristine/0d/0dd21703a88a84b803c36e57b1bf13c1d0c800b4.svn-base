@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrdersMapper" >
+  <resultMap id="BaseResultMap" type="Orders" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="sub_number" property="subNumber" jdbcType="VARCHAR" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="pay_method" property="payMethod" jdbcType="INTEGER" />
+    <result column="pay_status" property="payStatus" jdbcType="INTEGER" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="is_helped" property="isHelped" jdbcType="BIT" />
+    <result column="is_delete" property="isDelete" jdbcType="BIT" />
+    <result column="delete_time" property="deleteTime" jdbcType="TIMESTAMP" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="assistant_name" property="assistantName" jdbcType="VARCHAR" />
+    <result column="third_type" property="thirdType" jdbcType="INTEGER" />
+    <result column="third_id" property="thirdId" jdbcType="INTEGER" />
+    <result column="third_name" property="thirdName" jdbcType="VARCHAR" />
+    <result column="order_source" property="orderSource" jdbcType="INTEGER" />
+    <result column="j_addr_name" property="jAddrName" jdbcType="VARCHAR" />
+    <result column="j_contact" property="jContact" jdbcType="VARCHAR" />
+    <result column="j_mobile" property="jMobile" jdbcType="VARCHAR" />
+    <result column="j_tree_path" property="jTreePath" jdbcType="VARCHAR" />
+    <result column="d_addr_name" property="dAddrName" jdbcType="VARCHAR" />
+    <result column="d_contact" property="dContact" jdbcType="VARCHAR" />
+    <result column="d_mobile" property="dMobile" jdbcType="VARCHAR" />
+    <result column="d_tree_path" property="dTreePath" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, create_time, update_time, user_id, sub_number,number, pay_time, pay_method, pay_status, 
+    order_status, quantity, is_helped, is_delete, delete_time, open_id, 
+    assistant_name, third_type, third_id, third_name, order_source, j_addr_name, j_contact, 
+    j_mobile, j_tree_path, d_addr_name, d_contact, d_mobile, d_tree_path
+  </sql>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+   <select id="findByNumber" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where number = #{number}
+  </select>
+  
+  <insert id="insert" parameterType="Orders" keyProperty="id" useGeneratedKeys="true">
+    insert into orders (create_time, update_time, 
+      user_id, number, sub_number,pay_time, 
+      pay_method, pay_status, order_status, 
+      quantity, is_helped, is_delete, 
+      delete_time, open_id, 
+      assistant_name, third_type, third_id, 
+      third_name, order_source, j_addr_name, 
+      j_contact, j_mobile, j_tree_path, 
+      d_addr_name, d_contact, d_mobile, 
+      d_tree_path)
+    values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR},#{subNumber,jdbcType=VARCHAR}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{payMethod,jdbcType=INTEGER}, #{payStatus,jdbcType=INTEGER}, #{orderStatus,jdbcType=INTEGER}, 
+      #{quantity,jdbcType=INTEGER}, #{isHelped,jdbcType=BIT}, #{isDelete,jdbcType=BIT}, 
+      #{deleteTime,jdbcType=TIMESTAMP}, #{openId,jdbcType=VARCHAR}, 
+      #{assistantName,jdbcType=VARCHAR}, #{thirdType,jdbcType=INTEGER}, #{thirdId,jdbcType=INTEGER}, 
+      #{thirdName,jdbcType=VARCHAR}, #{orderSource,jdbcType=INTEGER}, #{jAddrName,jdbcType=VARCHAR}, 
+      #{jContact,jdbcType=VARCHAR}, #{jMobile,jdbcType=VARCHAR}, #{jTreePath,jdbcType=VARCHAR}, 
+      #{dAddrName,jdbcType=VARCHAR}, #{dContact,jdbcType=VARCHAR}, #{dMobile,jdbcType=VARCHAR}, 
+      #{dTreePath,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateById" parameterType="Orders" >
+    update orders
+    <set >
+      <if test="updateTime != null" >
+        update_time = now(),
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payMethod != null" >
+        pay_method = #{payMethod,jdbcType=INTEGER},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="deleteTime != null" >
+        delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  	<!-- 微信前端用户订单列表查询 -->
+	<select id="findByUserIdForWeiXin" resultMap="BaseResultMap">
+		select 
+		 id,
+		 create_time, 
+		 sub_number,
+		 number,
+		 pay_status, 
+		 order_status, 
+		 quantity,  
+		 assistant_name, 
+		 j_addr_name, 
+		 j_contact, 
+		 j_mobile, 
+		 j_tree_path, 
+		 d_addr_name, 
+		 d_contact, 
+		 d_mobile, 
+		 d_tree_path
+		from orders 
+		where is_delete=false and third_type = 1
+		<if test="proxyUserId == 0">
+			and user_id = #{userId}  
+		</if>
+		and id in 
+		(
+		select order_id  from order_info where
+		<if test="proxyUserId == 0">
+		( (proxy_self_user_id = #{userId} and  proxy_self_user_id != proxy_user_id) or proxy_self_user_id =0 )
+		</if>
+		<if test="proxyUserId > 0">
+		 proxy_user_id=#{proxyUserId}
+		</if>
+		group by order_id
+		)
+		
+		<if test="orderStatus == 1">
+			and order_status = 1 and pay_status = 1
+		</if> 
+		<if test="lastRecordId > 0">
+			<![CDATA[
+				and id < #{lastRecordId}
+			]]>
+		</if>
+		 order by id desc limit #{pageSize}
+	</select>
+	
+	<select id="queryPartnerOrder" resultMap="BaseResultMap">
+		select 
+		 id,create_time, sub_number,number,pay_status, order_status, quantity,  assistant_name, j_addr_name, j_contact, 
+		 j_mobile, j_tree_path, d_addr_name, d_contact, d_mobile, d_tree_path
+		from orders o
+		where third_type = #{thirdType} and is_delete=false
+		<if test="type == 2">
+			<if test="shareOrder == true">
+				and o.third_id = #{applyId}
+			</if> 
+			<if test="shareOrder == false">
+				and o.user_id = #{userId} and o.third_id = #{applyId}
+			</if>
+		</if>
+		<if test="type == 1">
+				and o.user_id = #{userId} and o.third_id = #{applyId}
+		</if>
+		<if test="orderStatus == 1">
+			and o.order_status = 1 and pay_status = 1
+		</if> 
+		<if test="lastRecordId > 0">
+			<![CDATA[
+				and o.id < #{lastRecordId}
+			]]>
+		</if>
+		 order by o.id desc limit #{pageSize}
+	</select>
+	
+	<update id="updateSubNumber">
+		update orders set sub_number=#{number} where id=#{orderId}
+	</update>
+	
+
+	<update id="updateUserId">
+		update orders set user_id=#{userId},open_id=#{openId} where id=#{id}
+	</update>
+
+	<update id="updateByProxUserId">
+		update orders set user_id = #{proxySelfUserId} where id =#{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>搜索订单</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Cache-Control" content="max-age=0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="{{{/css/main.min.css}}}">
+</head>
+<body class="bg-gray" ontouchstart id="app">
+  <div class="container">
+      <div class="scroll">
+      <h1 style="text-align:center;padding:5px;color:#04be02">搜索订单</h1>
+      <div class="weui_cells route">
+        <div class="weui_cell ro-search">
+            <div class="weui_cell_bd weui_cell_primary">
+                <input type="text" placeholder="输入寄件/收件人姓名" v-model="query" maxlength="32"/>
+            </div>
+            <div class="weui_cell_ft "><a href="javascript:;" class="btn" @click="search()">搜索</a></div>
+        </div>
+     </div>
+
+      <div class="weui_cells_title">{{msg}}</div>
+      <div v-show="info.number">
+      <div class="weui_cells route">
+        <div class="weui_cell">
+            <div class="weui_cell_bd ">
+                <p>订单号：</p>
+            </div>
+            <div class="weui_cell_ft weui_cell_primary">{{info.number}}</div>
+        </div>
+     </div>
+
+      <div class="weui_cells route  ">
+          <div class="weui_cell">
+              <div class="weui_cell_bd ">
+                  <p>运单号：</p>
+              </div>
+              <div class="weui_cell_ft weui_cell_primary">{{info.mailNo}}</div>
+          </div>
+          <div class="weui_cell">
+              <div class="weui_cell_bd ">
+                  <p>快递类型：</p>
+              </div>
+              <div class="weui_cell_ft weui_cell_primary">{{info.deliveryStatus | commFilter 'business_type'}}</div>
+          </div>
+          <div class="weui_cell">
+              <div class="weui_cell_bd ">
+                  <p>预约取件：</p>
+              </div>
+              <div class="weui_cell_ft weui_cell_primary">{{info.sendTimeSection}}</div>
+          </div>
+      </div>
+
+      <div class="weui_cells route  ">
+          <div class="weui_cell">
+              <div class="weui_cell_bd ">
+                  <p>寄件人：</p>
+              </div>
+              <div class="weui_cell_ft weui_cell_primary">{{info.jUserName}}</div>
+          </div>
+          <div class="weui_cell">
+              <div class="weui_cell_bd ">
+                  <p>寄件地址：</p>
+              </div>
+          </div>
+          <div v-if="info.jAddrType == 4">
+              <div class="weui_cell">
+                  <div class="weui_cell_bd ">
+                      <p>{{info.jCityName}}{{info.jAddress}}</p>
+                  </div>
+              </div>
+          </div>
+          <div v-if="info.jAddrType != 4">
+              <div class="weui_cell">
+                  <div class="weui_cell_bd ">
+                      <p>{{info.jAddressName}}</p>
+                  </div>
+              </div>
+              <div class="weui_cell">
+                  <div class="weui_cell_bd ">
+                      <p>{{info.jAddress}}</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="weui_cells route  ">
+          <div class="weui_cell">
+              <div class="weui_cell_bd ">
+                  <p>收件人：</p>
+              </div>
+              <div class="weui_cell_ft weui_cell_primary">{{info.dUserName}}</div>
+          </div>
+          <div class="weui_cell">
+              <div class="weui_cell_bd ">
+                  <p>收件地址：</p>
+              </div>
+          </div>
+          <div v-if="info.dAddrType == 4">
+              <div class="weui_cell">
+                  <div class="weui_cell_bd ">
+                      <p>{{info.dCityName}}{{info.dAddress}}</p>
+                  </div>
+              </div>
+          </div>
+          <div v-if="info.dAddrType != 4">
+              <div class="weui_cell">
+                  <div class="weui_cell_bd ">
+                      <p>{{info.dAddressName}}</p>
+                  </div>
+              </div>
+              <div class="weui_cell">
+                  <div class="weui_cell_bd ">
+                      <p>{{info.dAddress}}</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+      </div>
+</div>
+</div>
+</body>
+<script src="/assets/js/libs.min.js?v2"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/route.js}}}"></script>
+</html>

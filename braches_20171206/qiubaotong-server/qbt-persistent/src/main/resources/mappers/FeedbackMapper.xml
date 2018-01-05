@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.FeedbackMapper" >
+  <resultMap id="BaseResultMap" type="Feedback" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+     <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ResultMapWithBLOBs" type="Feedback" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, create_time, content, mobile, user_id, user_nickname
+  </sql>
+  
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  
+  <select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM feedback
+		<where>
+			<if test="condition.mobile != null and condition.mobile != ''">
+				AND mobile LIKE CONCAT('%',#{condition.mobile},'%') 
+			</if>
+			<if test="condition.content != null and condition.content != ''">
+				AND content LIKE CONCAT('%',#{condition.content},'%') 
+			</if>
+			<if test="condition.userNickname != null and condition.userNickname != ''">
+				AND user_nickname LIKE CONCAT('%',#{condition.userNickname},'%') 
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from feedback  where id = #{id}
+  </select>
+  
+  
+  <insert id="insert" parameterType="Feedback"  useGeneratedKeys="true" keyProperty="id" >
+    insert into feedback ( create_time, mobile, content, user_id, user_nickname) values
+     (#{createTime}, #{mobile}, #{content}, #{userId}, #{userNickname})
+  </insert>
+  
+</mapper>

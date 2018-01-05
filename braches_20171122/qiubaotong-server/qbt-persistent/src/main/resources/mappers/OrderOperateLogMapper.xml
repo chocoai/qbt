@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderOperateLogMapper">
+	<resultMap id="BaseResultMap" type="OrderOperateLog">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="operator_type" property="operatorType" />
+		<result column="operator_name" property="operatorName" />
+		<result column="order_id" property="orderId" />
+		<result column="operator_id" property="operatorId" />
+		<result column="action" property="action" />
+		<result column="description" property="description" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, create_time, operator_type, operator_name, order_id, operator_id,
+		action,description
+	</sql>
+
+	<select id="findById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from order_operate_log
+		where id = #{id}
+	</select>
+
+	<insert id="insert" parameterType="OrderOperateLog" useGeneratedKeys="true" keyProperty="id">
+		insert into order_operate_log (
+			create_time, 
+			operator_type,
+			operator_name, 
+			order_id, 
+			operator_id,
+			action, 
+			description
+		) values (
+			#{createTime}, 
+			#{operatorType},
+			#{operatorName}, 
+			#{orderId},
+			#{operatorId},
+			#{action}, 
+			#{description}
+		)
+	</insert>
+
+	<select id="findByOrderId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from order_operate_log
+		where order_id = #{orderId} 
+		order by create_time desc
+	</select>
+	
+	<insert id="insertByBatch">
+		insert into order_operate_log (
+			create_time, 
+			operator_type,
+			operator_name, 
+			order_id, 
+			operator_id,
+			action, 
+			description
+		) values 
+		<foreach collection="logs" item="log" index="i" separator=",">
+		(
+			#{log.createTime}, 
+			#{log.operatorType},
+			#{log.operatorName}, 
+			#{log.orderId},
+			#{log.operatorId},
+			#{log.action}, 
+			#{log.description}
+		)
+		</foreach>
+	</insert>
+	
+</mapper>

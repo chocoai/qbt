@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.UserAddressMapper">
+
+	<resultMap id="BaseResultMap" type="UserAddress">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="area_id" property="areaId" />
+		<result column="tree_path" property="treePath" />
+		<result column="address" property="address" />
+		<result column="contact" property="contact" />
+		<result column="mobile" property="mobile" />
+		<result column="is_default" property="isDefault" />
+		<result column="uuid" property="uuid" />
+		<result column="label_type" property="labelType" />
+		<result column="update_time" property="updateTime" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, user_id, area_id, tree_path, address, contact, mobile, is_default,
+		uuid, label_type, update_time
+	</sql>
+
+	<select id="findById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_address
+		where id = #{id}
+	</select>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_address 
+		<where>
+			<if test="condition.userId != null and condition.userId != 0">
+				and user_id = #{condition.userId} 
+			</if>
+		</where>
+		order by id desc
+	</select>
+	
+	<select id="findByUserId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_address
+		where user_id = #{userId}
+		<if test="labelType != null">
+			and	label_type = #{labelType}
+		</if>
+		order by is_default desc, update_time desc
+	</select>
+
+	<insert id="insert" parameterType="UserAddress" keyProperty="id" useGeneratedKeys="true">
+		insert into user_address (
+			user_id, 
+			area_id,
+			tree_path, 
+			address, 
+			contact,
+			mobile, 
+			is_default, 
+			uuid,
+			label_type
+		) values (
+			#{userId}, 
+			#{areaId},
+			#{treePath}, 
+			#{address},
+			#{contact},
+			#{mobile}, 
+			#{isDefault}, 
+			#{uuid},
+			#{labelType}
+		)
+	</insert>
+
+	<update id="update" parameterType="UserAddress">
+		update user_address
+		<set>
+			<if test="areaId != null">
+				area_id = #{areaId},
+			</if>
+			<if test="treePath != null">
+				tree_path = #{treePath},
+			</if>
+			<if test="address != null">
+				address = #{address},
+			</if>
+			<if test="contact != null">
+				contact = #{contact},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="isDefault != null">
+				is_default = #{isDefault},
+			</if>
+			<if test="uuid != null">
+				uuid = #{uuid},
+			</if>
+			<if test="labelType != null">
+				label_type = #{labelType},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="updateUpdateTime" parameterType="UserAddress">
+		update user_address
+		<set>
+			<if test="isDefault != null">
+				is_default = #{isDefault},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateOtherDefault" parameterType="UserAddress">
+		update user_address set is_default = false where user_id = #{userId} and id != #{id}
+	</update>
+
+	<delete id="delete">
+		delete from user_address where id = #{id}
+	</delete>
+	
+	<select id="findByUuid" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_address 
+		where uuid = #{uuid}
+	</select>
+	
+	<select id="exists" resultType="int">
+		select count(1) from user_address where uuid = #{uuid} and id != #{id}
+	</select>
+	
+</mapper>

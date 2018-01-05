@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.VipInfoMapper">
+
+	<resultMap id="BaseResultMap" type="VipInfo">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="vip_type_id" property="vipTypeId" />
+		<result column="name" property="name" />
+		<result column="user_name" property="userName" />
+		<result column="order_amount" property="orderAmount" />
+		<result column="mobile" property="mobile" />
+		<result column="vip_no" property="vipNo" />
+		<result column="valid_time" property="validTime" />
+		<result column="update_mobile_count" property="updateMobileCount" />
+		<result column="user_id" property="userId" />
+		<result column="open_id" property="openId" />
+		<result column="nickname" property="nickname" />
+		<result column="status" property="status" />
+		<result column="activate_status" property="activateStatus" />
+		<result column="activate_method" property="activateMethod" />
+		<result column="used_order" property="usedOrder" />
+		<result column="user_img_id" property="userImgId" />
+		<result column="user_image_url" property="userImageUrl" />
+		<result column="operator_id" property="operatorId" />
+		<result column="operator_name" property="operatorName" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, vip_type_id, name,order_amount, user_name, mobile, vip_no,
+		valid_time, update_mobile_count,
+		user_id,open_id, nickname, status,activate_status,activate_method,used_order,user_img_id,user_image_url,
+		operator_id, operator_name
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from vip_info
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="VipInfo" keyProperty="id" useGeneratedKeys="true">
+		insert into vip_info (
+			create_time, 
+			update_time,
+			vip_type_id,
+			name, 
+			order_amount,
+			user_name, 
+			mobile,
+			vip_no, 
+			valid_time, 
+			update_mobile_count,
+			user_id,
+			open_id, 
+			nickname, 
+			status,
+			activate_status,
+			activate_method,
+			used_order,
+			user_img_id,
+			user_image_url,
+			operator_id,
+			operator_name
+		)
+		values (
+			#{createTime},
+			#{updateTime},
+			#{vipTypeId}, 
+			#{name}, 
+			#{orderAmount},
+			#{userName}, 
+			#{mobile},
+			#{vipNo}, 
+			#{validTime},
+			#{updateMobileCount},
+			#{userId},
+			#{openId}, 
+			#{nickname}, 
+			#{status},
+			#{activateStatus},
+			#{activateMethod},
+			#{usedOrder},
+			#{userImgId},
+			#{userImageUrl},
+			#{operatorId},
+			#{operatorName}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="VipInfo">
+		update vip_info
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="vipTypeId != null">
+				vip_type_id = #{vipTypeId},
+			</if>
+			<if test="orderAmount != null">
+				order_amount = #{orderAmount},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="vipNo != null">
+				vip_no = #{vipNo},
+			</if>
+			<if test="validTime != null">
+				valid_time = #{validTime},
+			</if>
+			<if test="updateMobileCount != null">
+				update_mobile_count = #{updateMobileCount},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>
+			<if test="openId != null">
+				open_id = #{openId},
+			</if>
+			<if test="nickname != null">
+				nickname = #{nickname},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="userImgId != null">
+				user_img_id = #{userImgId},
+			</if>
+			<if test="userImageUrl != null">
+				user_image_url = #{userImageUrl},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="selectByOpenId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from vip_info
+		where open_id = #{openId} order by id desc
+	</select>
+	
+	<select id="findByUserId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from vip_info
+		where user_id = #{userId} order by id desc
+	</select>
+	
+	<select id="findBestByOpenId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from vip_info
+		where open_id = #{openId} order by order_amount desc limit 1
+	</select>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from vip_info 
+		<where>
+			<if test="condition.vipTypeId != null and condition.vipTypeId > 0">
+				and vip_type_id = #{condition.vipTypeId} 
+			</if>
+			<if test="condition.userName != null and condition.userName != ''">
+				and user_name like concat('%',#{condition.userName},'%') 
+			</if>
+			<if test="condition.mobile != null and condition.mobile != ''">
+				and mobile like concat('%',#{condition.mobile},'%') 
+			</if>
+			<if test="condition.vipNo != null and condition.vipNo != ''">
+				and vip_no like concat('%',#{condition.vipNo},'%') 
+			</if>
+			<if test="condition.nickname != null and condition.nickname != ''">
+				and nickname like concat('%',#{condition.nickname},'%') 
+			</if>
+			<if test="condition.status != null and condition.status > 0">
+				and status = #{condition.status} 
+			</if>
+		</where>
+		order by id desc 
+	</select>
+	
+	
+	<select id="selectByMobile" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from vip_info
+		where mobile = #{mobile} order by id desc
+	</select>
+	
+	<update id="updateMobile" parameterType="VipInfo">
+		update vip_info set update_time = now(),mobile=#{mobile},update_mobile_count=#{updateMobileCount} where id=#{id}
+	</update>
+	
+	<update id="updateUserName" parameterType="VipInfo">
+		update vip_info set update_time = now(),user_name=#{userName} where id=#{id}
+	</update>
+	
+	<update id="updateUsedOrder" parameterType="VipInfo">
+		update vip_info set update_time = now(),used_order=#{usedOrder} where id=#{id}
+	</update>
+	
+	<update id="updateImg" parameterType="VipInfo">
+		update vip_info set update_time = now(),user_img_id = #{userImgId},user_image_url = #{userImageUrl} where id=#{id}
+	</update>
+	
+	<select id="selectByImageIds" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from vip_info
+		where 
+			user_img_id In 
+			<foreach collection="imageIds" item="imgId" index="i" separator="," open="(" close=")">
+				#{imgId}
+			</foreach>
+	</select>
+	
+	<select id="findAllVipNo" resultType="java.lang.String">
+		select vip_no from vip_info
+	</select>
+	
+</mapper>

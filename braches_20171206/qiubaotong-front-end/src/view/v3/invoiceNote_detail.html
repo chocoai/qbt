@@ -1,0 +1,47 @@
+<template id="invoiceNote_detail">
+  <div class="page">
+    <tel-contact></tel-contact>
+    <section class="weui-tab">
+      <div class="weui-tab__panel">
+        <div>
+          <p v-for="(item, index) in invoiceList" class="weui-panel weui-panel_access">
+            <span style="display: block;font-weight:bold" class="weui-panel__hd">
+              {{item.createTime | dateFormat('yyyy-MM-dd')}}
+            </span>
+            <span class="weui-panel__bd">
+              <span style="display: block;padding: 5px 15px;" class="weui-flex">
+                <span style="display: inline-block;width:20%;vertical-align: top;font-weight: bold;">寄包</span>
+                <span style="display: inline-block;width: 70%;" class="weui-flex__item">
+                  <span style="display: block;">{{item.jContact}}&nbsp;{{item.jMobile}}</span>
+                  <span style="display: block;">{{item.jTreePath}}</span>
+                  <span style="display: block;">{{item.jAddress}} {{item.jAddrName}}</span>
+                </span>
+              </span>
+              <span style="display: block;padding: 5px 15px;" class="weui-flex">
+                <span  style="display: inline-block;width:20%;vertical-align: top;font-weight: bold;">收包</span>
+                <span style="display: inline-block;width: 70%;" class="weui-flex__item">
+                  <span style="display: block;">{{item.dContact}}&nbsp;{{item.dMobile}}</span>
+                  <span style="display: block;">{{item.dTreePath}}</span>
+                  <span style="display: block;">{{item.dAddress}}{{item.dAddrName}}</span>
+                </span>
+              </span>
+              <span class="weui-flex" style="padding:5px 15px;display: block;">
+                <span style="width:20%;display: inline-block;font-weight: bold;">数量</span>
+                <span style="display: inline-block;width: 70%;" class="weui-flex__item">1个</span>
+              </span>
+              <span class="weui-flex" style="padding:5px 15px;display: block;">
+                <span style="width:20%;display: inline-block;font-weight: bold;">运费金额</span>
+                <span style="display: inline-block;width: 70%;" class="weui-flex__item">¥{{item.amount}}.00</span>
+              </span>
+            </span>
+          </p>
+          <p v-show="invoiceList.length==0" class="order-none tex-c" style="text-align: center;padding:80px 0 15px;">
+            <img style="max-height: 70px" src="/img/file.png" alt="" />
+            <span style="display: block;color:#d8d8d8;font-size:18px">没有该类型发票</span>
+          </p>
+          <load-more background-color="#fbf9fe"></load-more>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>

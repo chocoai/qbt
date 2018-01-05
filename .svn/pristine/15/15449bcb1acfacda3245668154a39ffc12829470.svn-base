@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+  <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="/assets/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+  <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body ng-controller="groupUserDetailCtrl">
+  <div class="container containerWidthAuto">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group form-inline">
+          <label>创建开始时间：</label>
+          <div class="inputDateClose">
+            <input type="text" class="form-control date-picker" ng-model="startTime" placeholder="选择开始时间" readonly>
+            <button ng-click="clearStartTime()" class="clearTime">x</button>
+          </div>
+        </div>
+      </div>
+      <!--<div class="col-sm-4">-->
+        <!--<div class="form-group form-inline">-->
+          <!--<label>机构名称：</label>-->
+          <!--<input type="text" class="form-control" ng-model="group" placeholder="输入机构名称">-->
+        <!--</div>-->
+      <!--</div>-->
+      <div class="col-sm-4">
+        <div class="form-group form-inline">
+          <label>用户名称：</label>
+          <input type="text" class="form-control" ng-model="userName" placeholder="输入用户名称">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group form-inline">
+          <label style="margin-right: 27px">状态：</label>
+          <select ng-model="status" class="form-control" style="min-width: 182px">
+            <option value="">全部</option>
+            <option value="1">启用</option>
+            <option value="2">禁用</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group form-inline">
+          <label>创建结束时间：</label>
+          <div class="inputDateClose">
+            <input type="text" class="form-control date-picker" ng-model="endTime" placeholder="选择结束时间" readonly>
+            <button ng-click="clearEndTime()" class="clearTime">x</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group form-inline">
+          <label>电话号码：</label>
+          <input type="text" class="form-control" ng-model="phone" placeholder="输入电话号码">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <button class="btn btn-primary" ng-click="getList()">搜索</button>
+          <button class="btn btn-primary" ng-click="addNewUser()">新增</button>
+          <button ngf-select="uploadExcel($file)" class="btn btn-primary">导入</button>
+          <button class="btn btn-primary" ng-click="deleteAllUser()">批量删除</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-8" style="margin-bottom: -19px;">
+        <div class="form-group form-inline" style="margin-left: 140px;">
+          <label>机构名称:{{orgNm}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <th style="text-align: center">
+            <input type="checkbox" ng-model="selectAll" ng-change="changeAll(selectAll)">
+          </th>
+          <th>用户名称</th>
+          <th>电话号码</th>
+          <th>状态</th>
+          <th>创建时间</th>
+          <th>操作员</th>
+          <th>备注</th>
+          <th>操作</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in list">
+            <td style="text-align: center">
+              <input type="checkbox" ng-model="selectOne" ng-checked="selectAll" ng-change="changeId(item.id,selectOne)">
+            </td>
+            <td>
+              <a href="javascript:;" ng-click="goDetail(item.id)">{{item.name}}</a>
+            </td>
+            <td>{{item.mobile}}</td>
+            <td>
+              <label ng-class="{'label-success':item.status===1,'label-danger':item.status===2}" class="label">{{item.status===2?"禁用":"启用"}}</label>
+            </td>
+            <td>{{item.createTime | date : 'yyyy-MM-dd'}}</td>
+            <td>{{item.operatorName}}</td>
+            <td>{{item.remark}}</td>
+            <td>
+              <button type="button" class="btn btn-danger btn-sm" ng-click="deleteUser(item.id)"><i class="fa fa-trash"></i></button>
+              <button class="btn btn-sm" ng-class="{'btn-danger':item.status===1,'btn-success':item.status===2}" ng-click="updateStatus(item.id,item.status)">{{item.status===1 ? '禁用' : '启用'}}</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination page="page" change="getList(page)"></pagination>
+    </div>
+  </div>
+  <script src="/assets/jquery/dist/jquery.min.js"></script>
+  <script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+  <script src="/assets/angular/angular.min.js"></script>
+  <script src="/assets/angular/ng-file-upload-all.min.js"></script>
+  <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/assets/layer/layer.js"></script>
+  <script src="/assets/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+  <script src="{{{/js/app.js}}}"></script>
+  <script src="{{{/js/groupUserDetailCtrl.js}}}"></script>
+</body>
+</html>

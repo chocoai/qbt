@@ -1,0 +1,75 @@
+<template id="agent-court">
+<div class="section">
+    <style>.weui_search_bar:before{border:0;height:0;}</style>
+    <!--头-->
+    <div class="header tex-c bd-b">
+      <a href="javascript:history.back();" class="back"><img src="/img/back.png" /></a>
+      <div class="searchbar" style="line-height:24px;position:absolute;top:0;left:40px;right:0;">
+        <div class="weui_search_bar" id="search_bar" style="padding:10px 10px;background-color:#fafafa;">
+              <div class="weui_search_outer" style="height:32px;line-height:32px;border-radius:10px;">
+                  <div class="weui_search_inner">
+                      <i class="weui_icon_search" style="top:0;line-height:32px;"></i>
+                       <input type="search" class="weui_search_input"  placeholder="查询球场" v-model="keyword" v-if="court_search_type == '1'" autofocus>
+                       <input type="search" class="weui_search_input"  placeholder="查询球场" v-model="search" v-if="court_search_type == '2'" autofocus>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <!--头 end-->
+    <div class="scroll">
+    <!--tab-->
+    <div class="city-ad-tab marhead" id="navbar">
+      <div class="bd" style="height: 100%;">
+          <div class="weui_tab">
+              <div class="weui_navbar bg pad-lr">
+                  <div class="weui_navbar_item" :class="{'weui_bar_item_on': tab ==1}" @click="toggleTab(1)">
+                      球场
+                      <span :class="{'arrow-down' : desc1 > 0 ,'arrow-up': desc1 < 0 }" style="position:absolute;right:10px;top:10px;"></span>
+                  </div>
+                  <div class="weui_navbar_item" :class="{'weui_bar_item_on': tab ==2}" @click="toggleTab(2)">
+                      练习场
+                      <span :class="{'arrow-down' : desc2 > 0 ,'arrow-up': desc2 < 0 }" style="position:absolute;right:10px;top:10px;"></span>
+                  </div>
+              </div>
+              <!--选项卡内容-->
+              <div class="weui_tab_bd ord-details-lay ">
+                <!--默认排序-->
+                <div v-show="tab == 1">
+                  <div class="weui_cells weui_cells_access" v-for="item in court_list | filterBy keyword in 'name' 'address' | orderBy 'juli' desc1">
+                     <a class="flex ci-ad-cell pad-lr" href="javascript:;" @click="save(item)">
+                         <div class="weui_cell_bd weui_cell_primary">
+                             <p>{{item.name}}
+                                 <span class="guan-label" v-if="item.status == 1">官</span>
+                                 <span class="activity-label" v-if="item.activityType == 1">减</span>
+                             </p>
+                             <label>{{item.address}}</label>
+                         </div>
+                         <div class="tex-r"><span>{{item.juliStr}}</span></div>
+                     </a>
+                 </div>
+                </div>
+                <!--距离远近-->
+                <div v-show="tab==2">
+                  <div class="weui_cells weui_cells_access" v-for="item in court_list2 | filterBy keyword in 'name' 'address' |orderBy 'juli' desc2">
+                     <a class="flex ci-ad-cell pad-lr" href="javascript:;" @click="save(item)">
+                         <div class="weui_cell_bd weui_cell_primary">
+                             <p>{{item.name}}
+                                 <span class="guan-label" v-if="item.status == 1">官</span>
+                                 <span class="activity-label" v-if="item.activityType == 1">减</span>
+                             </p>
+                             <label>{{item.address}}</label>
+                         </div>
+                         <div class="tex-r"><span>{{item.juliStr}}</span></div>
+                     </a>
+                  </div>
+                </div>
+              </div>
+              <!--选项卡内容 end-->
+          </div>
+      </div>
+      </div>
+    <!--tab end-->
+</div>
+</div>
+</template>

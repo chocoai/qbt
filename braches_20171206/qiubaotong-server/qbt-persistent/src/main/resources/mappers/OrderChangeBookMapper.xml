@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderChangeBookMapper">
+
+	<resultMap id="BaseResultMap" type="OrderChangeBook">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="order_id" property="orderId" />
+		<result column="new_order_number" property="newOrderNumber" />
+		<result column="old_order_number" property="oldOrderNumber" />
+		<result column="new_mail_no" property="newMailNo" />
+		<result column="old_mail_no" property="oldMailNo" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, create_time, order_id, new_order_number, old_order_number,
+		new_mail_no, old_mail_no
+	</sql>
+
+	<insert id="insert" parameterType="OrderChangeBook" useGeneratedKeys="true" keyProperty="id">
+		insert into order_change_book (
+			create_time, 
+			order_id,
+			new_order_number,
+			old_order_number,
+			new_mail_no,
+			old_mail_no
+		) values (
+			#{createTime}, 
+			#{orderId}, 
+			#{newOrderNumber},
+			#{oldOrderNumber},
+			#{newMailNo},
+			#{oldMailNo}
+		)
+	</insert>
+
+
+	<select id="findByPage" resultMap="BaseResultMap">
+		select * from
+		(
+			select 
+				max(create_time) create_time,
+				order_id,
+				max(new_order_number) new_order_number,
+				group_concat(DISTINCT old_order_number) old_order_number,
+				max(new_mail_no) new_mail_no,
+				group_concat(DISTINCT old_mail_no) old_mail_no 
+			from 
+				order_change_book
+			group by 
+				order_id 
+		) ocb 
+		<where>
+			<if test="condition.orderNumber != null and condition.orderNumber != ''">
+				and (new_order_number like concat('%',#{condition.orderNumber},'%') 
+					or old_order_number like concat('%',#{condition.orderNumber},'%')) 
+			</if>
+			<if test="condition.mailNo != null and condition.mailNo != ''">
+				and (new_mail_no like concat('%',#{condition.mailNo},'%')
+					or old_mail_no like concat('%',#{condition.mailNo},'%')) 
+			</if>
+			<if test="condition.startTime != null">
+				and date(create_time) <![CDATA[ >= ]]> date(#{condition.startTime}) 
+			</if>
+			<if test="condition.endTime != null">
+				and date(create_time) <![CDATA[ <= ]]> date(#{condition.endTime}) 
+			</if>
+		</where>
+		order by create_time desc
+	</select>
+
+	<select id="findByNewOrderNumber" resultMap="BaseResultMap">
+		select * from order_change_book where new_order_number = #{newOrderNumber}
+	</select>
+
+	<update id="update">
+		update 
+			order_change_book 
+		set 
+			old_mail_no=#{oldMailNo},new_mail_no=#{newMailNo} 
+		where 
+			id=#{id}
+	</update>
+
+</mapper>

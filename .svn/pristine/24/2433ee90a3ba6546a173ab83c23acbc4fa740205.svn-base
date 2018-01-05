@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+	
+	<service>
+		<service-name>CourseProcess</service-name>
+		<service-class>com.qbt.data.migration.process.impl.CourseProcess</service-class>
+		<sql>select * from  old_course</sql>
+		<service-next></service-next>
+		<load-on-startup>1</load-on-startup>
+	</service>
+	
+	<service>
+		<service-name>UserContactProcess</service-name>
+		<service-class>com.qbt.data.migration.process.impl.UserContactProcess</service-class>
+		<service-next>BigOrderProcess</service-next>
+		<load-on-startup>0</load-on-startup>
+	</service>
+	
+	<service>
+		<service-name>BigOrderProcess</service-name>
+		<service-class>com.qbt.data.migration.process.impl.BigOrderProcess</service-class>
+		<service-next></service-next>
+		<load-on-startup>1</load-on-startup>
+	</service>
+	
+</services>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="orderMgrCtrl" class="body1366">
+<div class="container containerWidthAuto">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group">
+                    <label class="control-label">预约取件开始时间：</label>
+                    <div class="inputDateClose">
+                        <input type="text" class="form-control date-picker" readonly placeholder="选择取件开始时间"
+                               ng-model="order.jTime">
+                        <button ng-click="clearStartTime()" class="clearTime">x</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group">
+                    <label style="min-width:62px;" class="control-label">订单号：</label>
+                    <input type="text" class="form-control" placeholder="输入订单号" ng-model="order.orderId">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group">
+                    <label class="control-label">物流状态：</label>
+                    <select style="min-width:196px" class="form-control" ng-model="order.sf_type">
+                        <option value="">全部</option>
+                        <option value="{{item.type}}" ng-repeat="item in sf_type">{{item.desc}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group positionRelative">
+                    <label class="control-label">预约取件结束时间：</label>
+                    <div class="inputDateClose">
+                        <input type="text" class="form-control date-picker" readonly placeholder="选择取件结束时间"
+                               ng-model="order.jTimeEnd">
+                        <button ng-click="clearEndTime()" class="clearTime">x</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group marginRight5">
+                    <label style="min-width:62px;" class="control-label">运单号：</label>
+                    <input type="text" class="form-control" placeholder="输入运单号" ng-model="mailNo">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group">
+                    <label class="control-label">订单状态：</label>
+                    <select style="min-width:196px" class="form-control" ng-model="order.order_type">
+                        <option value="">全部</option>
+                        <option value="{{item.type}}" ng-repeat="item in order_type">{{item.desc}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group positionRelative">
+                    <label class="control-label">预计到达开始时间：</label>
+                    <div class="inputDateClose">
+                        <input type="text" class="form-control date-picker" readonly placeholder="选择到达开始时间"
+                               ng-model="deliverStartTime">
+                        <button ng-click="clearDstartTime()" class="clearTime">x</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group marginRight5">
+                    <label style="min-width:62px;" class="control-label">关键词：</label>
+                    <input type="text" class="form-control" placeholder="输入关键词" ng-model="order.query">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group">
+                    <label class="control-label">BSP状态：</label>
+                    <select style="min-width:196px" class="form-control" ng-model="order.bps_type">
+                        <option value="">全部</option>
+                        <option value="{{item.type}}" ng-repeat="item in bps_type">{{item.desc}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group positionRelative">
+                    <label class="control-label">预计到达结束时间：</label>
+                    <div class="inputDateClose">
+                        <input type="text" class="form-control date-picker" readonly placeholder="选择到达结束时间"
+                               ng-model="deliverEndTime">
+                        <button ng-click="clearDendTime()" class="clearTime">x</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group marginRight5">
+                    <label style="min-width:62px;">排序：</label>
+                    <select style="min-width:172px" ng-model="deliverTime" class="form-control">
+                        <option value="create_time">下单时间</option>
+                        <option value="send_sf_user_time">预约取件时间</option>
+                        <option value="deliver_date">预计到达时间</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group">
+                    <label>偏远球场：</label>
+                    <select style="min-width:196px" class="form-control" ng-model="order.outRangeType"
+                            style="min-width:162px">
+                        <option value="">全部</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group positionRelative">
+                    <label class="control-label">下单开始时间：</label>
+                    <div class="inputDateClose">
+                        <input type="text" class="form-control date-picker" readonly placeholder="选择下单开始时间"
+                               ng-model="begCreateTime">
+                        <button ng-click="clearBegCreateTime()" class="clearTime">x</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group marginRight5">
+                    <label style="min-width:62px;">订单来源：</label>
+                    <select style="min-width:172px" ng-model="orderSource" class="form-control">
+                        <option value="">全部</option>
+                        <option ng-repeat="item in order_source" value="{{item.type}}">{{item.desc}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group">
+                    <label>物流渠道：</label>
+                    <select style="min-width:196px" class="form-control" ng-model="mailChannel" style="min-width:162px">
+                        <option value="">全部</option>
+                        <option ng-repeat="channel in channelList" value="{{channel.id}}">{{channel.channelName}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group positionRelative">
+                    <label class="control-label">下单结束时间：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <div class="inputDateClose">
+                        <input type="text" class="form-control date-picker" readonly placeholder="选择下单结束时间"
+                               ng-model="endCreateTime">
+                        <button ng-click="clearEndCreateTime()" class="clearTime">x</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="col-sm-4">-->
+        <!--<div class="form-inline mb8">-->
+        <!--<div class="form-group positionRelative">-->
+        <!--<label class="control-label">第三方渠道：</label>-->
+        <!--<input type="text" class="form-control" placeholder="输入第三方渠道" ng-model="thirdChannel" style="max-width: 162px;">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group positionRelative">
+                    <label style="min-width:62px;" class="control-label">机构群：</label>
+                    <select class="form-control" ng-model="orgId" style="min-width: 172px">
+                        <option value="">全部</option>
+                        <option value="{{org.id}}" ng-repeat="org in orgList">{{org.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <div class="form-group positionRelative">
+                    <label style="min-width:62px;" class="control-label">取包类型：</label>
+                    <select class="form-control" ng-model="expressType" style="min-width: 196px">
+                        <option value="">全部</option>
+                        <option value="1">明日达</option>
+                        <option value="2">隔日达</option>
+                        <option value="5">明午达</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!--先注释-->
+        <!--<div class="col-sm-4">-->
+        <!--<div class="form-inline mb8">-->
+        <!--<div class="form-group positionRelative">-->
+        <!--<label style="min-width:62px;" class="control-label">第三方渠道：</label>-->
+        <!--<select class="form-control" ng-model="thirdOrg" style="min-width: 172px">-->
+        <!--<option value="">全部</option>-->
+        <!--<option value="{{obj.id}}" ng-repeat="obj in thirdChannel">{{obj.organizationName}}</option>-->
+        <!--</select>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <label style="min-width:62px;" class="control-label">保价渠道：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <select class="form-control" ng-model="insuredChannel" style="min-width: 172px">
+                    <option value="">全部</option>
+                    <option value="sf">顺丰</option>
+                    <option value="ha">华安</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-inline mb8">
+                <label style="min-width:62px;"
+                       class="control-label">加急：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <select class="form-control" ng-model="urgentFee" style="min-width: 172px">
+                    <option value="">全部</option>
+                    <option value="1">是</option>
+                    <option value="2">否</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4 col-sm-offset-4">
+            <div class="form-group pull-right">
+                <button id="search" type="submit" class="btn btn-primary" ng-click="getList()">搜索</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered table-hover table-striped table-condensed">
+                <thead>
+                <th>订单号</th>
+                <th>下单时间</th>
+                <th>预约取件</th>
+                <th>预计到达</th>
+                <th>加急</th>
+                <th>运单号</th>
+                <th class="qbt-font4">订单状态</th>
+                <th class="qbt-font4">物流状态</th>
+                <th>BSP状态</th>
+                <th class="qbt-font3">用户名</th>
+                <th>合作方下单</th>
+                <th>取包信息</th>
+                <th>送包信息</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in list track by $index">
+                    <td><a href="javascript:void(0)" ng-click="detail(item.id)">{{item.number}}<i style="display:inline"
+                                                                                                  ng-show="item.isVip"
+                                                                                                  class="fa"><img
+                            class="vip-icon" src="../img/vip.png"></i></a>
+                        <p ng-show="item.thirdType != 1"><br>
+                            <a href="javascript:void(0)" ng-click="travelDetail(item.thirdId)">{{item.thirdName}}({{item.langEname
+                                | commFilter : 'langEname_type'}})</a>
+                        </p>
+                        <p ng-show="item.proxyUserId">
+                            代下单人：<a href="javascript:void(0)"
+                                    ng-click="daiUserDetail(item.saleUserId,item.saleUserName)">{{item.saleUserName}}</a>
+                        </p>
+                    </td>
+                    <td>{{item.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{item.sendSfUserTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{item.deliverDate}}</td>
+                    <td>{{item.urgentFee>0?"是":"否"}}</td>
+                    <td>
+                        <a href="javascript:void(0)" ng-click="detail(item.id)">{{item.mailChannel===1?item.mailNo:item.mailNumber}}</a>
+                    </td>
+                    <td>{{item.orderStatus | commFilter:'order_type'}}<br><br>
+                        <label ng-class="{'font-default':item.mailChannel===1}">{{item.mailChannel===1?'顺丰':(item.mailChannel===2?'德邦':(item.mailChannel===3?'跨越':'宅急送'))}}</label>
+                    </td>
+                    <td>
+                        <label ng-show="item.deliveryStatus != 2" class="label padding7-10"
+                               ng-class="{'label-info':item.deliveryStatus == 1,'label-blue':item.deliveryStatus == 3,'label-green':item.deliveryStatus == 4,'label-success':item.deliveryStatus == 5,'label-primary':item.deliveryStatus == 6,'label-warning':item.deliveryStatus == 7,}">{{item.deliveryStatus
+                            | commFilter:'sf_type'}}</label>
+                        <label ng-show="item.deliveryStatus == 2" ng-click="layerSendStatus2To4(item.id)"
+                               class="label padding7-10 label-default" style="cursor:pointer">
+                            {{item.deliveryStatus | commFilter:'sf_type'}}
+                        </label>
+                    </td>
+                    <td>
+                        <label class="label padding7-10"
+                               ng-class="{'label-primary':item.bpsStatus == 1,'label-success':item.bpsStatus == 2,'label-danger':item.bpsStatus == 3}">{{item.bpsStatus
+                            | commFilter:'bps_type'}}</label>
+                    </td>
+                    <td><a href="javascript:;" ng-click="userDetail(item.userId)">{{item.userName}}</a></td>
+                    <td>{{item.thirdType == 1 ? '否' : '是'}}</td>
+                    <td ng-if="item.jAddrType == 4">
+                        <a ng-click="isWeixin(item.jMobile,item.id)" href="javascript:void(0)">{{item.jContact}}<br/>{{item.jMobile}}</a>
+                        <br/>{{item.jTreePath}}{{item.jAddress}}<label>{{item.jOutRangeType>0 ? '(偏)' : ''}}</label>
+                        <br><br><label ng-if="item.orgName">{{item.orgName}}</label>
+                    </td>
+                    <td ng-if="item.jAddrType != 4"><a ng-click="isWeixin(item.jMobile,item.id)"
+                                                       href="javascript:void(0)">{{item.jContact}}<br/>{{item.jMobile}}</a>
+                        <br/>
+                        <label class="label"
+                               ng-class="{'label-success':item.jCourseStatus   == 1,'label-warning':item.jCourseStatus   == 2,'label-danger':item.jCourseStatus   == 3,'label-default':item.jCourseStatus   == 4}">
+                            <i ng-if="item.jAddrType == 1" class="fa"><img src="../img/golf.png"></i>
+                            <a style="color:#fff" href="javascript:void(0);" ng-if="item.jAddrType == 1"
+                               ng-click="courseDetail(item.jAddrId,item.jAddrType)">{{item.jAddrName}}{{item.jOutRangeType===1
+                                ? '(偏)' : ''}}</a>
+                        </label>
+                        <span ng-if="item.jAddrType != 1">{{item.jAddrName}}<label>{{item.jOutRangeType>0 ? '(偏)' : ''}}</label></span>
+                        <br><br><label ng-if="item.orgName">{{item.orgName}}</label>
+                    </td>
+                    <td ng-if="item.dAddrType == 4">
+                        <a ng-click="isWeixin(item.dMobile,item.id)" href="javascript:void(0)">{{item.dContact}}<br/>{{item.dMobile}}</a>
+                        <br/>{{item.dTreePath}}{{item.dAddress}}<label>{{item.dOutRangeType>0 ? '(偏)' : ''}}</label>
+                    </td>
+                    <td ng-if="item.dAddrType != 4">
+                        <a ng-click="isWeixin(item.dMobile,item.id)" href="javascript:void(0)">{{item.dContact}}<br/>{{item.dMobile}}</a>
+                        <br/>
+                        <label class="label"
+                               ng-class="{'label-success':item.dCourseStatus  == 1,'label-warning':item.dCourseStatus  == 2,'label-danger':item.dCourseStatus  == 3,'label-default':item.dCourseStatus  == 4}">
+                            <i ng-if="item.dAddrType == 1" class="fa"><img src="../img/golf.png"></i>
+                            <a style="color:#fff" href="javascript:void(0);" ng-if="item.dAddrType == 1"
+                               ng-click="courseDetail(item.dAddrId,item.dAddrType)">{{item.dAddrName}}{{item.dOutRangeType===1
+                                ? '(偏)' : ''}}</a>
+                        </label>
+                        <span ng-if="item.dAddrType != 1">{{item.dAddrName}}<label>{{item.dOutRangeType>0 ? '(偏)' : ''}}</label></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <pagination page="page" change="getList(page)"></pagination>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/orderMgr.js}}}"></script>
+</body>
+</html>

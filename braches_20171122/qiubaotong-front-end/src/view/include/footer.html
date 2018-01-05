@@ -1,0 +1,28 @@
+<!--底部导航-->
+<div class="nav" v-show="showNav" id="buttomNav">
+  <div class="weui_tab">
+    <div class="weui_tab_bd">
+
+    </div>
+    <div class="weui_tabbar bg-white">
+        <a href="javascript:;" class="weui_tabbar_item" :class="{'nav-on': nav_buttom == 1}" @click="goNav('index.html')">
+            <div class="weui_tabbar_icon nav-icon01">
+
+            </div>
+            <p class="weui_tabbar_label">首页</p>
+        </a>
+        <a href="javascript:;" class="weui_tabbar_item" :class="{'nav-on': nav_buttom == 2}" @click="goNav('order.html')">
+            <div class="weui_tabbar_icon nav-icon02">
+
+            </div>
+            <p class="weui_tabbar_label">我的</p>
+        </a>
+        <a href="javascript:;" class="weui_tabbar_item" :class="{'nav-on': nav_buttom == 3}" @click="goNav('setting.html')">
+            <div class="weui_tabbar_icon nav-icon03">
+
+            </div>
+            <p class="weui_tabbar_label">设置</p>
+        </a>
+    </div>
+  </div>
+</div>

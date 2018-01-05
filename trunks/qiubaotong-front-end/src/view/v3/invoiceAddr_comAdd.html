@@ -1,0 +1,172 @@
+<template id="invoiceAddr_comAdd">
+  <div class="page">
+    <tel-contact></tel-contact>
+    <section class="weui-tab">
+      <div class="weui-tab__panel">
+        <div class="page__bd">
+          <div class="weui-cells weui-cells_form" style="margin-top:0">
+            <div class="weui-cell">
+              <div class="weui-cell__hd" style="text-align: center;width: 100%">
+                <span @click="goBack" style="float: left">
+                  <img src="/img/back.png" alt="">
+                </span>
+                <h3 class="weui-label" >填写发票信息</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page__bd">
+          <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+              </div>
+              <div class="weui-cell__bd">
+                <h4>发票类型</h4>
+              </div>
+            </div>
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+              </div>
+              <div class="weui-cell__bd">
+                <div class="weui-flex">
+                  <div :class="{'type_hover':invoiceType == 1}" @click="tabType(1)" class="weui-flex__item" style="text-align: center;border: 1px solid #c2c2c2;padding: 5px 0">
+                    <a href="javascript:;" style="color: #000">电子</a>
+                  </div>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <div :class="{'type_hover':invoiceType == 2}" @click="tabType(2)" class="weui-flex__item" style="text-align: center;border: 1px solid #c2c2c2;padding: 5px 0">
+                    <a href="javascript:;" style="color: #000">纸质</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--发票信息-->
+        <div class="page__bd">
+          <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <h4>公司发票抬头</h4>
+              </div>
+            </div>
+            <div class="weui-cell">
+              <div class="weui-cell__bd">
+                <input class="weui-input" type="text" v-model="addr.title" placeholder="请输入公司发票抬头">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--公司信息-->
+        <div class="page__bd">
+          <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <h4>公司信息</h4>
+              </div>
+            </div>
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label">税号</label>
+              </div>
+              <div class="weui-cell__bd">
+                <input class="weui-input" type="number" v-model="addr.taxFileNumber" placeholder="请输入公司税号">
+              </div>
+            </div>
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label">账号</label>
+              </div>
+              <div class="weui-cell__bd">
+                <input class="weui-input" type="text" v-model="addr.bankNumber" placeholder="请输入公司银行账号，选填">
+              </div>
+            </div>
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label">开户行</label>
+              </div>
+              <div class="weui-cell__bd">
+                <input class="weui-input" type="text" v-model="addr.bank" placeholder="请输入公司银行开户行，选填">
+              </div>
+            </div>
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label">电话</label>
+              </div>
+              <div class="weui-cell__bd">
+                <input class="weui-input" type="text" v-model="addr.companyTelephone" placeholder="请输入公司电话，选填">
+              </div>
+            </div>
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label">地址</label>
+              </div>
+              <div class="weui-cell__bd">
+                <input class="weui-input" type="text" v-model="addr.companyAddress" placeholder="请输入公司地址，选填">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--电子-->
+        <div v-show="invoiceType==1" class="page__bd">
+          <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <h4>收票人信息</h4>
+              </div>
+            </div>
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label">邮箱</label>
+              </div>
+              <div class="weui-cell__bd">
+                <input class="weui-input" type="email" v-model="addr.email" placeholder="请输入收票人邮箱">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--纸质-->
+        <div v-show="invoiceType==2" class="page__bd">
+          <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <h4>收票人信息</h4>
+              </div>
+            </div>
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label">姓名</label>
+              </div>
+              <div class="weui-cell__bd">
+                <input class="weui-input" type="text" v-model="addr.name" placeholder="请输入收票人姓名">
+              </div>
+            </div>
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label">电话</label>
+              </div>
+              <div class="weui-cell__bd">
+                <input class="weui-input" type="tel" v-model="addr.telephone" placeholder="请输入收票人电话号码">
+              </div>
+            </div>
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label">地址</label>
+              </div>
+              <div class="weui-cell__bd">
+                <input class="weui-input" type="text" v-model="addr.address" placeholder="请输入收票人地址">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--保存按钮-->
+      <footer class="footer footer-ios">
+        <div class="weui-flex">
+          <a href="javascript:;" @click="save" class="weui-flex__item footer-confirm">
+            <p>保存</p>
+          </a>
+        </div>
+      </footer>
+    </section>
+  </div>
+</template>

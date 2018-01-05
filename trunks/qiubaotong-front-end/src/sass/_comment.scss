@@ -1,0 +1,108 @@
+.evaluate {
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    .weui_cell_hd {
+        width: 30px;
+    }
+    .weui_cell {
+        height: 40px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .weui_cell:before {
+        border: 0;
+    }
+    .eva-star {
+        i {
+            display: inline-block;
+            font-size: 0;
+            margin-right: 10px;
+            background-image: url('/img/star.png');
+            background-repeat: no-repeat;
+            width: 20px;
+            height: 20px;
+        }
+        .star-o{
+            background-position: -22px 0;
+        }
+        .star-solid{
+            background-position: 0 0 !important;
+        }
+    }
+    .eva-star-s {
+        i {
+            display: inline-block;
+            margin-right: 3px;
+            background-image: url('/img/star-s.png');
+            background-repeat: no-repeat;
+            width: 12px;
+            height: 12px;
+        }
+        .star-solid{
+            background-position: 0 0 !important;
+        }
+    }
+}
+.evaluate:before {
+    border-top: 0;
+}
+.watch,.activity-detail {
+    color: #333;
+    padding: 10px 0 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    .fly {
+        background: url(/img/fly-icon.png) center center no-repeat;
+        width: 16px;
+        height: 14px;
+        display: inline-block;
+        margin: 0px 3px 0;
+        vertical-align: sub;
+    }
+    .reply {
+        padding: 15px;
+        border-radius: 4px;
+    }
+    .reply:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 12px solid #f5f5f5;
+    }
+    .weui_cell {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        p {
+            font-size: 14px;
+        }
+    }
+    .weui_cells {
+        margin: 0;
+        font-size: 14px;
+    }
+    .weui_cell:before {
+        border: 0;
+    }
+    .weui_cells:after, .weui_cells:before {
+        border: 0;
+    }
+    .icon {
+        border-radius: 50%;
+        display: block;
+        width: 25px;
+        height: 25px;
+        line-height: 27px;
+        font-style: normal;
+        color: #fff;
+        margin-right: 10px;
+    }
+}
+.watch {
+    border-bottom: 1px solid #f2f2f2;
+}

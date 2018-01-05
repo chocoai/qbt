@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OutRangeAddressMapper" >
+  <resultMap id="BaseResultMap" type="com.qbt.persistent.entity.OutRangeAddress" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="tree_path" property="treePath" jdbcType="VARCHAR" />
+    <result column="out_range_time" property="outRangeTime" jdbcType="DECIMAL" />
+    <result column="out_range_price" property="outRangePrice" jdbcType="DECIMAL" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, area_id, tree_path, out_range_time, out_range_price, address, remark
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from out_range_address
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.qbt.persistent.entity.OutRangeAddress" >
+    insert into out_range_address (id, create_time, area_id, 
+      tree_path, out_range_time, out_range_price, 
+      address, remark)
+    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{areaId,jdbcType=INTEGER}, 
+      #{treePath,jdbcType=VARCHAR}, #{outRangeTime,jdbcType=DECIMAL}, #{outRangePrice,jdbcType=DECIMAL}, 
+      #{address,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateById" parameterType="com.qbt.persistent.entity.OutRangeAddress" >
+    update out_range_address
+    <set >
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="treePath != null" >
+        tree_path = #{treePath,jdbcType=VARCHAR},
+      </if>
+      <if test="outRangeTime != null" >
+        out_range_time = #{outRangeTime,jdbcType=DECIMAL},
+      </if>
+      <if test="outRangePrice != null" >
+        out_range_price = #{outRangePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM out_range_address
+		<where>
+			<if test="condition.areaId != null and condition.areaId > 0">
+				and area_id in (select id from base_sf_area where tree_id like concat('%',#{condition.areaId},'%')) 
+			</if>
+			<if test="condition.address != null and condition.address != ''">
+				and address like  concat('%',#{condition.address},'%')
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findByAreaId" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		from out_range_address  
+		where area_id = #{areaId} 
+	</select>
+	<delete id="deleteById">
+		delete from out_range_address where id = #{id}
+	</delete>
+	
+	<select id="findByCondition" parameterType="OutRangeAddress" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from out_range_address
+		<where>
+			<if test="areaId != null">
+				and area_id = #{areaId} 
+			</if>
+		</where>
+	</select>
+	
+</mapper>

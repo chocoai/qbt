@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseSfSiteMapper" >
+  <resultMap id="BaseResultMap" type="BaseSfSite" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="tree_path" property="treePath" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="lon" property="lon" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" />
+    <result column="remark" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, area_id,tree_path, address, contact, mobile, create_time, lon, lat, is_delete, remark
+  </sql>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List"></include>
+    from base_sf_site
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="BaseSfSite" useGeneratedKeys="true" keyProperty="id">
+    insert into base_sf_site (name, area_id, tree_path, address, 
+      contact, mobile, create_time, lon, lat, remark)
+    values (#{name,jdbcType=VARCHAR}, #{areaId}, 
+      #{treePath,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR}, 
+      #{contact,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lon,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateById" parameterType="BaseSfSite" >
+    update base_sf_site
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId},
+      </if>
+      <if test="treePath != null" >
+        tree_path = #{treePath,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lon != null" >
+        lon = #{lon,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+        remark = #{remark,jdbcType=VARCHAR},
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap">
+  	select * from base_sf_site where is_delete = false
+  </select>
+  
+  <select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_sf_site 
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.isDelete != null">
+				AND is_delete = #{condition.isDelete}
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findByCondition" parameterType="BaseSfSite" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from base_sf_site 
+		<where>
+			<if test="name != null">
+				and name = #{name} 
+			</if>
+		</where>
+	</select>
+	
+	<select id="list" resultMap="BaseResultMap">
+	select * from base_sf_site where is_delete = false
+	</select>
+	
+	<delete id="deleteById">
+	delete from base_sf_site where id = #{id}
+	</delete>
+	
+	<delete id="deleteById2">
+		update base_sf_site set is_delete = #{isDelete} where id = #{id}
+    </delete>
+	
+	
+	
+</mapper>

@@ -1,0 +1,44 @@
+<template id="vip-info">
+<section class="section bg" id="vip">
+
+<div class="header tex-c bg-white">
+    <a href="javascript:history.back();" class="back"><img src="/img/back.png" /></a>
+    会员卡信息
+</div>
+<div class="scroll marhead">
+<div class="weui_cells mar-t" id="vip-card">
+    <div v-for="item in list">
+        <div class="weui_cell" @click="detail(item.id)">
+            <div class="card-id tex-r font-fff">
+                卡号：{{item.vipNo}}
+            </div>
+            <div class="card-name tex-r font-fff">
+                <p style="padding-bottom:8px;">{{item.userName}} <span style="font-size:12px;text-decoration:underline;" @click.stop="goEdit(item.id,'updatename')" v-if="item.status !=2 && !item.usedOrder">修改</span></p>
+                <p>{{item.mobile}} <span style="font-size:12px;text-decoration:underline;" @click.stop="goEdit(item.id,'updatemobile')" v-if="item.status !=2 && item.updateMobileCount < 1">修改</span></p>
+            </div>
+            <div class="card-text flex font-80 font12">
+                <div class="flex-1">
+                    会员卡价格：￥{{item.vipCardBuyMoney}}
+                </div>
+                <div class="flex-1 tex-r">
+                    有效期至：{{item.validTime | dateFormat 'yyyy/MM/dd'}}
+                </div>
+            </div>
+            <img src="/img/card-bg.png" alt="" class="img-max img" />
+        </div>
+        <div v-if="item.status ==2" class="pad-lr font12" style="color:#15ca5f;padding-bottom:10px;">温馨提示:您好的会员卡已禁用，请联系客服</div>
+    </div>
+</div>
+
+<div class="pad-lr mar-t20">
+    <a href="javascript:;" class="weui_btn weui_btn_primary font14" style="padding: 2px 0;" @click="goView('/apply')">会员卡申请</a>
+</div>
+<!-- <article class="weui_article bg-white mar-t">
+    <section>
+        <h3>会员卡属性</h3>
+        <div v-html="rules"></div>
+    </section>
+</article> -->
+</div>
+</section>
+</template>

@@ -1,0 +1,129 @@
+<template id="order-comment">
+<section class="section">
+    <!--头-->
+    <div class="header tex-c bg-white">
+      <a href="javascript:;" class="back" @click="goView('/list')"><img src="/img/back.png" /></a>
+      评价晒单
+    </div>
+    <!--头 end-->
+    <div class="scroll">
+    <div class="marhead">
+        <div class="weui_cells evaluate">
+            <div class="weui_cell">
+                <div class="weui_cell_hd"><img src="/img/evaluate-cion01.png" /></div>
+                <div class="weui_cell_bd ">
+                    <p>客服服务评价</p>
+                </div>
+                <div class="weui_cell_ft weui_cell_primary">满意请给5分</div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd"></div>
+                <div class="weui_cell_bd ">
+                    <p>客服服务</p>
+                </div>
+                <div class="weui_cell_ft weui_cell_primary">
+                    <div class="eva-star">
+                        <i class="star-o" v-bind:class="{'star-solid':comment_kf>0}" @click="comment_kf = 1"></i>
+                        <i class="star-o" v-bind:class="{'star-solid':comment_kf>1}" @click="comment_kf = 2"></i>
+                        <i class="star-o" v-bind:class="{'star-solid':comment_kf>2}" @click="comment_kf = 3"></i>
+                        <i class="star-o" v-bind:class="{'star-solid':comment_kf>3}" @click="comment_kf = 4"></i>
+                        <i class="star-o" v-bind:class="{'star-solid':comment_kf>4}" @click="comment_kf = 5"></i>
+                    </div>
+                </div>
+            </div>
+         </div>
+
+         <div class="weui_cells evaluate">
+             <div class="weui_cell">
+                 <div class="weui_cell_hd"><img src="/img/evaluate-cion02.png" /></div>
+                 <div class="weui_cell_bd ">
+                     <p>物流服务评价</p>
+                 </div>
+                 <div class="weui_cell_ft weui_cell_primary">满意请给5分</div>
+             </div>
+             <div class="weui_cell">
+                 <div class="weui_cell_hd"></div>
+                 <div class="weui_cell_bd ">
+                     <p>球包包装</p>
+                 </div>
+                 <div class="weui_cell_ft weui_cell_primary">
+                     <div class="eva-star">
+                         <i class="star-o" v-bind:class="{'star-solid':comment_sf1>0}" @click="comment_sf1 = 1"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':comment_sf1>1}" @click="comment_sf1 = 2"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':comment_sf1>2}" @click="comment_sf1 = 3"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':comment_sf1>3}" @click="comment_sf1 = 4"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':comment_sf1>4}" @click="comment_sf1 = 5"></i>
+                     </div>
+                 </div>
+             </div>
+             <div class="weui_cell">
+                 <div class="weui_cell_hd"></div>
+                 <div class="weui_cell_bd ">
+                     <p>送货速度</p>
+                 </div>
+                 <div class="weui_cell_ft weui_cell_primary">
+                     <div class="eva-star">
+                         <i class="star-o" v-bind:class="{'star-solid':comment_sf2>0}" @click="comment_sf2 = 1"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':comment_sf2>1}" @click="comment_sf2 = 2"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':comment_sf2>2}" @click="comment_sf2 = 3"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':comment_sf2>3}" @click="comment_sf2 = 4"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':comment_sf2>4}" @click="comment_sf2 = 5"></i>
+                     </div>
+                 </div>
+             </div>
+             <div class="weui_cell">
+                 <div class="weui_cell_hd"></div>
+                 <div class="weui_cell_bd ">
+                     <p>配送服务态度</p>
+                 </div>
+                 <div class="weui_cell_ft weui_cell_primary">
+                     <div class="eva-star">
+                         <i class="star-o" v-bind:class="{'star-solid':comment_sf3>0}" @click="comment_sf3 = 1"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':comment_sf3>1}" @click="comment_sf3 = 2"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':comment_sf3>2}" @click="comment_sf3 = 3"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':comment_sf3>3}" @click="comment_sf3 = 4"></i>
+                         <i class="star-o" v-bind:class="{'star-solid':comment_sf3>4}" @click="comment_sf3 = 5"></i>
+                     </div>
+                 </div>
+             </div>
+          </div>
+
+          <div class="weui_cells evaluate">
+              <div class="weui_cell">
+                  <div class="weui_cell_hd"><img src="/img/evaluate-cion03.png" /></div>
+                  <div class="weui_cell_bd ">
+                      <p>评价</p>
+                  </div>
+                  <div class="weui_cell_ft weui_cell_primary">不少于10个字</div>
+              </div>
+              <div class="weui_cell" style="height:auto;">
+                  <div class="weui_cell_hd"></div>
+                  <div class="weui_cell_bd weui_cell_primary">
+                       <textarea class="weui_textarea" placeholder="写下您的体会和感受" rows="3" maxlength="100" v-model="comment_text" style="background-color: rgba(222,222,222,0.1);padding:5px;"></textarea>
+                       <div class="weui_textarea_counter"><span>{{comment_text.length}}</span>/100</div>
+                       <div class="mar-t">上传图片</div>
+                       <div class="weui_uploader mar-t">
+                            <div class="weui_uploader_bd">
+                                <!--上传按钮-->
+                                <div class="weui_uploader_input_wrp" @click="upload(0)">
+                                    <img class="weui_uploader_input" :src="comment_img.img0" style="opacity:initial;width:100%;height:auto;" v-show="comment_img.img0">
+                                </div>
+                                <div class="weui_uploader_input_wrp" @click="upload(1)">
+                                    <img class="weui_uploader_input" :src="comment_img.img1" style="opacity:initial;width:100%;height:auto;" v-show="comment_img.img1">
+                                </div>
+                                <div class="weui_uploader_input_wrp" @click="upload(2)" >
+                                    <img class="weui_uploader_input" :src="comment_img.img2" style="opacity:initial;width:100%;height:auto;" v-show="comment_img.img2">
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+              </div>
+           </div>
+
+           <div class="weui_btn_area" style="margin-bottom: 20px;">
+               <a class="weui_btn weui_btn_primary btn" href="javascript:" @click="submit()">发表评价</a>
+           </div>
+    </div>
+  </div>
+</section>
+</template>

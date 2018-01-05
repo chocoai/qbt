@@ -1,0 +1,26 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"> 
+
+<!-- 	<bean id="clusterJobDetail"
+		class="cn.com.froad.msg.scheduler.BeanInvokingJobDetailFactory">
+		<property name="shouldRecover" value="false" />
+		<property name="targetBean" value="resendHandler" />
+		<property name="targetMethod" value="resend" />
+	</bean>
+	
+	<bean id="clusterSchedulerFactoryBean"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="clusterJobDetail" />
+		<property name="cronExpression" value="0/10 * * * * ? *" />
+	</bean> -->
+	
+</beans> 

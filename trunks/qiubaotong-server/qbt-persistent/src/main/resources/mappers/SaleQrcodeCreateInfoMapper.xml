@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.SaleQrcodeCreateInfoMapper" >
+  <resultMap id="BaseResultMap" type="SaleQrcodeCreateInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="apply_number" property="applyNumber" jdbcType="INTEGER" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="type_value" property="typeValue" jdbcType="DECIMAL" />
+    <result column="subscribe_value" property="subscribeValue" jdbcType="DECIMAL" />
+    <result column="create_type" property="createType" />
+    <result column="first_type" property="firstType" />
+    <result column="first_type_value" property="firstTypeValue" />
+    <result column="order_day_type" property="orderDayType" />
+    <result column="order_day_value" property="orderDayValue" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, create_time, name, number, apply_number, company, type, type_value, subscribe_value,
+    create_type, first_type, first_type_value, order_day_type, order_day_value
+  </sql>
+  
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sale_qrcode_create_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="SaleQrcodeCreateInfo" useGeneratedKeys="true" keyProperty="id">
+    insert into sale_qrcode_create_info (create_time, name, 
+      number, apply_number, company, 
+      type, type_value, subscribe_value,
+      create_type, first_type, first_type_value, order_day_type,
+      order_day_value
+      )
+    values (#{createTime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, 
+      #{number,jdbcType=INTEGER}, #{applyNumber,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{typeValue,jdbcType=DECIMAL}, #{subscribeValue,jdbcType=DECIMAL},
+      #{createType}, #{firstType}, #{firstTypeValue}, #{orderDayType}, #{orderDayValue}
+      )
+  </insert>
+  
+  <update id="updateById" parameterType="SaleQrcodeCreateInfo" >
+    update sale_qrcode_create_info
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="applyNumber != null" >
+        apply_number = #{applyNumber,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="typeValue != null" >
+        type_value = #{typeValue,jdbcType=DECIMAL},
+      </if>
+      <if test="subscribeValue != null" >
+        subscribe_value = #{subscribeValue,jdbcType=DECIMAL},
+      </if>
+      <if test="createType != null" >
+        create_type = #{createType},
+      </if>
+      <if test="firstType != null" >
+        first_type = #{firstType},
+      </if>
+      <if test="firstTypeValue != null" >
+        first_type_value = #{firstTypeValue},
+      </if>
+      <if test="orderDayType != null" >
+        order_day_type = #{orderDayType},
+      </if>
+      <if test="orderDayValue != null" >
+        order_day_value = #{orderDayValue},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findByPage" resultMap="BaseResultMap">
+	SELECT
+	sqci.id,
+	sqci.create_time,
+	sqci.name,
+	sqci.number, 
+	sqci.apply_number
+	from sale_qrcode_create_info sqci left join sale_qrcode_info sqi 
+	on sqci.id = sqi.qrcode_create_info_id
+	<where>
+		<if test="condition.name != null and condition.name != ''">
+			AND sqci.name like concat('%',#{condition.name},'%') 
+		</if>
+		<if test="condition.createTime != null">
+			<![CDATA[
+				and date(sqci.create_time) = date(#{condition.createTime})  
+			]]> 
+		</if>
+		<if test="condition.salesmanCode != null and condition.salesmanCode != ''">
+			AND sqi.salesman_code LIKE CONCAT('%',#{condition.salesmanCode},'%') 
+		</if>
+	</where>
+	GROUP BY sqci.`name`
+	order by sqci.create_time desc 
+</select>
+	
+	<select id="findByCondition" parameterType="SaleQrcodeCreateInfo" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from sale_qrcode_create_info
+		<where>
+			<if test="name != null">
+				and name = #{name} 
+			</if>
+		</where>
+	</select>
+	
+	<select id="getAutoMaxNawmeNumber" resultType="java.lang.Integer">
+		select count(*) from sale_qrcode_create_info where create_type = 2
+	</select>
+	
+</mapper>

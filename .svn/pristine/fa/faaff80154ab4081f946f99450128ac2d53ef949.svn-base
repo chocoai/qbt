@@ -1,0 +1,13 @@
+<template id="voucher_agreement">
+    <section class="page">
+        <!-- 顶部通栏 -->
+        <header>
+            <div class="header-left" @click="getBack()">
+                <img src="/img/back.png" alt="">
+            </div>
+            <div class="header-middle">
+                <span>球包通券包协议</span>
+            </div>
+        </header>
+    <section>
+</template>

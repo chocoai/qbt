@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseSfAreaMapper">
+
+	<resultMap id="BaseResultMap" type="BaseSfArea">
+		<id column="id" property="id" />
+		<result column="code" property="code" />
+		<result column="parent_id" property="parentId" />
+		<result column="parent_code" property="parentCode" />
+		<result column="name" property="name" />
+		<result column="level" property="level" />
+		<result column="tree_id" property="treeId" />
+		<result column="tree_path" property="treePath" />
+		<result column="sort" property="sort" />
+		<result column="full_name" property="fullName" />
+		<result column="status" property="status" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, code, parent_id, parent_code, name, level, tree_id, tree_path, sort,
+		full_name,status 
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from base_sf_area
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<insert id="insert" parameterType="BaseSfArea" useGeneratedKeys="true" keyProperty="id">
+		insert into base_sf_area (code, parent_id, parent_code, name, level,
+		tree_id, tree_path, sort, full_name,status
+		)
+		values ( #{code}, #{parentId},#{parentCode},
+		#{name}, #{level}, #{treeId}, #{treePath},
+		#{sort}, #{fullName},#{status}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="BaseSfArea">
+		update base_sf_area
+		<set>
+			<if test="code != null">
+				code = #{code},
+			</if>
+			<if test="parentId != null">
+				parent_id = #{parentId},
+			</if>
+			<if test="parentCode != null">
+				parent_code = #{parentCode},
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="level > 0">
+				level = #{level},
+			</if>
+			<if test="treeId != null">
+				tree_id = #{treeId},
+			</if>
+			<if test="treePath !=null">
+				tree_path = #{treePath},
+			</if>
+			<if test="sort > 0">
+				sort = #{sort},
+			</if>
+			<if test="fullName !=null">
+				full_name = #{fullName},
+			</if>
+			<if test="status !=null">
+				status = #{status},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<select id="findByCondition" parameterType="BaseSfArea"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from base_sf_area
+		<where>
+			<if test="code != null">
+				and code = #{code} 
+			</if>
+			<if test="parentId != null">
+				and parent_id = #{parentId} 
+			</if>
+			<if test="parentCode != null">
+				and parent_code = #{parentCode} 
+			</if>
+			<if test="name != null">
+				and name = #{name} 
+			</if>
+			<if test="level > 0">
+				and level = #{level} 
+			</if>
+			<if test="treeId != null">
+				and tree_id = #{treeId} 
+			</if>
+			<if test="treePath !=null">
+				and tree_path = #{treePath} 
+			</if>
+			<if test="sort > 0">
+				and sort = #{sort} 
+			</if>
+			<if test="fullName !=null">
+				and full_name = #{fullName} 
+			</if>
+			<if test="treePath !=null">
+				and status = #{status} 
+			</if>
+		</where>
+	</select>
+
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from base_sf_area
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<select id="findByParentId" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from base_sf_area 
+		<where>
+			parent_id=#{parentId} and status=true
+		</where>
+		order by sort
+	</select>
+	
+	<select id="findByName" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from base_sf_area 
+		<where>
+			name=#{name} or full_name=#{name} 
+			<if test="status != null">
+				and status = #{status}
+			</if>
+		</where>
+		ORDER BY id DESC LIMIT 1
+	</select>
+
+
+	<select id="findByDistrict" resultMap="BaseResultMap" >
+		select <include refid="Base_Column_List" /> 
+		from base_sf_area 
+		where (status=true and name=#{district} or full_name=#{district}) and parent_id in(select id from base_sf_area where (name=#{name} or full_name=#{name}))
+	</select>
+  
+	<select id="findByLevel" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from base_sf_area 
+		<![CDATA[
+		where status=true and level > 1 and level <= #{level} order by level,sort
+	  	]]>
+	</select>
+
+	<select id="findAll" resultMap="BaseResultMap">
+		select * from base_sf_area where level>1 order by level,id
+	</select>
+
+	<select id="findByFullName" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from base_sf_area where full_name=#{fullName}
+	</select>
+	
+	<select id="list" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from base_sf_area
+	</select>
+	
+	<select id="findByLevelCourse" resultMap="BaseResultMap">
+		select a.* 
+		from 
+			base_sf_area a 
+			join (select s.tree_id from base_sf_area s join base_course c on s.id=c.area_id where c.is_delete=false) b on b.tree_id like concat('%',a.id,'%')
+		<![CDATA[
+		where 
+			a.status = true 
+			and a.level >= 1 
+			and a.level <= #{level} 
+		]]>
+		group by a.id 
+		order by level,sort
+	</select>
+	
+	<select id="findDistrictById" resultMap="BaseResultMap">
+		select id, name, level, tree_id, tree_path, sort,full_name from base_sf_area where tree_id like concat('%',#{id},'%') and status = 1 and level = 4 order by sort,id
+	</select>
+	
+</mapper>

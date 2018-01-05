@@ -1,0 +1,241 @@
+<template id="sendagent-template" >
+<div class="pad-b" @click="fadeLog">
+    <div class="scroll">
+<!--banner-->
+<div class="home-line bg-white">
+    <i class="weui_icon_warn weui_icon_warn_my"></i>
+    <span style="vertical-align:middle;">代下单详情</span>
+</div>
+<div class="home-line" style="line-height:inherit;padding:6px 20px;">
+    <div class="flex bg-white" style="border-radius:5px;">
+        <div class="mar-r">
+            <i class="weui_icon_search" style="vertical-align:text-top;"></i>
+        </div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <div class="weui_search_inner" style="padding-left:0">
+                <input @click="goView('/usersearch')" type="search" class="weui_search_input"  placeholder="请选择客户" v-model="query" readonly>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="home-line bg-white" v-show="userMsg.userId">
+    <div class="flex">
+        <div class="mar-r" style="line-height:50px;">
+            <img src="/img/dai-account.png" style="width:15px;">
+        </div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="text" placeholder="客户姓名" v-model="userMsg.name" maxlength="8">
+        </div>
+    </div>
+</div>
+<div class="home-line bg-white" v-show="userMsg.userId">
+    <div class="flex">
+        <div class="mar-r" style="line-height:50px;">
+            <img src="/img/dai-phone.png" style="width:15px;">
+        </div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="text" placeholder="客户电话号码" v-model="userMsg.mobile" maxlength="20">
+        </div>
+    </div>
+</div>
+<div class="home-line bg-white" v-show="userMsg.userId">
+    <div class="flex">
+        <div class="mar-r" style="line-height:50px;">
+            <img src="/img/dai-survey.png" style="width:15px;">
+        </div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="text" placeholder="客户编号" v-model="userMsg.userId" maxlength="6" readonly>
+        </div>
+        <div class="weui_cell_bd">
+            <a @click="saveUserMsg()" href="javascript:;" class="book-btn btn">保存</a>
+            <a @click="clearUserMsg()" href="javascript:;" class="book-btn btn">取消</a>
+        </div>
+    </div>
+</div>
+<!--banner end-->
+<!--选择 地点-->
+<div class="place flex bg-white mar-t">
+  <div class="place-icon"><img src="/img/home-icon.png?v2" alt="" /></div>
+   <div class="flex-1">
+    <ul>
+      <li><a href="javascript:;" :class="{'place-on' : send_addr.type == 1 }" @click="goView2('/address',true)">地址</a></li>
+      <li><a href="javascript:;" :class="{'place-on' : send_addr.type == 2 }" @click="goView2('/city',true)">球场</a></li>
+      <li><a href="javascript:;" :class="{'place-on' : send_addr.type == 3 }" @click="goView2('/station',true)">站点</a></li>
+    </ul>
+    <div class="mar-t place-mian" style="height:44px;">
+      <div class="flex"><span>{{send_addr.name}}</span>  {{send_addr.mobile}}
+         <a href="javascript:;"  style="background-color: #fbc976;" v-show="send_addr.address" @click="goView2('/contact',true)"></a>
+      </div>
+      <div class="flex">{{send_addr.address}}</div>
+    </div>
+   </div>
+</div>
+
+<div class="place02 flex bg-white">
+  <div class="place-icon"><img @click="addrReturn()" src="/img/order.png" alt="" style="max-height:30px;margin-left:9px;cursor:pointer;position:absolute;top:-33px;" /></div>
+</div>
+<div class="place02 flex bg-white">
+  <div class="place-icon"><img src="/img/home-icon02.png?v2" alt="" /></div>
+  <div class="flex-1">
+    <ul>
+      <li><a href="javascript:;" :class="{'place-on02' : collect_addr.type == 2 }" @click="goView2('/city',false)">球场</a></li>
+      <li><a href="javascript:;" :class="{'place-on02' : collect_addr.type == 1 }" @click="goView2('/address',false)">地址</a></li>
+      <li><a href="javascript:;" :class="{'place-on02' : collect_addr.type == 3 }" @click="goView2('/station',false)">站点</a></li>
+    </ul>
+    <div class="mar-t place-mian" v-show="collect_addr.address">
+      <div class="flex"><span>{{collect_addr.name}}</span>  {{collect_addr.mobile}}
+          <a href="javascript:;" style="background-color: #54a7f8;" v-show="collect_addr.address" @click="goView2('/contact',false)"></a>
+      </div>
+      <div class="flex">{{collect_addr.address}}</div>
+    </div>
+  </div>
+</div>
+<!--选择 地点end-->
+
+<div class="home-line  mar-t bg-white" style="border:0;">
+<div class="flex">
+  <div class="mar-r">取包时间：</div>
+  <div class="flex-1 txt-overflow">{{send_time}}</div>
+  <div><a href="javascript:;" class="book-btn btn" @click="goView('/starttime')">预约 ></a></div>
+</div>
+</div>
+   <div class="weui_cells weui_cells_access mar-t0 timing">
+        <div class="weui_cell pad-lr font14" >
+            <div class="weui_cell_bd weui_cell_primary ">
+                <p style="font-size:12px;"><span class="font14">预计到达：</span>
+                  <!-- <span style="margin: 0 5px;"> {{expect_selected.business_type | commFilter 'business_type' }} </span> -->
+                  <span v-if="expect_selected.deliver_time" > 预计 {{expect_selected.deliver_time.split(',')[1]}} 送达 </span> </p>
+            </div>
+            <!-- <div class="weui_cell_ft"></div> -->
+        </div>
+        <div class="weui_cells weui_cells_checkbox mar-t0" style="font-size:14px;" v-show="expect_times.length>0">
+         <div class="flex" v-for="(index,item) in expect_times">
+            <div class="weui_cell_bd weui_cell_primary">
+              <!-- <span>{{item.business_type | commFilter 'business_type' }}</span> -->
+                <span href="javascript:;">预计 {{item.deliver_time.split(',')[1]}} 送达</span>
+            </div>
+            <label class="weui_cell weui_check_label" for="s13" @click="selectType(item)" style="padding:8px 15px 12px;">
+              <div class="weui_cell_bd weui_cell_primary">
+                  <p class="mar-r" :style="{color : isVip ? 'gray' : 'red'}">{{item.sf_price | currency '￥' }}</p>
+              </div>
+                <div class="weui_cell_hd">
+                    <input type="checkbox" class="weui_check"  v-bind:checked="item == expect_selected" />
+                    <i class="weui_icon_checked"></i>
+                </div>
+            </label>
+            <div style="position:absolute;bottom:0;right:52px;" :style="{color : isVip ? 'red' : 'gray'}" v-if="vipAmt && !assistantUser">
+                <span style="margin-right:10px;color:#add8e6;text-decoration:underline;" v-if="!isVip && index==0" @click="goBuy()">购买会员</span>
+                会员价:{{vipAmt | currency '￥' }}
+            </div>
+         </div>
+         <div class="weui_cell pad-lr font12" style="color:#15ca5f;line-height:20px;display:block;">
+             <p>{{warnTips}}</p>
+             <p>由于空运限制，请检查球包内是否有<span style="color:#add8e6;text-decoration:underline;" @click="goView('/danger')">违禁品</span>。</p>
+         </div>
+        </div>
+    </div>
+<div class="home-line bg-white" style="position: relative;">
+    <div class="flex">
+        <div class="mar-r">球包数量：</div>
+        <div class="font-color homeicon">
+            <i class="icon_mul" @click="quantity >1 ? quantity--: quantity =1"></i>
+            <!-- <span style="margin : auto 8px;display:inline-block;">{{quantity}}</span> -->
+            <input type="number" class="money-in tex-c" v-model="quantity" min="1" max="99" style="margin-left:10px;"/>
+            <i class="icon_add" @click="quantity < 99 ? quantity++: quantity = 99"></i>
+        </div>
+    </div>
+    <!-- <div class="phone-order">
+        <a href="tel:4006090990"><img src="/img/tel_order.jpg" alt="" /></a>
+    </div> -->
+</div>
+<div class="home-line bg-white" style="position: relative;">
+  <div class="flex">
+    <div class="mar-r" @click="showLog">保价金额<i class="weui_icon_info_circle" style="margin-left: 1px;font-size: 18px;"></i>：</div>
+     <div class="font-color homeicon">
+         <i class="icon_mul" @click="money > min ? money--: money = min"></i>
+         <input type="number" class="money-in tex-c" v-model="money" min="0" max="100" style="margin-left:10px;"/>
+         <i class="icon_add" @click="money++" style="margin-right:3px;"></i>万元
+     </div>
+  </div>
+  <div class="tip bottom fade">
+    通过球包通下单运送球包，即可免费获得2,000元保价，也可自行购买更多保价金额，费率为3‰，即30元保10,000元。
+  </div>
+</div>
+<div class="home-line bg-white" >
+    <div class="flex">
+      <div class="mar-r">保价费：</div>
+       <span class="font-red">{{b_money}}</span>
+    </div>
+</div>
+
+<!--协议-->
+<div class="weui_cells weui_cells_checkbox mar-t" style="font-size:14px;">
+ <div class="flex home-line">
+    <div class="weui_cell_bd weui_cell_primary">
+        <a href="javascript:;" class="attention" style="color:blue" @click="goView('/care')">《寄球包注意事项》</a>
+    </div>
+    <label class="weui_cell weui_check_label" for="s11">
+      <div class="weui_cell_bd weui_cell_primary">
+          <p class="mar-r">已阅读</p>
+      </div>
+        <div class="weui_cell_hd">
+            <input type="checkbox" class="weui_check" name="checkbox1" id="s11" v-model="readCare">
+            <i class="weui_icon_checked"></i>
+        </div>
+    </label>
+ </div>
+
+ <div class="flex home-line">
+    <div class="weui_cell_bd weui_cell_primary">
+        <a href="javascript:;" class="attention" style="color:blue" @click="goView('/agreement')">《球包通服务协议》</a>
+    </div>
+    <label class="weui_cell weui_check_label" for="s12">
+      <div class="weui_cell_bd weui_cell_primary">
+          <p class="mar-r">已阅读</p>
+      </div>
+        <div class="weui_cell_hd">
+            <input type="checkbox" class="weui_check" name="checkbox1" id="s12"  v-model="readAgree">
+            <i class="weui_icon_checked"></i>
+        </div>
+    </label>
+ </div>
+</div>
+
+</div>
+
+<div class="submit flex tex-c bg-white" style="bottom: 0;">
+    <div class="flex-1">
+      <span class="font-red">{{((amount_bj + amount_yf) * quantity) | currency '￥'}}</span>
+    </div>
+    <div class="flex-1 " v-if="userMsg.userId">
+      <a href="javascript:;" v-if="!checkConfirm()" @click="inVald()" style="background-color:#89ec79;opacity:0.8;">推送用户支付</a>
+      <a href="javascript:;" v-if="checkConfirm()"  @click="addShopList()" style="background-color:#4fd04e">推送用户支付</a>
+    </div>
+    <div class="flex-1 ">
+      <a href="javascript:;" v-if="!checkConfirm()" @click="inVald()">代支付下单</a>
+      <a href="javascript:;" v-if="checkConfirm()"  @click="save()" style="background-color:#09bb07">代支付下单</a>
+    </div>
+</div>
+
+<div class="weui_dialog_confirm" style="display: none;" id="pay_confirm">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">温馨提示</strong></div>
+        <div class="weui_dialog_bd">推送成功！</div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:;" class="weui_btn_dialog  default" @click="closeDialog()">继续下单</a>
+            <!-- <a href="javascript:locationTo('shoplist.html');" class="weui_btn_dialog primary">进入清单支付</a> -->
+        </div>
+    </div>
+</div>
+<div class="indexAnim" id="indexAnim">+{{quantity}}</div>
+<!-- 弹层 -->
+<div class="home-pop" id="pop-index" v-show="showPop">
+    <div class="pop-contant">
+        <h3 v-if="message.contentType == 1">{{message.content}}</h3>
+        <img :src="fbaseUrl + message.content" v-if="message.contentType == 2">
+        <a @click="closePop()" href="javascript:;" class="btn-pop">我知道了</a>
+    </div>
+</div>
+</div>
+</template>

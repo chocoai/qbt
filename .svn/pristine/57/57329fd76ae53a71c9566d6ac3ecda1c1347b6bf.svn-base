@@ -1,0 +1,170 @@
+<template id="address_select">
+    <section class="page">
+        <tel-contact></tel-contact>
+        <div class="weui-tab">
+            <!--tab:4为快捷入口进入常用地址不显示切换头-->
+            <tab v-show="!isAddr" bar-active-color="#15ca5f" active-color="#15ca5f">
+                <tab-item :selected="tab==1" @on-item-click="chooseTab(1)">常用地址</tab-item>
+                <tab-item :selected="tab==2" @on-item-click="chooseTab(2)">球场</tab-item>
+                <tab-item :selected="tab==3" @on-item-click="chooseTab(3)">机场</tab-item>
+            </tab>
+            <!--  <div v-show="!isAddr" class="weui-navbar" style="position: fixed;">
+                <div class="weui-navbar__item weui-navbar__item_none bgWhite" :class="{'tab_hover':tab == 1}" @click="chooseTab(1)">
+                    常用地址
+                </div>
+                <div class="weui-navbar__item weui-navbar__item_none bgWhite" :class="{'tab_hover':tab == 2}" @click="chooseTab(2)">
+                    球场
+                </div>
+                <div class="weui-navbar__item weui-navbar__item_none bgWhite" :class="{'tab_hover':tab == 3}" @click="chooseTab(3)">
+                    机场
+                </div>
+            </div> -->
+            <div class="weui-tab__panel">
+                <div v-show="tab == 1">
+                    <div v-if="!isAddr" class="page__bd">
+                        <div class="weui-search-bar" id="searchBar">
+                            <div class="weui-search-bar__form">
+                                <div class="weui-search-bar__box" style="padding: 0 40px">
+                                    <i class="weui-icon-search" style="line-height: 45px;font-size: 18px"></i>
+                                    <input v-model="addressK" type="text" class="weui-search-bar__input" placeholder="输入关键字搜索" required="" style="height: 35px;font-size: 18px">
+                                    <a @click="addressK = ''" href="javascript:" class="weui-icon-clear" style="line-height: 45px;font-size: 18px"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="isAddr" class="page__bd">
+                        <div class="weui-search-bar" id="searchBar">
+                            <div class="weui-search-bar__form">
+                                <div class="weui-search-bar__box" style="padding: 0 40px">
+                                    <i class="weui-icon-search" style="line-height: 45px;font-size: 18px"></i>
+                                    <input v-model="addressK" type="search" class="weui-search-bar__input" placeholder="输入关键字搜索" required="" style="height: 35px;font-size: 18px">
+                                    <a @click="addressK = ''" href="javascript:" class="weui-icon-clear" style="line-height: 45px;font-size: 18px"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weui-flex address_type_button">
+                        <div class="weui-flex__item">
+                            <a :class="{'type_hover':addressType == 1}" @click="getAddress(1)" href="javascript:;">家</a>
+                        </div>
+                        <div class="weui-flex__item">
+                            <a :class="{'type_hover':addressType == 2}" @click="getAddress(2)" href="javascript:;">公司</a>
+                        </div>
+                        <div class="weui-flex__item">
+                            <a :class="{'type_hover':addressType == 3}" @click="getAddress(3)" href="javascript:;">其他</a>
+                        </div>
+                    </div>
+                    <div v-for="item in filterAddrList" class="weui-panel weui-panel_access">
+                        <div @click="save(item,1)" class="weui-panel__bd">
+                            <div class="weui-media-box weui-media-box_text">
+                                <h4 class="weui-media-box__title">{{item.cityName}}</h4>
+                                <p class="weui-media-box__desc">{{item.address}}</p>
+                            </div>
+                        </div>
+                        <div class="weui-panel__ft" style="border: 1px solid #F1F1F1;">
+                            <a class="weui-cell weui-cell_access weui-cell_link" href="javascript:;" style="color:#000">
+                                <div @click="goTop(item.id,item.def)" class="weui-cell__hd">
+                                    <img :src="item.def ? '/img/star1_v3.png' : '/img/star_v3.png'" style="width:18px;margin-right:5px;display:block">
+                                </div>
+                                <div @click="goTop(item.id,item.def)" class="weui-cell__bd">
+                                    <p>{{item.def ? '取消置顶' : '置顶'}}</p>
+                                </div>
+                                <div @click="goEdit(item)" class="weui-cell__ft_none">
+                                    <img src="/img/edit_v3.png" style="width:22px;margin-right:5px;display:block">
+                                </div>
+                                <div @click="goEdit(item)" class="weui-cell__ft_none">
+                                    <p>编辑</p>
+                                </div>
+                                <div @click="toDelete(item.id)" class="weui-cell__ft_none" style="margin-left: 13px;">
+                                    <img src="/img/delete_v3.png" style="width:22px;margin-right:5px;display:block">
+                                </div>
+                                <div @click="toDelete(item.id)" class="weui-cell__ft_none">
+                                    <p>删除</p>
+                                </div>
+                            </a> 
+                        </div>
+                    </div>
+                    <div v-show="filterAddrList.length==0" style="text-align:center;padding-top:50px">
+                        <img src="/img/empty.png" width="120" />
+                        <p style="padding-top: 20px;color:#cdcdcd;font-size:18px">请添加常用地址！</p>
+                    </div>
+                </div>
+                <div v-show="tab == 2">
+                    <div class="page__bd">
+                        <div class="weui-search-bar">
+                            <div class="weui-search-bar__form">
+                                <div class="weui-search-bar__box" style="padding: 0 40px">
+                                    <i class="weui-icon-search" style="line-height: 45px;font-size: 18px"></i>
+                                    <input v-model="courtK" type="search" class="weui-search-bar__input" placeholder="输入球场名称" required="" style="height: 35px;font-size: 18px">
+                                    <a @click="courtK = ''" href="javascript:" class="weui-icon-clear" style="line-height: 45px;font-size: 18px"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weui-flex course_type">
+                        <div class="weui-flex__item">
+                            <span>大陆</span>
+                        </div>
+                        <div class="weui-flex__item" @click="showCourseType = !showCourseType" style="position: relative;">
+                            <span class="triangle_down">{{courseType==1?'球场':'练习场'}}</span>
+                            <div v-show="showCourseType" class="course_select">
+                                <p @click.stop="chooseCourseType(1)">球场</p>
+                                <p @click.stop="chooseCourseType(2)">练习场</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div @click="save(item,2)" v-show="courseType == 1" v-for="item in filterCourtList" class="weui-flex course_airport_list">
+                        <div class="weui-flex__item">
+                            <p class="font16">{{item.name}}</p>
+                            <p>{{item.address}}</p>
+                        </div>
+                        <div>
+                            <p class="font12">{{item.juliStr}}</p>
+                        </div>
+                    </div>
+                    <div @click="save(item,2)" v-show="courseType == 2" v-for="item in filterCourtList2" class="weui-flex course_airport_list">
+                        <div class="weui-flex__item">
+                            <p class="font16">{{item.name}}</p>
+                            <p>{{item.address}}</p>
+                        </div>
+                        <div>
+                            <p class="font12">{{item.juliStr}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div v-show="tab == 3">
+                    <div class="page__bd">
+                        <div class="weui-search-bar">
+                            <div class="weui-search-bar__form">
+                                <div class="weui-search-bar__box" style="padding: 0 40px">
+                                    <i class="weui-icon-search" style="line-height: 45px;font-size: 18px"></i>
+                                    <input v-model="airportK" type="search" class="weui-search-bar__input" placeholder="输入机场名称" required="" style="height: 35px;font-size: 18px">
+                                    <a @click="airportK = ''" href="javascript:" class="weui-icon-clear" style="line-height: 45px;font-size: 18px"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div @click="save(item,3)" v-for="item in filterAirportList" class="weui-flex course_airport_list">
+                        <div class="weui-flex__item">
+                            <p>{{item.name}}</p>
+                            <p>{{item.address}}</p>
+                        </div>
+                        <div>
+                            <p>{{item.juliStr}}</p>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="weui-flex">
+                <div @click="goBack" class="weui-flex__item footer-cancel">
+    				<p>返回</p>
+                </div>
+            	<div v-show="tab == 1" @click="addAddress" class="weui-flex__item footer-confirm">
+    				<p>+添加常用地址</p>
+                </div>
+            </div>
+       </footer>
+    </section>
+</template>

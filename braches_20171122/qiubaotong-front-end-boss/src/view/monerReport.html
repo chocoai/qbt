@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="monerReportCtrl">
+	<div class="container containerWidthAuto">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-inline rowMarginBottom pull-right">
+          <div class="form-group marginRight5 positionRelative">
+            <label>物流渠道：</label>
+            <select style="min-width:100px" class="form-control" ng-model="mailChannel">
+              <option value="">全部</option>
+              <option ng-repeat="channel in channelList" value="{{channel.id}}">{{channel.channelName}}</option>
+            </select>
+          </div>
+					<div class="form-group marginRight5 positionRelative">
+						<label>下单开始日期：</label>
+						<div class="inputDateClose">
+							<input ng-model="startTime" type="text" placeholder="选择下单开始日期" class="form-control date-picker" readonly>
+							<button ng-click="clearStartTime()" class="clearTime">x</button>
+						</div>
+					</div>
+					<div class="form-group marginRight5 positionRelative">
+						<label>下单结束日期：</label>
+						<div class="inputDateClose">
+							<input ng-model="endTime" type="text" placeholder="选择下单结束日期" class="form-control date-picker" readonly>
+							<button ng-click="clearEndTime()" class="clearTime">x</button>
+						</div>
+					</div>
+					<div class="form-group">
+						<button id="search" class="btn btn-primary marginRight5" ng-click="getList()">搜索</button>
+						<button class="btn btn-primary" ng-click="reportDownload()">下载</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+            <div class="col-sm-12">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <th class="qbt-font5">下单时间</th>
+                        <th class="qbt-font4">订单号</th>
+                        <th class="qbt-font4">运单号</th>
+                        <th class="qbt-font4">商户订单号</th>
+                        <th class="qbt-font4">下单客户</th>
+                        <th class="qbt-font4">物流渠道</th>
+                        <th class="qbt-font3">取包人</th>
+                        <th class="qbt-font3">送包人</th>
+                        <th class="qbt-font3">取包省</th>
+                        <th class="qbt-font3">送包省</th>
+                        <th class="qbt-font4">订单总金额</th>
+                        <th class="qbt-font4">是否支付成功</th>
+                        <th class="qbt-font4">退款状态</th>
+                        <th class="qbt-font4">是否重新下发顺丰</th>
+                        <th class="qbt-font4">支付方式</th>
+                        <th class="qbt-font4">客服是否收款</th>
+                        <th class="qbt-font4">财务是否收款</th>
+                        <th class="qbt-font4">是否优惠</th>
+                        <th class="qbt-font4">实付金额</th>
+                        <th class="qbt-font4">优惠金额</th>
+                        <th class="qbt-font4">优惠活动</th>
+                        <th class="qbt-font4">优惠码</th>
+                        <th class="qbt-font4">券面额</th>
+                        <th class="qbt-font4">保价金额(万)</th>
+                        <th class="qbt-font4">保价费率</th>
+                        <th class="qbt-font4">保价费</th>
+                        <th class="qbt-font4">加急费</th>
+                        <th class="qbt-font4">取包市</th>
+                        <th class="qbt-font4">取包区</th>
+                        <th class="qbt-font4">取包详细地址</th>
+                        <th class="qbt-font4">偏远取包球场增加价格</th>
+                         <th class="qbt-font4">取消订单费用</th>
+                        <th class="qbt-font4">送包市</th>
+                        <th class="qbt-font4">送包区</th>
+                        <th class="qbt-font4">送包详细地址</th>
+                        <th class="qbt-font4">偏远送包球场增加价格</th>
+                        <th class="qbt-font4">客服记录</th>
+                        <th class="qbt-font4">留言</th>
+                        <th class="qbt-font4">合作机构名称</th>
+                        <th class="qbt-font4">费用增减明细</th>
+                        <th class="qbt-font4">微信支付码</th>
+                        <th class="qbt-font4">微信支付码操作人</th>
+                        <th class="qbt-font4">微信支付码操作时间</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in list track by $index">
+                        	<td>{{item.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>{{item.number}}</td>
+                            <td>{{item.mailNo}}</td>
+                            <td>{{item.uuid}}</td>
+                            <td>{{item.userName}}</td>
+                            <td>{{item.mailChannel===1?'顺丰':(item.mailChannel===2?'德邦':(item.mailChannel===3?'跨越':'宅急送'))}}</td>
+                            <td>{{item.jContact}}</td>
+                            <td>{{item.dContact}}</td>
+                            <td>{{item.jTreePath.split(',')[0]}}</td>
+                            <td>{{item.dTreePath.split(',')[0]}}</td>
+                            <td>{{item.totalAmount | number:2}}</td>
+                            <td>{{item.orderStatus | commFilter : 'order_type'}}</td>
+                            <td>{{item.refundStatus | commFilter : 'refund_type'}}</td>
+                            <td>{{item.handleType == 1 ? '否' : '是'}}</td>
+                            <td>{{item.payMethod | commFilter : 'payMethod_type'}}</td>
+                            <td>{{item.kfReceivableStatus | commFilter : 'kfReceivableStatus_type'}}</td>
+                            <td>{{item.cwReceivableStatus == 1 ? '是' : '否'}}</td>
+                            <td>{{item.isFavored ? '是' : '否'}}</td>
+                            <td>{{item.amount | number:2}}</td>
+                            <td>{{item.discount | number:2}}</td>
+                            <td>{{item.favorableDesc}}</td>
+                            <td>{{item.couponCode}}</td>
+                            <td>{{item.childAmount | number:2}}</td>
+                            <td>{{item.insuredValue | number:2}}</td>
+                            <td>{{item.insuredRates}}</td>
+                            <td>{{item.insuredFee | number:2}}</td>
+                            <td>{{item.urgentFee | number:2}}</td>
+                            <td>{{item.jTreePath.split(',')[1]}}</td>
+                            <td>{{item.jTreePath.split(',')[2]}}</td>
+                            <td>{{item.jAddress}}</td>
+                            <td>{{item.jOutRangePrice | number:2}}</td>
+                            <td>{{item.cancelFee | number:2}}</td>
+                            <td>{{item.dTreePath.split(',')[1]}}</td>
+                            <td>{{item.dTreePath.split(',')[2]}}</td>
+                            <td>{{item.dAddress}}</td>
+                            <td>{{item.dOutRangePrice | number:2}}</td>
+                            <td>{{item.memo}}</td>
+                            <td>{{item.remark}}</td>
+                            <td>{{item.thirdName}}</td>
+                            <td nowrap>
+                             <pre style="border: 0;background-color: transparent;margin: 0;padding: 0;font-size: 14px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">{{item.costItem}}</pre>
+                            </td>
+                            <td>{{item.weixinPayCode}}</td>
+                            <td>{{item.weixinPayCodeOperater}}</td>
+                            <td>{{item.weixinPayCodeUpdateTime | date : 'yyyy-MM-dd HH:mm'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination page="page" change="getList(page)"></pagination>
+            </div>
+        </div>
+	</div>
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/monerReportCtrl.js}}}"></script>
+</body>
+</html>

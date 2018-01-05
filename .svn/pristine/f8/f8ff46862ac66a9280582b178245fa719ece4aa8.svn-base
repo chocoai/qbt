@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="orderDownCtrl">
+
+	<div class="container containerWidthAuto">
+  		<div class="row">
+  			<div class="col-sm-6">
+  				<div class="panel panel-default">
+  					<div class="panel-heading">
+  						<h3 class="panel-title">取包信息<i class="fa fa-fw fa-refresh pointer marginLeft10" ng-click="changeData()"></i><i class="fa fa-fw fa-long-arrow-right pointer marginLeft10" ng-click="copyData(1)"></i><i class="fa fa-fw fa-edit pull-right" ng-click="editAddr(1)"></i></h3>
+  					</div>
+  					<div class="panel-body">
+                        <p>
+                            <span>详细地址: </span>
+                            <span ng-if="order.jAddrType == 4">{{order.jTreePath}}{{order.jAddress}}</span>
+                            <span ng-if="order.jAddrType != 4 && !!order.jAddrType"> {{order.jAddrName}}({{order.jTreePath}}{{order.jAddress}})</span>
+                            <label class="label label-danger" ng-show="order.fcJActivity">满减</label>
+                        </p>
+                        <p>联系人: {{order.jContact}}</p>
+                        <p>联系电话: {{order.jMobile}}</p>
+  					</div>
+  				</div>
+  				<div class="panel panel-default">
+  					<div class="panel-heading">
+  						<h3 class="panel-title">保价及数量信息</h3>
+  					</div>
+  					<div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <span class="col-sm-4 order-down-span">球包数量：</span>
+                                <div class="col-sm-4">
+                                    <input ng-change="getBeforeFullCut()" type="number" ng-model="order.quantity" class="form-control" min="0">
+                                </div>
+                                <div class="col-sm-4 order-down-div">
+                                    {{order.quantityDesc}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span class="col-sm-4 order-down-span">保价金额(万元)：</span>
+                                <div class="col-sm-4">
+                                    <input type="number" ng-change="getInsure()" ng-model="order.insurePrice" class="form-control" min="0">
+                                </div>
+                                <div class="col-sm-4 order-down-div">
+                                    {{order.insurePriceDesc}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span class="col-sm-4 order-down-span">保价费(元)：</span>
+                                <div class="col-sm-4">
+                                    <input ng-model="order.amountPrice" type="number" class="form-control" min="0" readonly>
+                                </div>
+                                <div class="col-sm-4">
+
+                                </div>
+                            </div>
+                      </form>
+                  </div>
+              </div>
+
+              <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">客户打球原因</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="checkbox-inline">
+                                        <input ng-click="isReasonClick('活动')" type="checkbox" value="活动"> 活动
+                                    </label>
+                                    <label class="checkbox-inline">
+                                      <input ng-click="isReasonClick('打球')" type="checkbox" checked value="打球"> 打球
+                                    </label>
+                                    <label class="checkbox-inline">
+                                      <input ng-click="isReasonClick('返程')" type="checkbox" value="返程"> 返程
+                                    </label>
+                                    <label class="checkbox-inline">
+                                      <input ng-click="isReasonClick('旅游')" type="checkbox" value="旅游"> 旅游
+                                    </label>
+                                    <br>
+                                    <label class="checkbox-inline">
+                                      <input ng-click="otherReasonShow = !otherReasonShow" type="checkbox" value="其他"> 其他
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input ng-show="otherReasonShow" ng-model="otherReason" type="text" class="form-control" maxlength="20">
+                                    </label>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+
+                <div class="panel panel-default" style="margin-top:10px;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">语言</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label ng-repeat="languageList in languageLists track by $index" class="radio-inline">
+                                <input ng-model="order.langName" type="radio" value="{{languageList.ename}}|{{languageList.name}}" name="langNames" ng-checked="!$index">{{languageList.name}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">送包信息<i class="fa fa-fw fa-refresh pointer marginLeft10" ng-click="changeData()"></i><i class="fa fa-fw fa-long-arrow-left pointer marginLeft10" ng-click="copyData(2)"></i><i class="fa fa-fw fa-edit pull-right" ng-click="editAddr(2)"></i></h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            <span>详细地址: </span>
+                            <span ng-if="order.dAddrType == 4">{{order.dTreePath}}{{order.dAddress}}</span>
+                            <span ng-if="order.dAddrType != 4 && !!order.dAddrType"> {{order.dAddrName}}({{order.dTreePath}}{{order.dAddress}})</span>
+                            <label class="label label-danger" ng-show="!!order.fcDActivity">满减</label>
+                        </p>
+                        <p>联系人: {{order.dContact}}</p>
+                        <p>联系电话: {{order.dMobile}}</p>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">时间信息<i class="fa fa-fw fa-edit pull-right" ng-click="editTime()"></i></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <p>预约取件：{{order.sendTimeSection}}</p>
+                        </div>
+                        <div class="form-group">
+                            <p>预计到达：{{order.expressType==='2'?order.describe : order.deliverDate}}</p>
+                        </div>
+                        <div class="form-goup" style="color:red">
+                            <p>取包类型：</p>
+                            <div ng-repeat="item in deliverTimes track by $index" class="mb8">
+                                <input ng-checked="!$index" class="checkDeliverTime" type="radio" name="deliverRadio" id="deliverRadio" value="{{item.business_type}}" ng-click="checkBusiness(item)" >{{item.business_type | commFilter : 'business_type'}}，{{item.business_type==='2'? item.describe:item.deliver_time.split(',')[1].substr(5)}}，￥{{item.sf_price - item.out_range_price}}
+                                <p ng-show="item.out_range_price>0">偏远费：￥{{item.out_range_price}}</p>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<p>开球时间：{{order.playTime}}</p>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+                <div class="panel panel-default" style="margin-top:10px;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">手动优惠</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <span class="col-sm-4 order-down-span">每包优惠金额(元)：</span>
+                                <div class="col-sm-4">
+                                    <input ng-model="inputDiscount" ng-change="moveDiscount()" type="number" class="form-control" min="0">
+                                </div>
+                                <div class="col-sm-4 order-down-div">
+                                    {{inputDiscountMsg}}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel panel-default" style="margin-top:10px;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">留言信息</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <textarea class="form-control" ng-model="remark" maxlength="30"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+  		</div>
+  		<div class="row">
+  			<div class="col-sm-6">
+  				<button id="showOrderBtn" class="btn btn-primary" ng-click="showOrder()">立即下单</button>
+  			</div>
+  		</div>
+  	</div>
+
+  	<div id="editAddr" style="display:none;margin:15px;">
+        <form class="form-inline mb8">
+            <div class="form-group marginRight5">
+                <label class="control-label">姓名：</label>
+                <input class="form-control" ng-model="edit.name" maxlength="15">
+            </div>
+            <div class="form-group">
+                <label class="control-label">联系电话：</label>
+                <input class="form-control" ng-model="edit.mobile" maxlength="13" placeholder="如：000(0)-0000000(0)">
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="changeUserName()">仅修改联系人</button>
+        </form>
+
+        <ul class="nav nav-tabs nav-justified" id="myTab">
+    	    <li class="active"><a href="#userAddr" data-toggle="tab">普通地址</a></li>
+            <li><a href="#courtAddr" data-toggle="tab">球场</a></li>
+            <li><a href="#bankAddr" data-toggle="tab">银行网点</a></li>
+            <li><a href="#sfAddr" data-toggle="tab">顺丰站点</a></li>
+            <li><a href="#airAddr" data-toggle="tab">机场网点</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="userAddr">
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered table-striped table-hover table-condensed">
+                            <thead>
+                                <th>联系人</th>
+                                <th>手机号</th>
+                                <th>省</th>
+                                <th>市</th>
+                                <th>区</th>
+                                <th>详细地址</th>
+                                <th>操作</th>
+                            </thead>
+                            <tbody>
+                                <tr style="cursor:pointer" ng-click="checkUserAddr(item)" ng-repeat="item in userAddrList track by $index">
+                                    <td>{{item.contact}}</td>
+                                    <td>{{item.mobile}}</td>
+                                    <td>{{item.treePath.split(',')[0]}}</td>
+                                    <td>{{item.treePath.split(',')[1]}}</td>
+                                    <td>{{item.treePath.split(',')[2]}}</td>
+                                    <td>{{item.address}}</td>
+                                    <td><button class="btn btn-primary btn-xs" ng-click="checkUserAddr(item)">选择</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <pagination page="page" change="getUserAddr(page)"></pagination>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default" style="margin-top:10px;">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">新增地址</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                	<div class="col-sm-6 form-group">
+                                		<label>联系人：</label>
+                                		<input  type="text" class="form-control" placeholder="" ng-model="edit.name_2" maxlength="15">
+                                	</div>
+                                	<div class="col-sm-6 form-group">
+                                		<label>联系电话：</label>
+                                		<input type="text" class="form-control" placeholder="如：13555555555 或 000(0)-0000000(0)" ng-model="edit.mobile_2" maxlength="13">
+                                	</div>
+                                </div>
+                                <div class="row">
+                                	<div class="col-sm-4 form-group">
+                                		<label>省：</label>
+                                        <select class="form-control" ng-model="edit.province" ng-change="getCitieses()">
+                                            <option value="" >请选择</option>
+                                            <option value="{{item.id}}|{{item.name}}" ng-repeat="item in provinceses">{{item.name}}</option>
+                                        </select>
+                                	</div>
+                                	<div class="col-sm-4 form-group">
+                                		<label>市：</label>
+                                        <select class="form-control" ng-model="edit.city" ng-change="getCounties()">
+                                            <option value="" >请选择</option>
+                                            <option value="{{item.id}}|{{item.fullName}}" ng-repeat="item in citieses">{{item.fullName}}</option>
+                                        </select>
+                                	</div>
+                                    <div class="col-sm-4 form-group">
+                                		<label>区：</label>
+                                        <select class="form-control" ng-model="edit.country">
+                                            <option value="" >请选择</option>
+                                            <option value="{{item.id}}|{{item.name}}" ng-repeat="item in countieses">{{item.name}}</option>
+                                        </select>
+                                	</div>
+                                </div>
+                                <div class="row">
+                                	<div class="col-sm-12 form-group">
+                                		<label>详细地址：</label>
+                                		<input  type="text" class="form-control" placeholder="" ng-model="edit.address">
+                                	</div>
+                                </div>
+                                <button class="btn btn-primary" ng-click="addUserAddr()">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade in" id="courtAddr">
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-sm-5">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" >联系人：</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" ng-model="edit.name_1" maxlength="15">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" >手机号：</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" ng-model="edit.mobile_1" maxlength="11">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">球场：</label>
+                                <label class="col-sm-8 control-label">{{edit.stationName1}}</label>
+                            </div>
+                            <button class="btn btn-primary col-sm-offset-1" ng-click="checkStation(1)">确定</button>
+                        </form>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <input class="form-control" ng-model="filterCourt" placeholder="搜索..">
+                            <div class="list-group" style="max-height:250px;overflow:auto;">
+                                <a href="javascript:;" class="list-group-item" ng-repeat="item in courtList | filter:{name : filterCourt} track by $index" ng-click="checkItem(item,1)">{{item.name}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade in" id="bankAddr">
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-sm-5">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" >联系人：</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" ng-model="edit.name_1" maxlength="15">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">手机号：</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" ng-model="edit.mobile_1" maxlength="11">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">银行网点：</label>
+                                <label class="col-sm-8 control-label">{{edit.stationName3}}</label>
+                            </div>
+                            <button class="btn btn-primary col-sm-offset-1" ng-click="checkStation(3)">确定</button>
+                        </form>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <input class="form-control" ng-model="filterBank" placeholder="搜索..">
+                            <div class="list-group" style="max-height:250px;overflow:auto;">
+                                <a href="javascript:;" class="list-group-item" ng-repeat="item in bankList | filter:{name : filterBank} track by $index" ng-click="checkItem(item,3)">{{item.name}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade in" id="sfAddr">
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-sm-5">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">联系人：</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" ng-model="edit.name_1" maxlength="15">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">手机号：</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" ng-model="edit.mobile_1" maxlength="11">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">顺丰站点：</label>
+                                <label class="col-sm-8 control-label">{{edit.stationName5}}</label>
+                            </div>
+                            <button class="btn btn-primary col-sm-offset-1" ng-click="checkStation(5)">确定</button>
+                        </form>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <input class="form-control" ng-model="filterSf" placeholder="搜索..">
+                            <div class="list-group" style="max-height:250px;overflow:auto;">
+                                <a href="javascript:;" class="list-group-item" ng-repeat="item in sfList | filter:{name : filterSf} track by $index" ng-click="checkItem(item,5)">{{item.name}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade in" id="airAddr">
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-sm-5">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" >联系人：</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" ng-model="edit.name_1" maxlength="15">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">手机号：</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" ng-model="edit.mobile_1" maxlength="11">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">机场网点：</label>
+                                <label class="col-sm-8 control-label">{{edit.stationName2}}</label>
+                            </div>
+                            <button class="btn btn-primary col-sm-offset-1" ng-click="checkStation(2)">确定</button>
+                        </form>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <input class="form-control" ng-model="filterAir" placeholder="搜索..">
+                            <div class="list-group" style="max-height:250px;overflow:auto;">
+                                <a href="javascript:;" class="list-group-item" ng-repeat="item in airList | filter:{name : filterAir} track by $index" ng-click="checkItem(item,2)">{{item.name}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="editTime" style="display:none;margin:15px;">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-4 control-label" >预约取件日期</label>
+                <div class="col-sm-8">
+                    <select class="form-control"  ng-model="edit.sendDate" ng-change="changeTime()">
+                        <option value="{{item.day}}" ng-repeat="item in timeList">{{item.day}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" >时间段</label>
+                <div class="col-sm-8">
+                    <select class="form-control"  ng-model="edit.sendTime">
+                        <option value="{{item}}" ng-repeat="item in timeList2">{{item}}</option>
+                    </select>
+                </div>
+            </div>
+            <!--<div class="form-group">-->
+                <!--<label class="col-sm-4 control-label">开球时间</label>-->
+                <!--<div class="col-sm-8">-->
+                    <!--<input type="text" class="form-control input-append date-time" ng-model="playTime" placeholder="开球时间" readonly>-->
+                    <!--<span class="add-on" ng-click="playTime=''"><i class="fa fa-times"></i></span>-->
+                <!--</div>-->
+            <!--</div>-->
+        </form>
+    </div>
+
+    <div id="showOrder" style="display:none">
+        <div style="padding:10px 20px 0px 20px">
+            <table class="table">
+                <tr>
+                    <td class="qbt-font5">预约取件：</td>
+                    <td> {{order.sendTimeSection}}</td>
+                </tr>
+                <tr>
+                    <td class="qbt-font5">预计到达：</td>
+                    <td>{{order.expressType==='2'? order.describe : order.deliverDate}}</td>
+                </tr>
+                <!--<tr>-->
+                    <!--<td class="qbt-font5">开球时间：</td>-->
+                    <!--<td>{{order.playTime}}</td>-->
+                <!--</tr>-->
+                <tr>
+                    <td class="qbt-font5">取包信息：</td>
+                    <td><p>{{order.jContact}}   {{order.jMobile}}</p>
+                        <p ng-if="order.jAddrType == 4">{{order.jTreePath}}{{order.jAddress}}</p>
+                        <p ng-if="order.jAddrType != 4 && !!order.jAddrType">{{order.jAddrName}}({{order.jTreePath}}{{order.jAddress}})</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="qbt-font5">送包信息：</td>
+                    <td>
+                        <p>{{order.dContact}}   {{order.dMobile}}</p>
+                        <p ng-if="order.dAddrType == 4">{{order.dTreePath}}{{order.dAddress}}</p>
+                        <p ng-if="order.dAddrType != 4 && !!order.dAddrType">{{order.dAddrName}}({{order.dTreePath}}{{order.dAddress}})</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="qbt-font5">语言：</td>
+                    <td>{{order.langName.split('|')[1]}}</td>
+                </tr>
+                <tr>
+                    <td class="qbt-font5">保价费：</td>
+                    <td>{{order.amountPrice | currency : '￥'}}（每包）</td>
+                </tr>
+                <tr>
+                    <td class="qbt-font5">单价：</td>
+                    <td ng-if="order.outRangeAmount>0">
+                        <span>{{order.sfPrice - order.outRangeAmount | currency : '￥'}}（每包）</span>
+                    </td>
+                    <td ng-if="order.outRangePrice>0">
+                        <span>{{order.sfPrice - order.outRangePrice | currency : '￥'}}（每包）</span>
+                    </td>
+                    <td ng-if="order.outRangePrice === 0 && !order.outRangeAmount">
+                        <span>{{order.sfPrice | currency : '￥'}}（每包）</span>
+                    </td>
+                </tr>
+                <tr ng-show="order.isVipOrder == true">
+                    <td class="qbt-font5">VIP单价：</td>
+                    <td>
+                        <p ng-repeat="item in order.vipOrderAmountList">{{item | currency : '￥'}}({{order.vipOrderAmountNum[item]}}个)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="qbt-font5">手动优惠：</td>
+                    <td>{{inputDiscount | currency : '￥'}}（每包）</td>
+                </tr>
+                <tr>
+                    <td class="qbt-font5">球包数量：</td>
+                    <td>
+                        <span>{{order.quantity}}</span>
+                        <span ng-show="order.isVipOrder == true">（VIP球包{{order.vipNumber}}个, 非VIP球包{{order.quantity-order.vipNumber}}个）</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="qbt-font5">优惠金额：</td>
+                    <td>
+                        <span>{{order.cutAmount | currency : '￥'}}</span>
+                    </td>
+                </tr>
+                <tr ng-show="order.isVipOrder && order.outRangeAmount != 0">
+                    <td class="qbt-font5">偏远费：</td>
+                    <td>
+                        <span>{{order.outRangeAmount | currency : '￥'}}</span>
+                    </td>
+                </tr>
+                <tr ng-show="!order.isVipOrder && order.outRangePrice != 0 ">
+                    <td class="qbt-font5">偏远费：</td>
+                    <td>
+                        <span>{{order.outRangePrice | currency : '￥'}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="qbt-font5">总计：</td>
+                    <td>
+                        <span style="color:red">{{order.allAmount | currency : '￥'}}</span>
+                    </td>
+                </tr>
+                <tr ng-show="!!remark">
+                    <td class="qbt-font5">留言：</td>
+                    <td>{{remark}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="wecat">
+
+    </div>
+
+
+
+
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/orderDownCtrl.js}}}"></script>
+</body>
+</html>

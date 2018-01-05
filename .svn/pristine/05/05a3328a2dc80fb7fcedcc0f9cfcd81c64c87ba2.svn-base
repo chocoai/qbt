@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+  <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="/assets/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+  <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body ng-controller="awardDetailCtrl">
+  <div class="container containerWidthAuto">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="awardName">中奖活动名称：</label>
+          <input id="awardName" type="text" ng-model="awardName" class="form-control" placeholder="请输入中奖名称">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="beginTime">活动开始时间：</label>
+          <input id="beginTime" type="text" ng-model="beginTime" class="form-control date-picker" placeholder="请选择中奖活动开始时间" readonly>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="endTime">活动结束时间：</label>
+          <input id="endTime" type="text" ng-model="endTime" class="form-control date-picker" placeholder="请选择中奖活动结束时间" readonly>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-inline">
+          <label for="setAward">中奖概率分子设置：</label><br>
+          <input id="setAward" type="number" ng-model="setAward" class="form-control" min="0.0" step="1.0" placeholder="请输入中奖分子概率" style="width: 85%;">
+          <label style="font-size: 18px;width: 10%;">/10000</label>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>中奖活动类型：</label>
+          <select class="form-control" ng-model="getAward">
+            <option value="">请选择</option>
+            <option value="1">订单支付成功奖励</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>奖励类型：</label>
+          <select class="form-control" ng-model="awardType">
+            <option value="">请选择</option>
+            <option value="1">优惠券</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>奖励物品：</label>
+          <select class="form-control" ng-model="awardThing">
+            <option value="">请选择</option>
+            <option ng-repeat="obj in coupon track by $index" value={{obj.id}}>{{obj.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="state">状态：</label>
+          <select id="state" class="form-control" ng-model="stateVal" style="max-width: 115px">
+            <option value="">请选择</option>
+            <option value="0">启用</option>
+            <option value="1">禁用</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label>备注</label>
+          <textarea id="mark" cols="10" rows="3" class="form-control" maxlength="150" ng-model="remark"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <button class="btn btn-primary" ng-click="addNew()">提交</button>
+        <!--<button class="btn btn-primary" ng-if="aid" ng-click="updateList()">修改</button>-->
+      </div>
+    </div>
+  </div>
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/awardDetailCtrl.js}}}"></script>
+</body>
+</html>

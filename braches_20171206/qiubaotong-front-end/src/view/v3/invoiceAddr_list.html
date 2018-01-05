@@ -1,0 +1,79 @@
+<template id="invoiceAddr_list">
+  <div class="page">
+    <tel-contact></tel-contact>
+    <section class="weui-tab">
+      <div class="weui-tab__panel">
+        <div class="page__bd">
+          <div class="weui-cells weui-cells_form" style="margin-top:0">
+            <div class="weui-cell">
+              <div class="weui-cell__hd" style="text-align: center;width: 100%">
+                <span style="float: left" @click="goBack">
+                  <img src="/img/back.png" alt="">
+                </span>
+                <h3 class="weui-label" >我的发票信息</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page__bd" style="margin-top: 10px">
+          <div class="weui-flex" style="background-color: #ffffff">
+            <a :class="{'type_hover':personalType == 2}" @click="tabPerType(2)" class="weui-flex__item font16" style="border: 1px solid #c2c2c2;padding: 10px;text-align: center;">公司</a>
+            <a :class="{'type_hover':personalType == 1}" @click="tabPerType(1)" class="weui-flex__item font16" style="border: 1px solid #c2c2c2;padding: 10px;text-align: center;">个人</a>
+          </div>
+        </div>
+        <!--公司-->
+        <div v-show="personalType == 2" class="page__bd">
+          <!--列表-->
+          <div style="margin: 5px 0;" v-for="(item,index) in addr_list">
+            <swipeout style="height: 50px;">
+              <swipeout-item transition-mode="follow">
+                <div slot="right-menu">
+                  <swipeout-button @click.native="onButtonClick(item)" type="primary">编辑</swipeout-button>
+                  <swipeout-button @click.native="onButtonDelete(item.id)" type="warn">删除</swipeout-button>
+                </div>
+                <div slot="content" class="weui-cell" @click="goInvoice(item)">
+                  {{item.title}}
+                </div>
+              </swipeout-item>
+            </swipeout>
+          </div>
+          <!--列表为空时显示的内容-->
+          <div v-show="addr_list.length==0" style="text-align:center;padding-top:80px">
+            <img src="/img/empty.png" style="max-height: 100px"/>
+            <p style="padding-top: 20px;color:#cdcdcd;font-size:18px">请添加发票地址！</p>
+          </div>
+        </div>
+        <!--个人-->
+        <div v-show="personalType == 1" class="page__bd">
+          <!--列表-->
+          <div style="margin: 5px 0;" v-for="(item,index) in addr_list">
+            <swipeout style="height: 50px;">
+              <swipeout-item transition-mode="follow">
+                <div slot="right-menu">
+                  <swipeout-button @click.native="onButtonClick(item)" type="primary">编辑</swipeout-button>
+                  <swipeout-button @click.native="onButtonDelete(item.id)" type="warn">删除</swipeout-button>
+                </div>
+                <div slot="content" class="weui-cell" @click="goInvoice(item)">
+                  {{item.title}}
+                </div>
+              </swipeout-item>
+            </swipeout>
+          </div>
+          <!--列表为空时显示的内容-->
+          <div v-show="addr_list.length==0" style="text-align:center;padding-top:80px">
+            <img src="/img/empty.png" style="max-height: 100px"/>
+            <p style="padding-top: 20px;color:#cdcdcd;font-size:18px">请添加发票地址！</p>
+          </div>
+        </div>
+      </div>
+      <!--确认提交按钮-->
+      <footer class="footer footer-ios">
+        <div class="weui-flex">
+          <a href="javascript:;" @click="goAddAddr(personalType)" class="weui-flex__item footer-confirm">
+            <p>+添加发票地址信息</p>
+          </a>
+        </div>
+      </footer>
+    </section>
+  </div>
+</template>

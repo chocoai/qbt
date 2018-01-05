@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="travelCtrl">
+<div class="container containerWidthAuto">
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="form-inline mb8 pull-right">
+                <div class="form-group paddingBottom10">
+                	<label>省：</label>
+                    <select style="min-width:93px" ng-change="getCitieses()" class="form-control marginRight5" ng-model="province">
+                        <option value="">全部</option>
+                        <option ng-repeat="datas in provinceses" value={{datas.id}}>
+                        {{datas.fullName}}
+                    </option>
+                    </select>
+                </div>
+                <div class="form-group paddingBottom10">
+                    <label>市：</label>
+                    <select style="min-width:93px" ng-change="getCounties()" class="form-control marginRight5" ng-model="city">
+                        <option value="">全部</option>
+                        <option ng-repeat="datas in citieses" value={{datas.id}}>
+                            {{datas.fullName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group paddingBottom10">
+                    <label>区：</label>
+                    <select style="min-width:93px" class="form-control marginRight5" ng-model="county">
+                        <option value="">全部</option>
+                        <option ng-repeat="datas in countieses" value={{datas.id}}>{{datas.fullName}}</option>
+                    </select>
+                </div>
+                <div class="form-group marginRight5 paddingBottom10">
+                    <label>合作方机构名称：</label>
+                    <input type="text" class="form-control" ng-model="name" placeholder="输入合作方机构名称">
+                </div>
+                <div class="form-group paddingBottom10">
+                    <label>共享订单：</label>
+                    <select style="min-width:93px" class="form-control marginRight5" ng-model="shareOrder">
+                        <option value="">全部</option>
+                        <option value="true">是</option>
+                        <option value="false">否</option>
+                    </select>
+                </div>
+                <div class="form-group paddingBottom10">
+                    <label>状态：</label>
+                    <select style="min-width:93px" class="form-control marginRight5" ng-model="status">
+                        <option value="">全部</option>
+                        <option value="1">启用</option>
+                        <option value="2">禁用</option>
+                    </select>
+                </div>
+                <div class="form-group marginRight5 paddingBottom10">
+                    <button id="search" class="btn btn-primary" ng-click="getList()">搜索</button>
+                </div>
+                <div class="form-group paddingBottom10">
+                    <button class="btn btn-primary" ng-click="addTravel()">新增</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <th>合作方机构名称</th>
+                    <th>类型</th>
+                    <th>联系人</th>
+                    <th>联系电话</th>
+                    <th>地区</th>
+                    <th>共享订单</th>
+                    <th>状态</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </thead>
+                <tbody >
+                    <tr ng-repeat="item in list track by $index">
+                    <!-- <tr> -->
+                        <td><a ng-click="updateTravel(item.id)" class="fa" href="javascript:void(0)">{{item.name}}</a></td>
+                        <td>{{item.partnerType | commFilter : 'partner_type'}}</td>
+                        <td>{{item.contact}}</td>
+                        <td>{{item.mobile}}</td>
+                        <td>{{item.treePath.replaceAll(',','')}}</td>
+                        <td>{{item.shareOrder ? '是' : '否'}}</td>
+                        <td>
+                            <label ng-class="{'label-primary':item.status == 1,'label-danger':item.status != 1}" class="label label-primary">{{item.status == 1 ? '启用' : '禁用'}}</label>
+                        </td>
+                        <td>{{item.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>
+                            <button ng-show="item.status == 2" ng-click="toEnable(item.id)" class="btn btn-primary btn-sm">启用</button>
+                            <button ng-show="item.status == 1" ng-click="toDisable(item.id)" class="btn btn-danger btn-sm">禁用</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination page="page" change="getList(page)"></pagination>
+        </div>
+    </div>
+</div>
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/travelCtrl.js}}}"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseBrandMapper">
+
+	<resultMap id="BaseResultMap" type="BaseBrand">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="contact_id" property="contactId" jdbcType="INTEGER" />
+		<result column="bag_no" property="bagNo" jdbcType="VARCHAR" />
+		<result column="rfid_no" property="rfidNo" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="BossBaseBrand" id="BossResultMap" extends="BaseResultMap">
+		<result column="contact_name" property="contactName" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, contact_id, bag_no, rfid_no, state, remark
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from base_brand
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<insert id="insert" parameterType="BaseBrand" keyProperty="id" useGeneratedKeys="true">
+		insert into base_brand (create_time, update_time,
+		contact_id, bag_no, rfid_no,
+		state, remark)
+		values (#{createTime},
+		#{updateTime},
+		#{contactId,jdbcType=INTEGER}, #{bagNo,jdbcType=VARCHAR}, #{rfidNo,jdbcType=VARCHAR},
+		#{state,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="updateById" parameterType="BaseBrand">
+		update base_brand
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="contactId != null">
+				contact_id = #{contactId,jdbcType=INTEGER},
+			</if>
+			<if test="bagNo != null">
+				bag_no = #{bagNo,jdbcType=VARCHAR},
+			</if>
+			<if test="rfidNo != null">
+				rfid_no = #{rfidNo,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from base_brand where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<select id="findByPage" parameterType="BossBaseBrand" resultMap="BossResultMap">
+		select
+			b.id, b.create_time, b.update_time, b.contact_id, b.bag_no, b.rfid_no, b.state, b.remark, c.name contact_name 
+		from base_brand b left join user_contact c on b.contact_id = c.id 
+		<where>
+			<if test="condition.concactName != null and condition.concactName != ''">
+				and c.name like concat('%',#{condition.contactName,jdbcType=VARCHAR},'%') 
+			</if>
+			<if test="condition.bagNo != null and condition.bagNo != ''">
+				and b.bag_no like concat('%',#{condition.bagNo,jdbcType=VARCHAR},'%') 
+			</if>
+			<if test="condition.rfidNo != null and condition.rfidNo != ''">
+				and b.rfid_no like concat('%',#{condition.rfidNo,jdbcType=VARCHAR},'%') 
+			</if>
+			<if test="condition.state != null">
+				and b.state = #{condition.state,jdbcType=INTEGER} 
+			</if>
+			<if test="condition.remark != null and condition.remark != ''">
+				and b.remark like concat('%',#{condition.remark,jdbcType=VARCHAR},'%') 
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY b.create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="isExist" resultType="java.lang.Integer">
+		select count(1) from base_brand 
+		<where>
+			<if test="bagNo != null">
+				or bag_no = #{bagNo,jdbcType=VARCHAR} 
+			</if>
+			<if test="rfidNo != null">
+				or rfid_no = #{rfidNo,jdbcType=VARCHAR} 
+			</if>
+		</where>
+	</select>
+	
+</mapper>

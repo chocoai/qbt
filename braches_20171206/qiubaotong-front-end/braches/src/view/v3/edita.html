@@ -1,0 +1,52 @@
+<template id="address_add_edit">
+<section class="page">
+	<tel-contact></tel-contact>
+	<div class="weui-cells weui-cells_form" style="margin-top: 0px;">
+<!-- 	    <div class="weui-cell weui-cells_form">
+	        <div class="weui-cell__hd">
+	            <label class="weui-label">姓名</label>
+	        </div>
+	        <div class="weui-cell__bd">
+	            <input v-model="addr.name" class="weui-input" type="text" placeholder="请输入姓名">
+	        </div>
+	    </div>
+	    <div class="weui-cell weui-cells_form">
+	        <div class="weui-cell__hd">
+	            <label class="weui-label">手机号</label>
+	        </div>
+	        <div class="weui-cell__bd">
+	            <input v-model="addr.mobile" class="weui-input" type="text" placeholder="请输入手机号">
+	        </div>
+	    </div> -->
+	    <popup-picker :title="'所在地区'" :data="areas" v-model="treeId" :columns=3 :show-name="true" :value-text-align="'left'"></popup-picker>
+	    <div class="weui-cell weui-cells_form">
+	        <div class="weui-cell__hd">
+	            <label class="weui-label">详细地址</label>
+	        </div>
+	        <div class="weui-cell__bd">
+	            <input maxlength="50" v-model="addr.address" class="weui-input" type="text" placeholder="请输入街道，楼牌号等">
+	        </div>
+	    </div>
+	    <div class="weui-cell weui-cells_form">
+	        <div class="weui-cell__hd">
+	            <label class="weui-label">添加标签</label>
+	        </div>
+	        <div class="weui-cell__bd">
+	            <a @click="setLabel(1)" class="address_label" :class="{'address_label_hover':labelType == 1}" href="javascript:;">家</a>
+	            <a @click="setLabel(2)" class="address_label" :class="{'address_label_hover':labelType == 2}" href="javascript:;">公司</a>
+	            <a @click="setLabel(3)" class="address_label" :class="{'address_label_hover':labelType == 3}" href="javascript:;">其他</a>
+	        </div>
+	    </div>
+	</div>
+    <footer class="footer">
+        <div class="weui-flex">
+            <div @click="goBack" class="weui-flex__item footer-cancel">
+				<p>返回</p>
+            </div>
+        	<div @click="save" class="weui-flex__item footer-confirm">
+				<p>保存</p>
+            </div>
+        </div>
+   </footer>
+</section>
+</template>

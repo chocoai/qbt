@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.SmsMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.qbt.persistent.entity.SmsMessage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="request_time" property="requestTime"/>
+    <id column="update_time" property="updateTime"/>
+    <id column="uuid" property="uuid"/>
+    <id column="request_status" property="requestStatus"/>
+    <id column="mobiles" property="mobiles"/>
+    <id column="sms_templateId" property="smsTemplateId"/>
+    <id column="sms_data" property="smsData"/>
+    <id column="status_code" property="statusCode"/>
+    <id column="status_msg" property="statusMsg"/>
+    <id column="message_sid" property="messageSid"/>
+    <id column="date_created" property="dateCreated"/>
+    <id column="platform" property="platform"/>
+    
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, request_time, update_time, uuid, request_status, mobiles, sms_templateId, sms_data, status_code, 
+    status_msg, message_sid, date_created, platform
+  </sql>
+  
+  <select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sms_message 
+		<where>
+			<if test="condition.smsData != null and condition.smsData != ''">
+				AND sms_data LIKE CONCAT('%',#{condition.smsData},'%') 
+			</if>
+			<if test="condition.mobiles != null and condition.mobiles != ''">
+				AND mobiles LIKE CONCAT('%',#{condition.mobiles},'%') 
+			</if>
+			<if test="condition.platform != null and condition.platform != ''">
+				and platform = #{condition.platform}
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY request_time desc 
+			</otherwise>
+		</choose>
+	</select>
+  
+</mapper>

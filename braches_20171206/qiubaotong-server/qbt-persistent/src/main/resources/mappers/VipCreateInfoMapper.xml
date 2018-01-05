@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.VipCreateInfoMapper">
+
+	<resultMap id="BaseResultMap" type="VipCreateInfo">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="vip_create_id" property="vipCreateId" />
+		<result column="vip_no" property="vipNo" />
+		<result column="vip_random" property="vipRandom" />
+		<result column="vip_order_number" property="vipOrderNumber" />
+		<result column="sell_status" property="sellStatus" />
+		<result column="pay_amount" property="payAmount" />
+		<result column="pay_method" property="payMethod" />
+		<result column="activate_status" property="activateStatus" />
+		<result column="activate_date" property="activateDate" />
+		<result column="activate_method" property="activateMethod" />
+		<result column="remark" property="remark" />
+		<result column="status" property="status" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, vip_create_id, vip_no, vip_random,
+		vip_order_number,
+		sell_status, pay_amount, pay_method, activate_status, activate_date,
+		activate_method,
+		remark, status
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from vip_create_info
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="VipCreateInfo" keyProperty="id" useGeneratedKeys="true">
+		insert into vip_create_info (
+			create_time, 
+			update_time,
+			vip_create_id, 
+			vip_no, 
+			vip_random,
+			vip_order_number, 
+			sell_status, 
+			pay_amount,
+			pay_method, 
+			activate_status, 
+			activate_date,
+			activate_method, 
+			remark, 
+			status
+		)
+		values (
+			#{createTime},
+			#{updateTime},
+			#{vipCreateId}, 
+			#{vipNo}, 
+			#{vipRandom},
+			#{vipOrderNumber}, 
+			#{sellStatus},
+			#{payAmount},
+			#{payMethod}, 
+			#{activateStatus},
+			#{activateDate},
+			#{activateMethod}, 
+			#{remark},
+			#{status}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="VipCreateInfo">
+		update vip_create_info
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="vipCreateId != null">
+				vip_create_id = #{vipCreateId},
+			</if>
+			<if test="vipNo != null">
+				vip_no = #{vipNo},
+			</if>
+			<if test="vipRandom != null">
+				vip_random = #{vipRandom},
+			</if>
+			<if test="vipOrderNumber != null">
+				vip_order_number = #{vipOrderNumber},
+			</if>
+			<if test="sellStatus != null">
+				sell_status = #{sellStatus},
+			</if>
+			<if test="payAmount != null">
+				pay_amount = #{payAmount},
+			</if>
+			<if test="payMethod != null">
+				pay_method = #{payMethod},
+			</if>
+			<if test="activateStatus != null">
+				activate_status = #{activateStatus},
+			</if>
+			<if test="activateDate != null">
+				activate_date = #{activateDate},
+			</if>
+			<if test="activateMethod != null">
+				activate_method = #{activateMethod},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<insert id="insertBatch">
+		insert into vip_create_info (
+			create_time, 
+			update_time,
+			vip_create_id, 
+			vip_no, 
+			vip_random,
+			vip_order_number, 
+			sell_status, 
+			pay_amount,
+			pay_method, 
+			activate_status, 
+			activate_date,
+			activate_method, 
+			remark, 
+			status
+		)
+		values 
+		<foreach collection="infos" item="info" index="i" separator=",">
+		(
+			#{info.createTime},
+			#{info.updateTime},
+			#{info.vipCreateId}, 
+			#{info.vipNo}, 
+			#{info.vipRandom},
+			#{info.vipOrderNumber}, 
+			#{info.sellStatus},
+			#{info.payAmount},
+			#{info.payMethod}, 
+			#{info.activateStatus},
+			#{info.activateDate},
+			#{info.activateMethod}, 
+			#{info.remark},
+			#{info.status}
+		)
+		</foreach>
+	</insert>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from vip_create_info 
+		<where>
+			<if test="condition.vipCreateId != null and condition.vipCreateId > 0">
+				and vip_create_id = #{condition.vipCreateId} 
+			</if>
+			<if test="condition.vipNo != null and condition.vipNo != ''">
+				and vip_no like concat('%',#{condition.vipNo},'%') 
+			</if>
+			<if test="condition.sellStatus != null and condition.sellStatus > 0">
+				and sell_status = #{condition.sellStatus} 
+			</if>
+			<if test="condition.payMethod != null and condition.payMethod > 0">
+				and pay_method = #{condition.payMethod} 
+			</if>
+			<if test="condition.activateStatus != null and condition.activateStatus > 0">
+				and activate_status = #{condition.activateStatus} 
+			</if>
+			<if test="condition.activateMethod != null and condition.activateMethod > 0">
+				and activate_method = #{condition.activateMethod} 
+			</if>
+			<if test="condition.status != null and condition.status > 0">
+				and status = #{condition.status} 
+			</if>
+		</where>
+		order by id desc
+	</select>
+	
+	
+	<select id="findByVipNo" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from vip_create_info where vip_no=#{vipNo} and vip_random= #{random}
+	</select>
+	
+	<update id="updateActivate">
+		update vip_create_info set activate_status =2,activate_method=#{activateMethod},activate_date=now() where activate_status = 1 and vip_no=#{vipNo} and vip_random= #{random}
+	</update>
+	
+	<update id="updateBatch" parameterType="VipCreateInfo">
+		update vip_create_info 
+		set 
+			update_time = now(),
+			sell_status = #{sellStatus},
+			pay_method = #{payMethod}, 
+			pay_amount = #{payAmount}, 
+			status = #{status} 
+		where 
+			id in 
+			<foreach collection="ids" item="infoId" index="i" separator="," open="(" close=")">
+				#{infoId}
+			</foreach>
+	</update>
+	
+	<select id="selectByIds" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from vip_create_info
+		where 
+			id in 
+			<foreach collection="ids" item="infoId" index="i" separator="," open="(" close=")">
+				#{infoId}
+			</foreach>
+	</select>
+	
+	<select id="findAllVipNo" resultType="java.lang.String">
+		select vip_no from vip_create_info
+	</select>
+	
+</mapper>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseTravelAgencyMapper" >
+  <resultMap id="BaseResultMap" type="com.qbt.persistent.entity.BaseTravelAgency" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" />
+    <result column="tree_path" property="treePath" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="home_route_number" property="homeRouteNumber" jdbcType="INTEGER" />
+    <result column="abroad_route_number" property="abroadRouteNumber" jdbcType="INTEGER" />
+    <result column="group" property="group" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="manager" property="manager" jdbcType="VARCHAR" />
+    <result column="front_manager" property="frontManager" jdbcType="VARCHAR" />
+    <result column="brif" property="brif" jdbcType="VARCHAR" />
+    <result column="activity" property="activity" jdbcType="VARCHAR" />
+    <result column="is_wechat_declare" property="isWechatDeclare" jdbcType="BIT" />
+    <result column="qbt_way" property="qbtWay" jdbcType="VARCHAR" />
+    <result column="is_order" property="isOrder" jdbcType="BIT" />
+    <result column="is_note" property="isNote" jdbcType="BIT" />
+    <result column="is_declare" property="isDeclare" jdbcType="BIT" />
+    <result column="is_ylb" property="isYlb" jdbcType="BIT" />
+    <result column="found_time" property="foundTime" jdbcType="TIMESTAMP"/>
+    <result column="lon" property="lon" jdbcType="TIMESTAMP"/>
+    <result column="lat" property="lat" jdbcType="TIMESTAMP"/>
+    <result column="manage_mobile" property="manageMobile" />
+    <result column="manager_front_mobile" property="managerFrontMobile" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, `name`, area_id, tree_path, address, home_route_number, abroad_route_number, 
+    `group`, create_time, manager, front_manager, brif, activity, is_wechat_declare, qbt_way, 
+    is_order, is_note, is_declare, is_ylb,  found_time, lon, lat, manage_mobile, manager_front_mobile
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_travel_agency
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.qbt.persistent.entity.BaseTravelAgency" >
+    insert into base_travel_agency (id, name, area_id, 
+      tree_path, address, 
+      home_route_number, abroad_route_number, `group`, 
+      create_time, manager, front_manager, 
+      brif, activity, is_wechat_declare, 
+      qbt_way, is_order, is_note, is_declare, 
+      is_ylb,  found_time, lon, lat, manage_mobile, manager_front_mobile)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{areaId,jdbcType=INTEGER}, 
+      #{treePath,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{homeRouteNumber,jdbcType=INTEGER}, #{abroadRouteNumber,jdbcType=INTEGER}, #{group,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{manager,jdbcType=VARCHAR}, #{frontManager,jdbcType=VARCHAR}, 
+      #{brif,jdbcType=VARCHAR}, #{activity,jdbcType=VARCHAR}, #{isWechatDeclare,jdbcType=BIT}, 
+      #{qbtWay,jdbcType=VARCHAR}, #{isOrder,jdbcType=BIT}, #{isNote,jdbcType=BIT}, #{isDeclare,jdbcType=BIT}, 
+      #{isYlb,jdbcType=BIT},  #{foundTime,jdbcType=TIMESTAMP},
+      #{lon,jdbcType=BOOLEAN}, #{lat,jdbcType=BOOLEAN}, #{manageMobile,jdbcType=TIMESTAMP}, #{managerFrontMobile,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qbt.persistent.entity.BaseTravelAgency" >
+    update base_travel_agency
+    <set>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=VARCHAR},
+      </if>
+      <if test="treePath != null" >
+        tree_path = #{treePath,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="homeRouteNumber != null" >
+        home_route_number = #{homeRouteNumber,jdbcType=INTEGER},
+      </if>
+      <if test="abroadRouteNumber != null" >
+        abroad_route_number = #{abroadRouteNumber,jdbcType=INTEGER},
+      </if>
+      <if test="group != null" >
+        `group` = #{group,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="frontManager != null" >
+        front_manager = #{frontManager,jdbcType=VARCHAR},
+      </if>
+      <if test="brif != null" >
+        brif = #{brif,jdbcType=VARCHAR},
+      </if>
+      <if test="activity != null" >
+        activity = #{activity,jdbcType=VARCHAR},
+      </if>
+      <if test="isWechatDeclare != null" >
+        is_wechat_declare = #{isWechatDeclare,jdbcType=BIT},
+      </if>
+      <if test="qbtWay != null" >
+        qbt_way = #{qbtWay,jdbcType=VARCHAR},
+      </if>
+      <if test="isOrder != null" >
+        is_order = #{isOrder,jdbcType=BIT},
+      </if>
+      <if test="isNote != null" >
+        is_note = #{isNote,jdbcType=BIT},
+      </if>
+      <if test="isDeclare != null" >
+        is_declare = #{isDeclare,jdbcType=BIT},
+      </if>
+      <if test="isYlb != null" >
+        is_ylb = #{isYlb,jdbcType=BIT},
+      </if>
+      <if test="foundTime != null" >
+        found_time = #{foundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lon != null" >
+        lon = #{lon,jdbcType=BOOLEAN},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=BOOLEAN},
+      </if>
+      <if test="manageMobile != null" >
+        manage_mobile = #{manageMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="managerFrontMobile != null" >
+        manager_front_mobile = #{managerFrontMobile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qbt.persistent.entity.BaseTravelAgency" >
+    update base_travel_agency
+    set name = #{name,jdbcType=VARCHAR},
+      area_id = #{areaId,jdbcType=VARCHAR},
+      tree_path = #{treePath,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      home_route_number = #{homeRouteNumber,jdbcType=INTEGER},
+      abroad_route_number = #{abroadRouteNumber,jdbcType=INTEGER},
+      `group` = #{group,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      manager = #{manager,jdbcType=VARCHAR},
+      front_manager = #{frontManager,jdbcType=VARCHAR},
+      brif = #{brif,jdbcType=VARCHAR},
+      activity = #{activity,jdbcType=VARCHAR},
+      is_wechat_declare = #{isWechatDeclare,jdbcType=BIT},
+      qbt_way = #{qbtWay,jdbcType=VARCHAR},
+      is_order = #{isOrder,jdbcType=BIT},
+      is_note = #{isNote,jdbcType=BIT},
+      is_declare = #{isDeclare,jdbcType=BIT},
+      is_ylb = #{isYlb,jdbcType=BIT},
+       lon = #{lon,jdbcType=BOOLEAN},
+       lat = #{lat,jdbcType=BOOLEAN},
+       manage_mobile = #{foundTime,jdbcType=VARCHAR},
+       manager_front_mobile = #{foundTime,jdbcType=VARCHAR},
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_travel_agency
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.address != null and condition.address != ''">
+				AND address LIKE CONCAT('%',#{condition.address},'%') 
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List"></include>
+    from base_travel_agency
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteById">
+  	delete from base_travel_agency where id = #{id}
+  </delete>
+</mapper>

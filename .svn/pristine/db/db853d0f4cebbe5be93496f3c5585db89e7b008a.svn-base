@@ -1,0 +1,61 @@
+#vip {
+    .weui_cells {
+        font-size: 14px;
+        .weui_cell {
+            padding: 15px 20px;
+        }
+        .weui_select {
+            height: inherit;
+            line-height: inherit;
+        }
+    }
+    .weui_cell:before {
+        left: 0;
+    }
+    .weui_article {
+        h3 {
+            font-weight: 400;
+            margin-bottom: 5px;
+        }
+        p {
+            margin-bottom: 0;
+            margin-top: 4px;
+        }
+        .weui_cell {
+            padding: 0;
+            margin-top: 0;
+        }
+        .weui_check_label {
+            p {
+                margin: 0;
+                padding-right: 15px;
+            }
+        }
+        .weui_cells:before {
+            border-top: 0;
+        }
+        .weui_cells:after {
+            border-bottom: 0;
+        }
+    }
+    .card-id {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+    }
+    .card-name {
+        position: absolute;
+        right: 40px;
+        bottom: 30%;
+    }
+    .card-text {
+        position: absolute;
+        bottom: 25px;
+        left: 0;
+        width: 100%;
+        padding: 0 30px;
+    }
+    #vip-card {
+        background-color: transparent;
+    }
+}

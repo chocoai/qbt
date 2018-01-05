@@ -1,0 +1,74 @@
+<template id="agent-station">
+<div class="section">
+    <!--头-->
+    <div class="header tex-c bd-b">
+      <a href="javascript:history.back();" class="back"><img src="/img/back.png"/></a>
+      选择{{isJ ? '寄' : '收'}}球包站点
+    </div>
+    <!--头 end-->
+    <div class="scroll">
+    <!--tab-->
+    <div class="city-ad-tab marhead" id="navbar">
+      <div class="bd" style="height: 100%;">
+          <div class="weui_tab">
+              <div class="weui_navbar bg pad-lr">
+                  <div class="weui_navbar_item" :class="{'weui_bar_item_on':tab == '1'}" @click="tab = '1'">
+                      机场
+                  </div>
+                  <div class="weui_navbar_item" style="border-right:0;" :class="{'weui_bar_item_on':tab == '2'}" @click="tab = '2'">
+                      顺丰
+                  </div>
+                  <div class="weui_navbar_item" :class="{'weui_bar_item_on':tab == '3'}" @click="tab = '3'">
+                      银行
+                  </div>
+
+              </div>
+
+              <!--选项卡内容-->
+              <div class="weui_tab_bd ord-details-lay" style="padding-top: 40px;">
+                <!--机场-->
+                <div v-show="tab == '1'">
+                <div class="tex-c font-green02 font12 mar-b prompt"><i class="weui_icon_warn"></i>温馨提示：其他机场站点请来电咨询</div>
+
+                  <div class="weui_cells weui_cells_access" v-for="item in list_airport">
+                     <a class="flex ci-ad-cell pad-lr" href="javascript:;" @click="save(item)">
+                         <div class="weui_cell_bd weui_cell_primary">
+                             <p>{{item.name}}</p>
+                             <label>{{item.address}}</label>
+                         </div>
+                     </a>
+                 </div>
+                </div>
+                <!--顺丰-->
+                <div v-show="tab == '2'">
+                <div class="tex-c font-green02 font12 mar-b prompt"><i class="weui_icon_warn"></i>温馨提示：其他顺丰站点请来电咨询</div>
+                  <div class="weui_cells weui_cells_access" v-for="item in list_sf">
+                     <a class="flex ci-ad-cell pad-lr" href="javascript:;" @click="save(item)">
+                         <div class="weui_cell_bd weui_cell_primary">
+                             <p>{{item.name}}</p>
+                             <label>{{item.address}}</label>
+                         </div>
+                     </a>
+                  </div>
+                </div>
+                <!--银行-->
+                <div  v-show="tab == '3'">
+                <div class="tex-c font-green02 font12 mar-b prompt"><i class="weui_icon_warn"></i>温馨提示：其他银行站点请来电咨询</div>
+                  <div class="weui_cells weui_cells_access" v-for="item in list_bank">
+                     <a class="flex ci-ad-cell pad-lr" href="javascript:;" @click="save(item)">
+                         <div class="weui_cell_bd weui_cell_primary">
+                             <p>{{item.name}}</p>
+                             <label>{{item.address}}</label>
+                         </div>
+                     </a>
+                  </div>
+                </div>
+              </div>
+              <!--选项卡内容 end-->
+          </div>
+      </div>
+      </div>
+    <!--tab end-->
+    </div>
+</div>
+</template>

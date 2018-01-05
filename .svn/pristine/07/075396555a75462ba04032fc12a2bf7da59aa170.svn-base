@@ -1,0 +1,23 @@
+package com.qbt.web.pojo.ticket;
+
+public class UserActivityOrderAddReqVo extends UserActivityOrderVo {
+	String openid;
+	String packageImage; // 球包照片
+	
+	public String getPackageImage() {
+		return packageImage;
+	}
+
+	public void setPackageImage(String packageImage) {
+		this.packageImage = packageImage;
+	}
+
+	public String getOpenid() {
+		return openid;
+	}
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+	
+}

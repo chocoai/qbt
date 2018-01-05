@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderRefundMapper">
+ 
+	<resultMap id="BaseResultMap" type="OrderRefund">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="uuid" property="uuid" />
+		<result column="order_id" property="orderId" />
+		<result column="amount" property="amount" />
+		<result column="real_amount" property="realAmount" />
+		<result column="fee" property="fee" />
+		<result column="status" property="status" />
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="mobile" property="mobile" />
+		<result column="kf_name" property="kfName" />
+		<result column="kf_mobile" property="kfMobile" />
+		<result column="is_notice" property="isNotice" />
+		<result column="order_pay_type" property="orderPayType" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	
+	<resultMap type="BossOrderRefund" id="BossResultMap" extends="BaseResultMap">
+		<result column="order_number" property="orderNumber" />
+		<result column="order_create_time" property="orderCreateTime" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, uuid, order_id, amount,real_amount,fee, status, user_id,
+		user_name,
+		mobile, kf_name, kf_mobile, is_notice,order_pay_type,remark
+	</sql>
+
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from order_refund
+		where id = #{id}
+	</select>
+
+	<insert id="insert" parameterType="OrderRefund" useGeneratedKeys="true" keyProperty="id">
+		insert into order_refund (
+			create_time, 
+			update_time,
+			uuid, 
+			order_id, 
+			amount,
+			real_amount,
+			fee,
+			status,
+			user_id, 
+			user_name,
+			mobile, 
+			kf_name, 
+			kf_mobile,
+			is_notice,
+			order_pay_type,
+			remark
+		)
+		values (
+			#{createTime}, 
+			#{updateTime},
+			#{uuid}, 
+			#{orderId},
+			#{amount},
+			#{realAmount},
+			#{fee},
+			#{status}, 
+			#{userId}, 
+			#{userName},
+			#{mobile}, 
+			#{kfName},
+			#{kfMobile},
+			#{isNotice},
+			#{orderPayType},
+			#{remark}
+		)
+	</insert>
+
+	<update id="updateById" parameterType="OrderRefund">
+		update order_refund
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="kfName != null">
+				kf_name = #{kfName},
+			</if>
+			<if test="kfMobile != null">
+				kf_mobile = #{kfMobile},
+			</if>
+			<if test="isNotice != null">
+				is_notice = #{isNotice},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="findByPage" resultMap="BossResultMap">
+		select
+			refund.id, 
+			refund.create_time, 
+			refund.update_time, 
+			refund.uuid, 
+			refund.order_id, 
+			refund.amount, 
+			refund.real_amount, 
+			refund.fee, 
+			refund.status, 
+			refund.user_id,
+			refund.user_name,
+			refund.mobile, 
+			refund.kf_name, 
+			refund.kf_mobile, 
+			refund.is_notice,
+			refund.order_pay_type,
+			refund.remark,
+			info.number order_number,
+			info.create_time order_create_time 
+		from order_refund refund join order_info info on refund.order_id=info.id 
+		<where>
+			<if test="condition.startTime != null and condition.startTime!=''">
+		    and date(refund.create_time) >= date(#{condition.startTime})
+		    </if>
+		    <if test="condition.endTime !=null and condition.endTime!=''">
+			and date(refund.create_time) <![CDATA[<=]]>date(#{condition.endTime})
+		    </if>
+			<if test="condition.orderNumber != null and condition.orderNumber != ''">
+				and info.number like concat('%',#{condition.orderNumber},'%') 
+			</if>
+			<if test="condition.status != null">
+				and refund.status = #{condition.status} 
+			</if>
+			<if test="condition.userName != null and condition.userName != ''">
+				and refund.user_name like concat('%',#{condition.userName},'%') 
+			</if>
+			<if test="condition.mobile != null and condition.mobile != ''">
+				and refund.mobile like concat('%',#{condition.mobile},'%') 
+			</if>
+			<if test="condition.kfName != null and condition.kfName != ''">
+				and refund.kf_name like concat('%',#{condition.kfName},'%') 
+			</if>
+			<if test="condition.kfMobile != null and condition.kfMobile != ''">
+				and refund.kf_mobile like concat('%',#{condition.kfMobile},'%') 
+			</if>
+			<if test="condition.isNotice != null">
+				and refund.is_notice = #{condition.isNotice} 
+			</if>
+		</where>
+		order by refund.create_time desc
+	</select>
+	
+	<select id="findByOrderId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from order_refund
+		where order_id = #{orderId}
+	</select>
+	
+	<select id="findByOrderDate" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from order_refund
+		where order_id in (
+			select id from order_info 
+				<where>
+					<if test="startDate != null">
+						<![CDATA[
+						and create_time >= #{startDate} 
+						]]>
+					</if>
+					<if test="endDate != null">
+						<![CDATA[
+						and create_time < DATE_ADD(#{endDate}, INTERVAL 1 DAY) 
+						]]>
+					</if>
+				</where>
+		)
+	</select>
+	
+</mapper>

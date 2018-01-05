@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="saleManManageDetailCtrl">
+<div class="container containerWidthAuto">
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><a href="#detail" data-toggle="tab">基本信息</a></li>
+        <li><a href="#scoreDetail" data-toggle="tab">业绩详情</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="detail">
+            <div class="row rowMarginTop">
+                <div class="col-sm-12">
+                    <div class="panel panel-default" id="rolelist">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">销售人员基本信息
+                                <button ng-click="toEdit()" class="btn btn-primary btn-xs" ng-bind="editValue"></button>
+                                <button ng-show="isEdit" ng-click="updateData()" class="btn btn-primary btn-xs">提交更新</button>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row minLineHeight">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>销售人员号：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <span>{{detail.salesmanCode}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <button ng-click="updateCheck(detail.id,detail.applyStatus)" class="btn btn-xs" ng-class="{'btn-warning':detail.applyStatus == 1,'btn-success':detail.applyStatus == 2,'btn-danger':detail.applyStatus == 3}">{{detail.applyStatus | commFilter : 'sale_status'}}</button>
+                                                <button ng-click="updateStatus(detail.id,detail.status)" class="btn btn-xs" ng-class="{'btn-success':detail.status == 1,'btn-danger':detail.status == 2}">{{detail.status == 1 ? '有效' : '无效'}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row minLineHeight">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>生成批次：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <span>{{detail.qrcodeCreateInfoName}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row minLineHeight">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>姓名：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8" ng-hide="isEdit">
+                                            <div class="form-group">
+                                                <span>{{detail.name}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" ng-show="isEdit">
+                                            <div class="form-group">
+                                                <input ng-model="detailUpdate.name" type="text" class="form-control" placeholder="输入姓名" maxlength="10">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row minLineHeight">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>微信昵称：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <span>{{detail.wechatName}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row minLineHeight">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>工作单位：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8" ng-hide="isEdit">
+                                            <div class="form-group">
+                                                <span>{{detail.company}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" ng-show="isEdit">
+                                            <div class="form-group">
+                                                <input ng-model="detailUpdate.company" type="text" class="form-control" placeholder="输入工作单位" maxlength="15">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row minLineHeight">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>手机号：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" ng-hide="isEdit">
+                                            <div class="form-group">
+                                                <span>{{detail.mobile}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" ng-show="isEdit">
+                                            <div class="form-group">
+                                                <input ng-model="detailUpdate.mobile" type="text" class="form-control" placeholder="输入手机号" maxlength="11">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row minLineHeight">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>身份证号：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8" ng-hide="isEdit">
+                                            <div class="form-group">
+                                                <span>{{detail.idcard}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" ng-show="isEdit">
+                                            <div class="form-group">
+                                                <input ng-model="detailUpdate.idcard" type="text" class="form-control" placeholder="输入身份证号" maxlength="18">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row minLineHeight">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>电子邮箱：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8" ng-hide="isEdit">
+                                            <div class="form-group">
+                                                <span>{{detail.email}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" ng-show="isEdit">
+                                            <div class="form-group">
+                                                <input ng-model="detailUpdate.email" type="text" class="form-control" placeholder="输入电子邮箱" maxlength="50">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row minLineHeight">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>申请日期：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <span>{{detail.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div ng-hide="isEdit" class="col-sm-8">
+                                            <div class="form-group">
+                                                <img ng-if="detail.idcardUrl" ng-click="imgShow(detail.idcardUrl)" style="width:100%;border:1px solid #ddd;cursor:pointer" ng-src="{{fBaseUrl+detail.idcardUrl}}">
+                                            </div>
+                                        </div>
+                                        <div ng-show="isEdit" class="col-sm-8">
+                                            <div class="form-group">
+                                                <img ng-if="detailUpdate.idcardUrl" ng-click="imgShow(detailUpdate.idcardUrl)" style="width:100%;border:1px solid #ddd;cursor:pointer" ng-src="{{fBaseUrl+detailUpdate.idcardUrl}}">
+                                            </div>
+                                        </div>
+                                        <div ng-show="isEdit" class="col-sm-4">
+                                            <div class="form-group">
+                                                <button ngf-select="uploadImg($file)" class="btn btn-primary btn-xs">上传</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row minLineHeight">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>提成方式：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8" ng-hide="isEdit">
+                                            <div class="form-group">
+                                                <span>{{detail.type | commFilter : 'sale_method'}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" ng-show="isEdit">
+                                            <div class="form-group">
+                                                <select ng-model="detailUpdate.type" class="form-control">
+                                                    <option value="1">固定金额￥</option>
+                                                    <!--<option value="2">订单金额比例%</option>-->
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-hide="detailUpdate.type == 0" class="row minLineHeight">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>每单提成：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8" ng-hide="isEdit">
+                                            <div class="form-group">
+                                                <span>{{detail.typeValue | number : 1}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" ng-show="isEdit">
+                                            <div class="form-group">
+                                                <input ng-model="detailUpdate.typeValue" type="number" class="form-control" placeholder="输入金额" step="0.1" min="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="row minLineHeight">-->
+                                        <!--<div class="col-sm-3">-->
+                                            <!--<div class="form-group">-->
+                                                <!--<span>关注奖金：</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-sm-8" ng-hide="isEdit">-->
+                                            <!--<div class="form-group">-->
+                                                <!--<span>{{detail.subscribeValue | number : 1}}</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-sm-4" ng-show="isEdit">-->
+                                            <!--<div class="form-group">-->
+                                                <!--<input ng-model="detailUpdate.subscribeValue" type="number" class="form-control" placeholder="输入金额" step="0.1" min="0">-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <div class="row minLineHeight">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>新关注用户首单</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row minLineHeight">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>提成方式：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8" ng-hide="isEdit">
+                                            <div class="form-group">
+                                                <span>{{detail.firstType | commFilter : 'sale_method'}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" ng-show="isEdit">
+                                            <div class="form-group">
+                                                <select ng-model="detailUpdate.firstType" class="form-control">
+                                                    <option value="1">固定金额￥</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-hide="!detailUpdate.firstType" class="row minLineHeight">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>首单提成：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8" ng-hide="isEdit">
+                                            <div class="form-group">
+                                                <span>{{detail.firstTypeValue | number : 1}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" ng-show="isEdit">
+                                            <div class="form-group">
+                                                <input ng-model="detailUpdate.firstTypeValue" type="number" class="form-control" placeholder="输入金额" step="0.1" min="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--奖励物品-->
+                                    <div class="row minLineHeight">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>现金券活动：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8" ng-hide="isEdit">
+                                            <div class="form-group">
+                                                <span>{{detail.activityName}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" ng-show="isEdit">
+                                            <div class="form-group">
+                                                <select class="form-control" ng-model="awardName">
+                                                    <option ng-repeat="award in awardList" value="{{award.id}}|{{award.name}}|{{award.couponLimitDay}}">{{award.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--奖励物品时效-->
+                                    <div class="row minLineHeight" ng-show="detail.activityName!=''" ng-hide="isEdit">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>现金券时效：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8" ng-hide="isEdit">
+                                            <div class="form-group">
+                                                <span>{{detail.couponLimitDay}}天</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="row minLineHeight">-->
+                                        <!--<div class="col-sm-3">-->
+                                            <!--<div class="form-group">-->
+                                                <!--<span>代下单日类型：</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-sm-8" ng-hide="isEdit">-->
+                                            <!--<div class="form-group">-->
+                                                <!--<span>{{detail.orderDayType == 1 ? '不限' : '有限制天数'}}</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-sm-4" ng-show="isEdit">-->
+                                            <!--<div class="form-group">-->
+                                                <!--<select ng-model="detailUpdate.orderDayType" class="form-control">-->
+                                                    <!--<option value="1">不限</option>-->
+                                                    <!--<option value="2">有限制天数</option>-->
+                                                <!--</select>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div ng-hide="detailUpdate.orderDayType != 2 " class="row minLineHeight">-->
+                                    <div class="row minLineHeight">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span>关联天数：</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8" ng-hide="isEdit">
+                                            <div class="form-group">
+                                                <span>{{detail.orderDayValue}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" ng-show="isEdit">
+                                            <div class="form-group">
+                                                <input ng-model="detailUpdate.orderDayValue" type="number" class="form-control" placeholder="输入关联天数" min="1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <span>销售人员二维码</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <img ng-click="imgShow1(fBaseUrl+detail.qrcode)" ng-if="detail.qrcode" style="width:100%;border:1px solid #ddd;cursor:pointer" ng-src="{{fBaseUrl+detail.qrcode}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <span>{{detail.salesmanCode}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="scoreDetail">
+            <div class="row rowMarginTop">
+                <div class="col-sm-12">
+                    <div class="panel panel-default" id="rolelist">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{detail.name}}业绩详情</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="nav nav-tabs" id="myTab2">
+                                <li class="active"><a href="#orderGet" data-toggle="tab">代下单提成</a></li>
+                                <li><a href="#newGet" data-toggle="tab">新拉关注奖金</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="orderGet">
+                                    <div class="row rowMarginTop">
+                                        <div class="col-sm-4">
+                                            <div class="form-group form-inline marginRight5">
+                                                <label>统计开始日期：</label>
+                                                <div class="inputDateClose">
+                                                    <input type="text" class="form-control date-picker" readonly placeholder="选择统计开始日期" ng-model="startDate" ng-change="changeDate(1)">
+                                                    <button ng-click="startDate = '';changeDate(1)" class="clearTime">x</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group form-inline marginRight5">
+                                                <label>统计截至日期：</label>
+                                                <div class="inputDateClose">
+                                                    <input type="text" class="form-control date-picker" readonly placeholder="选择统计截至日期" ng-model="endDate" ng-change="changeDate(2)">
+                                                    <button ng-click="endDate = '';changeDate(2)" class="clearTime">x</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <button ng-click="exportData(1)" class="btn btn-primary">导出</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table class="table table-bordered table-striped table-hover table-condensed">
+                                                <thead>
+                                                    <th>订单号</th>
+                                                    <th>下单时间</th>
+                                                    <th>物流状态</th>
+                                                    <th>订单金额￥</th>
+                                                    <th>代下单提成金额￥</th>
+                                                    <th>结算状态</th>
+                                                    <th>结算人</th>
+                                                    <th>结算日期</th>
+                                                    <th>结算方式</th>
+                                                    <th>备注</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="item in orderGetList track by $index">
+                                                        <td><a href="javascript:void(0)" ng-click="orderDetail(item.orderId)">{{item.number}}</a></td>
+                                                        <td>{{item.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                        <td>{{item.status == 1 ? '已签收' : '未签收'}}</td>
+                                                        <td>{{item.orderAmount | number : 2}}</td>
+                                                        <td>{{item.amount | number : 2}}</td>
+                                                        <td>{{item.settleStatus == 1 ? '未结算' : '已结算'}}</td>
+                                                        <td>{{item.sysUserName}}</td>
+                                                        <td>{{item.settleTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                        <td>{{item.settleMethod | commFilter : 'vipCard_active_type'}}</td>
+                                                        <td>{{item.remark}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <pagination page="pageOrderGet" change="getOrderGet(page)"></pagination>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <button ng-click="beforeOrderGetCount(orderGetData,1)" class="btn btn-primary pull-right">结算({{orderGetData.settleNumber}})</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="newGet">
+                                    <div class="row rowMarginTop">
+                                        <div class="col-sm-4">
+                                            <div class="form-group form-inline marginRight5">
+                                                <label>统计开始日期：</label>
+                                                <div class="inputDateClose">
+                                                    <input type="text" class="form-control date-picker" readonly placeholder="选择统计开始日期" ng-model="startDate1" ng-change="changeDate1(1)">
+                                                    <button ng-click="startDate1 = '';changeDate1(1)" class="clearTime">x</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group form-inline marginRight5">
+                                                <label>统计截至日期：</label>
+                                                <div class="inputDateClose">
+                                                    <input type="text" class="form-control date-picker" readonly placeholder="选择统计截至日期" ng-model="endDate1" ng-change="changeDate1(2)">
+                                                    <button ng-click="endDate1 = '';changeDate1(2)" class="clearTime">x</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <button ng-click="exportData(2)" class="btn btn-primary">导出</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table class="table table-bordered table-striped table-hover table-condensed">
+                                                <thead>
+                                                    <th>新拉关注日期时间</th>
+                                                    <th>每一新拉关注奖金￥</th>
+                                                    <th>微信昵称</th>
+                                                    <th>结算状态</th>
+                                                    <th>结算人</th>
+                                                    <th>结算日期</th>
+                                                    <th>结算方式</th>
+                                                    <th>备注</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="item in newGetList track by $index">
+                                                        <td>{{item.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                        <td>{{item.amount | number : 2}}</td>
+                                                        <td>{{item.nickname}}</td>
+                                                        <td>{{item.settleStatus == 1 ? '未结算' : '已结算'}}</td>
+                                                        <td>{{item.sysUserName}}</td>
+                                                        <td>{{item.settleTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                        <td>{{item.settleMethod | commFilter : 'vipCard_active_type'}}</td>
+                                                        <td>{{item.remark}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <pagination page="pageNewGet" change="getNewGet(page)"></pagination>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <button ng-click="beforeOrderGetCount(newGetData,2)" class="btn btn-primary pull-right">结算({{newGetData.settleNumber}})</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="selectSettle" style="display:none;padding:20px 15px;">
+    <form class="form-inline text-center">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>结算{{selectData.settleNumber}}单、结算总金额￥{{selectData.settleAmount | number:2}}</label>
+                </div>
+            </div>
+            <div class="col-md-12 mt10">
+                <div class="form-group">
+                    <select ng-model="selectType" class="form-control" style="width:196px">
+                        <option ng-repeat="item in selectSettleMethod" value="{{item.type}}">{{item.desc}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12 mt10">
+                <div class="form-group">
+                    <input ng-model="selectRemark" class="form-control" maxlength="20" placeholder="输入备注"></input>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<img id="picShow" ng-click="picRotate()" ng-src="{{imgToBig}}">
+<img id="picShow1" ng-src="{{imgToBig1}}" style="cursor:default;">
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/angular/ng-file-upload-all.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/saleManManageDetailCtrl.js}}}"></script>
+</body>
+</html>

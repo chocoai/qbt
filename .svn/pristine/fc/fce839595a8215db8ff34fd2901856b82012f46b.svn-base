@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="contactCheckDetailCtrl">
+<div class="container containerWidthAuto">
+    <ul class="nav nav-tabs" id="myTab">
+	    <li class="active"><a href="#detail" data-toggle="tab">客户信息详情</a></li>
+    </ul>
+    <div class="tab-content">
+    	<div class="tab-pane fade in active" id="detail">
+			    <div class="row rowMarginTop">
+                    <div class="col-sm-3">
+                        <div class="panel panel-default" id="rolelist">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">客户基本信息</h3>
+                            </div>
+                            <div class="panel-body">
+                               <div class="form-group form-inline">
+					            <label>姓名：</label>
+					            <input style="width:76%" ng-model="name" type="text" class="form-control" placeholder="输入姓名" maxlength="8">
+					          </div>
+					          <div class="form-group form-inline">
+					            <label>电话：</label>
+					            <input ng-readonly="!!mobiles" style="width:76%" ng-model="mobile" type="text" class="form-control"  placeholder="如000(0)-0000000(0)" maxlength="20">
+					          </div>
+					          <div ng-show="!!mobiles" class="form-group form-inline">
+					            <label>状态：</label>
+					            <span ng-readonly="true" ng-show="isDelete === true || isDelete === false" style="width:76%;" class="form-control">{{isDelete ? '已删除' : '正常'}}</span>
+					          </div>
+                              <div ng-show="isMobile" class="form-group pull-right">
+                                <button ng-click="toSendMsg(mobiles)" class="btn btn-primary btn-sm">发送短信</button>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-inline">
+                            <button ng-click="addContact()" class="btn btn-primary">提交</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="panel panel-default" id="rolelist">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">备注</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row ">
+                                    <div class="col-sm-12">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <label>默认标签</label>
+                                                </td>
+                                            </tr>
+                                            <tr ng-repeat="label in labels">
+                                                <td style="min-width:130px">{{label.name}}</td>
+                                                <td>
+                                                    <label style="margin-left:0px;margin-right:10px;min-width:90px" ng-repeat="childLabel in label.item track by $index" class="checkbox-inline">
+                                                        <input ng-click="isClick(childLabel.id)" ng-checked="isSelected(childLabel.id)" type="checkbox">{{childLabel.name}}
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="form-inline">
+                                                        <div class="form-group">
+                                                            <label>自定义标签：</label>
+                                                          </div>
+                                                          <div class="form-group marginRight5">
+                                                            <input ng-model="selfLabel" type="text" class="form-control" placeholder="输入标签" maxlength="300">
+                                                            <button ng-click="addSelfLabel()" class="btn btn-primary btn-sm">新增</button>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>   
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div ng-repeat="selfLabel in contentList" class="form-control text-center marginRight5 panel-primary selfLabel">
+                                                        <pre>{{selfLabel}}</pre>
+                                                        <span class="IselfLabel" ng-click="deleteSelfLabel(selfLabel)">×</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+			        <div class="col-sm-12" ng-show="!!mobiles">
+                        <div class="panel panel-default" id="rolelist">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">订单详情</h3>
+                            </div>
+                            <div class="panel-body">
+                               <table class="table table-bordered table-hover table-striped table-condensed">
+                                    <thead>
+                                        <th>订单号</th>
+                                        <th>创建时间</th>
+                                        <th>运单号</th>
+                                        <th>取包信息</th>
+                                        <th>送包信息</th>
+                                        <th>订单状态</th>
+                                        <th>物流状态</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in list track by $index">
+                                            <td><a href="javascript:void(0)" ng-click="detail(item.id)">{{item.number}}</td>
+                                            <td>{{item.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                                            <td><a href="javascript:void(0)" ng-click="detail(item.id)">{{item.mailNo}}</a></td>
+                                            <td ng-if="item.jAddrType == 4">
+                                                <a ng-click="isWeixin(item.jMobile,item.id)" href="javascript:void(0)">{{item.jContact}}<br/>{{item.jMobile}}</a>
+                                                <br/>{{item.jTreePath}}{{item.jAddress}}</td>
+                                                <td ng-if="item.jAddrType != 4"><a ng-click="isWeixin(item.jMobile,item.id)" href="javascript:void(0)">{{item.jContact}}<br/>{{item.jMobile}}</a>
+                                                    <br/>
+                                                    <i ng-if="item.jAddrType == 1" class="fa">
+                                                        <img src="../img/golf.png">
+                                                    </i>
+                                                    <label class="label" ng-class="{'label-success':item.jCourseStatus   == 1,'label-warning':item.jCourseStatus   == 2,'label-danger':item.jCourseStatus   == 3,'label-default':item.jCourseStatus   == 4}">
+                                                        <a style="color:#fff" href="javascript:void(0);" ng-if="item.jAddrType == 1" ng-click="courseDetail(item.jAddrId,item.jAddrType)">{{item.jAddrName}}</a>
+                                                    </label>
+                                                    <span ng-if="item.jAddrType != 1">{{item.jAddrName}}</span>
+                                                </td>
+                                                <td ng-if="item.dAddrType == 4">
+                                                    <a ng-click="isWeixin(item.dMobile,item.id)" href="javascript:void(0)">{{item.dContact}}<br/>{{item.dMobile}}</a>
+                                                    <br/>{{item.dTreePath}}{{item.dAddress}}</td>
+                                                    <td ng-if="item.dAddrType != 4">
+                                                        <a ng-click="isWeixin(item.dMobile,item.id)" href="javascript:void(0)">{{item.dContact}}<br/>{{item.dMobile}}</a>
+                                                        <br/>
+                                                        <i ng-if="item.dAddrType == 1" class="fa">
+                                                            <img src="../img/golf.png">
+                                                        </i>
+                                                        <label class="label" ng-class="{'label-success':item.dCourseStatus  == 1,'label-warning':item.dCourseStatus  == 2,'label-danger':item.dCourseStatus  == 3,'label-default':item.dCourseStatus  == 4}">
+                                                            <a style="color:#fff" href="javascript:void(0);" ng-if="item.dAddrType == 1" ng-click="courseDetail(item.dAddrId,item.dAddrType)">{{item.dAddrName}}</a>
+                                                        </label>
+                                                        <span ng-if="item.dAddrType != 1">{{item.dAddrName}}</span>
+                                                    </td>
+                                                    <td>{{item.orderStatus | commFilter:'order_type'}}</td>
+                                                    <td>
+                                                        <label class="label padding7-10" ng-class="{'label-info':item.deliveryStatus == 1,'label-default':item.deliveryStatus == 2,'label-blue':item.deliveryStatus == 3,'label-green':item.deliveryStatus == 4,'label-success':item.deliveryStatus == 5,'label-primary':item.deliveryStatus == 6,'label-warning':item.deliveryStatus == 7,}">{{item.deliveryStatus | commFilter:'sf_type'}}</label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                    </table>
+                                <pagination page="page" change="getMobileOrder(page)"></pagination>
+                            </div>
+                        </div>
+			        </div>
+			     </div>
+            </div>
+        </div>
+    </div>
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/angular/ng-file-upload-all.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/contactCheckDetailCtrl.js}}}"></script>
+</body>
+</html>

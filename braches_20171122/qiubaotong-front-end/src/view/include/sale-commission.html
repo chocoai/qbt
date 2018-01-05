@@ -1,0 +1,23 @@
+<template id="sale-commission">
+<style>.weui_label{display: inline-block;}</style>
+<section class="section">
+<div class="header tex-c" style="background-color:#fff;">
+  <a href="javascript:;" @click="goView('sale_info_view')" class="back"><img src="/img/back.png" /></a>
+  提成方式
+</div>
+<div class="scroll marhead">
+    <div class="weui_panel mar-t" style="padding:10px 20px;line-height:2;">
+        <div><div class="weui_label">提成方式:</div>{{detail.type == 1 ? '固定金额￥' : '按比例%'}}</div>
+        <div><div class="weui_label">每单提成:</div>{{detail.typeValue | currency ''}}</div>
+        <div v-show="detail.subscribeValue > 0"><div class="weui_label">关注奖金:</div>{{detail.subscribeValue | currency ''}}</div>
+    </div>
+    <div class="weui_panel" style="padding:10px 20px;line-height:2;">
+        <div>新关注用户首单</div>
+        <div><div class="weui_label">提成方式:</div>{{detail.firstType == 1 ? '固定金额￥' : '按比例%'}}</div>
+        <div><div class="weui_label">首单提成:</div>{{detail.firstTypeValue | currency ''}}</div>
+        <div><div class="weui_label">代下单日:</div>{{detail.orderDayType == 1 ? '不限' : '有限'}}</div>
+        <div v-if="detail.orderDayType == 2"><div class="weui_label">天数:</div>{{detail.orderDayValue}}天</div>
+    </div>
+</div>
+</section>
+</template>

@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<title>球包通官网-快递球包_球包托运_球包价格_运球包</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<meta name="renderer" content="webkit">
+<meta name="keywords" content="快递球包,球包托运,球包价格,运球包,球包通"  />
+<meta name="description" content="球包通是首创国内O2O高尔夫球包定点速递平台，为高尔夫运动人群提供一种“去打球不用亲自携带球包、打完球不用亲自带走球包”的高尔夫服务全新体验。" />
+<!-- Bootstrap -->
+<link href="<%=static_url%>/css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href="<%=static_url%>/css/normalize.css">
+<!--我的-->
+<link href="<%=static_url%>/css/globle.css" rel="stylesheet" type="text/css">
+<link href="<%=static_url%>/css/idangerous.swiper.css" rel="stylesheet" type="text/css" >
+<link href="<%=static_url%>/css/newbag.css" rel="stylesheet" type="text/css">
+<link href="<%=static_url%>/css/shop.css" rel="stylesheet" type="text/css">
+
+<!--[if lte IE 6]>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-ie6.css">
+  <link rel="stylesheet" type="text/css" href="css/ie.css">
+<![endif]-->
+<!--[if lt IE 9]>
+  <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<style>
+.pad-tb5{padding: 5px 0;}
+.topline{border-top: 1px solid #eee}
+.bg-step1{
+    background-image: url('<%=static_url%>/images/home-1-1.png');
+    background-size: cover;
+    height: 100px;
+    width: 180px;
+    display: inline-block;
+    margin-bottom: 20px;
+    background-repeat: no-repeat;
+}
+.bg-step1:hover{
+    background-image: url('<%=static_url%>/images/home-1-2.png');
+}
+.bg-step2{
+    background-image: url('<%=static_url%>/images/home-2-1.png');
+    background-size: cover;
+    height: 100px;
+    width: 100px;
+    display: inline-block;
+    background-repeat: no-repeat;
+}
+.bg-step2:hover{
+    background-image: url('<%=static_url%>/images/home-2-2.png');
+}
+.bg-step3{
+    background-image: url('<%=static_url%>/images/home-3.png');
+    background-size: cover;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    vertical-align: bottom;
+    margin-right: 10px;
+}
+.bg-step5{
+    position: absolute;
+    transition: all 0.5s;
+    transform-origin : bottom;
+}
+.bg-step5:hover{
+    transform: scale(1.5);
+}
+#new-list .media a {
+    color: #252525;
+}
+#new-list .media a:hover {
+    color: #337ab7;
+}
+.iImg{
+    transition: all 0.5s;
+    height:150px;
+    background-position:top;
+}
+.iImg:hover{
+    transform: scale(1.2);
+}
+.qrcode{
+  display: inline-block;
+  position: fixed;
+  right:5%;
+  top: 30%;
+}
+</style>
+<script>
+//if(!IsPC()) location.href = 'http://qianyi.gjgpx.net/public/index.php';
+/**
+ * 判断是够是pc设备
+ */
+function IsPC() {
+    var userAgentInfo = navigator.userAgent;
+    var Agents = ["Android", "iPhone","SymbianOS", "Windows Phone", "iPod"];
+    var flag = true;
+    for (var v = 0; v < Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) {
+            flag = false;
+            break;
+        }
+    }
+    if(window.screen.width>=768){
+         flag = true;
+    }
+    return flag;
+} 
+</script>
+</head>
+<body>
+    <div id="alert-box">
+        <div class="alert-txt">
+            请填写完整信息
+        </div>
+    </div>
+<!--头部-->
+<header class="header" style="background-image: url('<%=static_url%>/images/header-bg04.jpg');">
+    <nav class="navbar scrolled">
+      <div class="container">
+          <div class="navbar-header">
+             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                 <span class="sr-only">切换导航</span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+             </button>
+             <a href="/"><img src="<%=static_url%>/images/logo-nav.png" alt="" style="max-height: 32px;margin-top:13px;"></a>
+          </div>
+          <div class="collapse navbar-collapse" id="navbar-collapse">
+              <ul class="nav navbar-nav">
+                  <li><a href="/" class="main-nav-link current">主页</a> </li>
+                  <li><a href="order.html" class="main-nav-link ">球包快递</a></li>
+                  <li><a href="track.html" class="main-nav-link">球包追踪</a></li>
+                  <li><a href="raiders.html" class="main-nav-link">球包通攻略</a></li>
+                  <li><a href="service.html" class="main-nav-link ">客服中心</a></li>
+                  <li><a href="about.html" class="main-nav-link ">关于我们</a></li>
+                  <li><a href="/news/" class="main-nav-link ">球包通新闻</a></li>
+                  <li><a href="tel:400-609-0990;" style="font-weight:700;"><img src="<%=static_url%>/images/nav-tel.png" alt="" style="height:25px;margin-right:15px;">400-609-0990</a></li>
+              </ul>
+          </div>
+      </div>
+    </nav>
+  <div class="container slogan-wrapper text-center">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 style="line-height:1.5;">您和球场之间只有一个<br /> 球包通的距离</h2>
+        <h2></h2>
+        <br />
+      </div>
+    </div>
+    <div class="row">
+      <h4></h4>
+    </div>
+    <div class="row">
+      <div class="col-md-12"> <a href="order.html" class="btn btn-primary learn-more">寄 球 包</a> </div>
+    </div><br />
+    <div class="row">
+      <div class="col-md-12 home-reckon text-left">
+        <div class="row bag-city">
+          <div class="col-md-4 padding-right-8-md  ">
+            <h5>寄包地址</h5>
+
+            <div class="col-md-12 bag-ci-box bg-f">
+            <input type="text" class=" form-control" id="city" placeholder="选择寄包城市..." readonly/>
+            <span></span>
+            </div>
+
+          </div>
+          <div class="col-md-4 padding-right-8-md padding-left-8-md">
+            <h5>收包地址</h5>
+            <div class="col-md-12 bag-ci-box bg-f">
+              <input type="text" class="bg-f form-control" id="city-2" placeholder="选择收包城市..." readonly/>
+              <span></span>
+            </div>
+          </div>
+          <div class="col-md-2 padding-right-8-md padding-left-8-md">
+            <h5>取包时间</h5>
+            <div class="book-tab bg-f">
+              <div class="book-name" style="border: 0;"><time>请选择时间...</time><span></span></div>
+              <div class="tab book-time">
+                <ul class="tab-hd book-day">
+                  <li class="active">日期
+                    <hr />
+                  </li>
+                  <li>时间
+                    <hr />
+                  </li>
+                </ul>
+                <ul class="tab-bd bg-garyf2">
+                  <li class="thisclass clearfix" id="dDay">
+                   </li>
+                  <li class=" clearfix" id="dayTime">
+                      <a href="javascript:;" value="1"></a>
+                       <a href="javascript:;" value=""></a>
+                       <a href="javascript:;" value=""></a>
+                   </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 padding-left-8-md">
+
+            <!--弹出层-->
+            <button id="priceSearch" class="btn col-xs-12 home-btn" data-toggle="modal" data-target=".bs-example-modal-lg" value="运费测算">运费测算</button>
+
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content clearfix">
+                <button type="button" class="close" data-dismiss="modal" style="margin-right:10px; margin-top: 10px;"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <div class="col-md-12 home-alert font-3 text-center">
+                    <div class="row" id="startTime">
+
+                    </div>
+                    <div class="row mart-t44" id="remarkShow" style="display:none">
+                      <div class="col-md-12 tex-c">
+                            <button id="toDownOrder" class="btn btn-qiu col-sm-4 col-sm-offset-4">马上寄</button>
+                      </div>
+                      <div class="col-md-12"> <br />
+                        <br />
+                        <br />
+                        <br />由于部分地点地址偏远，节假日和取包时间超出等等原因，会造成实际到达时间	延后。 </div>
+                    </div>
+                    <div class="row" id="msgShow" style="padding-bottom:45px;">
+                        <div class="col-md-12">
+                            <h3 class="font-green"></h3>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--弹出层 end-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!--头部 end-->
+<section class="container">
+    <div class="row home-step" style="padding-top:120px;">
+        <div class="col-md-4 text-center">
+            <img src="<%=static_url%>/images/logo-m.png" alt="" style="width:300px;">
+        </div>
+        <div class="col-md-8">
+            <h3 style="text-indent:28px;margin-bottom:10px;">球包通，让您的高尔夫出行更加简单更加有趣!</h3>
+            <p style="text-indent:28px;line-height:2;">高尔夫球包和行李快递服务品牌，安全、可靠并保证您的高尔夫球包准时到达目的地。当您抵达目的地时，您的球包和行李将会在您指定的酒店、高尔夫球场或练习场、居住地或办公室安静地等待您的到来、而无需您带着它们在机场或高铁站奔波。</p>
+            <div class="pull-right">
+                <a href="about.html">MORE></a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container topline">
+    <div class="row home-step" style="padding-top:50px;">
+      <div class="col-md-12 text-center">
+        <div class="row">
+          <div class="col-md-12">
+            <h3 style="color:#666;">我们的优势</h3>
+            <br><br>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-11 col-md-offset-1">
+            <div class="row">
+              <div class="col-md-3 col-sm-6">
+                  <div class="bg-step1"></div>
+                  <label style="display:block;">灵活</label>
+                  <p class="font-80">无需您自行包装、并可选择不同时效速度送达</p>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                  <div class="bg-step1" style="background-position:-250px;"></div>
+                  <label style="display:block;">价格合理</label>
+                  <p class="font-80">与其它公司相比、我们的运费更合理、保价费用低廉。</p>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                  <div class="bg-step1" style="background-position:-500px;"></div>
+                  <label style="display:block;">方便</label>
+                  <p class="font-80">门对门服务免除了携带和托运球包和行李的麻烦。</p>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                  <div class="bg-step1" style="background-position:-770px;"></div>
+                  <label style="display:block;">保证</label>
+                  <p class="font-80">保证准时到达，如有延误你将得到应有补偿！</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<section class="container topline">
+    <div class="row home-step" style="padding:50px 0;">
+      <div class="col-md-12 text-center">
+        <div class="row">
+          <div class="col-md-12">
+            <h3 style="color:#666;">我们如何为您做到</h3>
+            <br>
+            <div class="pull-right" style="width:70%;">
+                <a href="how-to-work.html">MORE></a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="row">
+              <div class="col-md-6 mart-20">
+                  <label style="display:block;" class="font16">流程</label>
+                  <div class="row" style="padding:15px 0;">
+                      <div class="col-md-6 text-right">
+                          <div class="bg-step2" style="background-position:10px;"></div>
+                      </div>
+                      <div class="col-md-6 text-left">
+                          <p class="font-80 pad-tb5">手机预定</p>
+                          <p class="font-80 pad-tb5">上门取包</p>
+                          <p class="font-80 pad-tb5">跟踪、运输</p>
+                          <p class="font-80 pad-tb5">准时交付</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-6 mart-20">
+                  <label style="display:block;" class="font16">包装</label>
+                  <div class="row" style="padding:15px 0;">
+                      <div class="col-md-6 text-right">
+                          <div class="bg-step2" style="background-position:-130px;"></div>
+                      </div>
+                      <div class="col-md-6 text-left">
+                          <p class="font-80 pad-tb5">杆头缠绕固定</p>
+                          <p class="font-80 pad-tb5">杆内部气泡填充保护</p>
+                          <p class="font-80 pad-tb5">杆头、包身外围纸箱隔离保护</p>
+                          <p class="font-80 pad-tb5">全方位气泡膜作缓冲保护</p>
+                      </div>
+                  </div>
+
+              </div>
+              <div class="col-md-6 mart-20">
+                  <label style="display:block;" class="font16">价格</label>
+                  <div class="row" style="padding:15px 0;">
+                      <div class="col-md-6 text-right">
+                          <div class="bg-step2" style="background-position:-270px;"></div>
+                      </div>
+                      <div class="col-md-6 text-left">
+                          <p class="font-80 pad-tb5">无服务费</p>
+                          <p class="font-80 pad-tb5">保价保证</p>
+                          <p class="font-80 pad-tb5">无打包费</p>
+                          <p class="font-80 pad-tb5">准时交付</p>
+                      </div>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<section class="container topline">
+    <div class="row home-step" style="padding:50px 0;">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <h3 style="color:#666;">为什么要快递我的球包和行李</h3>
+            <br>
+            <div class="pull-right" style="width:60%;">
+                <a href="why-ship.html">MORE></a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-11 col-md-offset-1">
+            <div class="row">
+              <div class="col-md-6 mart-20">
+                  <div class="bg-step3"></div>
+                  避免携带球包及行李进出机场或高铁站
+              </div>
+              <div class="col-md-6 mart-20">
+                  <div class="bg-step3"></div>
+                 让您的球包和行李在您的目的地等您
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5 mart-20">
+                  <div class="bg-step3"></div>
+                 消除航空公司丢失行李的可能性
+              </div>
+              <div class="col-md-4 mart-20">
+                  <div class="bg-step3"></div>
+                 不要支付超额行李费
+              </div>
+              <div class="col-md-3 mart-20">
+                  <div class="bg-step3"></div>
+                 无需等候行李
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<section class="container topline">
+    <div class="row home-step" style="padding:50px 0;">
+      <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="<%=static_url%>/images/home-4.png" alt="" style="width:100%;">
+            </div>
+          <div class="col-md-8">
+            <h3 style="color:#666;">我们还可以快递什么？</h3>
+            <br><br>
+            <p class="pad-tb5">球包通几乎可以为您的旅游出行解决您所需的任何东西的快递和托运服务；</p>
+            <p class="pad-tb5">即使是航空禁运的包括大多数液体，凝胶，牙膏和其它政策限制的物品（危险品除外），我们可以陆运到您的目的地...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<section class="container topline">
+    <div class="row home-step" style="padding:50px 0;">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <h3 style="color:#666;">我们可以把球包和行李运到...</h3>
+            <br><br>
+            <p>全国各地----家，办公室，酒店，高尔夫球场，练习场，机场，火车站和更多地方，包括港澳台。</p>
+          </div>
+        </div>
+        <div class="row mart-20">
+          <div class="col-md-10 col-md-offset-1" style="position:relative;">
+              <img src="<%=static_url%>/images/home-5.png" alt="" style="width:100%;">
+              <img src="<%=static_url%>/images/home-5-1.png" alt="" class="bg-step5" style="height:50px;top:40%;left:63%;">
+              <img src="<%=static_url%>/images/home-5-2.png" alt="" class="bg-step5" style="height:70px;top:35%;left:55%;">
+              <img src="<%=static_url%>/images/home-5-3.png" alt="" class="bg-step5" style="height:50px;top:20%;left:75%;">
+              <img src="<%=static_url%>/images/home-5-4.png" alt="" class="bg-step5" style="height:50px;top:5%;left:70%;">
+              <img src="<%=static_url%>/images/home-5-5.png" alt="" class="bg-step5" style="height:80px;top:2%;left:60%;">
+              <img src="<%=static_url%>/images/home-5-6.png" alt="" class="bg-step5" style="height:80px;top:20%;left:45%;">
+              <img src="<%=static_url%>/images/home-5-7.png" alt="" class="bg-step5" style="height:80px;top:25%;left:40%;">
+              <img src="<%=static_url%>/images/home-5-8.png" alt="" class="bg-step5" style="height:80px;top:15%;left:28%;">
+              <img src="<%=static_url%>/images/home-5-9.png" alt="" class="bg-step5" style="height:80px;top:45%;left:48%;">
+              <img src="<%=static_url%>/images/home-5-10.png" alt="" class="bg-step5" style="height:50px;top:30%;left:52%;">
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<section class="listen topline">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <h3 style="color:#666;">客户证言</h3>
+            <br />
+            <p>我们的球包通服务获得了用户的一直好评</p>
+            <br />
+            <br />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="media"> <a class="media-left" href="javascript:;"> <img src="http://wx.qlogo.cn/mmopen/RoZl4QLibTrccDytvtV5U0cG5posD8v8K2RDq8RDpAWDkD116clGa6bykocSibXU7LVDzsadVh7t7XKgUboPY2PsAvyOibLGLSq/0" alt="..." class="lis-img"> </a>
+                  <div class="media-body">
+                    <h4 class="media-heading">李莉</h4>
+                    用后点评，非常方便可靠，下次还用，一推荐给球队的朋友了，有人已开始使用了。 </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="media"> <a class="media-left" href="javascript:;"> <img src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEKgfiaN6ViciagzV332hkdPjnFKWLEYDefT6FjOdCEWejFiagzur5uFaqGpCVExlDHfHFLtbNekqDuthA/0" alt="..." class="lis-img"> </a>
+                  <div class="media-body">
+                    <h4 class="media-heading">田</h4>
+                    初次使用，很不错，方便 </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="media"> <a class="media-left" href="javascript:;"> <img src="http://wx.qlogo.cn/mmopen/Tx1WCZdXdSbBdVQpKEDg4Yib5PvNHCibicnzdgXRCibiafvtdLCCvbdLOsd2BA536G4XR0KNr00iaI3xZsibUaqrnibBhbiacnCWHGlYh/0" alt="..." class="lis-img"> </a>
+                  <div class="media-body">
+                    <h4 class="media-heading">Grace☁</h4>
+                    返程，理所當然地還是球包通，太方便，手機下单后什麼都不用操心了，对接球会直接将球包放入了存包室，赞👍一個 </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="media"> <a class="media-left" href="javascript:;"> <img src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEKemj894hziajymdiam4eEry4WXOcdBgV6CvCXhRQibcPiaL8XXZwdADR5MGPM9ia4UqbmuK5hweTo8ESw/0" alt="..." class="lis-img"> </a>
+                  <div class="media-body">
+                    <h4 class="media-heading">nanami 瑞湶 日本料理    </h4>
+                    国庆假期去了南京打球，提前一天试试看的心态使用了球包通，接包非常准时，到达的时间比预订的时间晚了2小时，但是不影响！球场代替签收，我隔天到达球场发现球包包装的严严实实。非常靠谱！79元一个包，省心省力 </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="home-sections bg-gary" id="new-list">
+  <div class="container">
+    <div class="row home-news ">
+      <div class="col-md-12 text-center">
+        <div class="row">
+          <div class="col-md-12">
+            <h3 style="color:#666;">新闻动态</h3>
+            <!-- <p>News center</p> -->
+            <br />
+            <br />
+          </div>
+        </div>
+        <div class="row text-left">
+            <% newsList.forEach(function(sublist){%>
+            <div class="col-md-6" style="margin-bottom:20px;">
+                <h4><%=sublist[0].categoryName%></h4>
+                <div class="media">
+                    <div class="media-left">
+                        <a href="/news/<%=sublist[0].id%>?type=<%=sublist[0].categoryId%>" style="width:250px;height:150px;overflow:hidden;display:inline-block;">
+                            <div style="background-image:url('<%=file_url%><%=sublist[0].imgUrl%>');" class="iImg"></div>
+                        </a>
+                     </div>
+                     <div class="media-body" style="padding-top:10px;">
+                        <% sublist.forEach(function(item){%>
+                        <a href="/news/<%=item.id%>?type=<%=sublist[0].categoryId%>"><h4 class="media-heading" style="margin-bottom:15px;font-size: 16px;"><%=item.title%></h4></a>
+                        <%})%>
+                     </div>
+                </div>
+                <div class="pull-right">
+                    <a href="/news/?type=<%=sublist[0].categoryId%>&typeName=<%=sublist[0].categoryName%>"><span>MORE></span></a>
+                </div>
+            </div>
+            <%})%>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="phone-us">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">如果您对于我们还有一些疑问<br />
+        请联系我们的客服，我们将及时为您解答..<br />
+      </div>
+      <div class="col-md-6 text-right"> <a href="about.html" type="button" class="btn btn-primary font-f">联系我们</a> </div>
+    </div>
+  </div>
+</section>
+<!--底部-->
+<footer class="bg-g home-footer">
+  <div class="container">
+    <div class="row text-left inner-container">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="col-md-2 col-sm-6 col-xs-12">
+                <label class="hidden-xs footer-label"><h5>球包快递 </h5></label>
+                <label class="visible-xs collapse collapsed" data-target="#ship-sticks-sub-menu" data-toggle="collapse">
+                    <h5 class="inline-block">球包快递 </h5>
+                    <i class="fa fa-plus pull-right"></i>
+                </label>
+                <ul class="list-unstyled sub-menu collapse in" id="ship-sticks-sub-menu">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="order.html">球包快递</a></li>
+                    <li><a href="track.html">球包追踪</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2 col-sm-6 col-xs-12">
+                <label class="hidden-xs footer-label"><h5>球包通</h5></label>
+                <label class="visible-xs collapse collapsed" data-target="#partners-sub-menu" data-toggle="collapse">
+                    <h5 class="inline-block">球包通</h5>
+                    <i class="fa fa-plus pull-right"></i>
+                </label>
+                <ul class="list-unstyled collapse sub-menu in" id="partners-sub-menu" style="height: 0;">
+                    <li><a href="contact.html"> 联系我们</a></li>
+                    <li><a href="service.html">客服中心</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2 col-sm-6 col-xs-12">
+                <label class="hidden-xs footer-label"><h5>为您服务</h5></label>
+                <label class="visible-xs collapse collapsed" data-target="#aboutus-sub-menu" data-toggle="collapse">
+                    <h5 class="inline-block">为您服务</h5><i class="fa fa-plus pull-right"></i>
+                </label>
+                <ul class="list-unstyled collapse sub-menu in" id="aboutus-sub-menu">
+                    <li><a href="raiders.html">球包通攻略</a></li>
+                    <li><a href="faq.html">常见问题</a></li>
+                    <li><a href="claims.html">安心服务 </a></li>
+                    <li><a href="work.html" target="_blank">招贤纳士</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-12 text-right-md">
+               <label class="hidden-xs get-in-touch footer-label"><h5>联系我们</h5></label>
+               <label class="visible-xs collapse collapsed" data-target="#address-sub-menu" data-toggle="collapse">
+                   <h5 class="inline-block">联系我们</h5><i class="fa fa-plus pull-right"></i>
+               </label>
+                   <div class="collapse sub-menu in" id="address-sub-menu">
+                       <a href="tel:400-609-0990" >400-609-0990</a><br>
+                       <a href="javascript:;"  >support@qiubaotong.com</a><br><br>
+                   </div>
+              </div>
+            <div class="col-md-4 col-sm-6 col-xs-12 text-right">
+                <div class="home-footer-er">
+                  <div class="text">扫码关注球包通</div>
+                </div>
+                <div class="home-footer-er home-footer-weibo">
+                  <div class="text">新浪微博</div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <label class="footer-label"><h5>友情链接</h5></label>
+            <ul class="list-unstyled list-inline">
+                <% links.forEach(function(item){ %>
+                <li><a href="<%=item.url%>" target="_blank"><%=item.name%></a></li>
+                <% })%>
+            </ul>
+        </div>
+    </div>
+
+  </div>
+  <div id="bottom-footer-layer">
+      <div class="container">
+      <div class="row text-center-sm text-center-xs inner-container">
+          <div class="col-md-5 col-xs-12">
+              <ul class="list-unstyled list-inline" style="margin-bottom: 3px;">
+                  <li><small><a href="fllow.html">关注球包通微信公众号</a></small></li>
+                  <li>·</li>
+                  <li><small><a href="team.html">服务条款</a></small></li>
+                  <li>·</li>
+                  <li><small><a href="privacy.html" target="_blank">隐私声明</a></small></li>
+                  <li>·</li>
+                  <li><small><a href="sitemap.html">网点地图</a></small></li>
+              </ul>
+          </div>
+          <div class="col-md-7 col-xs-12 text-right-lg text-right-md">
+              <small>Copyright © 2014-2016 上海格灵信息科技有限公司  All Rights Reserved  备案号：<a href="http://www.miitbeian.gov.cn/" target="_blank">沪ICP备14030722号-1</a></small>
+          </div>
+      </div>
+      </div>
+    </div>
+</footer>
+<!--固定二维码-->
+<div class="qrcode">
+    <img src="<%=static_url%>/images/qrcode.jpg" width="200">
+</div>
+<!--底部 end-->
+<script src="<%=static_url%>/assets/jquery.min.js"></script>
+<script src="<%=static_url%>/assets/bootstrap.min.js"></script>
+<script src="<%=static_url%>/assets/vue.min.js"></script>
+<script src="<%=static_url%>/js/app.js"></script>
+<script src="<%=static_url%>/js/Popt.js"></script>
+<script src="<%=static_url%>/js/cityList.js"></script>
+<script src="<%=static_url%>/js/citySet.js"></script>
+<script>
+
+$(function(){
+    var jAddressId = '';
+    var dAddressId = '';
+    var jThree = 0;
+    var dThree = 0;
+    var consigned_time = '';
+
+    $('#city').val('');
+    $('#city-2').val('');
+
+    $(".book-name").each(function(index,ele) {
+        $(ele).click(function(e){
+            $(ele).parent().toggleClass("open02");
+			e.stopPropagation();
+		});
+    });
+    //选择城市
+    $("#city").click(function (e) {
+        SelCity(this,e);
+        $('#_citys0 a').on('click',function(){
+            jAddressId = $(this).attr('data-id');
+            jThree = 1;
+            $('#_citys1 a').on('click',function(){
+                jAddressId = $(this).attr('data-id');
+                jThree = 2;
+                $('#_citys2 a').on('click',function(){
+                    jAddressId = $(this).attr('data-id');
+                    jThree = 3;
+                });
+            });
+        });
+    });
+    $("#city-2").click(function (e) {
+        SelCity(this,e);
+        $('#_citys0 a').on('click',function(){
+            dAddressId = $(this).attr('data-id');
+            dThree = 1;
+            $('#_citys1 a').on('click',function(){
+                dAddressId = $(this).attr('data-id');
+                dThree = 2;
+                $('#_citys2 a').on('click',function(){
+                    dAddressId = $(this).attr('data-id');
+                    dThree = 3;
+                });
+            });
+        });
+    });
+
+    //运费测算
+    $('#priceSearch').click(function(){
+        var consigned_time = $('.book-name time').html().substring(0,16)+':00';
+        if(!jThree || jThree != 3 || !dThree || dThree != 3 || consigned_time == '请选择时间...:00'){
+            $("#alert-box").fadeIn().delay(1800).fadeOut();
+            return false;
+        }
+        var addrMsg = {
+            jAddr : $('#city').val(),
+            dAddr : $('#city-2').val()
+        };
+        var searchMsg = {
+             consigned_time : consigned_time,
+             src_area_id : jAddressId,
+             dest_area_id :dAddressId,
+             src_address : '全部',
+             dest_address : '全部',
+             business_type : 0
+        };
+        $.ajax({
+            url:  $.baseUrl + "/comm/v2/query_sf_recive_time.api",
+            type: "post",
+            contentType:'application/json',
+            data: JSON.stringify(searchMsg),
+            success: function(data) {
+                var stat = data.datas;
+                var sTime = $("#startTime");
+                sTime.children().remove();
+                var timeText = ["<div class='col-md-4 ","'><div class='al-box'><br /><br />预计","<br /><br />","<span class='font-green'>￥","</span></div></div>"];
+                if(!stat){
+                    $('#remarkShow').hide();
+                    $('#msgShow h3').html(data.msg);
+                    $('#msgShow').show(1000);
+                }
+                else if(stat.length == 1){
+                    var html="<span style='color:#808080'><s>原价:"+stat[0].origin_price+"</s>&nbsp;&nbsp;&nbsp;</span>";
+                    !(stat[0].origin_price>stat[0].sf_price) && (html='');
+
+                    sTime.append(timeText[0]+"col-md-offset-4"+timeText[1]+stat[0].deliver_time.split(',')[0]+timeText[2]+html+timeText[3]+stat[0].sf_price+timeText[4]);
+                }
+                else if(stat.length == 2){
+                    var html1="<span style='color:#808080'><s>原价:"+stat[0].origin_price+"</s>&nbsp;&nbsp;&nbsp;</span>";
+                    var html2="<span style='color:#808080'><s>原价:"+stat[1].origin_price+"</s>&nbsp;&nbsp;&nbsp;</span>";
+                    !(stat[0].origin_price>stat[0].sf_price) && (html1='');
+                    !(stat[1].origin_price>stat[1].sf_price) && (html2='');
+
+                    sTime.append(timeText[0]+"col-md-offset-2"+timeText[1]+stat[0].deliver_time.split(',')[0]+timeText[2]+html1+timeText[3]+stat[0].sf_price+timeText[4]);
+                    sTime.append(timeText[0]+timeText[1]+stat[1].deliver_time.split(',')[0]+timeText[2]+html2+timeText[3]+stat[1].sf_price+timeText[4]);
+                }
+                else{
+                    var html1="<span style='color:#808080'><s>原价:"+stat[0].origin_price+"</s>&nbsp;&nbsp;&nbsp;</span>";
+                    var html2="<span style='color:#808080'><s>原价:"+stat[1].origin_price+"</s>&nbsp;&nbsp;&nbsp;</span>";
+                    var html3="<span style='color:#808080'><s>原价:"+stat[2].origin_price+"</s>&nbsp;&nbsp;&nbsp;</span>";
+                    !(stat[0].origin_price>stat[0].sf_price) && (html1='');
+                    !(stat[1].origin_price>stat[1].sf_price) && (html2='');
+                    !(stat[2].origin_price>stat[2].sf_price) && (html3='');
+
+                    sTime.append(timeText[0]+timeText[1]+stat[0].deliver_time.split(',')[0]+timeText[2]+html1+timeText[3]+stat[0].sf_price+timeText[4]);
+                    sTime.append(timeText[0]+timeText[1]+stat[1].deliver_time.split(',')[0]+timeText[2]+html2+timeText[3]+stat[1].sf_price+timeText[4]);
+                    sTime.append(timeText[0]+timeText[1]+stat[2].deliver_time.split(',')[0]+timeText[2]+html3+timeText[3]+stat[2].sf_price+timeText[4]);
+                }
+                if(stat){
+                    $('#toDownOrder').click(function(){
+                        window.location.href = 'order.html?jAddrId='
+                                             + searchMsg.src_area_id
+                                             + '&jAddr=' + addrMsg.jAddr
+                                             + '&dAddrId='
+                                             + searchMsg.dest_area_id
+                                             + '&dAddr=' + addrMsg.dAddr
+                                             + '&time=' + searchMsg.consigned_time;
+                    });
+                    $('#msgShow').hide();
+                    $('#remarkShow').show();
+                }
+            }
+        });
+    });
+
+    //选择时间
+    $.ajax({
+        url: $.baseUrl + "/index/time.api",
+        type: "get",
+        data: {
+            day: '',
+            prefix: '',
+            items:''
+        },
+        success: function(data) {
+          for(var i=0;i<data.datas.length;i++){
+              var dDay = data.datas[i].day;
+              var dayTime = data.datas[i].items
+              $(".book-time #dDay").append("<a value='"+dayTime+"'>"+dDay+"</a>");
+          }
+          $(".book-time #dDay a").on("click",function(){
+              $(".book-time #dayTime").children().remove();
+              var w = $(this).attr('value');
+              var day = $(this).html();
+              var array = w.split (",");
+              for(i=0; i<array.length;i++){
+                  $(".book-time #dayTime").append("<a value='"+day+"'>"+array[i]+"</a>");
+              }
+              $(this).addClass('time-on').siblings().removeClass('time-on');
+              $("#dDay").hide();
+              $("#dayTime").show();
+              $(".book-day").children().eq(0).removeClass("active");
+              $(".book-day").children().eq(1).addClass("active");
+              $("#dayTime a").on("click",function(){
+                  $(".book-tab").removeClass("open02");
+                  $(".book-name time").html($(this).attr('value')+' '+$(this).html());
+              });
+          });
+       }
+    });
+
+    //tab
+  	function tabs(tabTit,on,tabCon){
+  		$(tabTit).children().click(function(){
+  			$(this).addClass(on).siblings().removeClass(on);
+  			var index = $(tabTit).children().index(this);
+  			$(tabCon).children().eq(index).show().siblings().hide();
+  		});
+  	};
+	 tabs(".tab-hd","active",".tab-bd");   
+});
+</script>
+</body>
+</html>

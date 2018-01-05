@@ -1,0 +1,63 @@
+<template id="vip-update">
+<div class="section bg">
+    <!--头-->
+    <div class="header tex-c">
+      <a href="javascript:history.back();" class="back"><img src="/img/back.png" /></a>
+      修改手机号
+    </div>
+    <!--头 end-->
+    <div class="scroll marhead">
+    <div class="weui_cells weui_cells_form font14">
+          <div class="weui_cell pad-lr">
+              <div class="weui_cell_hd"><label class="weui_label" style="width:80px;">原手机号</label></div>
+              <div class="weui_cell_bd weui_cell_primary">
+                 {{vip.mobile}}
+              </div>
+          </div>
+
+          <div class="weui_cell pad-lr">
+              <div class="weui_cell_hd"><label class="weui_label" style="width:80px;">新手机号</label></div>
+              <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" type="text"  placeholder="请填写新手机号" v-model="mobile" maxlength="11"/>
+              </div>
+          </div>
+      </div>
+      <div class="pad-lr font12 mar-t" style="color:#15ca5f;" v-if="vip.usedOrder">
+          温馨提示:一张会员卡只允许修改一次手机号
+      </div>
+      <div class="pad-lr mar-t20">
+        <a href="javascript:;" class="weui_btn weui_btn_primary font14" style="padding: 2px 0;" @click="save()">保存</a>
+      </div>
+      </div>
+</div>
+</template>
+<template id="vip-updatename">
+<div class="section bg">
+    <!--头-->
+    <div class="header tex-c">
+      <a href="javascript:history.back();" class="back"><img src="/img/back.png" /></a>
+      修改会员用户名
+    </div>
+    <!--头 end-->
+    <div class="scroll marhead">
+    <div class="weui_cells weui_cells_form font14">
+          <div class="weui_cell pad-lr">
+              <div class="weui_cell_hd"><label class="weui_label" style="width:100px;">原会员用户名</label></div>
+              <div class="weui_cell_bd weui_cell_primary">
+                 {{vip.userName}}
+              </div>
+          </div>
+
+          <div class="weui_cell pad-lr">
+              <div class="weui_cell_hd"><label class="weui_label" style="width:100px;">新会员用户名</label></div>
+              <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" type="text"  placeholder="请填写新会员用户名" v-model="userName" maxlength="8"/>
+              </div>
+          </div>
+      </div>
+      <div class="pad-lr mar-t20">
+        <a href="javascript:;" class="weui_btn weui_btn_primary font14" style="padding: 2px 0;" @click="save()">保存</a>
+      </div>
+      </div>
+</div>
+</template>

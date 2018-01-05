@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/bootstrap-slider/css/bootstrap-slider.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="SFserviceManageCtrl">
+	<div class="container containerWidthAuto">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel">
+					<div class="panel-body">
+						<form class="form-inline applyCheckSearch">
+							<div class="form-group marginRight5">
+								<label for="name">客服名称：</label>
+								<input ng-model="name" type="text" class="form-control" id="name" placeholder="输入客服名称" maxlength="20">
+							</div>
+							<div class="form-group marginRight5">
+								<label for="mobile">电话：</label>
+								<input ng-model="mobile" type="text" class="form-control" id="mobile"  placeholder="如：000(0)-0000000(0)" maxlength="20">
+							</div>
+							<button ng-click="addSFKF()" type="submit" class="btn btn-primary">新增</button>
+						</form>
+						<table class="table table-bordered table-striped table-hover">
+							<thead>
+								<th>客服名称</th>
+								<th>电话</th>
+								<th>操作</th>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in list track by $index">
+									<td>{{item.name}}</td>
+									<td>{{item.mobile}}</td>
+									<td>
+										<button ng-click="layerDeleteSFKF(item.id)" class="btn btn-danger btn-sm">删除</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<pagination page="page" change="getList(page)"></pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" ng-repeat="sfkfs in sfkfes track by $index" repeat-done="sliderShow()">
+			<!-- <div class="row"> -->
+			<div class="col-sm-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">{{sfkfs.weekDay | commFilter : 'week_type'}}</h3>
+					</div>
+					<div class="panel-body">
+						<div class="panel panel-default padding20" ng-repeat="sfkf in sfkfs.items" repeat-done="sliderShow1(sfkfs.weekDay)">
+							<div class="row divSliders{{sfkfs.weekDay}}">
+								<div class="sliders_parent col-sm-8">
+									<input class="sliders" type="text" style="width:100%" value="" data-slider-min="0" data-slider-max="24" data-slider-step="1" data-slider-value="{{'['+sfkf.begin+','+sfkf.end+']'}}"/>
+								</div>
+								<div class="col-sm-4">
+									<form class="form-inline pull-right">
+										<div class="form-group">
+											<label class="label label-primary padding7-10" style="margin-right:5px;" ng-repeat="item1 in list" ng-if="item1.id == sfkf.serviceId">{{item1.name}}</label>
+										</div>
+										<div class="form-group">
+											<button ng-click="deleteServer(sfkf.id)" class="btn btn-danger btn-sm">删除时间段</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="padding20">
+							<div class="row row_slider">
+								<div class="col-sm-8">
+									<input id="dataSlider{{sfkfs.weekDay}}" class="add_slider" type="text" style="width:100%" value="" data-slider-min="0" data-slider-max="24" data-slider-step="1" data-slider-value="[0,24]"/>
+								</div>
+								<div class="col-sm-4">
+									<form class="form-inline pull-right">
+										<div class="form-group">
+											<select ng-model="sfkfs.selectedName" class="form-control pull-right" style="margin-right:5px">
+												<option value="">请选择客服人员</option>
+												<option ng-repeat="item1 in list track by $index" value="{{item1.id}}">{{item1.name}}</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<button ng-click="addSlider(sfkfs.weekDay,sfkfs.selectedName,sfkfs.items)" class="btn btn-primary btn-sm">增加时间段</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div id="memo" class="form-group dashboard-mark" style="display:none">
+    <label>时间段重复</label>
+ </div>
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-slider/js/bootstrap-slider.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/SFserviceManageCtrl.js}}}"></script>
+</body>
+</html>

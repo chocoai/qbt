@@ -1,0 +1,72 @@
+package com.qbt.web.support.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.qbt.common.entity.PageEntity;
+import com.qbt.common.enums.ErrorCodeEnum;
+import com.qbt.common.exception.BusinessException;
+import com.qbt.common.util.BeanUtil;
+import com.qbt.common.util.Checker;
+import com.qbt.persistent.entity.UserPackageTicket;
+import com.qbt.service.TicketService;
+import com.qbt.web.pojo.ticket.TicketAddReqVo;
+import com.qbt.web.pojo.ticket.TicketPageReqVo;
+import com.qbt.web.pojo.ticket.TicketVo;
+import com.qbt.web.support.TicketSupport;
+
+@Service
+public class TicketSupportImpl implements TicketSupport {
+
+	@Resource
+	TicketService ticketService;
+		
+	@Override
+	public List<TicketVo> findByPage(TicketPageReqVo reqVo) {
+		PageEntity<UserPackageTicket> pageEntity = BeanUtil.pageConvert(reqVo, UserPackageTicket.class);
+		List<UserPackageTicket> list = ticketService.findByPage(pageEntity);
+		
+		List<TicketVo> voList = new ArrayList<TicketVo>();
+		for(UserPackageTicket act : list){
+			TicketVo vo = BeanUtil.a2b(act, TicketVo.class);
+			voList.add(vo);
+		}
+		reqVo.setTotalCount(pageEntity.getTotalCount());
+		return voList;
+	}
+
+	@Override
+	public TicketVo findById(Integer id) {
+		UserPackageTicket ticket = ticketService.findById(id);
+		TicketVo vo = BeanUtil.a2b(ticket, TicketVo.class);
+		return vo;
+	}
+
+	@Override
+	public int add(TicketAddReqVo vo) {
+		UserPackageTicket ticket = BeanUtil.a2b(vo, UserPackageTicket.class);
+		int ticketId = ticketService.insert(ticket);
+		
+		return ticketId;
+	}
+
+	@Override
+	public boolean update(TicketVo vo) {
+		UserPackageTicket order = ticketService.findById(vo.getId());
+		if(Checker.isEmpty(order)) {
+			throw new BusinessException(ErrorCodeEnum.ERROR_VALID_FAIL, "无效的数据");
+		}
+		order.setUsedQuantity(vo.getUsedQuantity());
+		order.setQuantity(vo.getQuantity());
+		order.setTicketName(vo.getTicketName());
+		order.setUseLimit(vo.getUseLimit());
+		order.setUseStatus(vo.getUseStatus());
+		
+		return ticketService.update(order) > 0;
+	}
+
+}

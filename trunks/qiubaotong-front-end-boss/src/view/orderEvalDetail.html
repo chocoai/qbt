@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="orderEvalDetailCtrl">
+    <div class="container containerWidthAuto">
+        <div class="row">
+            <div class="col-sm-4">
+            	<div class="form-group">
+            		<label>订单编号</label>
+            		<span class="form-control">{{orderNumber}}</span>
+            	</div>
+            </div>
+            <div class="col-sm-4">
+            	<div class="form-group">
+            		<label>取包地区路径</label>
+            		<span class="form-control">{{jTreePath}}</span>
+            	</div>
+            </div>
+            <div class="col-sm-4">
+            	<div class="form-group">
+            		<label>送包地区路径</label>
+            		<span class="form-control" >{{dTreePath}}</span>
+            	</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+            	<div class="form-group">
+            		<label>昵称</label>
+            		<span class="form-control">{{userName}}</span>
+            	</div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>审核状态</label>
+                    <span class="form-control">{{status | commFilter : 'orderEval_type'}}</span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>审核人员名称</label>
+                    <span class="form-control" >{{sysUserName}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3" style="width:20%">
+                <div class="form-group">
+                    <label>总评星</label>
+                    <span class="form-control" >
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="totalLevel>=1"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="totalLevel>=2"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="totalLevel>=3"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="totalLevel>=4"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="totalLevel>=5"></i>
+                        <i class="fa fa-star-half fa-fw colorYellow" ng-show="(totalLevel+'').length > 2"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-3" style="width:20%">
+            	<div class="form-group">
+            		<label>客服评星</label>
+            		<span class="form-control">
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="kfLevel>=1"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="kfLevel>=2"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="kfLevel>=3"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="kfLevel>=4"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="kfLevel>=5"></i>
+                    </span>
+            	</div>
+            </div>
+            <div class="col-xs-3" style="width:20%">
+            	<div class="form-group">
+            		<label>包装评星</label>
+            		<span class="form-control">
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="sfPackLevel>=1"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="sfPackLevel>=2"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="sfPackLevel>=3"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="sfPackLevel>=4"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="sfPackLevel>=5"></i>
+                    </span>
+            	</div>
+            </div>
+            <div class="col-xs-3" style="width:20%">
+            	<div class="form-group">
+            		<label>送货速度评星</label>
+            		<span class="form-control" >
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="sfDeliverLevel>=1"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="sfDeliverLevel>=2"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="sfDeliverLevel>=3"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="sfDeliverLevel>=4"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="sfDeliverLevel>=5"></i>
+                    </span>
+            	</div>
+            </div>
+            <div class="col-xs-3" style="width:20%">
+            	<div class="form-group">
+            		<label>配送服务评星</label>
+            		<span class="form-control" >
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="sfServiceLevel>=1"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="sfServiceLevel>=2"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="sfServiceLevel>=3"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="sfServiceLevel>=4"></i>
+                        <i class="fa fa-star fa-fw colorYellow" ng-show="sfServiceLevel>=5"></i>
+                    </span>
+            	</div>
+            </div>
+        </div>
+        <div class="row">
+            <div ng-show="!!content" class="col-sm-6">
+                <div class="form-group">
+                    <label>评论内容</label>
+                    <div style="height:auto;word-break: break-all" class="form-control">
+                        {{content}}
+                    </div>
+                </div>
+            </div>
+            <div ng-show="!!memo" class="col-sm-6">
+                <div ng-show="status != 1" class="form-group">
+                    <label>客服回复</label>
+                    <div style="height:auto;word-break: break-all" class="form-control">
+                        {{memo}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div ng-show="!!imgUrls[0]" class="col-sm-4">
+            	<div class="form-group">
+            		<label>图片1</label>
+            		<img class="img-responsive form-control marginAuto heightAuto" ng-src="{{fBaseUrl + imgUrls[0]}}">
+            	</div>
+            </div>
+            <div ng-show="!!imgUrls[1]" class="col-sm-4">
+            	<div class="form-group">
+            		<label>图片2</label>
+            		<img class="img-responsive form-control marginAuto heightAuto" ng-src="{{fBaseUrl + imgUrls[1]}}">
+            	</div>
+            </div>
+            <div ng-show="!!imgUrls[2]" class="col-sm-4">
+            	<div class="form-group">
+            		<label>图片3</label>
+            		<img class="img-responsive form-control marginAuto heightAuto" ng-src="{{fBaseUrl + imgUrls[2]}}">
+            	</div>
+            </div>
+        </div>
+        <div ng-show="status!=2" class="row">
+            <div class="col-sm-12">
+            	<div class="form-group">
+            		<button type="button" class="btn btn-primary" ng-click="updateStatus()">审核</button>
+            	</div>
+            </div>
+        </div>
+
+<div id="remark" class="form-group dashboard-mark" style="display:none">
+    <label>客服回复</label>
+     <input type="text" class="form-control" ng-model="memo" maxlength="100">
+ </div>
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/orderEvalDetailCtrl.js}}}"></script>
+</body>
+</html>

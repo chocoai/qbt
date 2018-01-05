@@ -1,0 +1,196 @@
+{
+	"info": {
+		"name": "Qiubaotong",
+		"_postman_id": "5df8fcdb-0a51-6bc2-a883-e7e5245f7dba",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAllCities.api",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n\"id\":\"1000031\",\r\n\"name\":\"滁州\",\r\n\"status\":\"2\",\r\n\"courseAmount\":\"1\",\r\n\"sortNumber\":\"2\"\r\n}]"
+				},
+				"url": {
+					"raw": "http://localhost:8080/system-web/sysAddress/cities.api",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"system-web",
+						"sysAddress",
+						"cities.api"
+					]
+				},
+				"description": "get All cities "
+			},
+			"response": []
+		},
+		{
+			"name": "updateCities.api",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n\"id\":\"1000031\",\r\n\"name\":\"滁州\",\r\n\"status\":\"1\",\r\n\"courseAmount\":\"1\",\r\n\"sortNumber\":\"2\"\r\n\r\n}]"
+				},
+				"url": {
+					"raw": "http://localhost:8080/system-web/sysAddress/updateCities.api",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"system-web",
+						"sysAddress",
+						"updateCities.api"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "updatePovinces.api",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n\"id\":\"1000031\",\r\n\"name\":\"广东\",\r\n\"status\":\"1\",\r\n\"courseAmount\":\"1\",\r\n\"sortNumber\":\"2\"\r\n\r\n}]"
+				},
+				"url": {
+					"raw": "http://localhost:8080/system-web/sysAddress/updatePovinces.api",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"system-web",
+						"sysAddress",
+						"updatePovinces.api"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "updateCity.api",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n\"id\":\"1000031\",\r\n\"name\":\"广东\",\r\n\"status\":\"1\",\r\n\"courseAmount\":\"1\",\r\n\"sortNumber\":\"2\"\r\n\r\n}]"
+				},
+				"url": {
+					"raw": "http://localhost:8080/system-web/sysAddress/updateCity.api",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"system-web",
+						"sysAddress",
+						"updateCity.api"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "updateProvince.api",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\":\"1000031\",\r\n\"name\":\"广东\",\r\n\"status\":\"1\",\r\n\"courseAmount\":\"1\",\r\n\"sortNumber\":\"2\"\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/system-web/sysAddress/updateProvince.api",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"system-web",
+						"sysAddress",
+						"updateProvince.api"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getAllProvinces.api",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"id\":\"1000031\",\r\n\"name\":\"广东\",\r\n\"status\":\"1\",\r\n\"courseAmount\":\"1\",\r\n\"sortNumber\":\"2\"\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/system-web/sysAddress/provinces.api",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"system-web",
+						"sysAddress",
+						"provinces.api"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

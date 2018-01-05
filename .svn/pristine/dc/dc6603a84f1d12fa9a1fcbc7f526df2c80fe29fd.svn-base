@@ -1,0 +1,31 @@
+package com.qbt.persistent.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.qbt.common.entity.PageEntity;
+import com.qbt.persistent.entity.SysResource;
+
+public interface SysResourceMapper {
+    int insert(SysResource record);
+
+    SysResource selectByPrimaryKey(Integer id);
+    
+    List<SysResource> list();
+
+	List<SysResource> getSysResourceListById(Integer id);
+
+	void delete(Integer id);
+
+	SysResource get(int id);
+
+	int updateByPrimaryKey(SysResource sysResource);
+
+	List<SysResource> findByPage(PageEntity<SysResource> pageEntity);
+
+	List<SysResource> findByCondition(SysResource condition);
+
+	List<SysResource> listByUserId(@Param("userId")Integer userId, @Param("platId")Integer platId);
+}
+

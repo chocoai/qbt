@@ -1,0 +1,61 @@
+<template id="order-activity">
+<section class="section">
+    <!--头-->
+    <div class="header tex-c bg-white">
+      <a href="javascript:history.back();" class="back"><img src="/img/back.png"/></a>
+      活动详情
+    </div>
+    <!--头 end-->
+    <div class="scroll">
+        <div class="activity-detail" style="margin-top: 50px;">
+            <!--1-->
+            <div class="weui_cells mar-t">
+                <div class="weui_cell">
+                    <h4>
+                        {{info.name}}
+                    </h4>
+                </div>
+            </div>
+            <div class="weui_cells">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd font-green03">时间：</div>
+                    <div class="weui_cell_bd weui_cell_primary ">
+                        <p>{{info.startTime | dateFormat 'yyyy.MM.dd'}}-{{info.endTime | dateFormat 'yyyy.MM.dd'}}</p>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd font-green03">类型：</div>
+                    <div class="weui_cell_bd weui_cell_primary ">
+                        <p>满减活动</p>
+                    </div>
+                </div>
+            </div><!--1end-->
+
+            <!--2-->
+            <div class="weui_panel_bd mar-t20">
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title font-green03">活动规则</h4>
+                    <p class="weui_media_desc">{{info.memo}}</p>
+                </div>
+            </div>
+            <!--2 end-->
+            <!--3-->
+            <div class="weui_panel_bd mar-t20">
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title font-green03">满减规则</h4>
+                    <div class="act-cell bg-gray tex-c " v-for="item in info.amountConfigs">满 {{item.limitAmount}}元 <i>减</i> <span>{{item.amount}}</span> 元</div>
+                </div>
+            </div>
+            <!--3 end-->
+            <!--4-->
+            <div class="weui_panel_bd mar-t20">
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title font-green03">{{info.scope == 1 ? '满减球场' : '满减地区'}}</h4>
+                    <p class="weui_media_desc" v-for="item in info.configs">{{item.scopeName}}</p>
+                </div>
+            </div>
+            <!--4 end-->
+        </div>
+    </div>
+</section>
+</template>

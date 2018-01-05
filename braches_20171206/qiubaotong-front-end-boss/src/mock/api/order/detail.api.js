@@ -1,0 +1,4 @@
+next(null,{
+    "code":"0000","msg":"ok",
+    "datas":{"id":32,"payMethod":1,"orderSource":3,"createTime":1472179657000,"userId":4,"userName":"曾建忠","number":"QBT20160826100000001","mailNo":"444740025403","amount":59.0,"totalAmount":59.0,"uuid":"20160826200000001","payStatus":2,"orderStatus":3,"refundStatus":1,"deliveryStatus":2,"bpsStatus":2,"expressType":"5","sendSfUserTime":1472184000000,"deliverDate":"2016-08-27 12:00:00","deliverTime":null,"jAddrType":4,"jAddrId":0,"jAddrName":"","jContact":"曾","jMobile":"18688151354","jAreaId":1001955,"jTreePath":"广东,珠海,香洲区","jAddress":"敬业路88号","dAddrType":1,"dAddrId":1105,"dAddrName":"珠海万盛乡村高尔夫球场","dContact":"曾建忠","dMobile":"18688151354","dAreaId":1001953,"dTreePath":"广东,珠海,斗门区","dAddress":"乾务镇五山山里村","couponId":0,"couponCode":"","discount":0.0,"favorable":null,"sentRemark":null,"remark":"","isHelped":false,"isDelete":false}}
+)

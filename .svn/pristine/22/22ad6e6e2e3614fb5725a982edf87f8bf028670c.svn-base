@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderPayInfoMapper">
+	<resultMap id="BaseResultMap" type="OrderPayInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="uuid" property="uuid" jdbcType="CHAR" />
+		<result column="order_id" property="orderId" jdbcType="INTEGER" />
+		<result column="pay_method" property="payMethod" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="pay_status" property="payStatus" jdbcType="INTEGER" />
+		<result column="nonce_str" property="nonceStr" jdbcType="VARCHAR" />
+		<result column="pay_sign" property="paySign" jdbcType="VARCHAR" />
+		<result column="prepay_id" property="prepayId" jdbcType="VARCHAR" />
+		<result column="pay_bak_no" property="payBakNo" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="pay_amount" property="payAmount" jdbcType="DECIMAL" />
+		<result column="coupon_code" property="couponCode" jdbcType="VARCHAR" />
+		<result column="coupon_id" property="couponId" jdbcType="INTEGER" />
+		<result column="activity_id" property="activityId" jdbcType="INTEGER" />
+		<result column="activity_type" property="activityType" jdbcType="INTEGER" />
+		<result column="start_time" property="startTime" />
+		<result column="expire_time" property="expireTime" />
+		<result column="paypackage" property="paypackage" />
+	</resultMap>
+	
+	<resultMap id="BossResultMap" type="BossOrderPayInfo" extends="BaseResultMap">
+		<result column="order_number" property="orderNumber" />
+		<result column="order_status" property="orderStatus" />
+		<result column="refund_status" property="refundStatus" />
+		<result column="order_amount" property="orderAmount" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, uuid, order_id, pay_method, status,
+		pay_status, nonce_str,
+		pay_sign, prepay_id,
+		pay_bak_no,user_id,pay_amount,coupon_code,coupon_id,activity_id,activity_type,start_time,expire_time,paypackage
+	</sql>
+
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from order_pay_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="findByOrderId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from order_pay_info
+		where order_id = #{orderId} and pay_method=#{payMethod} and pay_amount=#{payAmount} order by id desc
+		limit 1
+	</select>
+
+	<select id="findByPayno" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from order_pay_info
+		where uuid = #{payno}
+	</select>
+
+	<insert id="insert" parameterType="OrderPayInfo" useGeneratedKeys="true" keyProperty="id">
+		insert into order_pay_info (create_time, update_time,
+		uuid, order_id, pay_method,
+		status, pay_status, nonce_str,
+		pay_sign, prepay_id,
+		pay_bak_no,user_id,pay_amount,coupon_code,coupon_id,activity_id,activity_type,
+		start_time,expire_time,paypackage
+		)
+		values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		#{uuid,jdbcType=CHAR}, #{orderId,jdbcType=INTEGER},
+		#{payMethod,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER}, #{payStatus,jdbcType=INTEGER}, #{nonceStr,jdbcType=VARCHAR},
+		#{paySign,jdbcType=VARCHAR}, #{prepayId,jdbcType=VARCHAR},
+		#{payBakNo,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR},#{payAmount,jdbcType=VARCHAR},#{couponCode,jdbcType=VARCHAR},
+		#{couponId},#{activityId}, #{activityType}, #{startTime},
+		#{expireTime}, #{paypackage}
+		)
+	</insert>
+
+	<update id="updateById" parameterType="OrderPayInfo">
+		update order_pay_info
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="payStatus != null">
+				pay_status = #{payStatus,jdbcType=INTEGER},
+			</if>
+			<if test="payBakNo != null">
+				pay_bak_no = #{payBakNo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="findByPage" resultMap="BossResultMap">
+		select 
+			p.id, 
+			p.create_time, 
+			p.uuid, 
+			pay_method, 
+			p.status,
+			p.pay_status, 
+			p.pay_bak_no,
+			p.user_id,
+			p.pay_amount,
+			o.id order_id,
+			o.number order_number,
+			o.order_status,
+			o.refund_status,
+			o.amount order_amount 
+		from order_info o left join order_pay_info p on p.id=o.pay_id 
+		<where>
+			<if test="condition.startDate != null">
+				and date(p.create_time) <![CDATA[>=]]> date(#{condition.startDate}) 
+			</if>
+			<if test="condition.endDate != null">
+				and date(p.create_time) <![CDATA[<=]]> date(#{condition.endDate}) 
+			</if>
+			<if test="condition.uuid != null and condition.uuid != ''">
+				and p.uuid like concat('%',#{condition.uuid},'%') 
+			</if>
+			<if test="condition.orderNumber != null and condition.orderNumber != ''">
+				and o.number like concat('%',#{condition.orderNumber},'%') 
+			</if>
+			<if test="condition.payMethod != null">
+				and p.pay_method = #{condition.payMethod} 
+			</if>
+			<if test="condition.status != null">
+				and p.status = #{condition.status} 
+			</if>
+		</where>
+		order by id desc
+	</select>
+	
+	<update id="updateOrderIdByOrderId">
+		update order_pay_info set order_id=#{newOrderId} where order_id=#{oldOrderId}
+	</update>
+
+</mapper>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.ActivityMapper">
+
+	<resultMap id="BaseResultMap" type="Activity">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="name" property="name" />
+		<result column="start_time" property="startTime" />
+		<result column="end_time" property="endTime" />
+		<result column="code" property="code" />
+		<result column="desc" property="desc" />
+		<result column="max_per_one" property="maxPerOne" />
+		<result column="status" property="status" />
+		<result column="rule_id" property="ruleId" />
+		<result column="rule_name" property="ruleName" />
+		<result column="type" property="type" />
+		<result column="coupon_amount" property="couponAmount" />
+		<result column="coupon_limit_amount" property="couponLimitAmount" />
+		<result column="coupon_limit_day" property="couponLimitDay" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, name, start_time, end_time, code, `desc`, max_per_one,
+		status, rule_id, rule_name, type, coupon_amount, coupon_limit_amount, coupon_limit_day
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM activity 
+		WHERE id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="Activity" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO activity (
+			create_time, 
+			name,
+			start_time, 
+			end_time, 
+			code,
+			`desc`, 
+			max_per_one, 
+			status,
+			rule_id,
+			rule_name,
+			type, 
+			coupon_amount, 
+			coupon_limit_amount,
+			coupon_limit_day
+		)
+		VALUES (
+			#{createTime},
+			#{name},
+			#{startTime}, 
+			#{endTime}, 
+			#{code},
+			#{desc}, 
+			#{maxPerOne},
+			#{status},
+			#{ruleId},
+			#{ruleName},
+			#{type}, 
+			#{couponAmount}, 
+			#{couponLimitAmount},
+			#{couponLimitDay}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="Activity">
+		UPDATE activity 
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime},
+			</if>
+			<if test="desc != null">
+				`desc` = #{desc},
+			</if>
+			<if test="maxPerOne != null">
+				max_per_one = #{maxPerOne},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM activity 
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.code != null and condition.code != ''">
+				AND code LIKE CONCAT('%',#{condition.code},'%') 
+			</if>
+			<if test="condition.type != null">
+				AND type = #{condition.type} 
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findByCondition" parameterType="Activity" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM activity 
+		<where>
+			<if test="id != null and id > 0">
+				AND id = #{id} 
+			</if>
+			<if test="name != null">
+				AND name = #{name} 
+			</if>
+			<if test="startTime != null">
+				AND start_time = #{startTime} 
+			</if>
+			<if test="endTime != null">
+				AND end_time = #{endTime} 
+			</if>
+			<if test="code != null">
+				AND code = #{code} 
+			</if>
+			<if test="desc != null">
+				AND `desc` = #{desc} 
+			</if>
+			<if test="maxPerOne != null">
+				AND max_per_one = #{maxPerOne} 
+			</if>
+			<if test="status != null">
+				AND status = #{status} 
+			</if>
+		</where>
+	</select>
+	
+	<select id="isExist" resultType="java.lang.Integer">
+		SELECT count(1) 
+		FROM activity 
+		<where>
+			<if test="name != null">
+				OR name = #{name} 
+			</if>
+			<if test="code != null">
+				OR code = #{code} 
+			</if>
+		</where>
+	</select>
+	
+	<select id="findCurrentCouponActivity" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" /> 
+		from activity 
+		where 
+			(id in (
+				select activity_id 
+				from coupon  
+				where 
+					user_id = 0 
+					and date(start_time) <![CDATA[<=]]> CURRENT_DATE() 
+					and date(end_time) <![CDATA[>=]]> CURRENT_DATE()
+				group by activity_id
+			) 
+			or (
+				type=2 
+				and date(start_time) <![CDATA[<=]]> CURRENT_DATE() 
+				and date(end_time) <![CDATA[>=]]> CURRENT_DATE()
+			))
+			and status = 1 
+			<if test="type != null and type != 0">
+				and type = #{type}
+			</if>
+	</select>
+	
+</mapper>

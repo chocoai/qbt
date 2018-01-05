@@ -1,0 +1,3 @@
+#baidu map
+baidu_map_url=http://api.map.baidu.com/geocoder/v2/?address={address}&output=json&ak={ak}
+baidu_map_ak=4CIpHQfLPefMBvMHxzlwQr1pdn1IdYTZ

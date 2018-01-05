@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BillMapper">
+	 <resultMap id="BaseResultMap" type="com.qbt.persistent.entity.Bill" >
+	 	<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="user_id" property="userId" />
+		<result column="order_id" property="orderId" />
+		<result column="price" property="price" />
+		<result column="status" property="status" />
+		<result column="operater" property="operater" />
+		<result column="address_id" property="addressId" />
+		<result column="content" property="content" />
+		<result column="number" property="number" />
+		<result column="remark" property="remark" />
+		<result  column="user_name" property="userName" />
+		<result  column="order_number" property="orderNumber" />
+		<result column="bill_type" property="billType" />
+	 	<result column="org_type" property="orgType" />
+	 	<result column="title" property="title" />
+	 	<result column="email" property="email" />
+	 	<result column="name" property="name" />
+	 	<result column="telephone" property="telephone" />
+	 	<result column="address" property="address" />
+	 	<result column="tax_file_number" property="taxFileNumber" />
+	 	<result column="bank_number" property="bankNumber" />
+	 	<result column="company_address" property="companyAddress" />
+	 	<result column="company_telephone" property="companyTelephone" />
+	 	<result column="operater_name" property="operaterName" />
+	 	<result column="bank" property="bank" />
+	 </resultMap>
+	 
+
+	 
+	 <insert id="insert" parameterType="Bill" useGeneratedKeys="true" keyProperty="id">
+	 	 insert into bill 
+	 	 (
+	 	 	create_time,
+	 	 	user_id,
+	 	 	order_id,
+	 	 	price,
+	 	 	status,
+	 	 	content,
+	 	 	user_name,
+	 	 	order_number,
+	 	 	bill_type,
+	 	 	org_type,
+	 	 	title,
+	 	 	email,
+	 	 	name,
+	 	 	telephone,
+	 	 	address,
+	 	 	tax_file_number,
+	 	 	bank_number,
+	 	 	company_address,
+	 	 	company_telephone,
+	 	 	operater_name,
+	 	 	bank
+	 	 ) values
+	 	 (
+	 		 #{createTime},
+	 		 #{userId},
+	 		 #{orderId},
+	 		 #{price},
+	 		 #{status},
+	 		 #{content},
+	 		 #{userName},
+	 		 #{orderNumber},
+	 		 #{billType},
+	 		 #{orgType},
+	 		 #{title},
+	 		 #{email},
+	 	 	 #{name},
+	 	 	#{telephone},
+	 	 	#{address},
+	 	 	#{taxFileNumber},
+	 	 	#{bankNumber},
+	 	 	#{companyAddress},
+	 	 	#{companyTelephone},
+	 	 	#{operaterName},
+	 	 	#{bank}
+	 	 )
+	 </insert>
+	 
+	 <update id="update" parameterType="Bill">
+	 	update bill
+	 		<set>
+	 			<if test="operater!=null">
+	 				operater = #{operater},
+	 			</if>
+	 			<if test="operaterName!=null">
+	 				operater_name = #{operaterName},
+	 			</if>
+	 			<if test="number!=null">
+	 				number = #{number},
+	 			</if>
+	 			<if test="status>0">
+	 				status = #{status},
+	 				update_time = now(),
+	 			</if>
+	 			<if test="remark!=null">
+	 				remark = #{remark},
+	 			</if>
+	 		</set>
+	 	where 
+	 		id = #{id}
+	 </update>
+	 
+	 <select id="findByPage"  resultMap="BaseResultMap">
+	 	 select * from bill 
+	 	 	<where>
+				<if test="condition.number != null and condition.number !=''">
+					and number like  CONCAT('%',#{condition.number},'%')
+				</if>	
+				<if test="condition.startTime != null and condition.startTime !=''">
+					<![CDATA[
+						and date(create_time) >= date(#{condition.startTime}) 
+					]]> 
+				</if>	
+				<if test="condition.endTime != null and condition.endTime != ''">
+					<![CDATA[
+						and date(create_time) >= date(#{condition.endTime}) 
+					]]>
+				</if>	 	
+				<if test="condition.orderNumber != null  and condition.orderNumber!=''">
+					and order_number like  CONCAT('%',#{condition.orderNumber},'%')
+				</if>	
+				<if test=" condition.status>0">
+					and status = #{condition.status}
+				</if>	 	 	
+	 	 	</where>
+		 	<choose>
+				<when test="orderByColumn != null and orderByType != null">
+					ORDER BY ${orderByColumn} ${orderByType}
+				</when>
+				<otherwise>
+					ORDER BY create_time desc 
+				</otherwise>
+			</choose>
+	 </select>
+	 
+	 <select id="findById" resultMap="BaseResultMap">
+	 	 select * from bill 
+	 	 	where id = #{id}
+	 </select>
+	 
+	 <select id="findByUserId"  resultMap="BaseResultMap">
+	 	 select * from bill 
+	 	 	where user_id = #{userId}
+	 	 	order by create_time desc
+	 </select>
+</mapper>

@@ -1,0 +1,44 @@
+next(null,{"code":"0000","msg":"ok","datas":[
+	{"id":1,"name":"性格特点","superId":0,"item":[
+	{"id":2,"name":"随和","superId":1,"item":null},
+	{"id":3,"name":"热情","superId":1,"item":null},
+	{"id":4,"name":"温和但执着","superId":1,"item":null},
+	{"id":5,"name":"高傲","superId":1,"item":null},
+	{"id":6,"name":"冷淡","superId":1,"item":null},
+	{"id":7,"name":"固执","superId":1,"item":null}]},
+
+	{"id":8,"name":"喜欢的沟通方式","superId":0,"item":[
+	{"id":9,"name":"电话","superId":8,"item":null},
+	{"id":10,"name":"微信","superId":8,"item":null},
+	{"id":11,"name":"短信","superId":8,"item":null},
+	{"id":12,"name":"QQ","superId":8,"item":null},
+	{"id":13,"name":"邮件","superId":8,"item":null},
+	{"id":14,"name":"与助理秘书司机沟通","superId":8,"item":null}]},
+
+	{"id":15,"name":"沟通特点","superId":0,"item":[
+	{"id":16,"name":"容易","superId":15,"item":null},
+	{"id":18,"name":"一般","superId":15,"item":null},
+	{"id":19,"name":"不太容易","superId":15,"item":null},
+	{"id":20,"name":"难接近","superId":15,"item":null}]},
+
+	{"id":21,"name":"为人处事主要特点","superId":0,"item":[
+	{"id":22,"name":"干脆爽快","superId":21,"item":null},
+	{"id":23,"name":"重品质","superId":21,"item":null},
+	{"id":24,"name":"重信誉","superId":21,"item":null},
+	{"id":25,"name":"印象主义","superId":21,"item":null},
+	{"id":26,"name":"时间观念强","superId":21,"item":null},
+	{"id":27,"name":"黏糊","superId":21,"item":null},
+	{"id":28,"name":"啰嗦","superId":21,"item":null},
+	{"id":29,"name":"健忘","superId":21,"item":null},
+	{"id":30,"name":"装糊涂","superId":21,"item":null},
+	{"id":31,"name":"爱占小便宜","superId":21,"item":null},
+	{"id":32,"name":"拖拉","superId":21,"item":null},
+	{"id":33,"name":"时间观念差","superId":21,"item":null},
+	{"id":34,"name":"含糊","superId":21,"item":null},
+	{"id":35,"name":"不讲信用","superId":21,"item":null},
+	{"id":36,"name":"说话不算话","superId":21,"item":null},
+	{"id":37,"name":"容易反悔","superId":21,"item":null},
+	{"id":38,"name":"东拉西扯","superId":21,"item":null},
+	{"id":39,"name":"注重细节","superId":21,"item":null}]}
+	]}
+	)

@@ -1,0 +1,30 @@
+<template id="address-list">
+<section class="section" style="padding-bottom: 60px!important;">
+    <!--头-->
+    <div class="header tex-c bg-white">
+      <a href="javascript:locationTo('order.html');" class="back"><img src="/img/back.png" /></a>
+      地址薄
+    </div>
+    <!--头 end-->
+    <div class="scroll">
+    <div class="marhead">
+        <div class="weui_panel weui_panel_access pdt-10 pdb-10 mar-t0" v-for="item in addr_list">
+          <div class="weui_panel_bd">
+              <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg address-lay pad-lr pd-tb0 " @click="editAddr(item)">
+                  <div class="weui_media_bd">
+                      <h4 class="weui_media_title font14"><span class="mar-r">{{item.name}}</span>  {{item.mobile}} </h4>
+                      <p class="weui_media_desc">
+                        <span class="font-blue" v-show="item.def">(默认地址)</span>
+                        {{item.cityName}}{{item.address}}</p>
+                  </div>
+              </a>
+          </div>
+      </div>
+    </div>
+
+    </div>
+    <div class="add-new-flex" style="position: absolute;bottom:10px;">
+         <a href="javascript:;" class="weui_btn weui_btn_plain_primary" @click="addAddr()">新增地址</a>
+    </div>
+</section>
+</template>

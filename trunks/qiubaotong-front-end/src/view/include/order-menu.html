@@ -1,0 +1,92 @@
+<template id="order-menu">
+<div class="pad-b">
+    <div class="scroll">
+    <section v-show="!update" class="bg">
+        <!--头像-->
+        <div class="new-order-pw">
+            <div class="weui_cells">
+                <div class="weui_cell" style="padding:50px 30px;">
+                    <div class="weui_cell_bd ">
+                        <div class="or-password">
+                            <img :src="img" alt="" />
+                        </div>
+                    </div>
+                    <div class="weui_cell_ft weui_cell_primary tex-l or-main">
+                        <p class="font-blod">{{nickname}} <span  @click="update = true" style="vertical-align:middle;margin-left:5px;"><img src="/img/edit_me.png" style="height:20px;" alt=""/></span></p>
+                    </div>
+                </div>
+                <div style="position:absolute;top:15px;right:20px;">
+                    <a href="javascript:locationTo('setting.html');" style="color:#fff;display:inline-block;"><img src="/img/set.png" style="max-height:24px;" alt=""/></a>
+                </div>
+            </div>
+        </div>
+        <div class="new-od-lay bg-white mar-t">
+           <ul>
+              <li><a @click="goV2Nav('index.html','/order')" href="javascript:;"><label><img src="/img/my-order.png?v3" /></label>我的订单</a></li>
+              <li><a href="javascript:;" @click="goMyCert()"><label><img src="/img/Certificates.png" /></label>我的证件</a></li>
+              <li><a href="javascript:locationTo('invoiceNote.html');"><label><img src="/img/my-order.png?v3" /></label>开发票记录</a></li>
+              <li><a @click="goV2Nav('invoice.html','/invoice/address')" href="javascript:;"><label><img src="/img/my-address.png?v3" /></label>发票地址信息</a></li>
+              <li><a href="javascript:;" @click="goVipBag()"><label><img src="/img/my-bag.png" /></label>我的球包</a></li>
+              <li><a href="javascript:;" @click="goCoupon(1)"><label><img src="/img/my-coupon.png?v3" /></label>我的优惠券</a></li>
+               <!--QBT-35-->
+              <!--<li><a href="javascript:locationTo('index.html#/isend/address/addrs');"><label><img src="/img/my-address.png?v3" /></label>我的地址</a></li>-->
+              <!--<li><a href="javascript:locationTo('activity.html');"><label><img src="/img/my-activity.png?v3" /></label>优惠活动</a></li>-->
+              <!--<li><a href="javascript:locationTo('comment.html');"><label><img src="/img/my-comment.png?v3" /></label>评价</a></li>-->
+              <!--<li><a href="javascript:;" @click="goVip()"><label><img src="/img/my-card.png?v3" /></label>会员卡</a></li>-->
+
+              <li id="activeMember"><a href="javascript:;" @click="goActiveVip()"><label><img src="/img/my-active.png?v3" /></label>激活实体会员卡</a></li>
+           </ul>
+        </div>
+
+    </section>
+    <section v-show="update">
+        <!--头-->
+        <div class="header tex-c bg-white bd-b">
+          <a href="javascript:;" class="back" @click="update = false"><img src="/img/back.png" /></a>
+          用户信息
+        </div>
+        <!--头 end-->
+        <div class="Apply mar">
+          <div class="bg-white">
+          <div class="weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">姓名：</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="text" placeholder="姓名" maxlength="8" v-model="name"/>
+                </div>
+          </div>
+          <div class="weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">手机：</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="text" placeholder="手机号码" maxlength="11" v-model="mobile"/>
+                </div>
+          </div>
+          </div>
+          <a href="javascript:;" class="weui_btn weui_btn_primary font14" @click="save()">修 改</a>
+        </div>
+    </section>
+    </div>
+    <!--底部导航-->
+    <!--QBT-35-->
+    <!--<div class="nav" id="buttomNav">-->
+      <!--<div class="weui_tab">-->
+        <!--<div class="weui_tab_bd">-->
+        <!--</div>-->
+        <!--<div class="weui_tabbar bg-white">-->
+            <!--<a href="javascript:;" class="weui_tabbar_item" @click="goNav('index.html')">-->
+                <!--<div class="weui_tabbar_icon nav-icon01"></div>-->
+                <!--<p class="weui_tabbar_label">首页</p>-->
+            <!--</a>-->
+            <!--<a href="javascript:;" class="weui_tabbar_item" @click="goNav('shoplist.html')" style="position:relative">-->
+                <!--<div class="weui_tabbar_icon nav-icon02"></div>-->
+                <!--<p class="weui_tabbar_label">清单</p>-->
+                <!--<i class="nav-icon" v-show="list_count>0">{{list_count}}</i>-->
+            <!--</a>-->
+            <!--<a href="javascript:;" class="weui_tabbar_item nav-on" @click="goNav('order.html')">-->
+                <!--<div class="weui_tabbar_icon nav-icon03"></div>-->
+                <!--<p class="weui_tabbar_label">我的</p>-->
+            <!--</a>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+</div>
+</template>

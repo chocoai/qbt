@@ -1,0 +1,46 @@
+<template id="bag-workaddr">
+<section class="section">
+<!--头-->
+<div class="header tex-c bd-b">
+<!-- <a href="javascript:;" class="back" @click=goView('bag_view')><img src="/img/back.png" /></a> -->
+球包助理申请
+</div>
+<!--头 end-->
+<div class="scroll">
+    <div style="margin-top: 80px;">
+
+        <div class="weui_cells flex-box mar-t20" v-if="salesmanStatus == 2">
+            <a href="javascript:;" class="weui_btn weui_btn_primary btn" @click="goView('sale_info_view')" style="background-color:#fa0;">销售人员通道</a>
+        </div>
+
+        <div class="weui_cells flex-box mar-t20" v-if="salesmanStatus == 0 || salesmanStatus == 3 || salesmanStatus == 4">
+            <a href="javascript:;" class="weui_btn weui_btn_primary btn" @click=applySale()>合作销售人员</a>
+        </div>
+
+        <div class="weui_cells flex-box mar-t20" v-show="!isOther">
+            <a href="javascript:;" class="weui_btn weui_btn_primary btn" @click="isOther = true">其它</a>
+        </div>
+        <div v-show="isOther">
+        <div class="weui_cells flex-box mar-t20">
+            <a href="javascript:;" class="weui_btn weui_btn_primary btn" @click=goApply(1)>合作球场工作人员</a>
+        </div>
+        <div class="weui_cells flex-box mar-t20">
+            <a href="javascript:;" class="weui_btn weui_btn_primary btn" @click=goApply(2)>合作球包助理</a>
+        </div>
+        <div class="weui_cells flex-box mar-t20">
+            <a href="javascript:;" class="weui_btn weui_btn_primary btn" @click=goApply(4)>顺丰一般站点人员</a>
+        </div>
+        <div class="weui_cells flex-box mar-t20">
+            <a href="javascript:;" class="weui_btn weui_btn_primary btn" @click=goApply(5)>顺丰机场站点人员</a>
+        </div>
+        <div class="weui_cells flex-box mar-t20">
+            <a href="javascript:;" class="weui_btn weui_btn_primary btn" @click=goApply(3)>合作银行网点人员</a>
+        </div>
+        <div class="weui_cells flex-box mar-t20">
+            <a href="javascript:;" class="weui_btn weui_btn_primary btn" @click=goApply(8)>合作机构人员</a>
+        </div>
+        </div>
+  </div>
+</div>
+</section>
+</template>

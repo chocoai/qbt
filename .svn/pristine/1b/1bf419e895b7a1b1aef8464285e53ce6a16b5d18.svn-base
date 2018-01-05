@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BasePartnerMapper" >
+  <resultMap id="BaseResultMap" type="BasePartner" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="partner_type" property="partnerType" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="tree_path" property="treePath" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+    <result column="website" property="website" jdbcType="VARCHAR" />
+    <result column="lon" property="lon" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="share_order" property="shareOrder" jdbcType="BOOLEAN" />
+    <result column="settle_type" property="settleType" jdbcType="INTEGER" />
+    <result column="settle_mode" property="settleMode" jdbcType="INTEGER" />
+    <result column="settle_mode_value" property="settleModeValue" jdbcType="DOUBLE" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="is_ticket" property="isTicket" jdbcType="BOOLEAN" />
+    <result column="ticket_message" property="ticketMessage" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, create_time, partner_type, name, area_id, tree_path, address,
+     memo, contact, mobile, logo, website, lon, lat, share_order, settle_type, 
+     settle_mode, settle_mode_value, status, is_ticket, ticket_message
+  </sql>
+  
+  <select id="findAll" resultMap="BaseResultMap">
+  	select id,name from base_partner where partner_type = #{type} and status = 1
+  </select>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="BasePartner" >
+    update base_partner
+    <set >
+      <if test="partnerType != null" >
+        partner_type = #{partnerType,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="treePath != null" >
+        tree_path = #{treePath,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        website = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null" >
+        lon = #{lon,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="shareOrder != null" >
+        share_order = #{shareOrder,jdbcType=BOOLEAN},
+      </if>
+      <if test="settleType != null" >
+        settle_type = #{settleType,jdbcType=INTEGER},
+      </if>
+      <if test="settleMode != null" >
+        settle_mode = #{settleMode,jdbcType=INTEGER},
+      </if>
+      <if test="settleModeValue != null" >
+        settle_mode_value = #{settleModeValue,jdbcType=DOUBLE},
+      </if>
+      <if test="isTicket != null" >
+        is_ticket = #{isTicket,jdbcType=BOOLEAN}, 
+      </if>
+      <if test="ticketMessage != null" >
+        ticket_message = #{ticketMessage,jdbcType=VARCHAR}, 
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_partner
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="BasePartner" keyProperty="id" useGeneratedKeys="true">
+    insert into base_partner (
+    create_time, partner_type, name, area_id, tree_path, address, memo, 
+    contact, mobile, logo, website, lon, lat, share_order, settle_type, 
+    settle_mode, settle_mode_value, status, is_ticket, ticket_message)
+    values (#{createTime,jdbcType=TIMESTAMP}, #{partnerType,jdbcType=INTEGER}, 
+    #{name,jdbcType=VARCHAR}, 
+    #{areaId,jdbcType=INTEGER}, 
+    #{treePath,jdbcType=VARCHAR}, 
+    #{address,jdbcType=VARCHAR}, 
+    #{memo,jdbcType=VARCHAR}, 
+    #{contact,jdbcType=VARCHAR}, 
+    #{mobile,jdbcType=VARCHAR}, 
+    #{logo,jdbcType=VARCHAR}, 
+    #{website,jdbcType=VARCHAR}, 
+    #{lon,jdbcType=VARCHAR}, 
+    #{lat,jdbcType=VARCHAR}, 
+    #{shareOrder,jdbcType=BOOLEAN}, 
+    #{settleType,jdbcType=INTEGER},
+    #{settleMode,jdbcType=INTEGER},
+    #{settleModeValue,jdbcType=BOOLEAN},
+    #{status,jdbcType=INTEGER},
+    #{isTicket,jdbcType=BOOLEAN},
+    #{ticketMessage,jdbcType=VARCHAR}
+    )
+  </insert>
+  
+  <select id="list" resultMap="BaseResultMap">
+  	select * from base_partner
+  </select>
+  
+   <select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_partner
+		<where>
+			<if test="condition.areaId != 0 and condition.areaId != null">
+				AND area_id in (SELECT id from base_sf_area where tree_id like concat('%',#{condition.areaId},'%'))
+			</if>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.settleType != 0 and condition.settleType != null">
+				AND settle_type = #{condition.settleType} 
+			</if>
+			<if test="condition.shareOrder != null">
+				AND share_order = #{condition.shareOrder} 
+			</if>
+			<if test="condition.status != 0 and condition.status != null">
+				AND status = #{condition.status}
+			</if>
+		</where>
+		order by create_time desc 
+	</select>
+	
+	<select id="findByCondition" parameterType="BasePartner" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from base_partner
+		<where>
+			<if test="name != null">
+				and name = #{name} 
+			</if>
+		</where>
+	</select>
+	<update id="updateStatus">
+	update base_partner set status = #{status} where id = #{id} 
+	</update>
+	
+</mapper>

@@ -1,0 +1,71 @@
+<template id="setting-menu">
+<div class="section">
+    <!--头-->
+    <div class="header tex-c bg-white bd-b">
+        <a href="javascript:history.back();" class="back"><img src="/img/back.png" /></a>
+        系统设置
+    </div>
+    <!--头 end-->
+    <div class="scroll">
+    <div class="marhead set-up">
+      <div class="weui_cells weui_cells_form font14">
+          <div class="weui_cell weui_cell_switch">
+              <div class="weui_cell_hd weui_cell_primary">接收消息</div>
+              <div class="weui_cell_ft">
+                  <input class="weui_switch" type="checkbox" checked="checked">
+              </div>
+          </div>
+      </div>
+
+      <div class="weui_cells weui_cells_access font14">
+        <a class="weui_cell " href="javascript:;" @click="goView('setting_compiaint_view')">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>投诉建议</p>
+            </div>
+            <div class="weui_cell_ft">
+            </div>
+        </a>
+        <a class="weui_cell font14" href="javascript:locationTo('phone.html');">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>联系客服</p>
+            </div>
+            <div class="weui_cell_ft">
+            </div>
+        </a>
+        <a class="weui_cell font14" href="javascript:locationTo('edition.html');">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>版本说明</p>
+            </div>
+            <div class="weui_cell_ft">
+            </div>
+        </a>
+        <a class="weui_cell font14" href="javascript:locationTo('about.html');">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>关于我们</p>
+            </div>
+            <div class="weui_cell_ft">
+            </div>
+        </a>
+        <a class="weui_cell font14" href="javascript:locationTo('faq.html');">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>常见问题</p>
+            </div>
+            <div class="weui_cell_ft">
+            </div>
+        </a>
+    </div>
+
+    <div class="order-banner mar-t">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="item in ads"><img :src="fbaseUrl + item.image" data-src="{{item.url}}"></div>
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+</div>
+</template>

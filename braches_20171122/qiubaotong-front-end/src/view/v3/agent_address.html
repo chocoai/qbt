@@ -1,0 +1,144 @@
+<template id="agent_address">
+    <div class="page" style="overflow: hidden;">
+        <tel-contact></tel-contact>
+        <section>
+            <div class="page__bd">
+                <div class="weui-cells weui-cells_form" style="margin-top:0">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd" style="text-align: center;width: 100%">
+                            <h4 class="weui-label">{{isJ?'填写寄件人信息':'填写收件人信息'}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cells__title">{{isJ?'寄件人信息':'收件人信息'}}</div>
+                <!--   <input type="text" v-model="docClientH" /> -->
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">姓名</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input v-model="name" class="weui-input" type="text" maxlength="15" placeholder="请输入姓名"
+                                   maxlength="15">
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">电话号码</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input v-model="mobile" class="weui-input" type="tel" placeholder="请输入电话号码" maxlength="11">
+                        </div>
+                    </div>
+                </div>
+                <div @click="chooseConcats"
+                     style="text-align:center;display: inline-block;position: absolute;right:0;top:102px;font-size: 12px;background-color: #fff;padding-right: 10px;padding-left: 10px;">
+                    <img src="/img/linker_v3.png" style="width:36px;"><br>
+                    <span>&nbsp;&nbsp;{{isJ?'选寄件人':'选收件人'}}&nbsp;&nbsp;</span>
+                </div>
+            </div>
+            <div class="page__bd">
+                <div class="weui-cells__title">地址信息</div>
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">选择地址</label>
+                        </div>
+                        <div class="weui-cell__bd address_type_button" style="padding:0px;">
+                            <!--<a :class="{'type_hover':tabStyle == 1}" href="javascript:;" @click="goView(1)">常用地址</a>-->
+                            <!--<a :class="{'type_hover':tabStyle == 2}" href="javascript:;" @click="goView(2)">球场</a>-->
+                            <!--<a :class="{'type_hover':tabStyle == 3}" href="javascript:;" @click="goView(3)">机场</a>-->
+                            <a :class="{'type_hover':tabStyle == 1}" href="javascript:;" @click="goView(1)">输入地址</a>
+                            <a :class="{'type_hover':tabStyle == 4}" href="javascript:;" @click="goView(4)">历史地址</a>
+                            <a :class="{'type_hover':tabStyle == 2}" href="javascript:;" @click="goView(2)">球场</a>
+                        </div>
+                    </div>
+                    <popup-picker v-show="tabStyle == 1" :title="'所在地区'" :data="areas" v-model="cityName" :columns=3
+                                  :show-name="true" :value-text-align="'left'"></popup-picker>
+                    <!--<div v-show="tabStyle == 4" class="weui-cell weui-cells_form">-->
+                    <!--<div class="weui-cell__hd">-->
+                    <!--<label class="weui-label">所在地区</label>-->
+                    <!--</div>-->
+                    <!--<div class="weui-cell__bd">-->
+                    <!--<p class="font16">{{addrMsg.siteName}}</p>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <div v-show="tabStyle == 2" class="weui-cell weui-cells_form">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">球场名称</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <p class="font16">{{addrMsg.siteName}}</p>
+                        </div>
+                    </div>
+                    <div class="weui-cell weui-cells_form">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">详细地址</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input maxlength="50" id="address" v-show="tabStyle == 1" v-model="addrMsg.address"
+                                   class="weui-input font16" type="text" placeholder="请输入街道，楼牌号等">
+                            <p class="font16" v-show="tabStyle != 1">{{addrMsg.address}}</p>
+                        </div>
+                    </div>
+                    <!--<div class="weui-cell weui-cells_form" v-if="tabStyle==1">-->
+                    <!--<div class="weui-cell__hd">-->
+                    <!--<label class="weui-label">添加标签</label>-->
+                    <!--</div>-->
+                    <!--<div class="weui-cell__bd">-->
+                    <!--<span @click="label_type = 1" class="address_label" :class="{'address_label_hover':label_type == 1}">家</span>-->
+                    <!--<span @click="label_type = 2" class="address_label" :class="{'address_label_hover':label_type == 2}">公司</span>-->
+                    <!--<span @click="label_type = 3" class="address_label" :class="{'address_label_hover':label_type == 3}">其他</span>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <footer class="footer address_foot footer-ios">
+                <div class="weui-flex">
+                    <div @click="goBack" class="weui-flex__item footer-cancel">
+                        <p>取消</p>
+                    </div>
+                    <div @click="save" class="weui-flex__item footer-confirm">
+                        <p>确定</p>
+                    </div>
+                </div>
+            </footer>
+        </section>
+        <popup id="concatList" v-model="showConcat" :show-mask="true" position="bottom"
+               :style="{'padding-bottom': concat_list.length==0?0:'50px'}">
+            <div id="concats" class="bg-f">
+                <div class="page__bd">
+                    <article class="weui-article">
+                        <h2 style="text-align:center;font-weight:bold;">历史联系人</h2>
+                        <div v-for="(item,index) in concat_list" class="weui-flex">
+                            <div @click.stop.prevent="selectConcat(index,item)" style="padding-right:15px"
+                                 class="padding10_0">
+                                <span class="circle_v3" :class="{'circle_v3_hover':index == concat_.index}"></span>
+                            </div>
+                            <div class="weui-flex__item padding10_0">
+                                <span @click.stop.prevent="selectConcat(index,item)">{{item.userName}}</span>&nbsp;&nbsp;
+                                <span @click.stop.prevent="selectConcat(index,item)">{{item.mobile}}</span>
+                                <span @click.stop.prevent="delConcat(index,item)"
+                                      style="color: red;float:right;">删除</span>
+                            </div>
+                        </div>
+                        <div v-show="concat_list.length==0" class="weui-weixin-img"
+                             style="text-align:center;display: none" v-if="concat_list.length==0">
+                            <img class="weixin" width="60" style="padding:20px 0" src="/img/not-result.png"/>
+                            <p>抱歉,您还没有历史联系人！</p>
+                            <br/>
+                        </div>
+                    </article>
+                    <div class="weui-flex footer">
+                        <div class="weui-flex__item footer-cancel">
+                            <p @click="cancelConcat()">返回</p>
+                        </div>
+                        <div @click="sureConcat" class="weui-flex__item footer-confirm">
+                            <p>确定</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </popup>
+    </div>
+</template>

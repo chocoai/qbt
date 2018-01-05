@@ -1,0 +1,76 @@
+<template id="vip-bag">
+<section class="section">
+
+<!-- 头 -->
+<div class="header tex-c bg-white">
+    <a href="javascript:history.back();" class="back"><img src="/img/back.png"></a>
+    我的球包
+</div>
+<div class="scroll marhead bg" style="padding-bottom:60px;">
+<section id="vipUpload" v-show="showList">
+    <div class="weui_cells weui_cells_form mar-t">
+        <div class="weui_cells weui_cells_form">
+            <div class="weui_cell pad-lr">
+                <div class="weui_cell_bd weui_cell_primary ">
+                    <div class="weui_uploader">
+                        <div class="weui_uploader_hd weui_cell">
+                            <div class="weui_cell_bd weui_cell_primary font14 font-gray">上传照片</div>
+                        </div>
+                        <div class="weui_uploader_bd">
+                            <div class="weui_uploader_input_wrp">
+                                <div class="weui_uploader_input" @click="upload()"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="weui_cells weui_cells_form mar-t">
+        <div class="weui_cells weui_cells_form">
+            <div class="weui_cell pad-lr">
+                <div class="weui_cell_bd weui_cell_primary ">
+                    <div class="weui_uploader">
+                        <div class="weui_uploader_hd weui_cell">
+                            <div class="weui_cell_bd weui_cell_primary font14 font-gray">已上传照片</div>
+                        </div>
+                        <div class="weui_uploader_bd">
+                            <ul class="weui_uploader_files">
+                                <li class="weui_uploader_file" v-for="item in list" :class="{'weui_uploader_status' : item.showDel || item.showCheck}" @click="checkImg(item)" v-touch:press="delImg(item)">
+                                    <img style="width:100%;height:100%;" :src="fbaseUrl + item.imageUrl">
+                                    <div class="weui_uploader_status_content" v-show="item.showCheck">
+                                        <i class="weui_icon_success_circle "></i>
+                                    </div>
+                                    <div class="uploader_delate" v-show="item.showDel">
+                                        <i class="weui_icon_cancel"></i>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="weui-gallery__opr" v-show="showDel">
+    <div class="flex">
+        <a href="javascript:" class="weui-form-preview__btn font-red flex-1" @click="cancelDel()">取 消</a>
+        <a href="javascript:" class="weui-form-preview__btn font-gray flex-1" @click="delImgs()">删 除</a>
+      </div>
+ </div>
+<section id="upload-del" v-show="!showList">
+    <div style="display: block" class="weui-gallery bg-gary send-pic">
+        <span class="weui-gallery__img">
+            <img style="width:100%;" :src="fbaseUrl + detail.imageUrl" v-if="detail.imageUrl">
+        </span>
+        <div class="weui-gallery__opr">
+            <div class="flex">
+                <a href="javascript:" class="weui-form-preview__btn font-red flex-1" @click="cancel()">取 消</a>
+                <a href="javascript:" class="weui-form-preview__btn font-gray flex-1" @click="delete()">删 除</a>
+              </div>
+         </div>
+    </div>
+</section>
+</section>
+</template>

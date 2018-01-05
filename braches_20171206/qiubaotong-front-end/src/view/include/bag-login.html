@@ -1,0 +1,43 @@
+<template id="bag-login">
+<section>
+    <div class="header tex-c" style="background-color:#fff;">
+      <a href="javascript:;" class="back"><img src="/img/gps.png" /></a>
+      {{applyName}}
+    </div>
+<div class="scroll">
+    <!--按钮-->
+    <div class="lo-btn-lay">
+      <div class="flex">
+        <div class="flex-1">
+          <a href="javascript:;" @click="goList(1)"><img src="/img/fly02.png" />
+            <label>到达球包</label>
+          </a>
+        </div>
+        <div class="flex-1">
+          <a href="javascript:;" @click="goList(2)"><img src="/img/fly.png" />
+              <label>出发球包</label>
+          </a>
+        </div>
+      </div>
+      <div class="flex" style="margin-top: 40px;">
+        <div class="flex-1">
+          <a href="tel:4006090990"><img src="/img/phone02.png" />
+            <label>联系客服</label>
+          </a>
+        </div>
+        <div class="flex-1" v-if="salesmanStatus == 0 || salesmanStatus == 3">
+          <a href="javascript:;" @click="goView('sale_apply_view')"><img src="/img/sale.png" />
+            <label>成为销售</label>
+          </a>
+        </div>
+        <div class="flex-1" v-if="salesmanStatus == 2">
+          <a href="javascript:;" @click="goView('sale_info_view')"><img src="/img/sale1.png" />
+            <label>销售通道</label>
+          </a>
+        </div>
+      </div>
+    </div>
+<!--按钮-->
+</div>
+</section>
+</template>

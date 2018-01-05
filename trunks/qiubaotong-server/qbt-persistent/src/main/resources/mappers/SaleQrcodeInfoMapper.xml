@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.SaleQrcodeInfoMapper">
+
+	<resultMap id="BaseResultMap" type="SaleQrcodeInfo">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="salesman_code" property="salesmanCode" />
+		<result column="apply_status" property="applyStatus" />
+		<result column="company" property="company" />
+		<result column="ticket" property="ticket" />
+		<result column="qrcode" property="qrcode" />
+		<result column="type" property="type" />
+		<result column="type_value" property="typeValue" />
+		<result column="subscribe_value" property="subscribeValue" />
+		<result column="qrcode_create_info_id" property="qrcodeCreateInfoId" />
+		<result column="qrcode_create_info_name" property="qrcodeCreateInfoName" />
+		<result column="first_type" property="firstType" />
+	    <result column="first_type_value" property="firstTypeValue" />
+	    <result column="order_day_type" property="orderDayType" />
+	    <result column="order_day_value" property="orderDayValue" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, salesman_code, apply_status, company, ticket, qrcode,
+		type, type_value,
+		subscribe_value, qrcode_create_info_id,
+		qrcode_create_info_name, first_type, first_type_value, order_day_type, order_day_value
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sale_qrcode_info
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="SaleQrcodeInfo" useGeneratedKeys="true" keyProperty="id">
+		insert into sale_qrcode_info(
+			create_time, 
+			salesman_code,
+			apply_status, 
+			company, 
+			ticket,
+			qrcode, 
+			type, 
+			type_value,
+			subscribe_value, 
+			qrcode_create_info_id,
+			qrcode_create_info_name,
+			first_type, 
+			first_type_value, 
+			order_day_type, 
+			order_day_value
+		) values (
+			#{createTime}, 
+			#{salesmanCode},
+			#{applyStatus}, 
+			#{company},
+			#{ticket},
+			#{qrcode}, 
+			#{type}, 
+			#{typeValue},
+			#{subscribeValue},
+			#{qrcodeCreateInfoId},
+			#{qrcodeCreateInfoName}, 
+			#{firstType},
+			#{firstTypeValue},
+			#{orderDayType},
+			#{orderDayValue}
+		)
+	</insert>
+
+	<update id="updateById" parameterType="com.qbt.persistent.entity.SaleQrcodeInfo">
+		update sale_qrcode_info
+		<set>
+			<if test="salesmanCode != null">
+				salesman_code = #{salesmanCode},
+			</if>
+			<if test="applyStatus != null">
+				apply_status = #{applyStatus},
+			</if>
+			<if test="company != null">
+				company = #{company},
+			</if>
+			<if test="ticket != null">
+				ticket = #{ticket},
+			</if>
+			<if test="qrcode != null">
+				qrcode = #{qrcode},
+			</if>
+			<if test="type != null">
+				type = #{type},
+			</if>
+			<if test="typeValue != null">
+				type_value = #{typeValue},
+			</if>
+			<if test="subscribeValue != null">
+				subscribe_value = #{subscribeValue},
+			</if>
+			<if test="qrcodeCreateInfoId != null">
+				qrcode_create_info_id = #{qrcodeCreateInfoId},
+			</if>
+			
+			<if test="qrcodeCreateInfoName != null">
+				qrcode_create_info_name = #{qrcodeCreateInfoName},
+			</if>
+			<if test="firstType != null">
+				first_type = #{firstType},
+			</if>
+			<if test="firstTypeValue != null">
+				first_type_value = #{firstTypeValue},
+			</if>
+			<if test="orderDayType != null">
+				order_day_type = #{orderDayType},
+			</if>
+			<if test="orderDayValue != null">
+				order_day_value = #{orderDayValue},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<select id="getMaxId" resultType="java.lang.Integer">
+		select Max(id) As id from sale_qrcode_info
+	</select>
+
+	<select id="findList" resultMap="BaseResultMap">
+		select * from sale_qrcode_info
+	</select>
+
+	<insert id="insertByBatch">
+		insert into sale_qrcode_info(
+			create_time,
+			salesman_code,
+			apply_status,
+			company,
+			ticket,
+			qrcode,
+			type,
+			type_value,
+			subscribe_value,
+			qrcode_create_info_id,
+			qrcode_create_info_name,
+			first_type, 
+			first_type_value, 
+			order_day_type, 
+			order_day_value
+		) values
+		<foreach collection="infos" item="info" index="i" separator=",">
+		(
+			#{info.createTime},
+			#{info.salesmanCode},
+			#{info.applyStatus},
+			#{info.company},
+			#{info.ticket},
+			#{info.qrcode},
+			#{info.type},
+			#{info.typeValue},
+			#{info.subscribeValue},
+			#{info.qrcodeCreateInfoId},
+			#{info.qrcodeCreateInfoName},
+			#{info.firstType},
+			#{info.firstTypeValue},
+			#{info.orderDayType},
+			#{info.orderDayValue}
+		)
+		</foreach>
+	</insert>
+	
+	<select id="selectByCode" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sale_qrcode_info
+		where salesman_code = #{salesmanCode}
+	</select>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		sqi.id, 
+		sqi.create_time,
+		sqi.salesman_code,
+		sqi.apply_status,
+		sqi.company,
+		sqi.ticket,
+		sqi.qrcode,
+		sqi.type,
+		sqi.type_value,
+		sqi.subscribe_value,
+		sqi.first_type, 
+		sqi.first_type_value, 
+		sqi.order_day_type, 
+		sqi.order_day_value,
+		sqi.qrcode_create_info_id,
+		su.name As name,
+		su.id AS saleUserId
+		from sale_qrcode_info sqi left join sale_user su on sqi.salesman_code = su.salesman_code
+		<where>
+		     <if test="condition.applyStatus != null">
+				AND sqi.apply_status = #{condition.applyStatus}
+			</if>
+		     <if test="condition.qrcodeCreateInfoId > 0">
+				AND sqi.qrcode_create_info_id = #{condition.qrcodeCreateInfoId}
+			</if>
+			<if test="condition.salesmanCode != null and condition.salesmanCode != ''">
+				AND sqi.salesman_code LIKE CONCAT('%',#{condition.salesmanCode},'%') 
+			</if>
+		</where>
+		order by sqi.create_time desc 
+	</select>
+	
+	<select id="findNoApplySalesmanCode" resultType="java.lang.String">
+		SELECT salesman_code FROM sale_qrcode_info aqi LEFT JOIN sale_qrcode_create_info aqci 
+		ON aqi.qrcode_create_info_id = aqci.id 
+		WHERE aqci.create_type = 2 AND aqi.apply_status = 0
+	</select>
+	
+</mapper>

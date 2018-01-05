@@ -1,0 +1,8 @@
+node_modules/
+bower_components/
+/dist
+.project
+npm-debug.log
+.tern-project
+dist.zip
+upgrade_weixin.zip

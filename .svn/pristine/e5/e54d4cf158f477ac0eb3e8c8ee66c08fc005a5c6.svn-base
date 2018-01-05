@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="priceManageDetailCtrl">
+    <div class="container containerWidthAuto">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>取包省：</label>
+                    <select id="startProvince" ng-change="getCitieses(1)" class="form-control" ng-model="startProvince">
+                        <option value="">请选择</option>
+                        <option ng-repeat="datas in startProvinceses" value="{{datas.id}}|{{datas.name}}">
+                            {{datas.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>取包市：</label>
+                    <select id="startCity" class="form-control" ng-model="startCity">
+                        <option value="">请选择</option>
+                        <option ng-repeat="datas in startCitieses" value="{{datas.id}}|{{datas.name}}">
+                            {{datas.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>送包省：</label>
+                    <select id="endProvince" ng-change="getCitieses(2)" class="form-control" ng-model="endProvince">
+                        <option value="">请选择</option>
+                        <option ng-repeat="datas in endProvinceses" value="{{datas.id}}|{{datas.name}}">
+                            {{datas.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>送包市：</label>
+                    <select id="endCity" class="form-control" ng-model="endCity">
+                        <option value="">请选择</option>
+                        <option ng-repeat="datas in endCitieses" value="{{datas.id}}|{{datas.name}}">
+                            {{datas.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>次晨顺丰价格：</label>
+                    <input ng-model="cichenSfPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>次晨球包通价格：</label>
+                    <input ng-model="cichenQbtPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>次晨顺风首重：</label>
+                    <input ng-model="cichenFirstPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>次晨顺丰续重：</label>
+                    <input ng-model="cichenSecondPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>次日顺丰价格：</label>
+                    <input ng-model="ciriSfPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>次日球包通价格：</label>
+                    <input ng-model="ciriQbtPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>次日顺风首重：</label>
+                    <input ng-model="ciriFirstPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>次日顺丰续重：</label>
+                    <input ng-model="ciriSecondPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>即日顺丰价格：</label>
+                    <input ng-model="jiriSfPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>即日球包通价格：</label>
+                    <input ng-model="jiriQbtPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>即日顺风首重：</label>
+                    <input ng-model="jiriFirstPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>即日顺丰续重：</label>
+                    <input ng-model="jiriSecondPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>隔日顺丰价格：</label>
+                    <input ng-model="geriSfPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>隔日球包通价格：</label>
+                    <input ng-model="geriQbtPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>隔日顺风首重：</label>
+                    <input ng-model="geriFirstPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>隔日顺丰续重：</label>
+                    <input ng-model="geriSecondPrice" type="number" class="form-control" placeholder="" min="0.0" step="0.01">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" ng-click="addPrice()">提交</button>
+                </div>
+            </div>
+        </div>
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/priceManageDetailCtrl.js}}}"></script>
+</body>
+</html>

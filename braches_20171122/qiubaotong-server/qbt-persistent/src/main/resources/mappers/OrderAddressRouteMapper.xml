@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderAddressRouteMapper">
+
+	<resultMap id="BaseResultMap" type="OrderAddressRoute">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="order_id" property="orderId" />
+		<result column="order_time" property="orderTime" />
+		<result column="j_user_order_address_id" property="jUserOrderAddressId" />
+		<result column="j_user_order_address_uuid" property="jUserOrderAddressUuid" />
+		<result column="d_user_order_address_id" property="dUserOrderAddressId" />
+		<result column="d_user_order_address_uuid" property="dUserOrderAddressUuid" />
+	</resultMap>
+	
+	<resultMap id="PageResultMap" type="OrderAddressRoutePageDto">
+		<result column="j_user_order_address_id" property="jUserOrderAddressId" />
+		<result column="j_user_id" property="jUserId" />
+		<result column="j_addr_type" property="jAddrType" />
+		<result column="j_country_area_id" property="jCountryAreaId" />
+		<result column="j_country_area_name" property="jCountryAreaName" />
+		<result column="j_province_area_id" property="jProvinceAreaId" />
+		<result column="j_province_area_name" property="jProvinceAreaName" />
+		<result column="j_city_area_id" property="jCityAreaId" />
+		<result column="j_city_area_name" property="jCityAreaName" />
+		<result column="j_district_area_id" property="jDistrictAreaId" />
+		<result column="j_district_area_name" property="jDistrictAreaName" />
+		<result column="j_tree_path" property="jTreePath" />
+		<result column="j_addr_id" property="jAddrId" />
+		<result column="j_addr_name" property="jAddrName" />
+		<result column="j_address" property="jAddress" />
+		<result column="j_contact" property="jContact" />
+		<result column="j_mobile" property="jMobile" />
+		
+		<result column="d_user_order_address_id" property="dUserOrderAddressId" />
+		<result column="d_user_id" property="dUserId" />
+		<result column="d_addr_type" property="dAddrType" />
+		<result column="d_country_area_id" property="dCountryAreaId" />
+		<result column="d_country_area_name" property="dCountryAreaName" />
+		<result column="d_province_area_id" property="dProvinceAreaId" />
+		<result column="d_province_area_name" property="dProvinceAreaName" />
+		<result column="d_city_area_id" property="dCityAreaId" />
+		<result column="d_city_area_name" property="dCityAreaName" />
+		<result column="d_district_area_id" property="dDistrictAreaId" />
+		<result column="d_district_area_name" property="dDistrictAreaName" />
+		<result column="d_tree_path" property="dTreePath" />
+		<result column="d_addr_id" property="dAddrId" />
+		<result column="d_addr_name" property="dAddrName" />
+		<result column="d_address" property="dAddress" />
+		<result column="d_contact" property="dContact" />
+		<result column="d_mobile" property="dMobile" />
+		<result column="order_count" property="orderCount" />
+	</resultMap>
+	
+	
+	<sql id="Base_Column_List">
+		id,create_time,order_id,order_time,j_user_order_address_id,j_user_order_address_uuid,
+		d_user_order_address_id,d_user_order_address_uuid
+
+	</sql>
+
+	<insert id="insert" parameterType="OrderAddressRoute" keyProperty="id" useGeneratedKeys="true">
+		insert into order_address_route  (
+			create_time,
+			order_id,
+			order_time,
+			j_user_order_address_id,
+			j_user_order_address_uuid,
+			d_user_order_address_id,
+			d_user_order_address_uuid
+		) values(
+			#{createTime},
+			#{orderId},
+			#{orderTime},
+			#{jUserOrderAddressId},
+			#{jUserOrderAddressUuid},
+			#{dUserOrderAddressId},
+			#{dUserOrderAddressUuid}
+		)
+	</insert>
+	
+	<!-- 获取最新的订单时间 -->
+	<select id="findMaxDate" resultType="java.lang.String">
+		select max(date(order_time)) from order_address_route
+	</select>
+	
+	<select id="findByPageForUserSummary" resultMap="PageResultMap">
+		SELECT 
+			r.j_user_order_address_id,
+			j.user_id j_user_id,
+			j.addr_type j_addr_type,
+			j.country_area_id j_country_area_id,
+			j.country_area_name j_country_area_name,
+			j.province_area_id j_province_area_id,
+			j.province_area_name j_province_area_name,
+			j.city_area_id j_city_area_id,
+			j.city_area_name j_city_area_name,
+			j.district_area_id j_district_area_id,
+			j.district_area_name j_district_area_name,
+			j.address j_address,
+			j.addr_name j_addr_name,
+			j.contact j_contact,
+			j.mobile j_mobile,
+			r.d_user_order_address_id,
+			d.user_id d_user_id,
+			d.addr_type d_addr_type,
+			d.country_area_id d_country_area_id,
+			d.country_area_name d_country_area_name,
+			d.province_area_id d_province_area_id,
+			d.province_area_name d_province_area_name,
+			d.city_area_id d_city_area_id,
+			d.city_area_name d_city_area_name,
+			d.district_area_id d_district_area_id,
+			d.district_area_name d_district_area_name,
+			d.address d_address,
+			d.addr_name d_addr_name,
+			d.contact d_contact,
+			d.mobile d_mobile,
+			count(1) order_count 
+		from order_address_route r 
+			LEFT JOIN user_order_address j on r.j_user_order_address_id = j.id 
+			LEFT JOIN user_order_address d on r.d_user_order_address_id = d.id 
+		<where>
+			<if test="condition.startOrderTime != null">
+				<![CDATA[
+				and date(r.order_time) >= date(#{condition.startOrderTime}) 
+				]]>
+			</if>
+			<if test="condition.endOrderTime != null">
+				<![CDATA[
+				and date(r.order_time) <= date(#{condition.endOrderTime}) 
+				]]>
+			</if>
+			<if test="condition.userId != null and condition.userId > 0">
+				and (j.user_id = #{condition.userId}
+					or d.user_id = #{condition.userId}) 
+			</if>
+			<if test="condition.contact != null and condition.contact != ''">
+				and (j.contact like concat('%',#{condition.contact},'%')
+					or d.contact like concat('%',#{condition.contact},'%')) 
+			</if>
+			<if test="condition.mobile != null and condition.mobile != ''">
+				and (j.mobile like concat('%',#{condition.mobile},'%')
+					or d.mobile like concat('%',#{condition.mobile},'%')) 
+			</if>
+		</where>
+		GROUP BY r.j_user_order_address_id,r.d_user_order_address_id
+		order by order_count desc
+	</select>
+	
+</mapper>

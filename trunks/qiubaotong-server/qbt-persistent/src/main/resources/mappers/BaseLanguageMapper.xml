@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseLanguageMapper" >
+  <resultMap id="BaseResultMap" type="BaseLanguage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="ename" property="ename" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, ename
+  </sql>
+  <select id="list" resultMap="BaseResultMap">
+  	select * from base_language
+  </select>
+  
+  <select id="findById" resultMap="BaseResultMap">
+  	select * from base_language
+  	<where>
+  	id = #{id,jdbcType=INTEGER}
+  	</where>
+  </select>
+</mapper>

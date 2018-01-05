@@ -1,0 +1,106 @@
+<template id="agent_pay">
+  <div class="page" style="padding-bottom:85px;">
+    <tel-contact :style="{left:'',top:'180px',right:'0px'}"></tel-contact>
+    <div class="weui-cells" style="margin-top:0;">
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <span style="background-color:#49fd8a;" class="send-label">寄</span>
+        </div>
+        <div class="weui-cell__bd">
+          <p><div class="weui-label" style="display:inline-block;">{{order_detail.jContact}}</div>{{order_detail.jMobile}}</p>
+          <p class="font14">{{order_detail.jTreePath}}</p>
+          <p class="font14">{{order_detail.jAddrName || order_detail.jAddress}}<span v-if="order_detail.jIsOutRange" style="background: #15c95f;border-radius: 5px;padding: 2px 5px;color: #ffffff">偏</span></p>
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <span style="background-color:#f8e3a6;" class="send-label">收</span>
+        </div>
+        <div class="weui-cell__bd">
+          <p><div class="weui-label" style="display:inline-block;">{{order_detail.dContact}}</div>{{order_detail.dMobile}}</p>
+          <p class="font14">{{order_detail.dTreePath}}</p>
+          <p class="font14">{{order_detail.dAddrName || order_detail.dAddress}}<span v-if="order_detail.dIsOutRange" style="background: #15c95f;border-radius: 5px;padding: 2px 5px;color: #ffffff">偏</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="weui-cells" style="padding:15px 0;">
+      <div class="form-list">
+        <div class="form-label">订单状态</div><div class="form-value">待付款</div>
+      </div>
+      <div class="form-list">
+        <div class="form-label">预约取件</div><div class="form-value">{{order_detail.sendTimeSection}}</div>
+      </div>
+      <div class="form-list">
+        <div class="form-label">预计到达</div><div class="form-value">{{order_detail.expressType==2?order_detail.expressDescribe:order_detail.deliverDate}}</div>
+      </div>
+      <div v-if="order_detail.playTime!=''" class="form-list">
+        <div class="form-label">开球时间</div><div class="form-value">{{order_detail.playTime}}</div>
+      </div>
+      <div class="form-list">
+        <div class="form-label">球包数量</div><div class="form-value">{{order_detail.quantity}}个</div>
+      </div>
+      <div class="form-list">
+        <div class="form-label">备注</div><div class="form-value">{{order_detail.remark}}</div>
+      </div>
+    </div>
+    <div class="weui-cells" style="padding:15px 0;">
+      <div class="form-list">
+        <div class="form-label">保价金额&nbsp;<span v-if="order_detail.insuredValue!=0" style="font-weight: normal;">{{order_detail.insuredValue}}万/包</span><span v-if="order_detail.insuredValue==0" style="font-weight: normal;">不保价</span>
+        </div>
+        <div class="form-value" style="float:right;">保价费：{{(order_detail.insuredFee+order_detail.discountInsuredFee)|currency('￥')}}</div>
+        <div style="text-align:right;line-height:1;color:#333;">
+          ×{{order_detail.quantity}}</div>
+      </div>
+      <div class="form-list">
+        <div class="form-label">运费金额</div><div class="form-value" style="float:right;">{{order_detail.freight-(order_detail.dOutRangePrice+order_detail.jOutRangePrice)|currency('￥')}}</div>
+        <div style="text-align:right;line-height:1;color:#333;">×{{order_detail.quantity}}</div>
+      </div>
+      <div class="form-list" v-if="order_detail.dOutRangePrice+order_detail.jOutRangePrice>0" >
+          <div class="form-label">偏远费</div><div class="form-value" style="float:right;">{{(order_detail.dOutRangePrice+order_detail.jOutRangePrice)|currency('￥')}}</div>
+          <div style="text-align:right;line-height:1;color:#333;">×{{order_detail.quantity}}</div>
+      </div>
+    </div>
+    <div class="weui-cells" style="padding:15px 0;">
+      <div class="form-list" v-if="order_detail.insuredFee+order_detail.discountInsuredFee!=0">
+        <div class="form-label">保价费</div><div class="form-value" style="float:right;">{{((order_detail.insuredFee+order_detail.discountInsuredFee) * order_detail.quantity)|currency('￥')}}</div>
+      </div>
+      <div class="form-list" v-if="order_detail.discountInsuredFee!=0">
+        <div class="form-label">保价费优惠额</div><div class="form-value" style="float:right;">-{{(order_detail.discountInsuredFee * order_detail.quantity)|currency('￥')}}</div>
+      </div>
+<!--       <div class="form-list" v-if="order_detail.freight!=0" >
+        <div class="form-label">运费金额</div><div class="form-value" style="float:right;">{{(order_detail.freight * order_detail.quantity)|currency('￥')}}</div>
+      </div> -->
+      <div class="form-list" v-if="order_detail.freight!=0" >
+          <div class="form-label">运费金额</div><div class="form-value" style="float:right;">{{((order_detail.freight-(order_detail.dOutRangePrice+order_detail.jOutRangePrice)) * order_detail.quantity)|currency('￥')}}</div>
+      </div>
+      <div class="form-list" v-if="order_detail.dOutRangePrice+order_detail.jOutRangePrice>0" >
+          <div class="form-label">偏远费</div><div class="form-value" style="float:right;">{{((order_detail.dOutRangePrice+order_detail.jOutRangePrice) * order_detail.quantity)|currency('￥')}}</div>
+      </div>
+  <!--     <div class="form-list">
+        <div class="form-label">赠送包装费</div>
+        <div class="form-value" style="float: right;">
+          {{30|currency('￥')}}
+          ×{{order_detail.quantity}}
+        </div>
+      </div> -->
+    </div>
+    <div style="text-align:right;padding:5px 10px;" class="bg-f">
+      <p>下单时间 {{order_detail.createTime|dateFormat('yyyy-MM-dd hh:mm:ss')}}</p>
+      <p>订单编号 {{order_detail.orderNumber}}</p>
+    </div>
+    <footer class="footer footer-ios" style="height: auto">
+      <div class="weui-flex" style="min-height: 25px;border-bottom: 1px solid #dadada">
+        <div class="weui-flex__item" style="line-height: 1.5;text-align: center;font-size: 12px;font-weight: bold;color: #708193;padding: 2px">付款即代表同意<a href="javascript:;" @click="goView('/agreement')">《球包通服务协议》</a>、<a href="javascript:;" @click="goView('/care')">《寄球包注意事项》</a>。</div>
+      </div>
+      <div class="weui-flex">
+        <div class="weui-flex__item">
+          <span style="display:inline-block;color:#999;">实付金额:</span>
+          <span style="display:inline-block;font-size:20px;color:#E9573E;">{{order_detail.amount|currency('￥')}}</span>
+        </div>
+        <div class="weui-flex__item footer-confirm" @click="pay()">
+          去付款
+        </div>
+      </div>
+    </footer>
+  </div>
+</template>

@@ -1,0 +1,94 @@
+.my-coupon {
+  .weui_tab {
+    background-color: #f3f3f3;
+  }
+  .weui_tab_bd > div {
+    margin-top: 10px;
+    position: relative;
+    color: #888;
+    .flex {
+      margin-top: 10px;
+      background-color: #fff;
+      .quan-over {
+        position: absolute;
+        background: no-repeat center center;
+        background-size: contain;
+        width: 60px;
+        height: 60px;
+        z-index: 9;
+        margin-left: -30px;
+        left: 50%;
+        top: 15px;
+      }
+    }
+    i {
+      display: block;
+      position: absolute;
+      width: 14px;
+      height: 28px;
+      background-color: #f3f3f3;
+      margin-top: -14px;
+      top: 50%;
+    }
+    .my-money {
+      position: relative;
+      padding: 14px 20px 0;
+      border-right: 1px dashed $mainColor;
+      width: 150px;
+      p {
+        margin-top: 22px;
+        text-align: center;
+      }
+      span {
+        position: absolute;
+        display: block;
+        width: 20px;
+        line-height: 1;
+        margin-left: -10px;
+        left: 19%;
+        top: 20px;
+        z-index: 2;
+      }
+      strong {
+        font-size: 40px;
+        font-weight: normal;
+      }
+      i {
+        border-radius: 0 28px 28px 0;
+        left: 0;
+      }
+    }
+    .my-money-invalid {
+         .my-money {
+             border-right: 1px dashed #888 !important;
+         }
+         .font-green02 {
+             color: #888 !important;
+         }
+    }
+    .my-coupon-checked {
+        border: 1px solid #9acd32;
+    }
+    .my-quan {
+      padding: 10px;
+      font-size: $font12;
+      a {
+        display: inline-block;
+        font-size: $font14 + 2px;
+        width: 100%;
+      }
+      i {
+        border-radius: 28px 0 0 28px;
+        right: 0;
+      }
+    }
+  }
+}
+
+.my-quan p:nth-of-type(1) {
+
+    display: inline-block;
+    font-size: $font14 + 2px;
+    width: 100%;
+    margin: 8px 0;
+}

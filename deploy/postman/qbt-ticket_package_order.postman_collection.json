@@ -1,0 +1,893 @@
+{
+	"id": "4bfde2c4-3a4d-ca69-08a1-af0194736f6d",
+	"name": "qbt-ticket_package_order",
+	"description": "ticket package order",
+	"order": [
+		"75bfe58b-c373-1d2c-4407-1394274e523a",
+		"78cb480a-54a3-06be-ae5f-0a6bbbde9491",
+		"efccd5b3-0eb8-f2ad-362c-be30290b6490",
+		"fd7a04ea-1bef-2de7-4b6d-1c503151ef2c"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 0,
+	"owner": "392929",
+	"public": false,
+	"events": null,
+	"variables": [],
+	"auth": null,
+	"requests": [
+		{
+			"id": "75bfe58b-c373-1d2c-4407-1394274e523a",
+			"headers": "token: 3b95c14a7d144be2bc6f41ac3c5bab2a\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "token",
+					"value": "3b95c14a7d144be2bc6f41ac3c5bab2a",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:7070/system-web/ticketPackageOrder/findByPage.api",
+			"queryParams": [],
+			"events": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1514268711309,
+			"name": "http://localhost:7070/system-web/ticketPackageOrder/findByPage.api",
+			"description": "",
+			"collectionId": "4bfde2c4-3a4d-ca69-08a1-af0194736f6d",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 4650,
+					"headers": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "accept,content-type,token,userId",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": "The language the content is in"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Dec 2017 06:19:31 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Server",
+							"value": "Apache-Coyote/1.1",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookies": [
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/system-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "AEA88E80E5151B401FA3B97D8D45C960"
+						},
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/qbt-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "C4A4650E8BFE79F666545190E21CC1B9"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":\"0000\",\"msg\":\"ok\",\"datas\":[{\"id\":4,\"activityName\":\"abc\",\"activityId\":3,\"type\":1,\"purchaser\":\"3\",\"purchaserAddress\":\"Address\",\"purchaserNumber\":\"phone number\",\"payStatus\":1,\"proxyUser\":\"proxyUser\",\"operatorId\":123,\"operatorName\":\"operatorName\",\"status\":null,\"ticketPackageVos\":null},{\"id\":5,\"activityName\":\"abc\",\"activityId\":3,\"type\":1,\"purchaser\":\"3\",\"purchaserAddress\":\"Address\",\"purchaserNumber\":\"phone number\",\"payStatus\":1,\"proxyUser\":\"proxyUser\",\"operatorId\":123,\"operatorName\":\"operatorName\",\"status\":null,\"ticketPackageVos\":null},{\"id\":6,\"activityName\":\"abc\",\"activityId\":3,\"type\":1,\"purchaser\":\"3\",\"purchaserAddress\":\"Address\",\"purchaserNumber\":\"phone number\",\"payStatus\":1,\"proxyUser\":\"proxyUser\",\"operatorId\":123,\"operatorName\":\"operatorName\",\"status\":null,\"ticketPackageVos\":null},{\"id\":7,\"activityName\":\"abc\",\"activityId\":3,\"type\":1,\"purchaser\":\"3\",\"purchaserAddress\":\"Address\",\"purchaserNumber\":\"phone number\",\"payStatus\":1,\"proxyUser\":\"proxyUser\",\"operatorId\":123,\"operatorName\":\"operatorName\",\"status\":null,\"ticketPackageVos\":null}],\"page\":{\"pageNo\":1,\"pageSize\":10,\"totalCount\":4,\"totalPages\":1,\"hasNext\":false,\"lastRecordId\":0,\"lastRownum\":0,\"orderByColumn\":null,\"orderByType\":\"desc\",\"activityId\":0,\"activityName\":null,\"type\":null,\"purchaser\":\"3\",\"purchaserAddress\":null,\"purchaserNumber\":null,\"payStatus\":null,\"proxyUser\":null,\"operatorId\":null,\"operatorName\":null,\"status\":null}}",
+					"language": "json",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"code": 200,
+					"responseSize": {
+						"body": 1406,
+						"header": 382,
+						"total": 1788
+					},
+					"mimeType": "text",
+					"fileName": "response.json",
+					"dataURI": "data:application/json;base64, eyJjb2RlIjoiMDAwMCIsIm1zZyI6Im9rIiwiZGF0YXMiOlt7ImlkIjo0LCJhY3Rpdml0eU5hbWUiOiJhYmMiLCJhY3Rpdml0eUlkIjozLCJ0eXBlIjoxLCJwdXJjaGFzZXIiOiIzIiwicHVyY2hhc2VyQWRkcmVzcyI6IkFkZHJlc3MiLCJwdXJjaGFzZXJOdW1iZXIiOiJwaG9uZSBudW1iZXIiLCJwYXlTdGF0dXMiOjEsInByb3h5VXNlciI6InByb3h5VXNlciIsIm9wZXJhdG9ySWQiOjEyMywib3BlcmF0b3JOYW1lIjoib3BlcmF0b3JOYW1lIiwic3RhdHVzIjpudWxsLCJ0aWNrZXRQYWNrYWdlVm9zIjpudWxsfSx7ImlkIjo1LCJhY3Rpdml0eU5hbWUiOiJhYmMiLCJhY3Rpdml0eUlkIjozLCJ0eXBlIjoxLCJwdXJjaGFzZXIiOiIzIiwicHVyY2hhc2VyQWRkcmVzcyI6IkFkZHJlc3MiLCJwdXJjaGFzZXJOdW1iZXIiOiJwaG9uZSBudW1iZXIiLCJwYXlTdGF0dXMiOjEsInByb3h5VXNlciI6InByb3h5VXNlciIsIm9wZXJhdG9ySWQiOjEyMywib3BlcmF0b3JOYW1lIjoib3BlcmF0b3JOYW1lIiwic3RhdHVzIjpudWxsLCJ0aWNrZXRQYWNrYWdlVm9zIjpudWxsfSx7ImlkIjo2LCJhY3Rpdml0eU5hbWUiOiJhYmMiLCJhY3Rpdml0eUlkIjozLCJ0eXBlIjoxLCJwdXJjaGFzZXIiOiIzIiwicHVyY2hhc2VyQWRkcmVzcyI6IkFkZHJlc3MiLCJwdXJjaGFzZXJOdW1iZXIiOiJwaG9uZSBudW1iZXIiLCJwYXlTdGF0dXMiOjEsInByb3h5VXNlciI6InByb3h5VXNlciIsIm9wZXJhdG9ySWQiOjEyMywib3BlcmF0b3JOYW1lIjoib3BlcmF0b3JOYW1lIiwic3RhdHVzIjpudWxsLCJ0aWNrZXRQYWNrYWdlVm9zIjpudWxsfSx7ImlkIjo3LCJhY3Rpdml0eU5hbWUiOiJhYmMiLCJhY3Rpdml0eUlkIjozLCJ0eXBlIjoxLCJwdXJjaGFzZXIiOiIzIiwicHVyY2hhc2VyQWRkcmVzcyI6IkFkZHJlc3MiLCJwdXJjaGFzZXJOdW1iZXIiOiJwaG9uZSBudW1iZXIiLCJwYXlTdGF0dXMiOjEsInByb3h5VXNlciI6InByb3h5VXNlciIsIm9wZXJhdG9ySWQiOjEyMywib3BlcmF0b3JOYW1lIjoib3BlcmF0b3JOYW1lIiwic3RhdHVzIjpudWxsLCJ0aWNrZXRQYWNrYWdlVm9zIjpudWxsfV0sInBhZ2UiOnsicGFnZU5vIjoxLCJwYWdlU2l6ZSI6MTAsInRvdGFsQ291bnQiOjQsInRvdGFsUGFnZXMiOjEsImhhc05leHQiOmZhbHNlLCJsYXN0UmVjb3JkSWQiOjAsImxhc3RSb3dudW0iOjAsIm9yZGVyQnlDb2x1bW4iOm51bGwsIm9yZGVyQnlUeXBlIjoiZGVzYyIsImFjdGl2aXR5SWQiOjAsImFjdGl2aXR5TmFtZSI6bnVsbCwidHlwZSI6bnVsbCwicHVyY2hhc2VyIjoiMyIsInB1cmNoYXNlckFkZHJlc3MiOm51bGwsInB1cmNoYXNlck51bWJlciI6bnVsbCwicGF5U3RhdHVzIjpudWxsLCJwcm94eVVzZXIiOm51bGwsIm9wZXJhdG9ySWQiOm51bGwsIm9wZXJhdG9yTmFtZSI6bnVsbCwic3RhdHVzIjpudWxsfX0=",
+					"name": "http://localhost:7070/system-web/ticketPackageOrder/findByPage.api",
+					"id": "00dad0ca-489c-686e-1923-dca3b566a213",
+					"request": {
+						"url": "http://localhost:7070/system-web/ticketPackageOrder/findByPage.api",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [],
+						"headerData": [
+							{
+								"key": "token",
+								"value": "3b95c14a7d144be2bc6f41ac3c5bab2a",
+								"description": "",
+								"enabled": true,
+								"disabled": false
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"enabled": true,
+								"disabled": false
+							}
+						],
+						"headers": "token: 3b95c14a7d144be2bc6f41ac3c5bab2a\nContent-Type: application/json\n",
+						"data": "{ \"purchaser\":3\n}",
+						"method": "POST",
+						"dataMode": "raw"
+					}
+				}
+			],
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{ \"purchaser\":3\n}"
+		},
+		{
+			"id": "78cb480a-54a3-06be-ae5f-0a6bbbde9491",
+			"headers": "token: 3b95c14a7d144be2bc6f41ac3c5bab2a\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "token",
+					"value": "3b95c14a7d144be2bc6f41ac3c5bab2a",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:7070/system-web/ticketPackageOrder/add.api",
+			"queryParams": [],
+			"events": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1514269354096,
+			"name": "http://localhost:7070/system-web/ticketPackageOrder/add.api copy",
+			"description": "",
+			"collectionId": "4bfde2c4-3a4d-ca69-08a1-af0194736f6d",
+			"responses": [],
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{ \"activityName\": \"abc\",\n\t\"activityId\": 3,\n\t\"type\":1,\n\t\"purchaser\":3,\n\t\"purchaserAddress\":\"Address\",\n\t\"purchaserNumber\":\"phone number\",\n\t\"payStatus\":1,\n\t\"proxyUser\":\"proxyUser\",\n\t\"operatorId\":123,\n\t\"operatorName\":\"operatorName\",\n\t\"status\":0,\n\t\"ticketPackageVos\":[{\n\t\t\"activityName\":\t\"activityName_package\",\n\t\t\"effectiveDay\":12,\n\t\t\"ticketType\":1,\n\t\t\"ticketVos\":[\n\t\t\t{\n\t\t\t\t\"ticketPrice\":100,\n\t\t\t\t\"ticketName\":\"piao2\",\n\t\t\t\t\"quantity\":3,\n\t\t\t\t\"useLimit\":500\n\t\t\t\t\n\t\t\t},\n\t\t\t{\"ticketPrice\":300,\n\t\t\t\t\"ticketName\":\"piao1\",\n\t\t\t\t\"quantity\":3,\n\t\t\t\t\"useLimit\":800\n\t\t\t}\n\t\t\t]\n\t},{\n\t\t\n\t\t\"activityName\":\t\"activityName_package\",\n\t\t\"effectiveDay\":12,\n\t\t\"ticketType\":1,\n\t\t\"ticketVos\":[\n\t\t\t{\n\t\t\t\t\"ticketPrice\":100,\n\t\t\t\t\"ticketName\":\"piao2\",\n\t\t\t\t\"quantity\":3,\n\t\t\t\t\"useLimit\":500\n\t\t\t\t\n\t\t\t},\n\t\t\t{\"ticketPrice\":300,\n\t\t\t\t\"ticketName\":\"piao1\",\n\t\t\t\t\"quantity\":3,\n\t\t\t\t\"useLimit\":800\n\t\t\t}\n\t\t\t]\n\t\n\t}]\n}"
+		},
+		{
+			"id": "efccd5b3-0eb8-f2ad-362c-be30290b6490",
+			"headers": "token: 3b95c14a7d144be2bc6f41ac3c5bab2a\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "token",
+					"value": "3b95c14a7d144be2bc6f41ac3c5bab2a",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:7070/system-web/ticketPackageOrder/detail.api?id=7",
+			"queryParams": [
+				{
+					"key": "id",
+					"value": "7",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"events": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1514269120262,
+			"name": "http://localhost:7070/system-web/ticketPackageOrder/detail.api",
+			"description": "",
+			"collectionId": "4bfde2c4-3a4d-ca69-08a1-af0194736f6d",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 233,
+					"headers": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "accept,content-type,token,userId",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": "The language the content is in"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Dec 2017 06:18:12 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Server",
+							"value": "Apache-Coyote/1.1",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookies": [
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/system-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "AEA88E80E5151B401FA3B97D8D45C960"
+						},
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/qbt-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "C4A4650E8BFE79F666545190E21CC1B9"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":\"0000\",\"msg\":\"ok\",\"datas\":{\"id\":7,\"activityName\":\"abc\",\"activityId\":3,\"type\":1,\"purchaser\":\"3\",\"purchaserAddress\":\"Address\",\"purchaserNumber\":\"phone number\",\"payStatus\":1,\"proxyUser\":\"proxyUser\",\"operatorId\":123,\"operatorName\":\"operatorName\",\"status\":null,\"ticketPackageVos\":[{\"id\":7,\"orderId\":7,\"activityName\":\"activityName_package\",\"type\":null,\"expirationTime\":null,\"effectiveDay\":12,\"activateTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"code\":null,\"codeStatus\":null,\"status\":null,\"activeStatus\":null,\"ticketType\":1,\"operatorId\":null,\"operatorName\":null,\"ticketVos\":[{\"id\":1,\"packageId\":7,\"ticketPrice\":100,\"ticketName\":\"piao2\",\"quantity\":3,\"usedQuantity\":null,\"useLimit\":500,\"useStatus\":null},{\"id\":2,\"packageId\":7,\"ticketPrice\":300,\"ticketName\":\"piao1\",\"quantity\":3,\"usedQuantity\":null,\"useLimit\":800,\"useStatus\":null}]}]}}",
+					"language": "json",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"code": 200,
+					"responseSize": {
+						"body": 849,
+						"header": 382,
+						"total": 1231
+					},
+					"mimeType": "text",
+					"fileName": "response.json",
+					"dataURI": "data:application/json;base64, eyJjb2RlIjoiMDAwMCIsIm1zZyI6Im9rIiwiZGF0YXMiOnsiaWQiOjcsImFjdGl2aXR5TmFtZSI6ImFiYyIsImFjdGl2aXR5SWQiOjMsInR5cGUiOjEsInB1cmNoYXNlciI6IjMiLCJwdXJjaGFzZXJBZGRyZXNzIjoiQWRkcmVzcyIsInB1cmNoYXNlck51bWJlciI6InBob25lIG51bWJlciIsInBheVN0YXR1cyI6MSwicHJveHlVc2VyIjoicHJveHlVc2VyIiwib3BlcmF0b3JJZCI6MTIzLCJvcGVyYXRvck5hbWUiOiJvcGVyYXRvck5hbWUiLCJzdGF0dXMiOm51bGwsInRpY2tldFBhY2thZ2VWb3MiOlt7ImlkIjo3LCJvcmRlcklkIjo3LCJhY3Rpdml0eU5hbWUiOiJhY3Rpdml0eU5hbWVfcGFja2FnZSIsInR5cGUiOm51bGwsImV4cGlyYXRpb25UaW1lIjpudWxsLCJlZmZlY3RpdmVEYXkiOjEyLCJhY3RpdmF0ZVRpbWUiOm51bGwsImFjdGl2YXRlVXNlciI6bnVsbCwiYWN0aXZhdGVQaG9uZU51bWJlciI6bnVsbCwiY29kZSI6bnVsbCwiY29kZVN0YXR1cyI6bnVsbCwic3RhdHVzIjpudWxsLCJhY3RpdmVTdGF0dXMiOm51bGwsInRpY2tldFR5cGUiOjEsIm9wZXJhdG9ySWQiOm51bGwsIm9wZXJhdG9yTmFtZSI6bnVsbCwidGlja2V0Vm9zIjpbeyJpZCI6MSwicGFja2FnZUlkIjo3LCJ0aWNrZXRQcmljZSI6MTAwLCJ0aWNrZXROYW1lIjoicGlhbzIiLCJxdWFudGl0eSI6MywidXNlZFF1YW50aXR5IjpudWxsLCJ1c2VMaW1pdCI6NTAwLCJ1c2VTdGF0dXMiOm51bGx9LHsiaWQiOjIsInBhY2thZ2VJZCI6NywidGlja2V0UHJpY2UiOjMwMCwidGlja2V0TmFtZSI6InBpYW8xIiwicXVhbnRpdHkiOjMsInVzZWRRdWFudGl0eSI6bnVsbCwidXNlTGltaXQiOjgwMCwidXNlU3RhdHVzIjpudWxsfV19XX19",
+					"name": "http://localhost:7070/system-web/ticketPackageOrder/detail.api",
+					"id": "d6a1ab93-9583-9f77-9c07-ca61f5f8895b",
+					"request": {
+						"url": "http://localhost:7070/system-web/ticketPackageOrder/detail.api?id=7",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "id",
+								"value": "7",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [
+							{
+								"key": "token",
+								"value": "3b95c14a7d144be2bc6f41ac3c5bab2a",
+								"description": "",
+								"enabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headers": "token: 3b95c14a7d144be2bc6f41ac3c5bab2a\nContent-Type: application/json\n",
+						"data": "{ \"activityName\": \"abc\",\n\t\"activityId\": 3,\n\t\"type\":1,\n\t\"purchaser\":3,\n\t\"purchaserAddress\":\"Address\",\n\t\"purchaserNumber\":\"phone number\",\n\t\"payStatus\":1,\n\t\"proxyUser\":\"proxyUser\",\n\t\"operatorId\":123,\n\t\"operatorName\":\"operatorName\",\n\t\"status\":0,\n\t\"ticketPackageVos\":[{\n\t\t\"activityName\":\t\"activityName_package\",\n\t\t\"effectiveDay\":12,\n\t\t\"ticketType\":1\n\t}]\n}",
+						"method": "POST",
+						"dataMode": "raw"
+					}
+				},
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 68,
+					"headers": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "accept,content-type,token,userId",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": "The language the content is in"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Dec 2017 06:22:40 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Server",
+							"value": "Apache-Coyote/1.1",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookies": [
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/system-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "AEA88E80E5151B401FA3B97D8D45C960"
+						},
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/qbt-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "C4A4650E8BFE79F666545190E21CC1B9"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":\"0000\",\"msg\":\"ok\",\"datas\":{\"id\":8,\"activityName\":\"abc\",\"activityId\":3,\"type\":1,\"purchaser\":\"3\",\"purchaserAddress\":\"Address\",\"purchaserNumber\":\"phone number\",\"payStatus\":1,\"proxyUser\":\"proxyUser\",\"operatorId\":123,\"operatorName\":\"operatorName\",\"status\":null,\"ticketPackageVos\":[{\"id\":8,\"orderId\":8,\"activityName\":\"activityName_package\",\"type\":null,\"expirationTime\":null,\"effectiveDay\":12,\"activateTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"code\":null,\"codeStatus\":null,\"status\":null,\"activeStatus\":null,\"ticketType\":1,\"operatorId\":null,\"operatorName\":null,\"ticketVos\":[{\"id\":3,\"packageId\":8,\"ticketPrice\":100,\"ticketName\":\"piao2\",\"quantity\":3,\"usedQuantity\":null,\"useLimit\":500,\"useStatus\":null},{\"id\":4,\"packageId\":8,\"ticketPrice\":300,\"ticketName\":\"piao1\",\"quantity\":3,\"usedQuantity\":null,\"useLimit\":800,\"useStatus\":null}]},{\"id\":9,\"orderId\":8,\"activityName\":\"activityName_package\",\"type\":null,\"expirationTime\":null,\"effectiveDay\":12,\"activateTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"code\":null,\"codeStatus\":null,\"status\":null,\"activeStatus\":null,\"ticketType\":1,\"operatorId\":null,\"operatorName\":null,\"ticketVos\":[{\"id\":5,\"packageId\":9,\"ticketPrice\":100,\"ticketName\":\"piao2\",\"quantity\":3,\"usedQuantity\":null,\"useLimit\":500,\"useStatus\":null},{\"id\":6,\"packageId\":9,\"ticketPrice\":300,\"ticketName\":\"piao1\",\"quantity\":3,\"usedQuantity\":null,\"useLimit\":800,\"useStatus\":null}]}]}}",
+					"language": "json",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"code": 200,
+					"responseSize": {
+						"body": 1412,
+						"header": 382,
+						"total": 1794
+					},
+					"mimeType": "text",
+					"fileName": "response.json",
+					"dataURI": "data:application/json;base64, eyJjb2RlIjoiMDAwMCIsIm1zZyI6Im9rIiwiZGF0YXMiOnsiaWQiOjgsImFjdGl2aXR5TmFtZSI6ImFiYyIsImFjdGl2aXR5SWQiOjMsInR5cGUiOjEsInB1cmNoYXNlciI6IjMiLCJwdXJjaGFzZXJBZGRyZXNzIjoiQWRkcmVzcyIsInB1cmNoYXNlck51bWJlciI6InBob25lIG51bWJlciIsInBheVN0YXR1cyI6MSwicHJveHlVc2VyIjoicHJveHlVc2VyIiwib3BlcmF0b3JJZCI6MTIzLCJvcGVyYXRvck5hbWUiOiJvcGVyYXRvck5hbWUiLCJzdGF0dXMiOm51bGwsInRpY2tldFBhY2thZ2VWb3MiOlt7ImlkIjo4LCJvcmRlcklkIjo4LCJhY3Rpdml0eU5hbWUiOiJhY3Rpdml0eU5hbWVfcGFja2FnZSIsInR5cGUiOm51bGwsImV4cGlyYXRpb25UaW1lIjpudWxsLCJlZmZlY3RpdmVEYXkiOjEyLCJhY3RpdmF0ZVRpbWUiOm51bGwsImFjdGl2YXRlVXNlciI6bnVsbCwiYWN0aXZhdGVQaG9uZU51bWJlciI6bnVsbCwiY29kZSI6bnVsbCwiY29kZVN0YXR1cyI6bnVsbCwic3RhdHVzIjpudWxsLCJhY3RpdmVTdGF0dXMiOm51bGwsInRpY2tldFR5cGUiOjEsIm9wZXJhdG9ySWQiOm51bGwsIm9wZXJhdG9yTmFtZSI6bnVsbCwidGlja2V0Vm9zIjpbeyJpZCI6MywicGFja2FnZUlkIjo4LCJ0aWNrZXRQcmljZSI6MTAwLCJ0aWNrZXROYW1lIjoicGlhbzIiLCJxdWFudGl0eSI6MywidXNlZFF1YW50aXR5IjpudWxsLCJ1c2VMaW1pdCI6NTAwLCJ1c2VTdGF0dXMiOm51bGx9LHsiaWQiOjQsInBhY2thZ2VJZCI6OCwidGlja2V0UHJpY2UiOjMwMCwidGlja2V0TmFtZSI6InBpYW8xIiwicXVhbnRpdHkiOjMsInVzZWRRdWFudGl0eSI6bnVsbCwidXNlTGltaXQiOjgwMCwidXNlU3RhdHVzIjpudWxsfV19LHsiaWQiOjksIm9yZGVySWQiOjgsImFjdGl2aXR5TmFtZSI6ImFjdGl2aXR5TmFtZV9wYWNrYWdlIiwidHlwZSI6bnVsbCwiZXhwaXJhdGlvblRpbWUiOm51bGwsImVmZmVjdGl2ZURheSI6MTIsImFjdGl2YXRlVGltZSI6bnVsbCwiYWN0aXZhdGVVc2VyIjpudWxsLCJhY3RpdmF0ZVBob25lTnVtYmVyIjpudWxsLCJjb2RlIjpudWxsLCJjb2RlU3RhdHVzIjpudWxsLCJzdGF0dXMiOm51bGwsImFjdGl2ZVN0YXR1cyI6bnVsbCwidGlja2V0VHlwZSI6MSwib3BlcmF0b3JJZCI6bnVsbCwib3BlcmF0b3JOYW1lIjpudWxsLCJ0aWNrZXRWb3MiOlt7ImlkIjo1LCJwYWNrYWdlSWQiOjksInRpY2tldFByaWNlIjoxMDAsInRpY2tldE5hbWUiOiJwaWFvMiIsInF1YW50aXR5IjozLCJ1c2VkUXVhbnRpdHkiOm51bGwsInVzZUxpbWl0Ijo1MDAsInVzZVN0YXR1cyI6bnVsbH0seyJpZCI6NiwicGFja2FnZUlkIjo5LCJ0aWNrZXRQcmljZSI6MzAwLCJ0aWNrZXROYW1lIjoicGlhbzEiLCJxdWFudGl0eSI6MywidXNlZFF1YW50aXR5IjpudWxsLCJ1c2VMaW1pdCI6ODAwLCJ1c2VTdGF0dXMiOm51bGx9XX1dfX0=",
+					"name": "http://localhost:7070/system-web/ticketPackageOrder/detail.api",
+					"id": "856e2da4-57fd-11ee-7b06-cfe2943fa996",
+					"request": {
+						"url": "http://localhost:7070/system-web/ticketPackageOrder/detail.api?id=8",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "id",
+								"value": "8",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [
+							{
+								"key": "token",
+								"value": "3b95c14a7d144be2bc6f41ac3c5bab2a",
+								"description": "",
+								"enabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headers": "token: 3b95c14a7d144be2bc6f41ac3c5bab2a\nContent-Type: application/json\n",
+						"data": "{ \"activityName\": \"abc\",\n\t\"activityId\": 3,\n\t\"type\":1,\n\t\"purchaser\":3,\n\t\"purchaserAddress\":\"Address\",\n\t\"purchaserNumber\":\"phone number\",\n\t\"payStatus\":1,\n\t\"proxyUser\":\"proxyUser\",\n\t\"operatorId\":123,\n\t\"operatorName\":\"operatorName\",\n\t\"status\":0,\n\t\"ticketPackageVos\":[{\n\t\t\"activityName\":\t\"activityName_package\",\n\t\t\"effectiveDay\":12,\n\t\t\"ticketType\":1\n\t}]\n}",
+						"method": "POST",
+						"dataMode": "raw"
+					}
+				}
+			],
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{ \"activityName\": \"abc\",\n\t\"activityId\": 3,\n\t\"type\":1,\n\t\"purchaser\":3,\n\t\"purchaserAddress\":\"Address\",\n\t\"purchaserNumber\":\"phone number\",\n\t\"payStatus\":1,\n\t\"proxyUser\":\"proxyUser\",\n\t\"operatorId\":123,\n\t\"operatorName\":\"operatorName\",\n\t\"status\":0,\n\t\"ticketPackageVos\":[{\n\t\t\"activityName\":\t\"activityName_package\",\n\t\t\"effectiveDay\":12,\n\t\t\"ticketType\":1\n\t}]\n}"
+		},
+		{
+			"id": "fd7a04ea-1bef-2de7-4b6d-1c503151ef2c",
+			"headers": "token: 3b95c14a7d144be2bc6f41ac3c5bab2a\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "token",
+					"value": "3b95c14a7d144be2bc6f41ac3c5bab2a",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:7070/system-web/ticketPackageOrder/updateTicket.api",
+			"queryParams": [],
+			"events": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1514272530706,
+			"name": "http://localhost:7070/system-web/ticketPackageOrder/updateTicket.api",
+			"description": "",
+			"collectionId": "4bfde2c4-3a4d-ca69-08a1-af0194736f6d",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 233,
+					"headers": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "accept,content-type,token,userId",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": "The language the content is in"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Dec 2017 06:18:12 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Server",
+							"value": "Apache-Coyote/1.1",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookies": [
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/system-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "AEA88E80E5151B401FA3B97D8D45C960"
+						},
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/qbt-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "C4A4650E8BFE79F666545190E21CC1B9"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":\"0000\",\"msg\":\"ok\",\"datas\":{\"id\":7,\"activityName\":\"abc\",\"activityId\":3,\"type\":1,\"purchaser\":\"3\",\"purchaserAddress\":\"Address\",\"purchaserNumber\":\"phone number\",\"payStatus\":1,\"proxyUser\":\"proxyUser\",\"operatorId\":123,\"operatorName\":\"operatorName\",\"status\":null,\"ticketPackageVos\":[{\"id\":7,\"orderId\":7,\"activityName\":\"activityName_package\",\"type\":null,\"expirationTime\":null,\"effectiveDay\":12,\"activateTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"code\":null,\"codeStatus\":null,\"status\":null,\"activeStatus\":null,\"ticketType\":1,\"operatorId\":null,\"operatorName\":null,\"ticketVos\":[{\"id\":1,\"packageId\":7,\"ticketPrice\":100,\"ticketName\":\"piao2\",\"quantity\":3,\"usedQuantity\":null,\"useLimit\":500,\"useStatus\":null},{\"id\":2,\"packageId\":7,\"ticketPrice\":300,\"ticketName\":\"piao1\",\"quantity\":3,\"usedQuantity\":null,\"useLimit\":800,\"useStatus\":null}]}]}}",
+					"language": "json",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"code": 200,
+					"responseSize": {
+						"body": 849,
+						"header": 382,
+						"total": 1231
+					},
+					"mimeType": "text",
+					"fileName": "response.json",
+					"dataURI": "data:application/json;base64, eyJjb2RlIjoiMDAwMCIsIm1zZyI6Im9rIiwiZGF0YXMiOnsiaWQiOjcsImFjdGl2aXR5TmFtZSI6ImFiYyIsImFjdGl2aXR5SWQiOjMsInR5cGUiOjEsInB1cmNoYXNlciI6IjMiLCJwdXJjaGFzZXJBZGRyZXNzIjoiQWRkcmVzcyIsInB1cmNoYXNlck51bWJlciI6InBob25lIG51bWJlciIsInBheVN0YXR1cyI6MSwicHJveHlVc2VyIjoicHJveHlVc2VyIiwib3BlcmF0b3JJZCI6MTIzLCJvcGVyYXRvck5hbWUiOiJvcGVyYXRvck5hbWUiLCJzdGF0dXMiOm51bGwsInRpY2tldFBhY2thZ2VWb3MiOlt7ImlkIjo3LCJvcmRlcklkIjo3LCJhY3Rpdml0eU5hbWUiOiJhY3Rpdml0eU5hbWVfcGFja2FnZSIsInR5cGUiOm51bGwsImV4cGlyYXRpb25UaW1lIjpudWxsLCJlZmZlY3RpdmVEYXkiOjEyLCJhY3RpdmF0ZVRpbWUiOm51bGwsImFjdGl2YXRlVXNlciI6bnVsbCwiYWN0aXZhdGVQaG9uZU51bWJlciI6bnVsbCwiY29kZSI6bnVsbCwiY29kZVN0YXR1cyI6bnVsbCwic3RhdHVzIjpudWxsLCJhY3RpdmVTdGF0dXMiOm51bGwsInRpY2tldFR5cGUiOjEsIm9wZXJhdG9ySWQiOm51bGwsIm9wZXJhdG9yTmFtZSI6bnVsbCwidGlja2V0Vm9zIjpbeyJpZCI6MSwicGFja2FnZUlkIjo3LCJ0aWNrZXRQcmljZSI6MTAwLCJ0aWNrZXROYW1lIjoicGlhbzIiLCJxdWFudGl0eSI6MywidXNlZFF1YW50aXR5IjpudWxsLCJ1c2VMaW1pdCI6NTAwLCJ1c2VTdGF0dXMiOm51bGx9LHsiaWQiOjIsInBhY2thZ2VJZCI6NywidGlja2V0UHJpY2UiOjMwMCwidGlja2V0TmFtZSI6InBpYW8xIiwicXVhbnRpdHkiOjMsInVzZWRRdWFudGl0eSI6bnVsbCwidXNlTGltaXQiOjgwMCwidXNlU3RhdHVzIjpudWxsfV19XX19",
+					"name": "http://localhost:7070/system-web/ticketPackageOrder/detail.api",
+					"id": "24b4fec5-5a7c-5f3c-c556-c38c37882739",
+					"request": "fd7a04ea-1bef-2de7-4b6d-1c503151ef2c",
+					"requestObject": {
+						"url": "http://localhost:7070/system-web/ticketPackageOrder/detail.api?id=7",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "id",
+								"value": "7",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [
+							{
+								"key": "token",
+								"value": "3b95c14a7d144be2bc6f41ac3c5bab2a",
+								"description": "",
+								"enabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headers": "token: 3b95c14a7d144be2bc6f41ac3c5bab2a\nContent-Type: application/json\n",
+						"data": "{ \"activityName\": \"abc\",\n\t\"activityId\": 3,\n\t\"type\":1,\n\t\"purchaser\":3,\n\t\"purchaserAddress\":\"Address\",\n\t\"purchaserNumber\":\"phone number\",\n\t\"payStatus\":1,\n\t\"proxyUser\":\"proxyUser\",\n\t\"operatorId\":123,\n\t\"operatorName\":\"operatorName\",\n\t\"status\":0,\n\t\"ticketPackageVos\":[{\n\t\t\"activityName\":\t\"activityName_package\",\n\t\t\"effectiveDay\":12,\n\t\t\"ticketType\":1\n\t}]\n}",
+						"method": "POST",
+						"dataMode": "raw"
+					}
+				},
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 68,
+					"headers": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "accept,content-type,token,userId",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": "The language the content is in"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 26 Dec 2017 06:22:40 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Server",
+							"value": "Apache-Coyote/1.1",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookies": [
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/system-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "AEA88E80E5151B401FA3B97D8D45C960"
+						},
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/qbt-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "C4A4650E8BFE79F666545190E21CC1B9"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":\"0000\",\"msg\":\"ok\",\"datas\":{\"id\":8,\"activityName\":\"abc\",\"activityId\":3,\"type\":1,\"purchaser\":\"3\",\"purchaserAddress\":\"Address\",\"purchaserNumber\":\"phone number\",\"payStatus\":1,\"proxyUser\":\"proxyUser\",\"operatorId\":123,\"operatorName\":\"operatorName\",\"status\":null,\"ticketPackageVos\":[{\"id\":8,\"orderId\":8,\"activityName\":\"activityName_package\",\"type\":null,\"expirationTime\":null,\"effectiveDay\":12,\"activateTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"code\":null,\"codeStatus\":null,\"status\":null,\"activeStatus\":null,\"ticketType\":1,\"operatorId\":null,\"operatorName\":null,\"ticketVos\":[{\"id\":3,\"packageId\":8,\"ticketPrice\":100,\"ticketName\":\"piao2\",\"quantity\":3,\"usedQuantity\":null,\"useLimit\":500,\"useStatus\":null},{\"id\":4,\"packageId\":8,\"ticketPrice\":300,\"ticketName\":\"piao1\",\"quantity\":3,\"usedQuantity\":null,\"useLimit\":800,\"useStatus\":null}]},{\"id\":9,\"orderId\":8,\"activityName\":\"activityName_package\",\"type\":null,\"expirationTime\":null,\"effectiveDay\":12,\"activateTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"code\":null,\"codeStatus\":null,\"status\":null,\"activeStatus\":null,\"ticketType\":1,\"operatorId\":null,\"operatorName\":null,\"ticketVos\":[{\"id\":5,\"packageId\":9,\"ticketPrice\":100,\"ticketName\":\"piao2\",\"quantity\":3,\"usedQuantity\":null,\"useLimit\":500,\"useStatus\":null},{\"id\":6,\"packageId\":9,\"ticketPrice\":300,\"ticketName\":\"piao1\",\"quantity\":3,\"usedQuantity\":null,\"useLimit\":800,\"useStatus\":null}]}]}}",
+					"language": "json",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"code": 200,
+					"responseSize": {
+						"body": 1412,
+						"header": 382,
+						"total": 1794
+					},
+					"mimeType": "text",
+					"fileName": "response.json",
+					"dataURI": "data:application/json;base64, eyJjb2RlIjoiMDAwMCIsIm1zZyI6Im9rIiwiZGF0YXMiOnsiaWQiOjgsImFjdGl2aXR5TmFtZSI6ImFiYyIsImFjdGl2aXR5SWQiOjMsInR5cGUiOjEsInB1cmNoYXNlciI6IjMiLCJwdXJjaGFzZXJBZGRyZXNzIjoiQWRkcmVzcyIsInB1cmNoYXNlck51bWJlciI6InBob25lIG51bWJlciIsInBheVN0YXR1cyI6MSwicHJveHlVc2VyIjoicHJveHlVc2VyIiwib3BlcmF0b3JJZCI6MTIzLCJvcGVyYXRvck5hbWUiOiJvcGVyYXRvck5hbWUiLCJzdGF0dXMiOm51bGwsInRpY2tldFBhY2thZ2VWb3MiOlt7ImlkIjo4LCJvcmRlcklkIjo4LCJhY3Rpdml0eU5hbWUiOiJhY3Rpdml0eU5hbWVfcGFja2FnZSIsInR5cGUiOm51bGwsImV4cGlyYXRpb25UaW1lIjpudWxsLCJlZmZlY3RpdmVEYXkiOjEyLCJhY3RpdmF0ZVRpbWUiOm51bGwsImFjdGl2YXRlVXNlciI6bnVsbCwiYWN0aXZhdGVQaG9uZU51bWJlciI6bnVsbCwiY29kZSI6bnVsbCwiY29kZVN0YXR1cyI6bnVsbCwic3RhdHVzIjpudWxsLCJhY3RpdmVTdGF0dXMiOm51bGwsInRpY2tldFR5cGUiOjEsIm9wZXJhdG9ySWQiOm51bGwsIm9wZXJhdG9yTmFtZSI6bnVsbCwidGlja2V0Vm9zIjpbeyJpZCI6MywicGFja2FnZUlkIjo4LCJ0aWNrZXRQcmljZSI6MTAwLCJ0aWNrZXROYW1lIjoicGlhbzIiLCJxdWFudGl0eSI6MywidXNlZFF1YW50aXR5IjpudWxsLCJ1c2VMaW1pdCI6NTAwLCJ1c2VTdGF0dXMiOm51bGx9LHsiaWQiOjQsInBhY2thZ2VJZCI6OCwidGlja2V0UHJpY2UiOjMwMCwidGlja2V0TmFtZSI6InBpYW8xIiwicXVhbnRpdHkiOjMsInVzZWRRdWFudGl0eSI6bnVsbCwidXNlTGltaXQiOjgwMCwidXNlU3RhdHVzIjpudWxsfV19LHsiaWQiOjksIm9yZGVySWQiOjgsImFjdGl2aXR5TmFtZSI6ImFjdGl2aXR5TmFtZV9wYWNrYWdlIiwidHlwZSI6bnVsbCwiZXhwaXJhdGlvblRpbWUiOm51bGwsImVmZmVjdGl2ZURheSI6MTIsImFjdGl2YXRlVGltZSI6bnVsbCwiYWN0aXZhdGVVc2VyIjpudWxsLCJhY3RpdmF0ZVBob25lTnVtYmVyIjpudWxsLCJjb2RlIjpudWxsLCJjb2RlU3RhdHVzIjpudWxsLCJzdGF0dXMiOm51bGwsImFjdGl2ZVN0YXR1cyI6bnVsbCwidGlja2V0VHlwZSI6MSwib3BlcmF0b3JJZCI6bnVsbCwib3BlcmF0b3JOYW1lIjpudWxsLCJ0aWNrZXRWb3MiOlt7ImlkIjo1LCJwYWNrYWdlSWQiOjksInRpY2tldFByaWNlIjoxMDAsInRpY2tldE5hbWUiOiJwaWFvMiIsInF1YW50aXR5IjozLCJ1c2VkUXVhbnRpdHkiOm51bGwsInVzZUxpbWl0Ijo1MDAsInVzZVN0YXR1cyI6bnVsbH0seyJpZCI6NiwicGFja2FnZUlkIjo5LCJ0aWNrZXRQcmljZSI6MzAwLCJ0aWNrZXROYW1lIjoicGlhbzEiLCJxdWFudGl0eSI6MywidXNlZFF1YW50aXR5IjpudWxsLCJ1c2VMaW1pdCI6ODAwLCJ1c2VTdGF0dXMiOm51bGx9XX1dfX0=",
+					"name": "http://localhost:7070/system-web/ticketPackageOrder/detail.api",
+					"id": "2f313da0-836b-9f84-9e42-2afe410a5520",
+					"request": "fd7a04ea-1bef-2de7-4b6d-1c503151ef2c",
+					"requestObject": {
+						"url": "http://localhost:7070/system-web/ticketPackageOrder/detail.api?id=8",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "id",
+								"value": "8",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [
+							{
+								"key": "token",
+								"value": "3b95c14a7d144be2bc6f41ac3c5bab2a",
+								"description": "",
+								"enabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headers": "token: 3b95c14a7d144be2bc6f41ac3c5bab2a\nContent-Type: application/json\n",
+						"data": "{ \"activityName\": \"abc\",\n\t\"activityId\": 3,\n\t\"type\":1,\n\t\"purchaser\":3,\n\t\"purchaserAddress\":\"Address\",\n\t\"purchaserNumber\":\"phone number\",\n\t\"payStatus\":1,\n\t\"proxyUser\":\"proxyUser\",\n\t\"operatorId\":123,\n\t\"operatorName\":\"operatorName\",\n\t\"status\":0,\n\t\"ticketPackageVos\":[{\n\t\t\"activityName\":\t\"activityName_package\",\n\t\t\"effectiveDay\":12,\n\t\t\"ticketType\":1\n\t}]\n}",
+						"method": "POST",
+						"dataMode": "raw"
+					}
+				}
+			],
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n                        \"id\": 6,\n                        \"ticketPrice\": 300,\n                        \"ticketName\": \"piao333\",\n                        \"quantity\": 3,\n                        \"usedQuantity\": 2,\n                        \"useLimit\": 800,\n                        \"useStatus\": 1\n                    }"
+		}
+	]
+}

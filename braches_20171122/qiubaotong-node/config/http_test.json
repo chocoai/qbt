@@ -1,0 +1,6 @@
+{
+    "static_url" : "http://183.47.12.54:8000",
+    "wechat_api" : "testweixin.qiubaotong.com",
+    "boss_api" : "183.47.12.54:8200",
+    "file_url" : "http://testboss.qiubaotong.com/file"
+}

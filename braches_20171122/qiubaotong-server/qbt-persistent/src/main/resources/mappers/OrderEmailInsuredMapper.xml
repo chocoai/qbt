@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderEmailInsuredMapper" >
+  <resultMap id="BaseResultMap" type="OrderEmailInsured" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="min" property="min" jdbcType="INTEGER" />
+    <result column="max" property="max" jdbcType="INTEGER" />
+    <result column="order_email_id" property="orderEmailId" jdbcType="INTEGER" />
+    <result column="insured_channel" property="insuredChannel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, update_time, min, max, order_email_id, insured_channel
+  </sql>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_email_insured
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="OrderEmailInsured" >
+    insert into order_email_insured (
+   		 id, 
+   		 create_time, 
+   		 update_time, 
+         min, 
+         max, 
+         order_email_id, 
+         insured_channel
+      )values (
+      	#{id,jdbcType=INTEGER}, 
+      	#{createTime,jdbcType=TIMESTAMP}, 
+      	#{updateTime,jdbcType=TIMESTAMP}, 
+      	#{min,jdbcType=INTEGER}, 
+      	#{max,jdbcType=INTEGER}, 
+      	#{orderEmailId,jdbcType=INTEGER}, 
+      	#{insuredChannel,jdbcType=VARCHAR}
+      )
+  </insert>
+ 
+  <update id="updateById" parameterType="OrderEmailInsured" >
+    update order_email_insured
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="min != null" >
+        min = #{min,jdbcType=INTEGER},
+      </if>
+      <if test="max != null" >
+        max = #{max,jdbcType=INTEGER},
+      </if>
+      <if test="orderEmailId != null" >
+        order_email_id = #{orderEmailId,jdbcType=INTEGER},
+      </if>
+      <if test="insuredChannel != null" >
+        insured_channel = #{insuredChannel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <select id="findByMinMaxAndOrderEmailId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_email_insured
+    where order_email_id = #{orderEmailId}
+    <if test="insuredValue == 0">
+    	and max = 0
+    </if>
+    <if test="insuredValue > 0">
+	    <![CDATA[
+	    and min < #{insuredValue} 
+	    and #{insuredValue}<= max
+	    ]]>
+    </if>
+    
+  </select> 
+  
+  
+</mapper>

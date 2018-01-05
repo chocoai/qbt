@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseSfTimeMapper">
+	<resultMap id="BaseResultMap" type="BaseSfTime">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="name" property="name" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
+		<result column="adjust_date" property="adjustDate" />
+		<result column="reference_date" property="referenceDate" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, name, start_date, end_date, adjust_date, reference_date,
+		remark
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from base_sf_time
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="BaseSfTime" keyProperty="id" useGeneratedKeys="true">
+		insert into base_sf_time (
+			create_time, name,
+			start_date, 
+			end_date, 
+			adjust_date,
+			reference_date, 
+			remark
+		) values (
+			#{createTime},
+			#{name},
+			#{startDate}, 
+			#{endDate}, 
+			#{adjustDate},
+			#{referenceDate}, 
+			#{remark}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="BaseSfTime">
+		update base_sf_time
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="startDate != null">
+				start_date = #{startDate},
+			</if>
+			<if test="endDate != null">
+				end_date = #{endDate},
+			</if>
+			<if test="adjustDate != null">
+				adjust_date = #{adjustDate},
+			</if>
+			<if test="referenceDate != null">
+				reference_date = #{referenceDate},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+	SELECT
+		<include refid="Base_Column_List" />
+		FROM base_sf_time 
+		<where>
+			<if test="condition.startDate != null">
+				<![CDATA[
+				and year(start_date) = #{condition.startDate} 
+				]]>
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="selectByDate" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from base_sf_time
+		where 
+			<![CDATA[
+				start_date <= date(#{date}) 
+				and end_date >= date(#{date})
+			]]>
+		order by id desc 
+		limit 1
+	</select>
+	
+	<delete id="deleteById">
+		delete from base_sf_time where id = #{id}
+	</delete>
+	
+	<select id="findByCondition" parameterType="BaseSfTime" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from base_sf_time
+		<where>
+			<if test="name != null">
+				and name = #{name}
+			</if>
+		</where>
+	</select>
+	
+</mapper>

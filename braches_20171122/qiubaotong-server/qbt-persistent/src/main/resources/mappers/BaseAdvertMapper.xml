@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseAdvertMapper">
+	<resultMap id="BaseResultMap" type="BaseAdvert">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="advert_describe" property="advertDescribe" jdbcType="VARCHAR" />
+		<result column="flat_type" property="flatType" jdbcType="INTEGER" />
+		<result column="open_type" property="openType" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="operator_id" property="operatorId" jdbcType="INTEGER" />
+		<result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, code, name, advert_describe, flat_type, open_type,
+		status, operator_id, operator_name, remark
+	</sql>
+	
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from base_advert
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<insert id="insert" parameterType="BaseAdvert" keyProperty="id" useGeneratedKeys="true">
+		insert into base_advert (
+			id,
+			create_time,
+			update_time,
+			code,
+			name,
+			advert_describe,
+			flat_type,
+			open_type,
+			status,
+			operator_id,
+			operator_name,
+			remark
+		)values (
+			#{id,jdbcType=INTEGER}, 
+			#{createTime,jdbcType=TIMESTAMP},
+			#{updateTime,jdbcType=TIMESTAMP},
+			#{code,jdbcType=VARCHAR},
+			#{name,jdbcType=VARCHAR},
+			#{advertDescribe,jdbcType=VARCHAR},
+			#{flatType,jdbcType=INTEGER}, 
+			#{openType,jdbcType=INTEGER},
+			#{status,jdbcType=INTEGER}, 
+			#{operatorId,jdbcType=INTEGER}, 
+			#{operatorName,jdbcType=VARCHAR},
+			#{remark,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="updateById" parameterType="BaseAdvert">
+		update base_advert
+		<set>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="advertDescribe != null">
+				advert_describe = #{advertDescribe,jdbcType=VARCHAR},
+			</if>
+			<if test="openType != null">
+				open_type = #{openType,jdbcType=INTEGER},
+			</if>
+			<if test="operatorId != null">
+				operator_id = #{operatorId,jdbcType=INTEGER},
+			</if>
+			<if test="operatorName != null">
+				operator_name = #{operatorName,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_advert
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.flatType != null">
+				AND flat_type = #{condition.flatType}
+			</if>
+			<if test="condition.status != null">
+				AND status = #{condition.status}
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	
+	<update id="updateStatus">
+		update base_advert set status = #{status} where id = #{id}
+	</update>
+	
+	<select id="listByCode" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_advert
+		<where>
+			code = #{code} and status = 1
+			and flat_type = #{flatType}
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body ng-controller="vipCardSetCtrl">
+	<div class="container containerWidthAuto">
+		<div class="row">
+			<div class="col-sm-offset-3 col-sm-5">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">实体会员卡号生成</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group form-inline">
+									<label style="min-width:140px;">发行名称：</label>
+									<input type="text" ng-model="name" class="form-control" placeholder="输入名称" minlength="2" maxlength="10">
+								</div>
+							</div>
+                        </div>
+						<div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group form-inline">
+                                    <label style="min-width:140px;">生成数量：</label>
+                                    <input type="number" ng-model="number" class="form-control" placeholder="输入数量" min="1">
+                                </div>
+                            </div>
+                         </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group form-inline">
+                                    <label style="min-width:140px;">支付金额：</label>
+                                    <input type="number" ng-model="payAmount" class="form-control" placeholder="选填" style="min-width:196px;">
+                                </div>
+                            </div>
+                         </div>
+                         <div class="row" ng-show="payAmount>=0 && (payAmount || payAmount===0)">
+                            <div class="col-sm-12">
+                                <div class="form-group form-inline">
+                                    <label style="min-width:140px;">销售状态：</label>
+                                    <select ng-model="sellStatus" class="form-control" style="min-width:196px";>
+                                        <option value="1">未售出</option>
+                                        <option value="2">已售出</option>
+                                    </select>
+                                </div>
+                            </div>
+                         </div> 
+                         <div class="row" ng-show="payAmount>0 && sellStatus==2">                   
+                            <div class="col-sm-12">
+                                <div class="form-group form-inline">
+                                    <label style="min-width:140px;">支付方式：</label>
+                                    <select ng-model="payMethod" class="form-control" style="min-width:196px">
+                                        <option value=""></option>
+                                        <option ng-repeat="item in vipCardActiveType" value="{{item.type}}" ng-bind="item.desc"></option>
+                                    </select>
+                                </div>
+                            </div>
+                         </div>          
+                         <div class="row">
+                             <div class="col-sm-12">
+                                <div class="form-group form-inline">
+                                    <label style="min-width:140px;">激活截至日：</label>
+                                    <div class="inputDateClose">
+                                        <input type="text" class="form-control date-picker" readonly placeholder="选择截至日" ng-model="end_time" onchange="">
+                                        <button ng-click="clearEndTime()" class="clearTime">x</button>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group form-inline">
+                                    <label style="min-width:140px;">会员卡类型：</label>
+                                    <select style="min-width:196px;" class="form-control" ng-model="vipTypeName">
+                                        <option ng-repeat="vipType in vipTypes" value="{{vipType.name}}">{{vipType.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group form-inline">
+                                    <label style="min-width:140px;">会员卡卡面价格：</label>
+                                    <label ng-show="amount">{{amount | currency : '￥'}}</label>
+                                </div>
+                            </div>
+                        </div>	
+                        <!-- //// -->
+                         <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group form-inline">
+                                    <label style="min-width:140px;">有效期（天数）：</label>
+                                    <label ng-bind="valid"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-sm-offset-5 col-sm-8">
+                                <button type="submit" class="btn btn-primary" ng-click="send()" >生成</button>
+                            </div>
+                        </div>	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/vipCardSetCtrl.js}}}"></script>
+</body>
+</html>

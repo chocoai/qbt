@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseAdvMapper" >
+  <resultMap id="BaseResultMap" type="BaseAdv" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, name, image, url, type, position, number
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_adv
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="BaseAdv" keyProperty="id" useGeneratedKeys="true">
+    insert into base_adv (create_time, name, 
+      image, url, type, position, number)
+    values (#{createTime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, 
+      #{image,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER})
+  </insert>
+  <delete id="delete">
+  	delete from base_adv where id = #{id}
+  </delete>
+  
+  <update id="updateByPrimaryKey" parameterType="BaseAdv">
+		update base_adv
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="image != null">
+				image = #{image,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				url = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="position != null">
+				position = #{position,jdbcType=VARCHAR},
+			</if>
+			<if test="number != null">
+				number = #{number,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+  
+   <select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_adv
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.type != null and condition.type != ''">
+				AND type LIKE CONCAT('%',#{condition.type},'%') 
+			</if>
+			<if test="condition.position != null and condition.position != ''">
+				AND position LIKE CONCAT('%',#{condition.position},'%') 
+			</if>
+		</where>
+		order by create_time desc 
+	</select>
+	
+	<select id="findByCondition" parameterType="BaseAdv" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from base_adv
+		<where>
+			<if test="number != 0">
+				and number = #{number} 
+			</if>
+		</where>
+	</select>
+	<select id="list" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from base_adv where type = #{type} and position = #{position} order by number  
+	</select>
+	
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from base_adv
+	    where id = #{id,jdbcType=INTEGER}
+  	</select>
+</mapper>

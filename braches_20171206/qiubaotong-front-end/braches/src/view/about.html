@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>球包通</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="{{{/css/main.min.css}}}">
+</head>
+<body class="bg-gray" ontouchstart>
+  <div class="container">
+    <!--头-->
+    <div class="header tex-c">
+      <a href="javascript:;" class="back"><img src="/img/back.png" /></a>
+      关于我们
+    </div>
+    <!--头 end-->
+    <div class="scroll">
+    <div class="marhead about">
+        <div class="weui_cells bg-white">
+            <div class="weui_cell">
+                <div class="weui_cell_bd ">
+                    <img src="/img/logo.png" class="a-logo" />
+                </div>
+                <div class="weui_cell_ft weui_cell_primary tex-l">版本号：V1.5</div>
+            </div>
+        </div>
+        <div class="flex-box mar-t20" style="border-radius: 0;">
+           <img src="/img/setting_about.jpg?v1" class="img-max" style="border-radius:6px;" />
+        </div>
+        <ul class="mar-t20 bg-white" style="padding-top: 20px; padding-bottom: 20px;">
+             <li>“球包通”是顺丰旗下专业高尔夫球包快递服务品牌，为高尔夫运动人群提供一种“去打球不用亲自携带球包、打完球不用亲自带走球包”的高尔夫服务全新体验。
+“球包通”的目标是成为“中国最好的球包搬运工”和“个性化快递服务第一品牌”。</li>
+
+
+        </ul>
+        <div class="about-footer">
+            <div class="weui_cells">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><img src="/img/phone-icon.png"/></div>
+                    <div class="weui_cell_bd ">
+                        <p>电话：</p>
+                    </div>
+                    <div class="weui_cell_ft"><a href="tel:4006090990">400-609-0990</a></div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><img src="/img/em.png"/></div>
+                    <div class="weui_cell_bd">
+                        <p>邮件：</p>
+                    </div>
+                    <div class="weui_cell_ft weui_cell_primary">
+support@qiubaotong.com</div>
+                </div>
+
+            </div>
+            <div class="tex-c">
+                <img src="/img/er.png" style="display:block; max-width:70%; margin: 0 auto 5px;" />
+                扫一扫，轻松出行
+            </div>
+            <p class="tex-c mar-t" style="margin-bottom:10px; border-top: 1px solid #fff; padding-top: 10px;">上海格灵信息科技有限公司
+© 版权所有</p>
+        </div>
+
+
+    </div>
+  </div>
+  </div>
+</body>
+<script src="/assets/js/zepto.min.js"></script>
+<script>
+$('.back').on('click',function(){
+    if(history.length>1){
+        history.back();
+    }else{
+        WeixinJSBridge.call('closeWindow');
+    }
+});
+</script>
+</html>

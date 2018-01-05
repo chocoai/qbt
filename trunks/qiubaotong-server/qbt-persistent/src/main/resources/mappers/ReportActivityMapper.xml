@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.ReportActivityMapper">
+
+	<resultMap id="ReportResultMap" type="ReportActivity">
+		<id column="name" property="name"/>
+		<id column="coupon_time" property="couponTime"/>
+		<id column="activity_time" property="activityTime"/>
+		<id column="total_amount" property="totalAmount"/>
+		<id column="used_amount" property="usedAmount"/>
+		<id column="unuse_amount" property="unuseAmount"/>
+		<id column="expire_amount" property="expireAmount"/>
+		<id column="total_num" property="totalNum"/>
+		<id column="used_num" property="usedNum"/>
+		<id column="unuse_num" property="unuseNum"/>
+		<id column="expire_num" property="expireNum"/>
+	</resultMap>
+
+	<select id="findByPage" resultMap="ReportResultMap">
+		select 
+			a.`name`,
+			CONCAT(REPLACE(left(a.start_time,10),'-',''),'-',REPLACE(left(a.end_time,10),'-','')) as activity_time,
+			CONCAT(REPLACE(left(co.start_time,10),'-',''),'-',REPLACE(left(co.end_time,10),'-','')) as coupon_time, 
+			c.total_amount,
+			c.used_amount,
+			c.unuse_amount,
+			if(cc.expire_amount is not null,cc.expire_amount,0) as expire_amount,
+			c.total_num,
+			c.used_num,
+			c.unuse_num,
+			if(cc.expire_num is not null,cc.expire_num ,0) as expire_num
+		from activity a 
+			left join coupon co on a.id = co.activity_id 
+			left join (
+				select 
+					activity_id,
+					SUM(child_amount) total_amount,
+					sum(case when `status`=2 then child_amount else 0 end) used_amount,
+					sum(case when `status`=1 then child_amount else 0 end) unuse_amount, 
+					SUM(1) total_num,
+					sum(case when `status`=2 then 1 else 0 end) used_num,
+					sum(case when `status`=1 then 1 else 0 end) unuse_num  
+				from coupon 
+				group by activity_id
+			) as c 
+			on a.id = c.activity_id 
+			left join (
+				select 
+					activity_id,
+					SUM(child_amount) expire_amount,
+					SUM(1) expire_num
+				from coupon  
+				where 
+					date(end_time) <![CDATA[<]]> CURRENT_DATE() 
+					and status=1 
+				group by activity_id
+			) as cc
+			on a.id = cc.activity_id
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND a.name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.startTime != null">
+				AND date(co.start_time) >= date(#{condition.startTime})
+			</if>
+			<if test="condition.endTime != null">
+				AND date(co.end_time) <![CDATA[<=]]> date(#{condition.endTime})
+			</if>
+		</where>
+		order by a.id desc
+	</select>
+	
+	<select id="findAll" resultMap="ReportResultMap">
+		select 
+			a.`name`,
+			CONCAT(REPLACE(left(a.start_time,10),'-',''),'-',REPLACE(left(a.end_time,10),'-','')) as activity_time,
+			CONCAT(REPLACE(left(co.start_time,10),'-',''),'-',REPLACE(left(co.end_time,10),'-','')) as coupon_time, 
+			c.total_amount,
+			c.used_amount,
+			c.unuse_amount,
+			if(cc.expire_amount is not null,cc.expire_amount,0) as expire_amount,
+			c.total_num,
+			c.used_num,
+			c.unuse_num,
+			if(cc.expire_num is not null,cc.expire_num ,0) as expire_num
+		from activity a 
+			left join coupon co on a.id = co.activity_id 
+			left join (
+				select 
+					activity_id,
+					SUM(child_amount) total_amount,
+					sum(case when `status`=2 then child_amount else 0 end) used_amount,
+					sum(case when `status`=1 then child_amount else 0 end) unuse_amount, 
+					SUM(1) total_num,
+					sum(case when `status`=2 then 1 else 0 end) used_num,
+					sum(case when `status`=1 then 1 else 0 end) unuse_num  
+				from coupon 
+				group by activity_id
+			) as c 
+			on a.id = c.activity_id 
+			left join (
+				select 
+					activity_id,
+					SUM(child_amount) expire_amount,
+					SUM(1) expire_num
+				from coupon 
+				where 
+					date(end_time) <![CDATA[<]]> CURRENT_DATE() 
+					and status=1 
+				group by activity_id
+			) as cc
+			on a.id = cc.activity_id 
+		<where>
+			<if test="name != null and name != ''">
+				AND a.name LIKE CONCAT('%',#{name},'%') 
+			</if>
+			<if test="startTime != null">
+				AND date(co.start_time) >= date(#{startTime})
+			</if>
+			<if test="endTime != null">
+				AND date(co.end_time) <![CDATA[<=]]> date(#{endTime})
+			</if>
+		</where>
+		order by a.id desc
+	</select>
+		
+</mapper>

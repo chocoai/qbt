@@ -1,0 +1,4 @@
+next(null,{"code":"0000","msg":"ok",
+	"datas":[
+	{"id":4,"createTime":1472007809000,"name":"广州白云机场","areaId":1001795,"treePath":"广东,广州,白云区","address":"机场路888号白云机场23号门","contact":"钟经理","mobile":"13924292416","lon":"0","lat":"0"},{"id":3,"createTime":1472007718000,"name":"上海虹桥机场","areaId":1004423,"treePath":"上海,上海市,闵行区","address":"2号航站楼国内到达106柜台，顺丰服务网点","contact":"许磊磊","mobile":"18818111617","lon":"0","lat":"0"},{"id":2,"createTime":1472007593000,"name":"厦门高崎机场","areaId":1001628,"treePath":"福建,厦门,湖里区","address":"T4航站楼二楼出发层14号门25号柜台，顺丰服务网点","contact":null,"mobile":null,"lon":"0","lat":"0"},{"id":1,"createTime":1472006475000,"name":"上海浦东国际机场","areaId":1004437,"treePath":"上海,上海市,浦东新区","address":"浦东机场2号航站楼国际到达出口（A2）顺丰柜台，机场行李寄放处","contact":"赵先啟","mobile":"15021902793","lon":"0","lat":"0"}],"page":{"pageNo":1,"pageSize":10,"totalCount":4,"totalPages":1}
+})

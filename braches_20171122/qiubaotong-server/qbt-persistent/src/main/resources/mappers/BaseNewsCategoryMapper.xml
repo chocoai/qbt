@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseNewsCategoryMapper">
+
+	<resultMap id="BaseResultMap" type="BaseNewsCategory">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="name" property="name" />
+		<result column="sort" property="sort" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, name, sort
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from base_news_category
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="BaseNewsCategory" keyProperty="id" useGeneratedKeys="true">
+		insert into base_news_category (
+			create_time, 
+			name,
+			sort,
+			status
+		) values (
+			#{createTime},
+			#{name},
+			#{sort},
+			#{status}
+		)
+	</insert>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from base_news_category 
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+			And status = 1 
+		</where>
+		order by sort asc,create_time desc
+	</select>
+	
+	<select id="findList" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" /> 
+		from base_news_category where status = 1 order by sort asc,create_time desc
+	</select>
+	
+	<select id="findByName" parameterType="BaseNewsCategory" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" /> 
+		from base_news_category 
+		<where>
+			<if test="name != null">
+				and name = #{name} 
+			</if>
+			And status = 1 
+		</where>
+		order by sort asc,create_time desc
+	</select>
+	
+	<select id="findByNameExceptSelf" parameterType="BaseNewsCategory" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" /> 
+		from base_news_category 
+		<where>
+			<if test="name != null">
+				and name = #{name} 
+			</if>
+		 	and	id != #{id,jdbcType=INTEGER} and status = 1 
+		</where>
+		order by sort asc,create_time desc
+	</select>
+	
+	<update id="updateById" parameterType="BaseNewsCategory">
+		update base_news_category 
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="sort != null">
+				sort = #{sort},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		update base_news_category set status = 0 where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+</mapper>

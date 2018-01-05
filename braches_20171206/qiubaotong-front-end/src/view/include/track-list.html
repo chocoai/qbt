@@ -1,0 +1,58 @@
+<template id="track-list">
+<section class="section">
+<!--头-->
+<div class="header tex-c bg-white" style="padding:0;height:44px;">
+    <div class="searchbar" style="line-height:24px;">
+      <div class="weui_search_bar" id="search_bar" style="padding:10px 10px;">
+            <div class="weui_search_outer" style="height:32px;line-height:32px;">
+                <div class="weui_search_inner">
+                    <i class="weui_icon_search" style="top:0;line-height:32px;"></i>
+                    <input type="search" class="weui_search_input"  placeholder="请输入订单号" v-model="query">
+                </div>
+            </div>
+            <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary" @click="search()" style="margin:0 5px;line-height:32px;">搜索</a>
+        </div>
+    </div>
+
+</div>
+<!--头 end-->
+<div class="scroll">
+<div class="marhead list">
+    <!--内容-->
+    <div class="weui_panel" v-for="item in orderList" @click="detail(item)">
+        <div class="weui_panel_hd">
+            订单号:{{item.number}} <span style="float:right;">></span>
+        </div>
+        <div class="weui_panel_bd">
+            <div class="weui-cells">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd font-gray">取包信息：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        {{item.jUserName}} {{item.jMobile}}
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        {{item.jCityName}}{{item.jAddressName}}
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd font-gray">送包信息：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        {{item.dUserName}} {{item.dMobile}}
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        {{item.dCityName}}{{item.dAddressName}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+</section>
+</template>

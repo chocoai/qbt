@@ -1,0 +1,207 @@
+<template id="order-pay">
+<section class="pad-b">
+<!--头-->
+<div class="header tex-c" style="background-color:#fff;">
+  <a href="javascript:;" class="back" @click="goBack()"><img src="/img/back.png" /></a>
+  订单支付
+</div>
+<div class="scroll bg">
+<!--头 end-->
+<div class="flex-box ord-logistics bg-white" marhead style="height: 60px;margin-top:50px;">
+   <div class="ord-transport">
+      <div class="ord-transport-on"></div>
+      <ul>
+         <li><i></i>待支付</li>
+         <li><i></i>待取包</li>
+         <li><i></i>运送中</li>
+         <li><i></i>已签收</li>
+      </ul>
+   </div>
+</div>
+<!--tab-->
+<div class="bd bg" style="height: 100%;">
+<div class="ord-details-lay" style="padding-top:0px;">
+          <div class="or-d-main bg-white">
+              <div class="weui_cells font14 mar-t">
+                  <div class="weui_cell">
+                    <div class="weui_cell_ft font-black">订单编号：</div>
+                      <div class="weui_cell_bd weui_cell_primary tex-l">
+                          <p>{{order_detail.number}}</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        <div class="flex bg-white font14 pad-lr or-address">
+              <div><img src="/img/home-icon.png?v2" atl="" /></div>
+                <div class=" tex-l flex-1 ">
+                    <p class="font-blod">寄件人：{{order_detail.jUserName}} <span class="fr">{{order_detail.jMobile}}</span></p>
+                    <p class="mar-t">{{order_detail.jAddrType == 4 ? order_detail.jCityName : ''}}{{order_detail.jAddressName}}<span class="activity-label" v-if="order_detail.activity.jActivity" style="color:#fff" @click="activityDetail(order_detail.activity.activityId)">减</span></p>
+                </div>
+        </div>
+
+        <div class="flex font14 pad-lr bg-white or-address">
+              <div><img src="/img/home-icon02.png?v2" atl="" /></div>
+                <div class=" tex-l flex-1 ">
+                    <p class="font-blod">收件人：{{order_detail.dUserName}} <span class="fr">{{order_detail.dMobile}}</span></p>
+                    <p class="mar-t">{{order_detail.dAddrType == 4 ? order_detail.dCityName : ''}}{{order_detail.dAddressName}}<span class="activity-label" v-if="order_detail.activity.dActivity" style="color:#fff" @click="activityDetail(order_detail.activity.activityId)">减</span></p>
+                </div>
+        </div>
+
+        <div class="weui_cells font14 mar-t or-d-main bg-white">
+            <div class="weui_cell" v-if="!activity">
+              <div class="weui_cell_ft font-black">优惠券：</div>
+                <div class="weui_cell_bd weui_cell_primary tex-r">
+                    <a href="javascript:;" class="weui_btn weui_btn_plain_default ordre-btn font14 mar-r15" @click="showCouponInput()">纸质</a>
+                    <div style="position:relative; display:inline-block;">
+                      <a href="javascript:;" class="weui_btn weui_btn_plain_default ordre-btn font14 mar-t0" @click="goCoupon()">电子
+                      </a>
+                        <i class="num tex-c">{{coupon_count}}</i>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14" v-show="coupon_use.chlidAmount">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft weui_cell_primary tex-l font-black">已使用优惠券{{coupon_use.chlidAmount}}元</div>
+                    <div class="weui_cell_bd ">
+                        <p class="weui_icon_clear" @click="cleanCoupon()"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft weui_cell_primary tex-l font-black">保价费：</div>
+                    <div class="weui_cell_bd ">
+                        <p>{{order_detail.insureFee | currency '￥'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft weui_cell_primary tex-l font-black">订单金额：</div>
+                    <div class="weui_cell_bd ">
+                        <p >{{order_detail.freight | currency '￥'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14" v-show="coupon_use.chlidAmount">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft weui_cell_primary tex-l font-black">优惠金额：</div>
+                    <div class="weui_cell_bd ">
+                        <p class="font-red">-{{coupon_use.realAmt | currency '￥'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14" v-show="activity">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft weui_cell_primary tex-l font-black">满减金额：</div>
+                    <div class="weui_cell_bd ">
+                        <p class="font-red">-{{activity_amt | currency '￥'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft weui_cell_primary font-red ">总计：</div>
+                    <div class="weui_cell_bd ">
+                        <p class="font-red" v-if="!activity">{{(order_detail.totalAmount - (coupon_use.realAmt || 0) ) | currency '￥'}}</p>
+                        <p class="font-red" v-if="activity">{{(order_detail.totalAmount - activity_amt)  | currency '￥'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="or-d-main bg-white mar-t">
+            <div class="weui_cells font14">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft">下单时间：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        <p class="font-gray">{{order_detail.createTime | dateFormat 'yyyy-MM-dd hh:mm:ss'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft">预约寄件：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        <p class="font-gray">{{order_detail.sendTimeSection}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14">
+                <div class="weui_cell font-green02">
+                  <div class="weui_cell_ft font-green02">预计到达：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        <p>{{order_detail.deliverTime}}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="weui_cells font14">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft">寄件类型：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        <p class="font-gray">{{order_detail.busnissType | commFilter 'business_type'}}</p>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="weui_cells font14">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft">保价金额：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        <p class="font-gray">{{order_detail.insureValue}}万</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="or-d-main bg-white mar-t">
+            <div class="weui_cells weui_cells_form font14">
+                <div class="weui_cell" style="padding-bottom:10px;align-items:flex-start;-webkit-align-items:flex-start;">
+                    <div class="weui_cell_hd" style="width:70px;">留言:</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        <!-- <input class="weui_input" maxlength="30" placeholder="留言(选填)" v-model="remark" v-bind:value="order_detail.remark"> -->
+                        <textarea rows="2" class="weui_input" maxlength="50" placeholder="留言(选填)"v-model="remark"  v-bind:value="order_detail.remark" style="height:inherit;"></textarea>
+                    </div>
+                </div>
+                <div class="weui_cell weui_cell_select weui_select_after" v-if="order_detail.partnerOrder == true">
+                    <div class="weui_cell_hd" style="width:70px;">短信语言:</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        <select class="weui_select" v-model="lang" style="height:auto;line-height:inherit;">
+                            <option value="{{item.split(':')[0]}}" v-for="item in langs">{{item.split(':')[1]}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+</div>
+<!--按钮-->
+<div class="ord-details-botton">
+    <div class="weui_cell bg-white">
+        <div class="weui_cell_ft weui_cell_primary font-red" v-if="!activity">
+            总计：{{(order_detail.totalAmount - (coupon_use.realAmt || 0) ) | currency '￥'}}
+        </div>
+        <div class="weui_cell_ft weui_cell_primary font-red" v-if="activity">
+            总计：{{(order_detail.totalAmount - activity_amt) | currency '￥'}}
+        </div>
+        <div>
+          <a href="javascript:;" class="weui_btn weui_btn_primary btn" @click="pay()">{{paylock ? '正在支付' : '立即支付'}}</a>
+        </div>
+    </div>
+</div>
+<div class="weui_dialog_confirm" v-show="showCoupon">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">请输入券号</strong></div>
+        <div class="weui_dialog_bd">
+            <input class="weui_input" type="text" maxlength="8" style="border:1px solid #ddd;height:30px;padding-left:20px;" placeholder="请输入8位券号" id="coupon_input"/>
+        </div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:;" class="weui_btn_dialog default" @click="showCoupon = false">取消</a>
+            <a href="javascript:;" class="weui_btn_dialog primary" @click="checkCoupon()">确定</a>
+        </div>
+    </div>
+</div>
+
+</section>
+</template>

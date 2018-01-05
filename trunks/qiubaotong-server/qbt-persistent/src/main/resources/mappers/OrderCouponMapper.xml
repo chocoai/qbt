@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderCouponMapper" >
+  <resultMap id="BaseResultMap" type="OrderCoupon" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
+    <result column="coupon_id" property="couponId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, order_id, activity_id, activity_name, coupon_id, user_id, user_name, code, type, amount, balance, status
+  </sql>
+  
+  <insert id="insert" parameterType="OrderCoupon" >
+    insert into order_coupon (create_time, order_id, activity_id, activity_name, coupon_id, user_id, user_name, code, type, amount, balance, status
+      )
+    values (#{createTime,jdbcType=TIMESTAMP}, #{orderId,jdbcType=INTEGER},
+    #{activityId,jdbcType=INTEGER}, #{activityName,jdbcType=VARCHAR}, #{couponId,jdbcType=INTEGER},
+    #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
+    #{type,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, #{balance,jdbcType=DECIMAL}, 
+    #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  
+  <select id="findByCode" resultMap="BaseResultMap">
+  	select * from order_coupon where coupon_id =#{couponId} and order_id =#{orderId}
+  </select>
+  
+  <update id="updateByOrderCancel">
+  	update order_coupon set status =2 where coupon_id =#{couponId} and order_id =#{orderId} and amount=#{discount}
+  </update>
+  
+</mapper>

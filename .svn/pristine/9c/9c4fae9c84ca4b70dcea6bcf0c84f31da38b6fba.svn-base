@@ -1,0 +1,26 @@
+package com.qbt.persistent.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.qbt.common.entity.PageEntity;
+import com.qbt.persistent.entity.UserAssistant;
+
+public interface UserAssistantMapper {
+	
+    int insert(UserAssistant record);
+
+    UserAssistant findById(Integer id);
+
+    int updateById(UserAssistant record);
+
+	List<UserAssistant> findAssistantBySiteId(@Param("siteId")int siteId,@Param("type")int type);
+	
+	//根据userId查询是否存在球包助理
+	UserAssistant selectByUserId(Integer userId);
+	
+	List<UserAssistant> findByPage(PageEntity<UserAssistant> pageEntity);
+	
+	int queryAssistantByApply(@Param("applyType")int applyType, @Param("applyId")int applyId);
+}

@@ -1,0 +1,172 @@
+<template id="order-detail">
+<section class="section">
+<!--头-->
+<div class="header tex-c" style="background-color:#fff;">
+  <a href="javascript:history.back();" class="back"><img src="/img/back.png" /></a>
+  订单详情
+</div>
+<div class="scroll bg">
+<!--头 end-->
+<div class="navbar" id="navbar">
+    <div class="flex-box ord-logistics bg-white" style="height: 60px;" v-if="pic">
+       <div class="{{pic}}">
+          <div class="ord-transport-on"></div>
+          <ul>
+             <li><i></i>待支付</li>
+             <li><i></i>待取包</li>
+             <li><i></i>运送中</li>
+             <li><i></i>已签收</li>
+          </ul>
+       </div>
+    </div>
+<!--tab-->
+<div class="bd bg" style="height: 100%;">
+<div class="weui_tab">
+    <div class="weui_navbar pad-lr">
+        <div class="weui_navbar_item" :class="{'weui_bar_item_on': tab == 1}" @click="tab = 1">
+            订单详情
+        </div>
+        <div class="weui_navbar_item" :class="{'weui_bar_item_on': tab == 2}" @click="tab = 2">
+            球包信息
+        </div>
+    </div>
+    <div class="weui_tab_bd ord-details-lay ">
+      <div v-show="tab == 1">
+        <div>
+          <div class="or-d-main bg-white">
+              <div class="weui_cells font14 mar-t">
+                  <div class="weui_cell">
+                    <div class="weui_cell_ft font-black">订单编号：</div>
+                      <div class="weui_cell_bd weui_cell_primary tex-l">
+                          <p>{{order_detail.number}}</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        <div class="flex bg-white font14 pad-lr or-address">
+            <div><img src="/img/home-icon.png?v2" atl="" /></div>
+            <div class=" tex-l flex-1 ">
+                <p class="font-blod">取包信息：{{order_detail.jUserName}} <span class="fr">{{order_detail.jMobile}}</span></p>
+                <p class="mar-t">{{(order_detail.jAddrType == 4  || order_detail.jAddrType == 0)? order_detail.jCityName : ''}}{{order_detail.jAddressName || order_detail.jAddress}}</p>
+            </div>
+        </div>
+
+        <div class="flex font14 pad-lr bg-white or-address">
+            <div><img src="/img/home-icon02.png?v2" atl="" /></div>
+            <div class=" tex-l flex-1 ">
+                <p class="font-blod">送包信息：{{order_detail.dUserName}} <span class="fr">{{order_detail.dMobile}}</span></p>
+                <p class="mar-t">{{(order_detail.dAddrType == 4 || order_detail.dAddrType == 0)? order_detail.dCityName : ''}}{{order_detail.dAddressName || order_detail.dAddress}}</p>
+            </div>
+        </div>
+
+        <div class="weui_cells font14 mar-t or-d-main bg-white">
+            <div class="weui_cells font14">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft weui_cell_primary tex-l font-black">保价费：</div>
+                    <div class="weui_cell_bd ">
+                        <p>{{order_detail.insureFee | currency '￥'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft weui_cell_primary tex-l font-black">订单金额：</div>
+                    <div class="weui_cell_bd ">
+                        <p >{{order_detail.freight | currency '￥'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14" v-if="order_detail.discount > 0">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft weui_cell_primary tex-l font-black">{{order_detail.vipOrder ? '会员优惠：' : '优惠金额：'}}</div>
+                    <div class="weui_cell_bd ">
+                        <p class="font-red">-{{order_detail.discount | currency '￥'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft weui_cell_primary font-red "><span v-if="order_detail.refundStatus !=1" style="margin-right:15px;">{{order_detail.refundStatus | commFilter 'refund_type'}}</span>总计：</div>
+                    <div class="weui_cell_bd ">
+                        <p class="font-red">{{order_detail.amount | currency '￥'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14" v-if="order_detail.outRangeAmount > 0">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft weui_cell_primary tex-l font-black"></div>
+                    <div class="weui_cell_bd ">
+                        <p>(含偏远派送费{{order_detail.outRangeAmount | currency '￥'}})</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="or-d-main bg-white mar-t">
+            <div class="weui_cells font14">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft">下单时间：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        <p class="font-gray">{{order_detail.createTime | dateFormat 'yyyy-MM-dd hh:mm:ss'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft">预约取包：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        <p class="font-gray">{{order_detail.sendTimeSection}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14">
+                <div class="weui_cell font-green02">
+                  <div class="weui_cell_ft font-green02">预计到达：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        <p>{{order_detail.deliverTime}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft">保价金额：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        <p class="font-gray">{{order_detail.insureValue}}万</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells font14" v-if="order_detail.remark">
+                <div class="weui_cell">
+                  <div class="weui_cell_ft">留言：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                        <p class="font-gray">{{order_detail.remark}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+     </div>
+     <!--物流详情-->
+     <div v-show="tab == 2">
+       <div class="bg-white mar-t" style="padding:10px 30px; margin-bottom: 10px;">
+         <div class="log-detail">
+           <ul>
+             <li v-for="item in way_list">
+                 <div v-if="item.remark != '到达..'">
+                     <i class="log-icon"></i>
+                     <p>{{item.remark.replace(/快件/,'球包').replace(/收件/,'取包').replace(/派件/,'送包').replace(/派件人/,'送包人')}}</p>
+                     <p class="font-gray">{{item.acceptTime | dateFormat 'yyyy-MM-dd hh:mm:ss'}}</p>
+                 </div>
+             </li>
+           </ul>
+         </div>
+       </div>
+     </div>
+  </div>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+</template>

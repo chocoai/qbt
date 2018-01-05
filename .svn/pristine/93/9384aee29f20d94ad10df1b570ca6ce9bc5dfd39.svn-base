@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.EmailMessageMapper">
+	<resultMap id="BaseResultMap" type="com.qbt.persistent.entity.EmailMessage">
+		<id column="id" property="id" />
+		<result column="request_time" property="requestTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="uuid" property="uuid" />
+		<result column="request_status" property="requestStatus" />
+		<result column="from_address" property="fromAddress" />
+		<result column="from_user_name" property="fromUserName" />
+		<result column="rec_address" property="recAddress" />
+		<result column="cc_address" property="ccAddress" />
+		<result column="subject" property="subject" />
+		<result column="attachments" property="attachments" />
+		<result column="data" property="data" />
+		<result column="platform" property="platform" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, request_time, update_time, uuid,
+		request_status, `from_address`, `from_user_name`,
+		rec_address, cc_address, subject,
+		attachments, data, platform
+	</sql>
+
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM email_message
+		<where>
+			<if test="condition.requestStatus != null">
+				and request_status = #{condition.requestStatus}
+			</if>
+			<if test="condition.subject != null and condition.subject != ''">
+				and subject LIKE CONCAT('%',#{condition.subject},'%') 
+			</if>
+			<if test="condition.platform != null and condition.platform != ''">
+				and platform = #{condition.platform}
+			</if>
+			<if test="condition.data != null and condition.data != ''">
+				and data LIKE CONCAT('%',#{condition.data},'%') 
+			</if>
+			<if test="condition.emailAddress != null and condition.emailAddress != ''">
+				and (rec_address LIKE CONCAT('%',#{condition.emailAddress},'%')
+					or cc_address LIKE CONCAT('%',#{condition.emailAddress},'%')) 
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY request_time desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findByUuid" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" /> FROM email_message where uuid = #{uuid}
+	</select>
+	
+</mapper>

@@ -1,0 +1,250 @@
+{
+	"id": "403c624b-7903-653b-5438-52b21f7de44b",
+	"name": "qbt-sfnotify",
+	"description": "",
+	"order": [
+		"07d44839-65f6-8ad2-bad5-0d6fbe605a60",
+		"036719dd-fc65-326d-d75c-16aadec7e613",
+		"dd5bdac7-3ed5-dabe-a708-7cf360b43a98"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1511936711393,
+	"owner": "392929",
+	"public": false,
+	"requests": [
+		{
+			"id": "036719dd-fc65-326d-d75c-16aadec7e613",
+			"headers": "Content-Type: application/json\ntoken: 667339c4e2374cd79702af488a464f30\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "token",
+					"value": "667339c4e2374cd79702af488a464f30",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:7070/system-web/sfnotify/enable.api",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1511937267877,
+			"name": "http://localhost:7070/system-web/sfnotify/enable.api",
+			"description": "",
+			"collectionId": "403c624b-7903-653b-5438-52b21f7de44b",
+			"rawModeData": "{\n  \"orderNumber\":\"sdfasdfasdf123\"\n}"
+		},
+		{
+			"id": "07d44839-65f6-8ad2-bad5-0d6fbe605a60",
+			"headers": "Content-Type: application/json\ntoken: 6c71390f1bb242b7a09d2144e32f1e96\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "token",
+					"value": "6c71390f1bb242b7a09d2144e32f1e96",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:7070/system-web/sfnotify/disable.api",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1511940507222,
+			"name": "http://localhost:7070/system-web/sfnotify/disable.api",
+			"description": "",
+			"collectionId": "403c624b-7903-653b-5438-52b21f7de44b",
+			"rawModeData": "{\n  \"orderNumber\":\"sdfasdfasdf1231\"\n}"
+		},
+		{
+			"id": "dd5bdac7-3ed5-dabe-a708-7cf360b43a98",
+			"headers": "Content-Type: application/json\ntoken: 667339c4e2374cd79702af488a464f30\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "token",
+					"value": "667339c4e2374cd79702af488a464f30",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:7070/system-web/sfnotify/findByPage.api",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1511937374597,
+			"name": "http://localhost:7070/system-web/sfnotify/findByPage.api",
+			"description": "",
+			"collectionId": "403c624b-7903-653b-5438-52b21f7de44b",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": 102,
+					"headers": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "accept,content-type,token,userId",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": "The language the content is in"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 29 Nov 2017 06:36:31 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Server",
+							"value": "Apache-Coyote/1.1",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookies": [
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/system-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "33B6BAE2D82100BA3458D908BD822C09"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":\"0000\",\"msg\":\"ok\",\"datas\":[{\"id\":2,\"createTime\":1511937382000,\"updateTime\":1511937391237,\"orderNumber\":\"sdfasdfasdf123\",\"operator\":24,\"operatorName\":\"赖哲祺\"}],\"page\":{\"pageNo\":1,\"pageSize\":10,\"totalCount\":1,\"totalPages\":1,\"hasNext\":false,\"lastRecordId\":0,\"lastRownum\":0,\"orderByColumn\":null,\"orderByType\":\"desc\",\"orderNumber\":\"sdfasdfasdf123\"}}",
+					"language": "json",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"code": 200,
+					"responseSize": {
+						"body": 356,
+						"header": 382,
+						"total": 738
+					},
+					"mimeType": "text",
+					"fileName": "response.json",
+					"dataURI": "data:application/json;base64, eyJjb2RlIjoiMDAwMCIsIm1zZyI6Im9rIiwiZGF0YXMiOlt7ImlkIjoyLCJjcmVhdGVUaW1lIjoxNTExOTM3MzgyMDAwLCJ1cGRhdGVUaW1lIjoxNTExOTM3MzkxMjM3LCJvcmRlck51bWJlciI6InNkZmFzZGZhc2RmMTIzIiwib3BlcmF0b3IiOjI0LCJvcGVyYXRvck5hbWUiOiLotZblk7LnpboifV0sInBhZ2UiOnsicGFnZU5vIjoxLCJwYWdlU2l6ZSI6MTAsInRvdGFsQ291bnQiOjEsInRvdGFsUGFnZXMiOjEsImhhc05leHQiOmZhbHNlLCJsYXN0UmVjb3JkSWQiOjAsImxhc3RSb3dudW0iOjAsIm9yZGVyQnlDb2x1bW4iOm51bGwsIm9yZGVyQnlUeXBlIjoiZGVzYyIsIm9yZGVyTnVtYmVyIjoic2RmYXNkZmFzZGYxMjMifX0=",
+					"name": "http://localhost:7070/system-web/sfnotify/findByPage.api",
+					"id": "aa64e723-7831-5a4d-5b21-ee5cd01dba87",
+					"isSample": true,
+					"scrollToResult": false,
+					"runTests": false,
+					"request": {
+						"url": "http://localhost:7070/system-web/sfnotify/findByPage.api",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [],
+						"headerData": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"enabled": true,
+								"description": ""
+							},
+							{
+								"key": "token",
+								"value": "667339c4e2374cd79702af488a464f30",
+								"enabled": true,
+								"description": ""
+							}
+						],
+						"headers": "Content-Type: application/json\ntoken: 667339c4e2374cd79702af488a464f30\n",
+						"data": "{\n  \"orderNumber\":\"sdfasdfasdf123\"\n}",
+						"method": "POST",
+						"dataMode": "raw"
+					}
+				}
+			],
+			"rawModeData": "{\n  \"orderNumber\":\"sdfasdfasdf123\"\n}"
+		}
+	]
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="coupunCheckCtrl">
+    <div class="container containerWidthAuto">
+        <div class="row">
+            <div class="col-sm-12">
+                <form class="form-inline applyCheckSearch">
+                    <div class="form-group marginRight5">
+                        <label for="search">优惠码：</label>
+                        <input ng-model="codes" type="search" class="form-control" id="search" placeholder="输入优惠码">
+                    </div>
+                    <div class="form-group marginRight5">
+                        <label>领取人：</label>
+                        <input ng-model="userName" type="text" class="form-control" placeholder="输入领取人">
+                    </div>
+                    <div class="form-group">
+                        <button id="search" class="btn btn-primary" ng-click="getList()">搜索</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">  
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <th>活动名称</th>
+                        <th>券码时间</th>
+                        <th>活动时间</th>
+                        <th>类型</th>
+                        <th>优惠码</th>
+                        <th>券金额</th>
+                        <th>子优惠码</th>
+                        <th>子券金额</th>
+                        <th>是否可用</th>
+                        <th>领取</th>
+                        <th>领取人</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in list track by $index">
+                            <td>{{item.name}}</td>
+                            <td>{{item.startTime | date : 'yyyy-MM-dd'}}到{{item.endTime | date : 'yyyy-MM-dd'}}</td>
+                            <td>{{item.activityStartTime | date : 'yyyy-MM-dd'}}到{{item.activityEndTime | date : 'yyyy-MM-dd'}}</td>
+                            <td>
+                                <span  class="label label-primary">{{item.type | commFilter:'coupon_type'}}</span>
+                            </td>
+                            <td>{{item.code}}</td>
+                            <td>{{item.amount}}</td>
+                            <td>{{item.childCode}}</td>
+                            <td>{{item.childAmount}}</td>
+                            <td>
+                                <label ng-show="item.status == 1" class="label label-success">未使用</label>
+                                <label ng-show="item.status != 1" class="label label-primary">已使用</label>
+                            </td>
+                            <td>
+                                <button ng-click="receiveToUser(item)" ng-show="item.claimType == 0" class="btn btn-primary btn-sm">未领取</button>
+                                <label ng-show="item.claimType != 0" class="label label-success padding7-10">已领取</button>
+                                </td>
+                                <td>{{item.userName}}</td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination page="page" change="getList(page,activityId)"></pagination>
+                </div>
+            </div>
+        </div>
+
+        <div id="memo" class="form-group dashboard-mark" style="display:none">
+            <div class="row">
+                <div class="col-sm-12">
+                    <form class="form-inline applyCheckSearch">
+                        <div class="form-group">
+                            <input ng-model="userName" type="search" class="form-control" id="search">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" ng-click="getUser()">查找</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <table class="table table-bordered table-condensed table-hover">
+                <thead>
+                    <th>头像</th>
+                    <th>昵称</th>
+                    <th>手机</th>
+                    <th>操作</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in users track by $index">
+                        <td style="text-align: center">
+                            <img ng-src="{{user.headImgUrl}}" alt="" style="width: 30px">
+                        </td>
+                        <td>
+                            {{user.nickname}}
+                        </td>
+                        <td>
+                            {{user.mobile}}
+                        </td>
+                        <td>
+                            <button ng-click="receive(user.id,user.name)" class="btn btn-success btn-xs">分发</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination page="page1" change="getUser(page)"></pagination>
+        </div>
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/coupunCheckCtrl.js}}}"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+<meta name="renderer" content="webkit">
+<meta name="Keywords" content="球包快递公司,高尔夫球包托运商">
+<meta name="Description" content="球包通国内唯一的高尔夫球包托运商！">
+<title>球包快递公司_高尔夫球包托运商-关于我们</title>
+<!-- Bootstrap -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href="css/normalize.css">
+<!--我的-->
+<link href="{{{/css/globle.css}}}" rel="stylesheet" type="text/css">
+<link href="css/newbag.css" rel="stylesheet" type="text/css">
+<link href="{{{/css/shop.css}}}" rel="stylesheet" type="text/css">
+
+<!--[if lte IE 6]>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-ie6.css">
+  <link rel="stylesheet" type="text/css" href="css/ie.css">
+<![endif]-->
+<!--[if lt IE 9]>
+  <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+    <!--头部-->
+    <header class="header">
+        <nav class="navbar scrolled">
+          <div class="container">
+              <div class="navbar-header">
+                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                     <span class="sr-only">切换导航</span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                 </button>
+                 <a href="/"><img src="images/logo-nav.png" alt="" style="max-height: 32px;margin-top:13px;"></a>
+              </div>
+              <div class="collapse navbar-collapse" id="navbar-collapse">
+                  <ul class="nav navbar-nav">
+                      <li><a href="/" class="main-nav-link ">主页</a> </li>
+                      <li><a href="order.html" class="main-nav-link ">球包快递</a></li>
+                      <li><a href="track.html" class="main-nav-link">球包追踪</a></li>
+                      <li><a href="raiders.html" class="main-nav-link">球包通攻略</a></li>
+                      <li><a href="service.html" class="main-nav-link ">客服中心</a></li>
+                      <li><a href="about.html" class="main-nav-link current">关于我们</a></li>
+                      <li><a href="/news/" class="main-nav-link ">球包通新闻</a></li>
+                      <li><a href="tel:400-609-0990;" style="font-weight:700;"><img src="images/nav-tel.png" alt="" style="height:25px;margin-right:15px;">400-609-0990</a></li>
+                  </ul>
+              </div>
+          </div>
+        </nav>
+      <div class="container slogan-wrapper text-center">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>您和球场之间只有一个<br />球包通的距离</h2>
+            <h2></h2>
+            <br />
+            <br /><br />
+          </div>
+        </div>
+        <div class="row">
+          <h4></h4>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+              <a class="btn btn-grey learn-more" href="service.html">了解更多</a>
+              <a href="order.html" class="btn btn-primary ship-now-home">寄 球 包</a>
+          </div>
+        </div><br /><br />
+        <br />
+
+      </div>
+    </header>
+    <!--头部 end-->
+<!--内容-->
+<div class="about-us">
+<section>
+    <div class="container">
+        <div class="row">
+           <div class="col-sm-6 col-md-6">
+              <img alt="" class="img-responsive" src="/images/about-us.png" />
+           </div><br>
+           <div class="col-sm-6 col-md-6">
+               <h4 class="font-bold">我们的使命</h4><br><br>
+               <p>让您的高尔夫出行变得方便和有趣。<br><br>
+               </p>
+           </div>
+        </div>
+    </div>
+</section>
+<section class="bg-gary">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <br>
+                <h4 class="font-bold">关于我们</h4><br />
+                <p>“球包通”是专业的高尔夫球包快递服务品牌，为高尔夫运动人群提供一种“去打球不用亲自携带球包、打完球不用亲自带走球包”的高尔夫服务全新体验。
+“球包通”的目标是成为“中国最好的球包搬运工”和“个性化快递服务第一品牌”。</p>
+                <br />
+                <p>
+                    公司愿景：<br />
+                    1、品牌：球包通成为高尔夫垂直领域中最为出众最具个性的品牌<br />
+                    2、客户：我们的球包管家式服务，使客户心情愉悦，神采焕发，享受更加丰富、美好的高尔夫生活<br />
+                    3、员工：追求速度与效率，专注于对客户和公司有影响的创新，同时建立信任与负责任的人际关系
+                </p>
+
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 timeline-wrapper">
+                <br>
+                <ul class="timeline list-style-type-none no-padding-left-xs">
+                    <li><span class="year">2015.11    </span>
+                        <div class="milestone-img"></div><span class="milestone">平台正式上线，第一位用户的订单：珠海——中山</span>
+                    </li>
+                    <li><span class="year">2016.01   </span>
+                        <div class="milestone-img"></div><span class="milestone">与顺丰签订股份锁定协议</span>
+                    </li>
+                    <li><span class="year">2016.01  </span><div class="milestone-img"></div>
+                        <span class="milestone">签约上海颖奕安亭高尔夫球场</span>
+                    </li>
+                    <li><span class="year">2016.01   </span>
+                        <div class="milestone-img"></div><span class="milestone">在上海虹桥、浦东机场和厦门高崎机场设立球包通站点</span>
+                    </li>
+                    <li><span class="year">2016.06   </span>
+                        <div class="milestone-img"></div><span class="milestone">董事会确定设立珠海分公司</span>
+                    </li>
+                    <li><span class="year">2016.09   </span>
+                        <div class="milestone-img"></div><span class="milestone">顺利发出第一批海外球包快递（至台湾，4单）</span>
+                    </li>
+                    <li><span class="year">2016.09   </span>
+                        <div class="milestone-img"></div><span class="milestone">签约上海东和旅行社进行战略合作，开通球包快递日语服务通道</span>
+                    </li>
+                    <li><span class="year">2016.10   </span>
+                        <div class="milestone-img"></div><span class="milestone">球包通新功能上线：支持一单多包</span>
+                    </li>
+
+                </ul>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+<!--内容end-->
+<!--底部-->
+@@include('include/footer.html')
+<!--底部 end-->
+<script src="assets/jquery.min.js"></script>
+<script src="assets/bootstrap.min.js"></script>
+</body>
+</html>

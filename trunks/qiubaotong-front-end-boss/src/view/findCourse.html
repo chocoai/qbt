@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="findCourseCtrl">
+<div class="container containerWidthAuto">
+    <div class="row">
+        <div class="col-sm-6">
+            <form class="form-inline mb8">
+                <div class="form-group paddingBottom10">
+                	<label>省：</label>
+                    <select style="min-width:93px" ng-change="getCitieses()" class="form-control marginRight5" ng-model="province">
+                        <option value="">全部</option>
+                        <option ng-repeat="datas in provinceses" value={{datas.id}}>
+                        {{datas.fullName}}
+                    </option>
+                    </select>
+                </div>
+                <div class="form-group paddingBottom10">
+                    <label>市：</label>
+                    <select style="min-width:93px" ng-change="getCounties()" class="form-control marginRight5" ng-model="city">
+                        <option value="">全部</option>
+                        <option ng-repeat="datas in citieses" value={{datas.id}}>
+                            {{datas.fullName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group paddingBottom10">
+                    <label>区：</label>
+                    <select style="min-width:93px" class="form-control marginRight5" ng-model="county">
+                        <option value="">全部</option>
+                        <option ng-repeat="datas in countieses" value={{datas.id}}>{{datas.fullName}}</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group form-inline marginRight5 paddingBottom10">
+                <label for="course_name">球场名称：</label>
+                <input type="text" class="form-control" ng-model="course_name" placeholder="输入球场名称">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <form class="form-inline mb8">
+                <div class="form-group paddingBottom10">
+                    <label>签约状态：</label>
+                    <select style="min-width:93px" id="counties" class="form-control marginRight5" ng-model="status">
+                        <option value="">全部</option>
+                        <option ng-repeat="course_status_type in course_status_types" value="{{course_status_type.type}}">{{course_status_type.desc}}</option>
+                    </select>
+                </div>
+                <div class="form-group paddingBottom10">
+                    <label>状态：</label>
+                    <select style="min-width:93px" id="counties" class="form-control marginRight5" ng-model="isDelete">
+                        <option value="">全部</option>
+                        <option value="false">启用</option>
+                        <option value="true">禁用</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <form class="form-inline mb8">
+                <div class="form-group">
+                    <label>是否偏远球场：</label>
+                    <select style="min-width:93px" class="form-control marginRight5" ng-model="isOutRange">
+                        <option value="">全部</option>
+                        <option value="true">是</option>
+                        <option value="false">否</option>
+                    </select>
+                </div>
+                <div class="form-group  paddingBottom10 pull-right">
+                    <button id="search" class="btn btn-primary marginRight5" ng-click="AreaFindCourse()">搜索</button>
+                    <button class="btn btn-primary" ng-click="addCourse()">新增</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <th>球场名称</th>
+                    <th>是否有球包助理</th>
+                    <th>是否偏远球场</th>
+                    <th>偏远球场时效(天)</th>
+                    <th>偏远球场价格</th>
+                    <th class="qbt-font3">省</th>
+                    <th class="qbt-font3">市</th>
+                    <th class="qbt-font3">区</th>
+                    <th class="qbt-font3">联系人</th>
+                    <th>电话</th>
+                    <th>签约状态</th>
+                    <th>状态</th>
+                    <th style="min-width:162px">操作</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in list track by $index">
+                        <td><a style="line-height:20px;" ng-click="updateCourse(item.id)" class="fa" href="javascript:void(0)">{{item.name}}</a></td>
+                        <td>{{item.hasAssistant ? '是' : '否'}}</td>
+                        <td>{{item.isOutRange ? '是' : '否'}}</td>
+                        <td>{{item.outRangeTime}}</td>
+                        <td>{{item.outRangePrice}}</td>
+                        <td>{{item.treePath.split(',')[0]}}</td>
+                        <td>{{item.treePath.split(',')[1]}}</td>
+                        <td>{{item.treePath.split(',')[2]}}</td>
+                        <td>{{item.contact}}</td>
+                        <td>{{item.mobile}}</td>
+                        <td><label  class="label padding7-10" ng-class="{'label-success':item.status == 1,'label-warning':item.status == 2,'label-danger':item.status == 3,'label-default':item.status == 4}">{{item.status | commFilter:'course_status_type'}}</label></td>
+                        <td>
+                            <label ng-class="{'label-success':!item.isDelete,'label-default':item.isDelete}" class="label">{{item.isDelete ? '禁用' : '启用'}}</label>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm" ng-class="{'btn-danger':!item.isDelete,'btn-success':item.isDelete}" ng-click="bankDisabled(item.id,item.isDelete)">
+                                {{item.isDelete ? '启用' : '禁用'}}
+                            </button>
+                            <button ng-show="item.hasAssistant" ng-click="toTheCourse(item.name)" class="btn btn-primary btn-sm">查询助理明细</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination page="page" change="getList(page)"></pagination>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/findCourseCtrl.js}}}"></script>
+</body>
+</html>

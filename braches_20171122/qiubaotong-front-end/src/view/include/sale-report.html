@@ -1,0 +1,66 @@
+<template id="sale-report">
+<section class="section" id="sale">
+<div class="header tex-c" style="background-color:#fff;">
+  <a href="javascript:;" @click="goView('sale_info_view')" class="back"><img src="/img/back.png" /></a>
+  我的业绩
+</div>
+<div class="scroll marhead">
+    <div class="weui_tab">
+        <div class="weui_navbar">
+            <div style="border-radius: 10px" class="weui_navbar_item item-left" :class="{'weui_bar_item_on':tab == 1}" @click="tab =1">
+                代下单提成
+            </div>
+          <!--   <div class="weui_navbar_item item-right" :class="{'weui_bar_item_on':tab == 2}" @click="tab =2">
+                新拉关注
+            </div> -->
+        </div>
+        <div class="weui_tab_bd bg-white">
+            <div class="sale-search pad-lr">
+                <label>统计日期</label>
+                <select v-model="year">
+                    <option value="">年份</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                </select>
+                <select v-model="month">
+                    <option value="">月份</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+            </div>
+            <div class="sale-search pad-lr" style="border-bottom: 1px solid #ddd;">
+                <label>结单状态</label>
+                <select v-model="settleStatus">
+                    <option value="0">全部</option>
+                    <option value="2">已结算</option>
+                    <option value="1">未结算</option>
+                </select>
+            </div>
+            <div class="sale-table pad-lr">
+                <table>
+                    <thead>
+                        <th>日期</th><th>数量</th><th v-show="tab == 1">提成金额</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in list">
+                            <td>{{item.orderDate}}</td><td>{{tab == 1 ? item.totalOrderNum : item.num}}</td><td v-show="tab == 1">{{item.totalAmount | currency '￥'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+</template>

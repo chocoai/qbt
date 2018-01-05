@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseBspAreaConfigMapper">
+
+	<resultMap id="BaseResultMap" type="BaseBspAreaConfig">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="src_province" property="srcProvince" />
+		<result column="src_city" property="srcCity" />
+		<result column="src_country" property="srcCountry" />
+		<result column="dest_province" property="destProvince" />
+		<result column="dest_city" property="destCity" />
+		<result column="dest_country" property="destCountry" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, src_province, src_city, src_country, dest_province, dest_city, dest_country
+	</sql>
+	
+	<insert id="insert" parameterType="BaseBspAreaConfig" keyProperty="id" useGeneratedKeys="true">
+		insert into base_bsp_area_config (
+			create_time, 
+			src_province, 
+			src_city, 
+			src_country, 
+			dest_province, 
+			dest_city, 
+			dest_country
+		) values (
+			#{createTime},
+			#{srcProvince},
+			#{srcCity},
+			#{srcCountry},
+			#{destProvince},
+			#{destCity},
+			#{destCountry}
+		)
+	</insert>
+	
+	<delete id="deleteById">
+		delete from base_bsp_area_config where id = #{id}
+	</delete>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from base_bsp_area_config 
+		order by create_time desc
+	</select>
+	
+	<select id="findById" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from base_bsp_area_config 
+		where id = #{id}
+	</select>
+	
+	<select id="findBySrcArea" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />
+		from base_bsp_area_config 
+		where 
+			src_city = #{srcCity} 
+			and src_country = #{srcCountry}
+	</select>
+	
+</mapper>

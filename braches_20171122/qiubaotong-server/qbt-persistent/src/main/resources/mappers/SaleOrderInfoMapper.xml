@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.SaleOrderInfoMapper">
+
+	<resultMap id="BaseResultMap" type="SaleOrderInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+		<result column="sale_id" property="saleId" jdbcType="INTEGER" />
+		<result column="order_id" property="orderId" jdbcType="INTEGER" />
+		<result column="order_amount" property="orderAmount" jdbcType="DECIMAL" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="type_value" property="typeValue" jdbcType="DECIMAL" />
+		<result column="amount" property="amount" jdbcType="DECIMAL" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="settle_status" property="settleStatus"
+			jdbcType="INTEGER" />
+		<result column="settle_time" property="settleTime" jdbcType="TIMESTAMP" />
+		<result column="sys_user_id" property="sysUserId" jdbcType="INTEGER" />
+		<result column="sys_user_name" property="sysUserName" jdbcType="VARCHAR" />
+		<result column="settle_method" property="settleMethod"
+			jdbcType="INTEGER" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="DtoResultMap" type="SaleOrderInfoDto">
+		<result column="company" property="company" />
+		<result column="idcard" property="idcard" />
+		<result column="mobile" property="mobile" />
+		<result column="name" property="name" />
+		<result column="salesman_code" property="salesmanCode" />
+		<result column="total_amount" property="totalAmount" />
+		<result column="total_order_amount" property="totalOrderAmount" />
+		<result column="total_order_num" property="totalOrderNum" />
+		<result column="type" property="type" />
+		<result column="type_value" property="typeValue" />
+		<result column="settle_number" property="settleNumber" />
+		<result column="settle_amount" property="settleAmount" />
+		<result column="sale_id" property="saleId" jdbcType="INTEGER" />
+		<result column="sys_user_id" property="sysUserId" jdbcType="INTEGER" />
+		<result column="sys_user_name" property="sysUserName" jdbcType="VARCHAR" />
+		<result column="order_date" property="orderDate" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, create_time, order_time, sale_id, order_id, order_amount, amount,
+		status, settle_status,
+		settle_time, sys_user_id, sys_user_name, settle_method, remark,type,type_value
+	</sql>
+
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sale_order_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<insert id="insert" parameterType="SaleOrderInfo">
+		insert into sale_order_info (create_time, order_time,
+		sale_id, order_id, order_amount,
+		amount, status, settle_status,
+		settle_time, sys_user_id, sys_user_name,
+		settle_method, remark,type,type_value)
+		values ( #{createTime,jdbcType=TIMESTAMP}, #{orderTime,jdbcType=TIMESTAMP},
+		#{saleId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER},
+		#{orderAmount,jdbcType=DECIMAL},
+		#{amount,jdbcType=DECIMAL}, #{status,jdbcType=INTEGER}, #{settleStatus,jdbcType=INTEGER},
+		#{settleTime,jdbcType=TIMESTAMP}, #{sysUserId,jdbcType=INTEGER},
+		#{sysUserName,jdbcType=VARCHAR},
+		#{settleMethod,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{type}, #{typeValue})
+	</insert>
+
+	<select id="reportOrderInfoPage" parameterType="SaleOrderInfoDto"
+		resultMap="DtoResultMap">
+		select
+		su.salesman_code,so.sale_id,
+		su.`name`,su.idcard,su.mobile,
+		su.company,so.type,so.type_value,
+		sum(so.order_amount) as total_order_amount,
+		count(so.id) as total_order_num,
+		sum(so.amount) as total_amount
+		from sale_order_info so left join sale_user su on
+		so.sale_id=su.id
+		<where>
+			<if test="condition.startDate != null">
+			<![CDATA[
+			 and date(so.create_time) >= date(#{condition.startDate}) 
+			]]>
+			</if>
+			<if test="condition.endDate != null">
+			<![CDATA[
+			and date(so.create_time) <= date(#{condition.endDate}) 
+			]]>
+			</if>
+			<if test="condition.salesmanCode != null and condition.salesmanCode !=''">
+				and su.salesman_code like concat('%',#{condition.salesmanCode},'%')
+			</if>
+			<if test="condition.name != null and condition.name != ''">
+				and su.name like concat('%',#{condition.name},'%')
+			</if>
+			<if test="condition.mobile != null and condition.mobile != ''">
+				and su.mobile like concat('%',#{condition.mobile},'%')
+			</if>
+			<if test="condition.deliveryStatus == 1">
+				and so.status in(2,3)
+			</if>
+			<if test="condition.deliveryStatus == 2">
+				and so.status = 1
+			</if>
+			<if test="condition.settleStatus > 0">
+				and so.settle_status = #{condition.settleStatus}
+			</if>
+			<if test="condition.orderStatus == 1">
+				and so.status in(1,2)
+			</if>
+			<if test="condition.orderStatus == 2">
+				and so.status=3
+			</if>
+		</where>
+		group by so.sale_id,so.type,so.type_value
+	</select>
+
+	<update id="update" parameterType="SaleOrderInfo">
+		update sale_order_info
+		<set>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="settleStatus != null">
+				settle_status = #{settleStatus,jdbcType=INTEGER},
+			</if>
+			<if test="settleTime != null">
+				settle_time = #{settleTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sysUserId != null">
+				sys_user_id = #{sysUserId,jdbcType=INTEGER},
+			</if>
+			<if test="sysUserName != null">
+				sys_user_name = #{sysUserName,jdbcType=VARCHAR},
+			</if>
+			<if test="settleMethod != null">
+				settle_method = #{settleMethod,jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="updateStatus">
+		update sale_order_info set status=#{status} where order_id=#{orderId}
+	</select>
+
+	<select id="settleAbleInfo" parameterType="SaleOrderInfoDto"
+		resultMap="DtoResultMap">
+		select count(1) settle_number, sum(amount) settle_amount
+		from sale_order_info
+		<where>
+			status = 1
+			and settle_status = 1
+			<if test="saleId != null">
+				and sale_id = #{saleId}
+			</if>
+			<if test="startDate != null">
+				<![CDATA[
+				and date(order_time) >= date(#{startDate}) 
+				]]>
+			</if>
+			<if test="endDate != null">
+				<![CDATA[
+				and date(order_time) <= date(#{endDate}) 
+				]]>
+			</if>
+		</where>
+	</select>
+
+	<update id="settleOrder" parameterType="SaleOrderInfoDto">
+		update sale_order_info
+		<set>
+			<if test="settleMethod != null">
+				settle_method = #{settleMethod},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			settle_status = 2,
+			settle_time = now(),
+			sys_user_id = #{sysUserId},
+			sys_user_name = #{sysUserName}
+		</set>
+		<where>
+			status = 1
+			and settle_status = 1
+			<if test="saleId != null">
+				and sale_id = #{saleId}
+			</if>
+			<if test="startDate != null">
+				<![CDATA[
+				and date(order_time) >= date(#{startDate}) 
+				]]>
+			</if>
+			<if test="endDate != null">
+				<![CDATA[
+				and date(order_time) <= date(#{endDate}) 
+				]]>
+			</if>
+		</where>
+	</update>
+
+	<select id="findByPageBySaleId" resultMap="BaseResultMap">
+		SELECT
+		oi.number AS number,
+		soi.create_time,
+		soi.order_amount,
+		soi.amount,
+		soi.status,
+		soi.settle_status,
+		soi.settle_time,
+		soi.sys_user_name,
+		soi.settle_method,
+		soi.remark,
+		soi.order_id
+		from sale_order_info soi left join order_info oi on soi.order_id = oi.id 
+		<where>
+			<if test="condition.saleId > 0">
+				AND soi.sale_id = #{condition.saleId}
+			</if>
+			<if test="condition.startDate != null">
+				<![CDATA[
+				and date(soi.create_time) >= date(#{condition.startDate}) 
+				]]>
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+				and date(soi.create_time) <= date(#{condition.endDate}) 
+				]]>
+			</if>
+		</where>
+		order by soi.create_time desc
+	</select>
+	
+	<select id="wechatUserOrderList" parameterType="SaleOrderInfoDto"
+		resultMap="DtoResultMap">
+		select 
+			sale_id,
+			date(create_time) order_date,
+			count(1) total_order_num,
+			sum(amount) total_amount 
+		from sale_order_info 
+		<where>
+			status in (1, 2) 
+			<if test="saleId != null">
+				and sale_id = #{saleId} 
+			</if>
+			<if test="settleStatus != null and settleStatus > 0">
+				and settle_status = #{settleStatus} 
+			</if>
+			<if test="queryDate != null">
+				and date_format(create_time,'%Y-%m') = #{queryDate} 
+			</if>
+		</where>
+		GROUP BY sale_id,date(create_time)
+		order by order_date desc 
+	</select>
+	
+</mapper>

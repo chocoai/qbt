@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderActivityBookMapper">
+
+	<resultMap id="BaseResultMap" type="OrderActivityBook">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="activity_id" property="activityId" />
+		<result column="activity_name" property="activityName" />
+		<result column="total_amount" property="totalAmount" />
+		<result column="discount" property="discount" />
+		<result column="amount" property="amount" />
+		<result column="type" property="type" />
+		<result column="status" property="status" />
+		<result column="order_id" property="orderId" />
+		
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, activity_id, activity_name, total_amount, discount, amount, type
+		, status, order_id
+	</sql>
+	
+	<insert id="insert" parameterType="OrderActivityBook" keyProperty="id" useGeneratedKeys="true">
+		insert into order_activity_book (
+			create_time, 
+			update_time,
+			activity_id, 
+			activity_name, 
+			total_amount, 
+			discount, 
+			amount, 
+			type,
+			status,
+			order_id
+		) values (
+			#{createTime},
+			#{updateTime},
+			#{activityId},
+			#{activityName},
+			#{totalAmount},
+			#{discount},
+			#{amount},
+			#{type},
+			#{status},
+			#{orderId}
+		)
+	</insert>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select 
+		oab.id, 
+		oab.create_time,
+		oab.update_time, 
+		oab.activity_id, 
+		oab.activity_name, 
+		oab.total_amount, 
+		oab.discount, 
+		oab.amount, 
+		oab.type, 
+		oab.status, 
+		oab.order_id,
+		oi.number AS number
+		from order_activity_book oab left join order_info oi on oab.order_id = oi.id
+		<where>
+			<if test="condition.activityName != null and condition.activityName != ''">
+				and activity_name like concat('%', #{condition.activityName}, '%') 
+			</if>
+			<if test="condition.activityId != null and condition.activityId != ''">
+				and activity_id = #{condition.activityId}
+			</if>
+			<if test="condition.number != null and condition.number != ''">
+				and oi.number = #{condition.number}
+			</if>
+		</where> 
+		order by oab.create_time desc 
+	</select>
+	
+	<update id="updateStatus">
+		update order_activity_book set update_time=now(),status = 2 where order_id=#{orderId}
+	</update>
+	
+</mapper>

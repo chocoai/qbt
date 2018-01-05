@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.VipPaymentMapper">
+
+	<resultMap id="BaseResultMap" type="VipPayment">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="uuid" property="uuid" />
+		<result column="order_id" property="orderId" />
+		<result column="user_id" property="userId" />
+		<result column="pay_amount" property="payAmount" />
+		<result column="pay_method" property="payMethod" />
+		<result column="status" property="status" />
+		<result column="pay_status" property="payStatus" />
+		<result column="vip_type_id" property="vipTypeId" />
+		<result column="name" property="name" />
+		<result column="user_name" property="userName" />
+		<result column="mobile" property="mobile" />
+		<result column="valid_desc" property="validDesc" />
+		<result column="valid" property="valid" />
+		<result column="pay_sign" property="paySign" />
+		<result column="prepay_id" property="prepayId" />
+		<result column="pay_bak_no" property="payBakNo" />
+		<result column="start_time" property="startTime" />
+		<result column="expire_time" property="expireTime" />
+		<result column="paypackage" property="paypackage" />
+		<result column="user_img_id" property="userImgId" />
+		<result column="user_image_url" property="userImageUrl" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, uuid, order_id, user_id, pay_amount,
+		pay_method, status,
+		pay_status, name,vip_type_id, user_name, mobile, valid_desc, valid, pay_sign, prepay_id,
+		pay_bak_no,
+		start_time, expire_time,paypackage,user_img_id,user_image_url 
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from vip_payment
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="VipPayment" keyProperty="id" useGeneratedKeys="true">
+		insert into vip_payment (
+			create_time, 
+			update_time,
+			uuid, 
+			order_id, 
+			user_id,
+			pay_amount, 
+			pay_method, 
+			status,
+			pay_status, 
+			vip_type_id,
+			name, 
+			user_name,
+			mobile, 
+			valid_desc, 
+			valid,
+			pay_sign, 
+			prepay_id, 
+			pay_bak_no,
+			start_time, 
+			expire_time, 
+			paypackage,
+			user_img_id,
+			user_image_url
+		)
+		values (
+			#{createTime},
+			#{updateTime},
+			#{uuid}, 
+			#{orderId}, 
+			#{userId},
+			#{payAmount}, 
+			#{payMethod},
+			#{status},
+			#{payStatus}, 
+			#{vipTypeId},
+			#{name}, 
+			#{userName},
+			#{mobile}, 
+			#{validDesc},
+			#{valid},
+			#{paySign}, 
+			#{prepayId}, 
+			#{payBakNo},
+			#{startTime}, 
+			#{expireTime},
+			#{paypackage},
+			#{userImgId},
+			#{userImageUrl}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="VipPayment">
+		update vip_payment
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="uuid != null">
+				uuid = #{uuid},
+			</if>
+			<if test="orderId != null">
+				order_id = #{orderId},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>
+			<if test="payAmount != null">
+				pay_amount = #{payAmount},
+			</if>
+			<if test="payMethod != null">
+				pay_method = #{payMethod},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="payStatus != null">
+				pay_status = #{payStatus},
+			</if>
+			<if test="vipTypeId != null">
+				vip_type_id = #{vipTypeId},
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="validDesc != null">
+				valid_desc = #{validDesc},
+			</if>
+			<if test="valid != null">
+				valid = #{valid},
+			</if>
+			<if test="paySign != null">
+				pay_sign = #{paySign},
+			</if>
+			<if test="prepayId != null">
+				prepay_id = #{prepayId},
+			</if>
+			<if test="payBakNo != null">
+				pay_bak_no = #{payBakNo},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime},
+			</if>
+			<if test="expireTime != null">
+				expire_time = #{expireTime},
+			</if>
+			<if test="paypackage != null">
+				paypackage = #{paypackage},
+			</if>
+			<if test="userImgId != null">
+				user_img_id = #{userImgId},
+			</if>
+			<if test="userImageUrl != null">
+				user_image_url = #{userImageUrl},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+
+	<select id="findByUserId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from vip_payment
+		where user_id = #{userId} and pay_method =#{paymethod} order by id desc
+		limit 1
+	</select>
+
+
+	<select id="findByUuid" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from vip_payment
+		where uuid = #{uuid}
+	</select>
+
+
+</mapper>

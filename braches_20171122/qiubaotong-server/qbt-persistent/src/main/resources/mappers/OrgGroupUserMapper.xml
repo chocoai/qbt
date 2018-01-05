@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrgGroupUserMapper">
+	<resultMap id="BaseResultMap" type="OrgGroupUser">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="name" property="name" />
+		<result column="mobile" property="mobile" />
+		<result column="status" property="status" />
+		<result column="remark" property="remark" />
+		<result column="org_id" property="orgId" />
+		<result column="org_name" property="orgName" />
+		<result column="operator_id" property="operatorId" />
+		<result column="operator_name" property="operatorName" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, name, mobile, status, remark, org_id, org_name,
+		operator_id, operator_name
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from org_group_user
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="OrgGroupUser" keyProperty="id" useGeneratedKeys="true">
+		insert into org_group_user (
+			create_time, 
+			name,
+			mobile, 
+			status, 
+			remark,
+			org_id, 
+			org_name, 
+			operator_id,
+			operator_name
+		) values (
+			#{createTime},
+			#{name},
+			#{mobile}, 
+			#{status}, 
+			#{remark},
+			#{orgId}, 
+			#{orgName},
+			#{operatorId},
+			#{operatorName}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="OrgGroupUser">
+		update org_group_user
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			<if test="orgId != null">
+				org_id = #{orgId},
+			</if>
+			<if test="orgName != null">
+				org_name = #{orgName},
+			</if>
+			<if test="operatorId != null">
+				operator_id = #{operatorId},
+			</if>
+			<if test="operatorName != null">
+				operator_name = #{operatorName},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from org_group_user 
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				and name like concat('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.mobile != null and condition.mobile != ''">
+				and mobile like concat('%',#{condition.mobile},'%') 
+			</if>
+			<if test="condition.orgId != null and condition.orgId > 0">
+				and org_id = #{condition.orgId} 
+			</if>
+			<if test="condition.orgName != null and condition.orgName != ''">
+				and org_name like concat('%',#{condition.orgName},'%') 
+			</if>
+			<if test="condition.status != null and condition.status > 0">
+				and status = #{condition.status} 
+			</if>
+			<if test="condition.startCreateTime != null">
+				and date(create_time) <![CDATA[>=]]> date(#{condition.startCreateTime}) 
+			</if>
+			<if test="condition.endCreateTime != null">
+				and date(create_time) <![CDATA[<=]]> date(#{condition.endCreateTime}) 
+			</if>
+		</where>
+		order by id desc
+	</select>
+	
+	<delete id="deleteByBatch">
+		delete from org_group_user 
+		<where>
+			id in 
+			<foreach collection="ids" item="id" index="i" separator="," open="(" close=")">
+				#{id}
+			</foreach>
+		</where>
+	</delete>
+	
+	<insert id="insertByBatch">
+		insert into org_group_user (
+			create_time, 
+			name,
+			mobile, 
+			status, 
+			remark,
+			org_id, 
+			org_name, 
+			operator_id,
+			operator_name
+		) values 
+		<foreach collection="users" item="user" index="i" separator=",">
+		(
+			#{user.createTime},
+			#{user.name},
+			#{user.mobile}, 
+			#{user.status}, 
+			#{user.remark},
+			#{user.orgId}, 
+			#{user.orgName},
+			#{user.operatorId},
+			#{user.operatorName}
+		)
+		</foreach>
+	</insert>
+	
+	<select id="exists" parameterType="OrgGroupUser" resultType="int">
+		select count(1) 
+		from org_group_user 
+		<where>
+			name = #{name} 
+			and mobile = #{mobile} 
+			<if test="id > 0">
+				and id != #{id}
+			</if>
+		</where>
+	</select>
+	
+	<delete id="deleteByOrgId">
+		delete from org_group_user where org_id = #{orgId}
+	</delete>
+	
+	<select id="findByNameAndMobile" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from org_group_user where name = #{name} and mobile = #{mobile}
+	</select>
+	
+</mapper>

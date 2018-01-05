@@ -1,0 +1,83 @@
+<footer class="bg-g home-footer">
+  <div class="container">
+      <div class="row text-left inner-container">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="row">
+              <div class="col-md-2 col-sm-6 col-xs-12">
+                  <label class="hidden-xs footer-label"><h5>球包快递 </h5></label>
+                  <label class="visible-xs collapse collapsed" data-target="#ship-sticks-sub-menu" data-toggle="collapse">
+                      <h5 class="inline-block">球包快递 </h5>
+                      <i class="fa fa-plus pull-right"></i>
+                  </label>
+                  <ul class="list-unstyled sub-menu collapse in" id="ship-sticks-sub-menu">
+                      <li><a href="home.html">首页</a></li>
+                      <li><a href="order.html">球包快递</a></li>
+                      <li><a href="track.html">球包追踪</a></li>
+                  </ul>
+              </div>
+              <div class="col-md-2 col-sm-6 col-xs-12">
+                  <label class="hidden-xs footer-label"><h5>球包通</h5></label>
+                  <label class="visible-xs collapse collapsed" data-target="#partners-sub-menu" data-toggle="collapse">
+                      <h5 class="inline-block">球包通</h5>
+                      <i class="fa fa-plus pull-right"></i>
+                  </label>
+                  <ul class="list-unstyled collapse sub-menu in" id="partners-sub-menu" style="height: 0;">
+                      <li><a href="contact.html"> 联系我们</a></li>
+                      <li><a href="service.html">客服中心</a></li>
+                  </ul>
+              </div>
+              <div class="col-md-2 col-sm-6 col-xs-12">
+                  <label class="hidden-xs footer-label"><h5>为您服务</h5></label>
+                  <label class="visible-xs collapse collapsed" data-target="#aboutus-sub-menu" data-toggle="collapse">
+                      <h5 class="inline-block">为您服务</h5><i class="fa fa-plus pull-right"></i>
+                  </label>
+                  <ul class="list-unstyled collapse sub-menu in" id="aboutus-sub-menu">
+                      <li><a href="raiders.html">球包通攻略</a></li>
+                      <li><a href="faq.html">常见问题</a></li>
+                      <li><a href="claims.html">安心服务 </a></li>
+                      <li><a href="work.html" target="_blank">招贤纳士</a></li>
+                  </ul>
+              </div>
+              <div class="col-md-2 col-sm-4 col-xs-12 text-right-md">
+                 <label class="hidden-xs get-in-touch footer-label"><h5>联系我们</h5></label>
+                 <label class="visible-xs collapse collapsed" data-target="#address-sub-menu" data-toggle="collapse">
+                     <h5 class="inline-block">联系我们</h5><i class="fa fa-plus pull-right"></i>
+                 </label>
+                     <div class="collapse sub-menu in" id="address-sub-menu">
+                         <a href="tel:400-609-0990" >400-609-0990</a><br>
+                         <a href="javascript:;"  >support@qiubaotong.com</a><br><br>
+                     </div>
+                </div>
+              <div class="col-md-4 col-sm-6 col-xs-12 text-right">
+                  <div class="home-footer-er">
+                    <div class="text">扫码关注球包通</div>
+                  </div>
+                  <div class="home-footer-er home-footer-weibo">
+                    <div class="text">新浪微博</div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div id="bottom-footer-layer">
+      <div class="container">
+      <div class="row text-center-sm text-center-xs inner-container">
+          <div class="col-md-5 col-xs-12">
+              <ul class="list-unstyled list-inline" style="margin-bottom: 3px;">
+                  <li><small><a href="fllow.html">关注球包通微信公众号</a></small></li>
+                  <li>·</li>
+                  <li><small><a href="team.html">服务条款</a></small></li>
+                  <li>·</li>
+                  <li><small><a href="privacy.html" target="_blank">隐私声明</a></small></li>
+                  <li>·</li>
+                  <li><small><a href="sitemap.html">网点地图</a></small></li>
+              </ul>
+          </div>
+          <div class="col-md-7 col-xs-12 text-right-lg text-right-md">
+              <small>Copyright © 2014-2016 上海格灵信息科技有限公司  All Rights Reserved  备案号：<a href="http://www.miitbeian.gov.cn/" target="_blank">沪ICP备14030722号-1</a></small>
+          </div>
+      </div>
+      </div>
+    </div>
+</footer>

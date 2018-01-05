@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="contactCheckCtrl">
+<div class="container containerWidthAuto">
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="form-inline applyCheckSearch">
+                <div class="form-group marginRight5">
+                    <label for="userName">姓名：</label>
+                    <input ng-model="name" type="search" class="form-control marginRight5" id="userName" placeholder="输入姓名">
+                    <label for="mobile">电话：</label>
+                    <input ng-model="mobile" type="search" class="form-control marginRight5" id="mobile" maxlength="11" placeholder="输入电话">
+                    <label>状态：</label>
+                    <select ng-model="isDelete" class="form-control marginRight5">
+                        <option value="">全部</option>
+                        <option value="false">启用</option>
+                        <option value="true">禁用</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button id="search" class="btn btn-primary marginRight5" ng-click="getList()">搜索</button>
+                    <button ng-click="addContact()" class="btn btn-primary">新增</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <th>姓名</th>
+                    <th>微信昵称</th>
+                    <th>电话</th>
+                    <th>类型</th>
+                    <th>创建时间</th>
+                    <th>更新时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in list track by $index">
+                        <td><a ng-click="updateContact(item.mobile,item.uwList,item.id,item.name)" class="fa" href="javascript:void(0)">{{item.name}}</a></td>
+                        <td>
+                            <span ng-repeat="uwList in item.uwList">{{uwList.nickname}}&nbsp;</span>
+                        </td>
+                        <td>{{item.mobile}}</td>
+                        <td>{{item.type == 0 ? '未支付客户' : '已支付客户'}}</td>
+                        <td>{{item.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{item.updateTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>
+                            <label class="label" ng-class="{'label-success':!item.isDelete,'label-default':item.isDelete}">{{item.isDelete == false ? '启用' : '禁用'}}</label>
+                        </td>
+                        <td>    
+                            <button ng-click="deleteContact(item.mobile,item.isDelete)" class="btn btn-sm" ng-class="{'btn-danger':item.isDelete==false,'btn-success':item.isDelete==true}">{{item.isDelete == false ? '禁用' : '启用'}}</button>
+                            <button ng-click="updateContact(item.mobile,item.uwList,item.id,item.name)" class="btn btn-primary btn-sm">用户信息补充</button>
+                            <button class="btn btn-danger btn-sm" ng-show="item.type == 0" ng-click="layerDeleteNotPay(item.mobile)">删除</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination page="page" change="getList(page)"></pagination>
+        </div>
+    </div>
+</div>
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/contactCheckCtrl.js}}}"></script>
+</body>
+</html>

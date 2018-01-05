@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.ActivityOffConfigMapper">
+
+	<resultMap id="BaseResultMap" type="ActivityOffConfig">
+		<id column="id" property="id" />
+		<result column="activity_id" property="activityId" />
+		<result column="activity_name" property="activityName" />
+		<result column="scope_id" property="scopeId" />
+		<result column="scope_name" property="scopeName" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, activity_id, activity_name, scope_id, scope_name
+	</sql>
+	
+	<insert id="insert" parameterType="ActivityOffConfig" keyProperty="id" useGeneratedKeys="true">
+		insert into activity_off_config (
+			activity_id,
+			activity_name,
+			scope_id,
+			scope_name
+		) values (
+			#{activityId},
+			#{activityName},
+			#{scopeId},
+			#{scopeName}
+		)
+	</insert>
+	
+	<delete id="deleteByActivityId">
+		delete from activity_off_config where activity_id=#{activityId}
+	</delete>
+	
+	<select id="findByActivityId" resultMap="BaseResultMap">
+	select  <include refid="Base_Column_List" /> from activity_off_config where activity_id = #{activityId}
+	</select>
+	
+	<insert id="insertByBatch">
+		insert into activity_off_config (
+			activity_id,
+			activity_name,
+			scope_id,
+			scope_name
+		) values 
+		<foreach collection="configs" item="config" index="i" separator=",">
+		(
+			#{config.activityId},
+			#{config.activityName},
+			#{config.scopeId},
+			#{config.scopeName}
+		)
+		</foreach>
+	</insert>
+	
+	<select id="findScopeIdByCourse" resultMap="BaseResultMap">
+		select  <include refid="Base_Column_List" /> from activity_off_config where activity_id 
+		in (select id from activity_off where scope=1 and status=1 and start_time <![CDATA[<=]]>now() and end_time >= now())
+	</select>
+	
+</mapper>

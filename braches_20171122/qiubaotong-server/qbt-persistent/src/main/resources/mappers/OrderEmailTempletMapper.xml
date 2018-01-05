@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderEmailTempletMapper" >
+  <resultMap id="BaseResultMap" type="OrderEmailTemplet" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="order_email_insured_id" property="orderEmailInsuredId" jdbcType="INTEGER" />
+    <result column="email_template_code" property="emailTemplateCode" jdbcType="VARCHAR" />
+    <result column="email_config_code" property="emailConfigCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, update_time, order_email_insured_id, email_template_code, email_config_code
+  </sql>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_email_templet
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="OrderEmailTemplet" >
+    insert into order_email_templet (
+    	id, 
+    	create_time, 
+    	update_time, 
+      	order_email_insured_id, 
+      	email_template_code, 
+      	email_config_code
+      	)values (
+      	#{id,jdbcType=INTEGER}, 
+      	#{createTime,jdbcType=TIMESTAMP}, 
+      	#{updateTime,jdbcType=TIMESTAMP}, 
+      	#{orderEmailInsuredId,jdbcType=INTEGER}, 
+      	#{emailTemplateCode,jdbcType=VARCHAR}, 
+      	#{emailConfigCode,jdbcType=VARCHAR}
+      	)
+  </insert>
+  
+  <update id="updateById" parameterType="OrderEmailTemplet" >
+    update order_email_templet
+    <set >
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderEmailInsuredId != null" >
+        order_email_insured_id = #{orderEmailInsuredId,jdbcType=INTEGER},
+      </if>
+      <if test="emailTemplateCode != null" >
+        email_template_code = #{emailTemplateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="emailConfigCode != null" >
+        email_config_code = #{emailConfigCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+ 
+  <select id="findByOrderEmailInsuredId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	  select 
+	  <include refid="Base_Column_List" />
+	  from order_email_templet
+	  where order_email_insured_id = #{orderEmailInsuredId,jdbcType=INTEGER}
+  </select>
+ 
+</mapper>

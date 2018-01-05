@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.UserAssistantMapper">
+	<resultMap id="BaseResultMap" type="UserAssistant">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="user_id" property="userId" />
+		<result column="name" property="name" />
+		<result column="email" property="email" />
+		<result column="mobile" property="mobile" />
+		<result column="password" property="password" />
+		<result column="salt" property="salt" />
+		<result column="enjoy_assistant_fee" property="enjoyAssistantFee" />
+		<result column="status" property="status" />
+		<result column="memo" property="memo" />
+		<result column="apply_type" property="applyType" />
+		<result column="apply_id" property="applyId" />
+		<result column="apply_name" property="applyName" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, create_time, user_id, name, email, mobile, password, salt,
+		status,memo,enjoy_assistant_fee
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user_assistant
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		ua.*,uaa.apply_type as apply_type,uaa.apply_id as apply_id,uaa.apply_name as apply_name
+		from user_assistant ua left join user_assistant_apply uaa on ua.id =
+		uaa.assistant_id
+		where ua.user_id = #{userId}
+	</select>
+
+	<insert id="insert" parameterType="UserAssistant" useGeneratedKeys="true" keyProperty="id">
+		insert into user_assistant (create_time, user_id, name, email, mobile,
+		password, salt,enjoy_assistant_fee, status,memo)
+		values (#{createTime}, #{userId}, #{name}, #{email}, #{mobile},
+		#{password}, #{salt},#{enjoyAssistantFee}, #{status},#{memo})
+	</insert>
+
+	<update id="updateById" parameterType="UserAssistant">
+		update user_assistant
+		<set>
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="email != null">
+				email = #{email},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="password != null">
+				password = #{password},
+			</if>
+			<if test="enjoyAssistantFee != null">
+				enjoy_assistant_fee = #{enjoyAssistantFee},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="memo != null">
+				memo = #{memo}
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<select id="findAssistantBySiteId" resultMap="BaseResultMap">
+		select u.id,u.mobile from user_assistant u left join
+		user_assistant_apply uaa on u.id = uaa.assistant_id where 1=1
+		<if test="type == 1">
+			and uaa.apply_id = #{siteId} and uaa.apply_type in(1,2)
+		</if>
+		<if test="type == 2">
+			and uaa.apply_id = #{siteId} and uaa.apply_type = 5
+		</if>
+		<if test="type == 3">
+			and uaa.apply_id = #{siteId} and uaa.apply_type = 3
+		</if>
+		<if test="type == 5">
+			and uaa.apply_id = #{siteId} and uaa.apply_type = 4
+		</if>
+		and status = 2
+	</select>
+
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		ua.id,
+		ua.create_time,
+		ua.user_id,
+		ua.name,
+		ua.email,
+		ua.mobile,
+		ua.password,
+		ua.salt,
+		ua.status,
+		ua.memo,
+		ua.enjoy_assistant_fee,
+		uw.nickname AS userWeixinNickName,
+		uw.sex AS userWeixinSex,
+		uaa.apply_name AS siteName,
+		uaa.apply_type AS type
+		FROM user_assistant ua
+		LEFT JOIN user_weixin uw ON ua.user_id = uw.id
+		LEFT JOIN user_assistant_apply uaa ON ua.id = uaa.assistant_id
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND ua.name LIKE CONCAT('%',#{condition.name},'%')
+			</if>
+			<if test="condition.siteName != null and condition.siteName != ''">
+				AND uaa.apply_name LIKE
+				CONCAT('%',#{condition.siteName},'%')
+			</if>
+			<if test="condition.mobile != null and condition.mobile != ''">
+				AND ua.mobile LIKE CONCAT('%',#{condition.mobile},'%')
+			</if>
+			<!-- <if test="condition.siteId != null and condition.siteId != ''"> AND 
+				site_id = #{condition.siteId} </if> -->
+			<if test="condition.status != null and condition.status != ''">
+				AND ua.status = #{condition.status}
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY ua.create_time desc
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM user_assistant
+		<where>
+			id = #{id}
+		</where>
+	</select>
+	
+	<select id="queryAssistantByApply" resultType="java.lang.Integer">
+		select count(1) 
+		from user_assistant ua left join user_assistant_apply uaa on uaa.assistant_id = ua.id 
+		where 
+			ua.status=2 
+			and uaa.apply_id = #{applyId} 
+			<choose>
+				<when test="applyType == 1 or applyType == 2">
+					and uaa.apply_type in (1,2) 
+				</when>
+				<otherwise>
+					and uaa.apply_type = #{applyType} 
+				</otherwise>
+			</choose>
+	</select>
+	
+</mapper>

@@ -1,0 +1,46 @@
+<template id="bag-address">
+<div class="pad-b" style="padding-bottom:0px!important">
+  <!--头-->
+<div class="header tex-c bd-b">
+    <a href="javascript:;" class="back" @click=goView('bag_apply_view')><img src="/img/back.png" /></a>
+     {{applyType == 8 ? '合作机构' : '地址选择'}}
+</div>
+  <!--头 end-->
+  <div class="scroll">
+  <div class="marhead">
+      <div class="weui_cells" v-show="applyType == 1 || applyType == 2">
+        <div class="weui_cell weui_cell_select weui_select_after">
+            <div class="weui_cell_hd">
+                <label for="" class="weui_label">省</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <select class="weui_select" name="select2" v-model="provice">
+                    <option value="">请选择</option>
+                    <option v-for="item in addr_list"  v-bind:value="item.id">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="weui_cell weui_cell_select weui_select_after">
+            <div class="weui_cell_hd">
+                <label for="" class="weui_label">市</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <select class="weui_select" name="select2" v-model="city">
+                    <option value="">请选择</option>
+                    <option v-for="item in addr_city" v-bind:value="item.id">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="weui_cells weui_cells_access" v-for="item in list_addr" style="margin-top:0">
+       <a class="flex ci-ad-cell pad-lr" href="javascript:;" @click="save(item)">
+           <div class="weui_cell_bd weui_cell_primary">
+               <p>{{item.name}}</p>
+               <label>{{item.address}}</label>
+           </div>
+       </a>
+   </div>
+</div>
+</div>
+</div>
+</template>

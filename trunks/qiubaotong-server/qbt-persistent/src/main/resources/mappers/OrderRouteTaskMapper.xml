@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderRouteTaskMapper" >
+  <resultMap id="BaseResultMap" type="OrderRouteTask" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_finish" property="isFinish" jdbcType="BIT" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, order_id, create_time, update_time, is_finish
+  </sql>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_route_task
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="OrderRouteTask" useGeneratedKeys="true" keyProperty="id">
+    insert into order_route_task (order_id, create_time, 
+      update_time, is_finish)
+    values (#{orderId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{isFinish,jdbcType=BIT})
+  </insert>
+  
+  <update id="update" parameterType="OrderRouteTask" >
+    update order_route_task set is_finish=true,updateTime=now() where id=#{id}
+  </update>
+  
+  <select id="findAll">
+  	 select 
+    <include refid="Base_Column_List" />
+    from order_route_task where is_finish = false
+  </select>
+  
+</mapper>

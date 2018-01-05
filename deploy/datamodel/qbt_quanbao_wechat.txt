@@ -1,0 +1,88 @@
+Wechat
+ticketPackageOrderController (notification to user)
+	1. order.api
+		TicketPackageOrderVo
+			activityId
+			activityQuantity
+			totalAmount
+			userName
+			userPhoneNumber
+			userAddress
+	2. code.api
+	3. list.api
+		TicketPackageActivityVo	
+				id
+				activityId
+				activityName
+				status
+				ruleId
+				TicketPackageRuleVo
+					ruleName
+					isStorageService
+					description
+	
+	
+	
+	
+	
+	
+myTicketPackageController
+	1.listNotActive.api
+		1. Search (active_status=0 and package_type in (0,1,2))
+	2.listUsed.api
+		2. Search (active_status=1 or package_type=3 or(active_status=1 and today>expiration_time))
+		
+	2.recieve.api
+		package_id
+		qrcode
+		update package_type = 2
+		copy a new package to current user
+		Create a new user if openid dont existed in system
+		
+		
+	3.activate.api
+		package_id
+		update active_status  = 1
+	4.cancel.api
+		package_id
+		update package_type = 0
+		
+	5.qrcode.api
+		post :package_id (update qrcode to user_activity_package, update package_type = 1)
+		
+		return TicketPackageVo;
+		
+	6.findByPackageId	
+		package_id
+		
+		return 
+			TicketVo
+		
+		Model
+		TicketPackageVo
+			activityName
+			type
+			expirationtime
+			effectiveDay
+			activateTime
+			activateuser  
+			activatephonenumber						
+			code
+			codeStatus
+			status(0 - inactive; 1 - active)
+			activeStatus 激活状态
+			tickettype
+			List<TicketVo>
+			
+			
+ 7. useTicket (used_quantity+1)
+ 
+ 8. listAvailableTicket
+     user_id
+     Search (use_status=0 and today<expiration_time)
+	 
+ 9. listAvailableTicket
+     user_id
+     Search (use_status=1 or today>expiration_time)
+			
+			

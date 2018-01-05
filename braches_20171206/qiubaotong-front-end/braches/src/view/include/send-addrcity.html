@@ -1,0 +1,32 @@
+<template id="send-addrcity">
+<div class="section">
+    <!--头-->
+    <div class="header tex-c">
+      <a href="javascript:;" class="back"><img src="/img/back.png" @click="goView('/address')"/></a>
+      选择城市
+    </div>
+    <div class="scroll">
+    <!--头 end-->
+        <!--城市-->
+        <div class="court-place marhead">
+          <h3>当前位置</h3>
+          <ul>
+            <li><a href="javascript:;" @click="selectCity(geo_city)">{{geo_city ? geo_city : '定位中..'}}</a></li>
+          </ul>
+        </div>
+        <div class="weui_cells_title  pad-lr font-color font-blod">国内城市</div>
+        <div class="bg-white">
+          <ul class=" send-ci-place">
+             <li v-for="item in city_list" :class="{'send-ci-place-on':item.name == provice_selected}">
+               <a href="javascript:;" @click="toggle(item.name)">{{item.name}}
+                 <div class="weui_cell_ft"></div>
+                </a>
+               <ul class="" v-show="item.name == provice_selected">
+                <li v-for="subitem in item.items" @click="selectCity(subitem.name)"><a href="javascript:;">{{subitem.name}}</a></li>
+               </ul>
+             </li>
+          </ul>
+        </div>
+    </div>
+</div>
+</template>

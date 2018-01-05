@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="messageEductioinDetailCtrl">
+	<div class="container containerWidthAuto">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">基本信息</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心名称<em>*</em>：</label>
+									<input ng-model="name" type="text" class="form-control" placeholder="输入教学中心名称" maxlength="20">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心负责人<em>*</em>：</label>
+									<input ng-model="manager" type="text" class="form-control" placeholder="输入教学中心负责人" maxlength="20">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心负责人电话<em>*</em>：</label>
+									<input ng-model="manageMobile" type="text" class="form-control" placeholder="如：000(0)-0000000(0) 或 13555555555" maxlength="20">
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心成立时间<em>*</em>：</label>
+									<div class="inputDateClose" style="width:100%;">
+										<input style="width:100%" ng-model="foundTime" type="text" class="form-control date-picker" placeholder="选择教学中心成立时间" readonly>
+										<button ng-click="clearCreateTime()" class="clearTime">x</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心前台负责人：</label>
+									<input ng-model="managerFront" type="text" class="form-control" maxlength="20">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心前台负责人电话：</label>
+									<input ng-model="managerFrontMobile" type="text" class="form-control" maxlength="20" placeholder="如：000(0)-0000000(0) 或 13555555555">
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心教练人数<em>*</em>：</label>
+									<input ng-model="teacherNumber" type="number" class="form-control" min="0" placeholder="输入教学中心教练人数">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心销售负责人：</label>
+									<input ng-model="managerSale" type="text" class="form-control" maxlength="20">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心销售负责人电话：</label>
+									<input ng-model="managerSaleMobile" type="text" class="form-control" maxlength="20" placeholder="如：000(0)-0000000(0) 或 13555555555">
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>所在省<em>*</em>：</label>
+									<select id="provinces" ng-change="getCitieses()" class="form-control" ng-model="province">
+										<option value="">请选择</option>
+										<option ng-repeat="datas in provinceses" value={{datas.id}}>
+											{{datas.fullName}}
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>所在市<em>*</em>：</label>
+									<select id="cities" ng-change="getCounties()" class="form-control" ng-model="city">
+										<option value="">请选择</option>
+										<option ng-repeat="datas in citieses" value={{datas.id}}>
+											{{datas.fullName}}
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>所在区<em>*</em>：</label>
+									<select id="counties" ng-change="getLatLon(address)" class="form-control" ng-model="county">
+										<option value="">请选择</option>
+										<option ng-repeat="datas in countieses" value={{datas.id}}>{{datas.fullName}}</option>
+									</select>
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心地址<em>*</em>：</label>
+									<input ng-change="getLatLon(address)" ng-model="address" type="text" class="form-control" placeholder="输入教学中心地址" maxlength="30">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心经度：</label>
+									<input ng-model="lon" type="text" class="form-control" maxlength="30" readonly>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心纬度：</label>
+									<input ng-model="lat" type="text" class="form-control" maxlength="30" readonly>
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心是否配有酒店（名称）：</label>
+									<select ng-model="isHotel" class="form-control">
+										<option value="true">是</option>
+										<option value="false">否</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心酒店地址：</label>
+									<input ng-model="hotelAddress" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心酒店客房数量：</label>
+									<input ng-model="hotelRoomNumber" type="number" class="form-control"  min="0">
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心酒店等级：</label>
+									<input ng-model="hotelLevel" type="number" class="form-control" min="0">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>是否签约：</label>
+									<select ng-model="isSign" class="form-control">
+										<option value="true">是</option>
+										<option value="false">否</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>是否有区域限制：</label>
+									<select ng-model="isAreaLimit "class="form-control">
+										<option value="true">是</option>
+										<option value="false">否</option>
+									</select>
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>是否有车辆限制：</label>
+									<select ng-model="isCarLimit "class="form-control">
+										<option value="true">是</option>
+										<option value="false">否</option>
+									</select>
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>教学中心简况：</label>
+									<textarea ng-model="brif" class="form-control" maxlength="230"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">动态信息</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>淡旺季开场时间：</label>
+									<input ng-model="lightVigorousTime" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>每日营业时间<em>*</em>：</label>
+									<input ng-model="businessTime" type="text" class="form-control" maxlength="30" placeholder="如：9：00-17：00">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>每年打球人次<em>*</em>：</label>
+									<input ng-model="playerNumber " type="number" class="form-control" placeholder="输入每年打球人次" min="0">
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>淡旺季打球人次（区间）：</label>
+									<input ng-model="lightVigorousNumber " type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>外地打球人次<em>*</em>：</label>
+									<input ng-model="outPlayerNumber " type="number" class="form-control" placeholder="输入外地打球人次" min="0">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>本地打球人次<em>*</em>：</label>
+									<input ng-model="localPlayerNumber " type="number" class="form-control" placeholder="输入本地打球人次" min="0">
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>距离最近顺丰配送点（公里）：</label>
+									<input ng-model="nearestDeliver" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>附近有哪些物流公司可到达：</label>
+									<input ng-model="goodsCompany" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>教学中心平均气温：</label>
+									<input ng-model="temperature" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>雨季分布情况：</label>
+									<input ng-model="rain" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>距离教学中心最近酒店名称：</label>
+									<input ng-model="nearestHotel" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>距离教学中心最近酒店地址：</label>
+									<input ng-model="nearestHotelAddress" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>最近酒店客房房间数量：</label>
+									<input ng-model="nearestHotelRoomNumber" type="number" class="form-control" min="0" step="1">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>最近酒店等级：</label>
+									<input ng-model="nearestHotelLevel" type="number" class="form-control" min="0">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>距离最近高铁站名称：</label>
+									<input ng-model="nearestRailName" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>距离最近高铁站（公里/km）：</label>
+									<input ng-model="nearestRail" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>高速公路出口到教学中心的距离（公里/km）：</label>
+									<input ng-model="highwayCourse" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>距离最近机场（公里/km）：</label>
+									<input ng-model="nearestAirport" type="text" class="form-control" maxlength="30"> 
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>距离最近的球场（公里/km）：</label>
+									<input ng-model="nearestCourse" type="text" class="form-control"maxlength="30">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">服务信息</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>是否配合接包：</label>
+									<select ng-model="isJoinBag " class="form-control">
+										<option value="true">是</option>
+										<option value="false">否</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>是否免费存包（价格/元）：</label>
+									<select ng-model="isFeeBag" class="form-control">
+										<option value="true">是</option>
+										<option value="false">否</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>是否配合收包：</label>
+									<select ng-model="isCollectBag " class="form-control">
+										<option value="true">是</option>
+										<option value="false">否</option>
+									</select>
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>接包地点：</label>
+									<input ng-model="joinBagAddress" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>存包地点：</label>
+									<input ng-model="putBagAddress" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>收包地点：</label>
+									<input ng-model="collectBagAddress" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>（接包、取包、收包）部门：</label>
+									<input ng-model="department" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>球包负责人：</label>
+									<input ng-model="bagWorker" type="text" class="form-control" maxlength="30">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>球包负责人电话：</label>
+									<input ng-model="bagWorkerMobile" type="text" class="form-control" maxlength="30" placeholder="如：000(0)-0000000(0) 或 13555555555">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">宣传信息</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>是否放指示牌：</label>
+									<select ng-model="isNote" class="form-control">
+										<option value="true">是</option>
+										<option value="false">否</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>是否放宣传页：</label>
+									<select ng-model="isDeclare" class="form-control">
+										<option value="true">是</option>
+										<option value="false">否</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>是否放球包贴：</label>
+									<select ng-model="isPosts" class="form-control">
+										<option value="true">是</option>
+										<option value="false">否</option>
+									</select>
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>是否放易拉宝：</label>
+									<select ng-model="isYlb" class="form-control">
+										<option value="true">是</option>
+										<option value="false">否</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>是否协助客户下单：</label>
+									<select ng-model="isOrder" class="form-control">
+										<option value="true">是</option>
+										<option value="false">否</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label>是否宣传球包快递：</label>
+									<select ng-model="isDeclareService" class="form-control">
+										<option value="true">是</option>
+										<option value="false">否</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-sm-12">
+				<div class="form-group">
+					<button type="button" class="btn btn-primary" ng-click="addBankBranches()">提交</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script src="http://api.map.baidu.com/api?v=1.3"></script>
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/messageEductioinDetailCtrl.js}}}"></script>
+</body>
+</html>

@@ -1,0 +1,1030 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.ReportOrderMapper">
+
+	<resultMap id="BaseResultMap" type="OrderInfo">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="user_id" property="userId" />
+		<result column="number" property="number" />
+		<result column="amount" property="amount" />
+		<result column="total_amount" property="totalAmount" />
+		<result column="mail_no" property="mailNo" />
+		<result column="pay_time" property="payTime" />
+		<result column="pay_id" property="payId" />
+		<result column="order_status" property="orderStatus" />
+		<result column="refund_status" property="refundStatus" />
+		<result column="delivery_status" property="deliveryStatus" />
+		<result column="bps_status" property="bpsStatus" />
+		<result column="question_status" property="questionStatus" />
+		<result column="order_source" property="orderSource" />
+		<result column="handle_type" property="handleType" />
+		<result column="send_sf_user_time" property="sendSfUserTime" />
+		<result column="coupon_id" property="couponId" />
+		<result column="coupon_code" property="couponCode" />
+		<result column="discount" property="discount" />
+		<result column="favorable" property="favorable" />
+		<result column="favorable_desc" property="favorableDesc" />
+		<result column="freight" property="freight" />
+		<result column="urgent_fee" property="urgentFee" />
+		<result column="insured_value" property="insuredValue" />
+		<result column="insured_rates" property="insuredRates" />
+		<result column="insured_fee" property="insuredFee" />
+		<result column="extra_amount" property="extraAmount" />
+		<result column="extra_desc" property="extraDesc" />
+		<result column="express_type" property="expressType" />
+		<result column="is_handle_question" property="isHandleQuestion" />
+		<result column="handle_remar" property="handleRemar" />
+		<result column="sign_remark" property="signRemark" />
+		<result column="sent_remark" property="sentRemark" />
+		<result column="remark" property="remark" />
+		<result column="deliver_date" property="deliverDate" />
+		<result column="deliver_time" property="deliverTime" />
+		<result column="send_time_section" property="sendTimeSection" />
+		<result column="j_addr_type" property="jAddrType" />
+		<result column="j_addr_id" property="jAddrId" />
+		<result column="j_addr_name" property="jAddrName" />
+		<result column="j_contact" property="jContact" />
+		<result column="j_mobile" property="jMobile" />
+		<result column="j_area_id" property="jAreaId" />
+		<result column="j_tree_path" property="jTreePath" />
+		<result column="j_address" property="jAddress" />
+		<result column="j_out_range_type" property="jOutRangeType" />
+		<result column="j_out_range_time" property="jOutRangeTime" />
+		<result column="j_out_range_price" property="jOutRangePrice" />
+		<result column="d_addr_type" property="dAddrType" />
+		<result column="d_addr_id" property="dAddrId" />
+		<result column="d_addr_name" property="dAddrName" />
+		<result column="d_contact" property="dContact" />
+		<result column="d_mobile" property="dMobile" />
+		<result column="d_area_id" property="dAreaId" />
+		<result column="d_tree_path" property="dTreePath" />
+		<result column="d_address" property="dAddress" />
+		<result column="d_out_range_type" property="dOutRangeType" />
+		<result column="d_out_range_time" property="dOutRangeTime" />
+		<result column="d_out_range_price" property="dOutRangePrice" />
+		<result column="is_helped" property="isHelped" />
+		<result column="is_delete" property="isDelete" />
+		<result column="delete_time" property="deleteTime" />
+		<result column="openid" property="openid" />
+		<result column="first_order" property="firstOrder" />
+		<result column="is_comment" property="isComment" />
+		<result column="third_type" property="thirdType" />
+		<result column="third_id" property="thirdId" />
+		<result column="third_name" property="thirdName" />
+		<result column="lang_ename" property="langEname" />
+		<result column="assistant_name" property="assistantName" />
+		<result column="order_id" property="orderId" />
+		<result column="order_number" property="orderNumber" />
+		<result column="md5" property="md5" />
+		<result column="is_vip" property="isVip" />
+		<result column="vip_id" property="vipId" />
+		<result column="kf_receivable_status" property="kfReceivableStatus" />
+		<result column="cw_receivable_status" property="cwReceivableStatus" />
+		<result column="reason" property="reason" />
+		<result column="proxy_user_id" property="proxyUserId"/>
+		<result column="proxy_self_user_id" property="proxySelfUserId"/>
+		<result column="play_time" property="playTime"/>
+		<result column="mail_channel"   property="mailChannel"/>
+		<result column="is_org" property="isOrg"/>
+		<result column="org_id" property="orgId"/>
+		<result column="org_name" property="orgName"/>
+		<result column="mail_number"   property="mailNumber"/>
+		<result column="is_bag_code"   property="isBagCode"/>
+		<result column="bag_code"   property="bagCode"/>
+		<result column="bag_code_partner_id"   property="bagCodePartnerId"/>
+		<result column="bag_code_partner_name"   property="bagCodePartnerName"/>
+	    <result column="weixin_pay_code"   property="weixinPayCode"/>
+	    <result column="weixin_pay_code_update_time" property="weixinPayCodeUpdateTime"/>
+		<result column="weixin_pay_code_operater" property="weixinPayCodeOperater"/>
+		<result column="insured_channel" property="insuredChannel"/>
+	</resultMap>
+	
+	<resultMap id="OrderDetailResultMap" type="ReportOrderDetail" extends="BaseResultMap">
+		<result column="user_name" property="userName" />
+		<result column="coupon_type" property="couponType" />
+	</resultMap>
+	
+	<resultMap id="BossOrderInfoResult" type="BossOrderInfo" extends="BaseResultMap">
+		<result column="user_name" property="userName" />
+		<result column="nickname" property="nickname" />
+		<result column="mobile" property="mobile" />
+		<result column="sale_user_id" property="saleUserId" />
+		<result column="sale_user_name" property="saleUserName" />
+	</resultMap>
+	
+	<resultMap id="OrderAmountResultMap" type="ReportOrderAmount" extends="BaseResultMap">
+		<result column="user_name" property="userName" />
+		<result column="uuid" property="uuid" />
+		<result column="child_amount" property="childAmount" />
+		<result column="pay_method" property="payMethod" />
+		<result column="input_discount" property="inputDiscount" />
+	</resultMap>
+	
+	<resultMap id="OrderCountAmountMap" type="OrderCountAmount" extends="BaseResultMap">
+		<result column="name" property="name" />
+		<result column="mobile" property="mobile" />
+		<result column="count" property="count" />
+	</resultMap>
+	
+	<resultMap id="OrderFirstAmountMap" type="OrderFirst" extends="BaseResultMap">
+		<result column="name" property="name" />
+		<result column="mobile" property="mobile" />
+		<result column="createTime" property="createTime" />
+	</resultMap>
+	
+	<resultMap id="OrderSituationResultMap" type="OrderSituation" extends="BaseResultMap">
+		<result column="date" property="date" />
+		<result column="effectiveOrder" property="effectiveOrder" />
+		<result column="waitPay" property="waitPay" />
+		<result column="destroyOrder" property="destroyOrder" />
+		<result column="cancelOrder" property="cancelOrder" />
+	</resultMap>
+
+	<resultMap type="ReportSiteOrder" id="SiteResultMap" extends="BaseResultMap">
+		<result column="total_order" property="totalOrder" />
+		<result column="valid_order" property="validOrder" />
+		<result column="cancel_order" property="cancelOrder" />
+		<result column="valid_amount" property="validAmount" />
+		<result column="cancel_amount" property="cancelAmount" />
+	</resultMap>
+	<!-- 用户累计使用次数统计 -->
+	<resultMap type="ReportUserOrderCount" id="ReportUserOrderCountMap">
+		<result column="user_id" property="userId" />
+		<result column="order_count" property="orderCount" />
+		<result column="nickname" property="nickname" />
+		<result column="name" property="name" />
+		<result column="mobile" property="mobile" />
+		<result column="openid" property="openid"/>
+		<result column="send_sf_user_time" property="sendSfUserTime" />
+		<result column="send_time_section" property="sendTimeSection" />
+	</resultMap>
+	
+	<resultMap type="ReportPartnerOrder" id="PartnerOrderResultMap" extends="BaseResultMap">
+		<result column="user_name" property="userName" />
+		<result column="uuid" property="uuid" />
+		<result column="child_amount" property="childAmount" />
+		<result column="settle_amount" property="settleAmount"/>
+		<result column="settle_fee" property="settleFee"/>
+		<result column="settle_model" property="settleModel"/>
+		<result column="settle_mode_value" property="settleModeValue"/>
+		<result column="settle_state" property="settleState"/>
+		<result column="settle_time" property="settleTime"/>
+		<result column="settle_remark" property="settleRemark" />
+	</resultMap>
+	
+	<resultMap type="ReportOrderCostItem" id="ReportCostItemMap" extends="BaseResultMap">
+		<result column="pay_method" property="payMethod" />
+		<result column="item" property="item" />
+		<result column="item_amount" property="itemAmount" />
+		<result column="item_remark" property="itemRemark" />
+	</resultMap>
+	
+	<select id="findOrderDetails" resultMap="OrderDetailResultMap">
+		select 
+			o.*,
+			if(w.name is not null and w.name != '',w.name,w.nickname) user_name,
+			c.type coupon_type 
+		from 
+			order_info o 
+			left join user_weixin w on o.user_id = w.id 
+			left join coupon c on o.coupon_id = c.id 
+		<where>
+			<if test="condition.startDate != null">
+				<![CDATA[
+				and date(o.create_time) >= date(#{condition.startDate}) 
+				]]>
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+				and date(o.create_time) <= date(#{condition.endDate}) 
+				]]>
+			</if>
+			<if test="condition.firstOrder != null">
+				and o.first_order = #{condition.firstOrder} 
+			</if>
+			<if test="condition.orderStatus != null and condition.orderStatus > 0">
+				and o.order_status = #{condition.orderStatus} 
+			</if>
+			<choose>
+				<when test="condition.isFavored != null and condition.isFavored">
+					and o.discount > 0 
+				</when>
+				<when test="condition.isFavored != null and !condition.isFavored">
+					and (o.discount is null or o.discount = 0) 
+				</when>
+				<otherwise></otherwise>
+			</choose>
+			<if test="condition.expressType != null and condition.expressType > 0">
+				and o.express_type = #{condition.expressType} 
+			</if>
+			<if test="condition.thirdType != null and condition.thirdType > 0">
+				and o.third_type = #{condition.thirdType} 
+			</if>
+			<if test="condition.outRangeType == 0">
+				and (o.j_out_range_type = 0 and o.d_out_range_type = 0) 
+			</if>
+			<if test="condition.outRangeType > 0">
+				and (o.j_out_range_type = #{condition.outRangeType} or o.d_out_range_type = #{condition.outRangeType}) 
+			</if>
+			<if test="condition.bagCode != null and condition.bagCode != ''">
+				and o.bag_code like concat('%',#{condition.bagCode},'%') 
+			</if>
+		</where>
+	</select>
+	
+	<select id="findOrdersAmount" resultMap="OrderAmountResultMap">
+		select 
+			o.*,
+			if(w.name is not null and w.name != '',w.name,w.nickname) user_name,
+			c.child_amount child_amount,
+			p.uuid,
+			p.pay_method 
+		from 
+			order_info o 
+			left join user_weixin w on o.user_id = w.id 
+			left join coupon c on o.coupon_id = c.id 
+			left join order_pay_info p on o.pay_id = p.id 
+		<where>
+			o.pay_id is not null 
+			<if test="condition.startDate != null">
+				<![CDATA[
+				and date(o.create_time) >= date(#{condition.startDate})  
+				]]>
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+				and date(o.create_time) <= date(#{condition.endDate}) 
+				]]>
+			</if>
+			<if test="condition.mailChannel != null and condition.mailChannel > 0">
+				and mail_channel = #{condition.mailChannel} 
+			</if>
+		</where>
+	</select>
+	
+	<select id="orderFirstAmount" resultMap="OrderFirstAmountMap">
+	SELECT 
+		j_contact AS 'name', 
+		createTime, 
+		j_mobile AS mobile 
+	FROM(
+		SELECT 
+			j_contact, 
+			min(create_time) AS createTime, 
+			j_mobile 
+		FROM order_info
+		WHERE order_status = 3 
+		GROUP BY j_mobile
+	) order_first
+	<where>
+		<if test="condition.startDate != null">
+			<![CDATA[
+			 and date(createTime) >= date(#{condition.startDate}) 
+			]]>
+		</if>
+		<if test="condition.endDate != null">
+			<![CDATA[
+			and date(createTime) <= date(#{condition.endDate}) 
+			]]>
+		</if>
+	</where>
+	</select>
+	
+	<select id="orderCountAmount" resultMap="OrderCountAmountMap">
+		SELECT
+			j_contact AS 'name',
+			j_mobile AS mobile,
+			count(*) AS 'count' 
+		FROM order_info 
+		<where>
+			order_status = 3 
+			<if test="condition.startDate != null">
+				<![CDATA[
+				and date(create_time) >= date(#{condition.startDate}) 
+				]]>
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+				and date(create_time) <= date(#{condition.endDate}) 
+				]]>
+			</if>
+		</where>
+		GROUP BY j_mobile,j_contact 
+		HAVING COUNT(*) >= 3 
+		order by count desc 
+	</select>
+	
+	<select id="orderSituation" resultMap="OrderSituationResultMap">
+		SELECT 
+			create_time AS 'date', 
+			COUNT(*) AS 'total',
+			SUM(order_status = 3 or order_status = 8 ) AS effectiveOrder,
+			SUM(order_status = 1) AS waitPay,
+			SUM(
+			case when 
+			(order_status = 5 AND (pay_id = 0 or pay_id IS NULL))
+			OR 
+			(order_status = 6)
+			OR
+			( order_status = 7 AND (pay_id = 0 or pay_id IS NULL))
+			then 1 ELSE 0 end
+			) AS destroyOrder,
+			SUM(
+			case when 
+			(order_status = 5 AND pay_id > 0)
+			OR
+			(order_status = 7 AND pay_id  > 0)
+			then 1 ELSE 0 end
+			) AS cancelOrder 
+		FROM order_info oi
+		<where>
+			<if test="condition.startDate != null">
+				<![CDATA[
+				and date(create_time) >= date(#{condition.startDate}) 
+				]]>
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+				and date(create_time) <= date(#{condition.endDate}) 
+				]]>
+			</if>
+		</where>
+		GROUP BY date(create_time)
+	</select>
+	
+	<select id="findJCourseOrders" resultMap="SiteResultMap">
+		SELECT
+			o.j_mobile,
+			o.j_contact,
+			o.j_addr_id,
+			o.j_addr_name,
+			o.d_addr_id,
+			o.d_addr_name,
+			count(o.id) total_order,
+			sum(if(o.order_status=3,1,0)) valid_order,
+			sum(if((o.order_status=5 or o.order_status=7) and (o.refund_status=4 or o.refund_status=3),1,0)) cancel_order,
+			sum(o.amount) total_amount,
+			sum(if(o.order_status=3,o.amount,0)) valid_amount,
+			sum(if((o.order_status=5 or o.order_status=7) and (o.refund_status=4 or o.refund_status=3),r.real_amount,0)) cancel_amount
+		FROM
+			order_info o left join order_refund r on o.id = r.order_id  
+		<where>
+			o.order_status IN ('3', '5', '7') 
+			and o.pay_id >= 0 
+			and o.j_addr_type = 1 
+			and o.d_addr_type = 1 
+			<if test="condition.startDate != null">
+				<![CDATA[
+				and date(o.create_time) >= date(#{condition.startDate}) 
+				]]>
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+				and date(o.create_time) <= date(#{condition.endDate}) 
+				]]>
+			</if>
+			<if test="condition.jMobile != null and condition.jMobile != ''">
+				and o.j_mobile like concat('%',#{condition.jMobile},'%') 
+			</if>
+			<if test="condition.jContact != null and condition.jContact != ''">
+				and o.j_contact like concat('%',#{condition.jContact},'%') 
+			</if>
+			<if test="condition.jAddrId != null and condition.jAddrId > 0">
+				and o.j_addr_id = #{condition.jAddrId} 
+			</if>
+			<if test="condition.dAddrId != null and condition.dAddrId > 0">
+				and o.d_addr_id = #{condition.dAddrId} 
+			</if>
+		</where>
+		GROUP BY
+			o.j_mobile,o.j_contact,o.j_addr_id,o.d_addr_id 
+		ORDER BY 
+			total_order desc 
+	</select>
+	
+	<select id="findJAreaOrders" resultMap="SiteResultMap">
+		SELECT
+			o.j_mobile,
+			o.j_contact,
+			o.j_area_id,
+			o.j_tree_path,
+			o.d_area_id,
+			o.d_tree_path,
+			count(o.id) total_order,
+			sum(if(o.order_status=3,1,0)) valid_order,
+			sum(if((o.order_status=5 or o.order_status=7) and (o.refund_status=4 or o.refund_status=3),1,0)) cancel_order,
+			sum(o.amount) total_amount,
+			sum(if(o.order_status=3,o.amount,0)) valid_amount,
+			sum(if((o.order_status=5 or o.order_status=7) and (o.refund_status=4 or o.refund_status=3),r.real_amount,0)) cancel_amount
+		FROM
+			order_info o left join order_refund r on o.id = r.order_id 
+		<where>
+			o.order_status IN ('3', '5', '7') 
+			and o.pay_id >= 0 
+			and o.j_addr_type = 4 
+			and o.d_addr_type = 4 
+			<if test="condition.startDate != null">
+				<![CDATA[
+				and date(o.create_time) >= date(#{condition.startDate}) 
+				]]>
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+				and date(o.create_time) <= date(#{condition.endDate}) 
+				]]>
+			</if>
+			<if test="condition.jMobile != null and condition.jMobile != ''">
+				and o.j_mobile like concat('%',#{condition.jMobile},'%') 
+			</if>
+			<if test="condition.jContact != null and condition.jContact != ''">
+				and o.j_contact like concat('%',#{condition.jContact},'%') 
+			</if>
+			<if test="condition.jAreaId != null and condition.jAreaId > 0">
+				and o.j_area_id in (select id from base_sf_area where tree_id like concat('%',#{condition.jAreaId},'%')) 
+			</if>
+			<if test="condition.dAreaId != null and condition.dAreaId > 0">
+				and o.d_area_id in (select id from base_sf_area where tree_id like concat('%',#{condition.dAreaId},'%')) 
+			</if>
+		</where>
+		GROUP BY 
+			o.j_mobile,o.j_contact,o.j_area_id,o.d_area_id 
+		ORDER BY 
+			total_order desc 
+	</select>
+	
+	<!-- 用户累计使用次数统计 -->
+	<select id="findUserOrderCountByPage" resultMap="ReportUserOrderCountMap">
+		select 
+			o.user_id as user_id,
+			o.openid as openid,
+			o.order_count as order_count,
+			w.nickname as nickname,
+			w.`name` as name,
+			w.mobile as mobile from 
+		(
+			select 
+				user_id,
+				openid,
+				count(id) as order_count 
+			from order_info 
+			<where>
+				order_status=3
+				<if test="condition.startDate != null">
+					<![CDATA[
+					and date(create_time) >= date(#{condition.startDate}) 
+					]]>
+				</if>
+				<if test="condition.endDate != null">
+					<![CDATA[
+					and date(create_time) <= date(#{condition.endDate}) 
+					]]>
+				</if>
+			</where>
+			group by user_id,openid
+		) as o
+		left join user_weixin w on o.user_id=w.id 
+		order by order_count desc 
+	</select>
+	
+	<select id="findCourseOrders" resultMap="SiteResultMap">
+		SELECT
+			o.j_addr_id,
+			o.j_addr_name,
+			o.d_addr_id,
+			o.d_addr_name,
+			count(o.id) total_order,
+			sum(if(o.order_status=3,1,0)) valid_order,
+			sum(if((o.order_status=5 or o.order_status=7) and (o.refund_status=4 or o.refund_status=3),1,0)) cancel_order,
+			sum(o.amount) total_amount,
+			sum(if(o.order_status=3,o.amount,0)) valid_amount,
+			sum(if((o.order_status=5 or o.order_status=7) and (o.refund_status=4 or o.refund_status=3),r.real_amount,0)) cancel_amount
+		FROM
+			order_info o left join order_refund r on o.id = r.order_id 
+		<where>
+			o.order_status IN ('3', '5', '7') 
+			and o.pay_id >= 0 
+			and o.j_addr_type = 1 
+			and o.d_addr_type = 1 
+			<if test="condition.startDate != null">
+				<![CDATA[
+				and date(o.create_time) >= date(#{condition.startDate}) 
+				]]>
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+				and date(o.create_time) <= date(#{condition.endDate}) 
+				]]>
+			</if>
+			<if test="condition.jAddrId != null and condition.jAddrId > 0">
+				and o.j_addr_id = #{condition.jAddrId} 
+			</if>
+			<if test="condition.dAddrId != null and condition.dAddrId > 0">
+				and o.d_addr_id = #{condition.dAddrId} 
+			</if>
+		</where>
+		GROUP BY 
+			o.j_addr_id,o.d_addr_id 
+		ORDER BY 
+			total_order desc 
+	</select>
+	
+	<select id="findAreaOrders" resultMap="SiteResultMap">
+		SELECT
+			o.j_area_id,
+			o.j_tree_path,
+			o.d_area_id,
+			o.d_tree_path,
+			count(o.id) total_order,
+			sum(if(o.order_status=3,1,0)) valid_order,
+			sum(if((o.order_status=5 or o.order_status=7) and (o.refund_status=4 or o.refund_status=3),1,0)) cancel_order,
+			sum(o.amount) total_amount,
+			sum(if(o.order_status=3,o.amount,0)) valid_amount,
+			sum(if((o.order_status=5 or o.order_status=7) and (o.refund_status=4 or o.refund_status=3),r.real_amount,0)) cancel_amount
+		FROM
+			order_info o left join order_refund r on o.id = r.order_id 
+		<where>
+			o.order_status IN ('3', '5', '7') 
+			and o.pay_id >= 0 
+			and o.j_addr_type = 4 
+			and o.d_addr_type = 4 
+			<if test="condition.startDate != null">
+				<![CDATA[
+				and date(o.create_time) >= date(#{condition.startDate}) 
+				]]>
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+				and date(o.create_time) <= date(#{condition.endDate}) 
+				]]>
+			</if>
+			<if test="condition.jAreaId != null and condition.jAreaId > 0">
+				and o.j_area_id in (select id from base_sf_area where tree_id like concat('%',#{condition.jAreaId},'%')) 
+			</if>
+			<if test="condition.dAreaId != null and condition.dAreaId > 0">
+				and o.d_area_id in (select id from base_sf_area where tree_id like concat('%',#{condition.dAreaId},'%')) 
+			</if>
+		</where>
+		GROUP BY 
+			o.j_area_id,o.d_area_id 
+		ORDER BY 
+			total_order desc 
+	</select>
+	
+	<select id="findSiteOrders" resultMap="SiteResultMap">
+		SELECT
+			o.j_addr_type,
+			o.j_area_id,
+			o.j_tree_path,
+			o.j_addr_id,
+			o.j_addr_name,
+			o.d_addr_type,
+			o.d_area_id,
+			o.d_tree_path,
+			o.d_addr_id,
+			o.d_addr_name,
+			count(o.id) total_order,
+			sum(if(o.order_status=3,1,0)) valid_order,
+			sum(if((o.order_status=5 or o.order_status=7) and (o.refund_status=4 or o.refund_status=3),1,0)) cancel_order,
+			SUM(o.amount) total_amount,
+			sum(if(o.order_status=3,o.amount,0)) valid_amount,
+			sum(if((o.order_status=5 or o.order_status=7) and (o.refund_status=4 or o.refund_status=3),r.real_amount,0)) cancel_amount
+		FROM
+			order_info o left join order_refund r on o.id = r.order_id 
+		<where>
+			o.order_status IN ('3', '5', '7') 
+			and o.pay_id >= 0 
+			<if test="condition.startDate != null">
+				<![CDATA[
+				and date(o.create_time) >= date(#{condition.startDate}) 
+				]]>
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+				and date(o.create_time) <= date(#{condition.endDate}) 
+				]]>
+			</if>
+			<if test="condition.jAddrType != null and condition.jAddrType > 0">
+				and o.j_addr_type = #{condition.jAddrType} 
+			</if>
+			<if test="condition.dAddrType != null and condition.dAddrType > 0">
+				and o.d_addr_type = #{condition.dAddrType} 
+			</if>
+			<if test="condition.jAreaId != null and condition.jAreaId > 0">
+				and o.j_area_id in (select id from base_sf_area where tree_id like concat('%',#{condition.jAreaId},'%')) 
+			</if>
+			<if test="condition.dAreaId != null and condition.dAreaId > 0">
+				and o.d_area_id in (select id from base_sf_area where tree_id like concat('%',#{condition.dAreaId},'%')) 
+			</if>
+			<if test="condition.jAddrId != null and condition.jAddrId > 0">
+				and o.j_addr_id = #{condition.jAddrId} 
+			</if>
+			<if test="condition.dAddrId != null and condition.dAddrId > 0">
+				and o.d_addr_id = #{condition.dAddrId} 
+			</if>
+		</where>
+		GROUP BY 
+			o.j_addr_type,o.j_area_id,o.j_addr_id,o.d_addr_type,o.d_area_id,o.d_addr_id 
+		ORDER BY 
+			total_order desc 
+	</select>
+	
+	<select id="findPartnerOrders" resultMap="PartnerOrderResultMap">
+		select 
+			o.*,
+			if(w.name is not null and w.name != '',w.name,w.nickname) user_name,
+			c.child_amount child_amount,
+			p.uuid,
+			s.settle_amount,
+			s.settle_fee,
+			s.settle_model,
+			s.settle_mode_value,
+			s.settle_state,
+			s.settle_time,
+			s.remark settle_remark 
+		from 
+			order_info o 
+			left join user_weixin w on o.user_id = w.id 
+			left join coupon c on o.coupon_id = c.id 
+			left join order_pay_info p on o.pay_id = p.id 
+			left join order_settlement s on o.id = s.order_id 
+		<where>
+			o.pay_id is not null 
+			and o.third_type != 1 
+			<if test="condition.startDate != null">
+				<![CDATA[
+				and date(o.create_time) >= date(#{condition.startDate})  
+				]]>
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+				and date(o.create_time) <= date(#{condition.endDate}) 
+				]]>
+			</if>
+			<if test="condition.thirdId != null and condition.thirdId > 0">
+				and o.third_id = #{condition.thirdId} 
+			</if>
+			<if test="condition.settleState != null and condition.settleState > 0">
+				and s.settle_state = #{condition.settleState} 
+			</if>
+		</where>
+	</select>
+	
+	<select id="findSiteTimeOrders" resultMap="SiteResultMap">
+		SELECT
+			o.j_addr_type,
+			o.j_area_id,
+			o.j_tree_path,
+			o.j_addr_id,
+			o.j_addr_name,
+			o.send_sf_user_time,
+			o.send_time_section,
+			count(o.id) total_order,
+			sum(if(o.order_status=3,1,0)) valid_order,
+			sum(if((o.order_status=5 or o.order_status=7) and (o.refund_status=4 or o.refund_status=3),1,0)) cancel_order,
+			SUM(o.amount) total_amount,
+			sum(if(o.order_status=3,o.amount,0)) valid_amount,
+			sum(if((o.order_status=5 or o.order_status=7) and (o.refund_status=4 or o.refund_status=3),r.real_amount,0)) cancel_amount
+		FROM
+			order_info o left join order_refund r on o.id = r.order_id 
+		<where>
+			o.order_status IN ('3', '5', '7') 
+			and o.pay_id >= 0 
+			<if test="condition.startDate != null">
+				<![CDATA[
+				and date(o.create_time) >= date(#{condition.startDate}) 
+				]]>
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+				and date(o.create_time) <= date(#{condition.endDate}) 
+				]]>
+			</if>
+			<if test="condition.jAddrType != null and condition.jAddrType > 0">
+				and o.j_addr_type = #{condition.jAddrType} 
+			</if>
+			<if test="condition.jAreaId != null and condition.jAreaId > 0">
+				and o.j_area_id in (select id from base_sf_area where tree_id like concat('%',#{condition.jAreaId},'%')) 
+			</if>
+			<if test="condition.jAddrId != null and condition.jAddrId > 0">
+				and o.j_addr_id = #{condition.jAddrId} 
+			</if>
+			<if test="condition.sendSfStartTime != null">
+				<![CDATA[
+				and o.send_sf_user_time >= #{condition.sendSfStartTime} 
+				]]>
+			</if>
+			<if test="condition.sendSfEndTime != null">
+				<![CDATA[
+				and o.send_sf_user_time <= #{condition.sendSfEndTime} 
+				]]>
+			</if>
+		</where>
+		GROUP BY 
+			o.j_addr_type,o.j_area_id,o.j_addr_id,o.send_sf_user_time 
+		ORDER BY 
+			total_order desc 
+	</select>
+	
+	<select id="findUserOrderCountTimeByPage" resultMap="ReportUserOrderCountMap">
+		select 
+			o.user_id as user_id,
+			o.openid as openid,
+			o.send_sf_user_time as send_sf_user_time,
+			o.send_time_section as send_time_section,
+			o.order_count as order_count,
+			w.nickname as nickname,
+			w.`name` as name,
+			w.mobile as mobile 
+		from 
+		(
+			select 
+				user_id,
+				openid,
+				send_sf_user_time,
+				send_time_section,
+				count(id) as order_count 
+			from order_info 
+			<where>
+				order_status=3
+				<if test="condition.startDate != null">
+					<![CDATA[
+					and date(create_time) >= date(#{condition.startDate}) 
+					]]>
+				</if>
+				<if test="condition.endDate != null">
+					<![CDATA[
+					and date(create_time) <= date(#{condition.endDate}) 
+					]]>
+				</if>
+				<if test="condition.sendSfStartTime != null">
+					<![CDATA[
+					and send_sf_user_time >= #{condition.sendSfStartTime} 
+					]]>
+				</if>
+				<if test="condition.sendSfEndTime != null">
+					<![CDATA[
+					and send_sf_user_time <= #{condition.sendSfEndTime} 
+					]]>
+				</if>
+			</where>
+			group by 
+				user_id,
+				openid,
+				send_sf_user_time 
+		) as o
+		left join user_weixin w on o.user_id=w.id 
+		order by order_count desc 
+	</select>
+	
+	<select id="findCostItemByPage" resultMap="ReportCostItemMap">
+		select 
+			o.id,
+			o.create_time,
+			o.number,
+			o.amount,
+			p.pay_method,
+			c.item,
+			c.amount item_amount,
+			c.remark item_remark 
+		from order_info o join order_cost_item c on o.id = c.order_id left join order_pay_info p on o.pay_id = p.id 
+		<where>
+			<if test="condition.startDate != null">
+				<![CDATA[
+				and date(o.create_time) >= date(#{condition.startDate}) 
+				]]>
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+				and date(o.create_time) <= date(#{condition.endDate}) 
+				]]>
+			</if>
+		</where>
+	</select>
+	
+	<select id="findByPageReport" resultMap="BossOrderInfoResult">
+		select 
+			o.id,
+			o.create_time,
+			o.user_id,
+			w.name user_name,
+			w.nickname,
+			o.number,
+			o.mail_no,
+			o.order_status,
+			o.refund_status,
+			o.delivery_status,
+			o.bps_status,
+			o.send_sf_user_time,
+			o.deliver_date,
+			o.deliver_time,
+			o.j_addr_type,
+			o.j_addr_id,
+			o.j_addr_name,
+			o.j_contact,
+			o.j_mobile,
+			o.j_area_id,
+			o.j_tree_path,
+			o.j_address,
+			o.j_out_range_type,
+			o.d_addr_type,
+			o.d_addr_id,
+			o.d_addr_name,
+			o.d_contact,
+			o.d_mobile,
+			o.d_area_id,
+			o.d_tree_path,
+			o.d_address,
+			o.d_out_range_type,
+			o.third_type,
+			o.third_id,
+			o.third_name,
+			o.lang_ename,
+			o.is_vip,
+			o.proxy_user_id,
+			su.name AS sale_user_name,
+			su.id AS sale_user_id,
+			o.order_source,
+			o.mail_channel,
+			o.insured_channel 
+		from order_info o 
+		left join user_weixin w on o.user_id=w.id 
+		left join sale_user su on o.proxy_user_id=su.user_id
+		<where>
+			<if test="condition.begSendTime != null">
+				<![CDATA[
+				and date(o.send_sf_user_time) >= date(#{condition.begSendTime}) 
+				]]>
+			</if>
+			<if test="condition.endSendTime != null">
+				<![CDATA[
+				and date(o.send_sf_user_time) <= date(#{condition.endSendTime}) 
+				]]>
+			</if>
+			<if test="condition.deliverStartTime != null">
+				<![CDATA[
+				and date(o.deliver_date) >= date(#{condition.deliverStartTime}) 
+				]]>
+			</if>
+			<if test="condition.deliverEndTime != null">
+				<![CDATA[
+				and date(o.deliver_date) <= date(#{condition.deliverEndTime}) 
+				]]>
+			</if>
+			<if test="condition.deliveryStatus != null">
+				and o.delivery_status = #{condition.deliveryStatus} 
+			</if>
+			<if test="condition.orderStatus != null">
+				and o.order_status = #{condition.orderStatus} 
+			</if>
+			<if test="condition.jAddrType == 1">
+				and o.j_addr_type = 1
+			</if>
+			<if test="condition.jAddrType == 0">
+			<![CDATA[
+				and o.j_addr_type != 1
+				]]>
+			</if>
+			<if test="condition.dAddrType == 1">
+				and o.d_addr_type = 1
+			</if>
+			<if test="condition.dAddrType == 0">
+			<![CDATA[
+				and o.d_addr_type != 1 
+				]]>
+			</if>
+			<if test="condition.mailChannel != null and condition.mailChannel != 0">
+				and o.mail_channel = #{condition.mailChannel} 
+			</if>
+			<if test="condition.dBagIsSameAdree==1">
+				and o.d_address in  (select t1.d_address from order_info t1
+				<where>
+					<if test="condition.begSendTime != null">
+					<![CDATA[
+					and date(t1.send_sf_user_time) >= date(#{condition.begSendTime}) 
+					]]>
+					</if>
+					<if test="condition.endSendTime != null">
+					<![CDATA[
+					and date(t1.send_sf_user_time) <= date(#{condition.endSendTime}) 
+					]]>
+					</if>
+					<if test="condition.deliverStartTime != null">
+					<![CDATA[
+					and date(t1.deliver_date) >= date(#{condition.deliverStartTime}) 
+					]]>
+					</if>
+					<if test="condition.deliverEndTime != null">
+					<![CDATA[
+					and date(t1.deliver_date) <= date(#{condition.deliverEndTime}) 
+					]]>
+					</if>
+					
+					<if test="condition.deliveryStatus != null">
+						and t1.delivery_status = #{condition.deliveryStatus} 
+					</if>
+					<if test="condition.orderStatus != null">
+						and t1.order_status = #{condition.orderStatus} 
+					</if>
+					<if test="condition.jAddrType == 1">
+						and t1.j_addr_type = 1
+					</if>
+					<if test="condition.jAddrType == 0">
+					<![CDATA[
+						and t1.j_addr_type != 1
+						]]>
+					</if>
+					<if test="condition.dAddrType == 1">
+						and t1.d_addr_type = 1
+					</if>
+					<if test="condition.dAddrType == 0">
+					<![CDATA[
+						and t1.d_addr_type != 1 
+						]]>
+					</if>
+					<if test="condition.mailChannel != null and condition.mailChannel != 0">
+						and t1.mail_channel = #{condition.mailChannel} 
+					</if>
+					
+				</where>
+				GROUP BY t1.d_address 
+				HAVING count(t1.d_address) > 1)
+				</if>
+			<if test="condition.jBagIsSameAdree==1">
+				and o.j_address in  (select t1.j_address from order_info t1
+				<where>
+					<if test="condition.begSendTime != null">
+					<![CDATA[
+					and date(t1.send_sf_user_time) >= date(#{condition.begSendTime}) 
+					]]>
+					</if>
+					<if test="condition.endSendTime != null">
+					<![CDATA[
+					and date(t1.send_sf_user_time) <= date(#{condition.endSendTime}) 
+					]]>
+					</if>
+					<if test="condition.deliverStartTime != null">
+					<![CDATA[
+					and date(t1.deliver_date) >= date(#{condition.deliverStartTime}) 
+					]]>
+					</if>
+					<if test="condition.deliverEndTime != null">
+					<![CDATA[
+					and date(t1.deliver_date) <= date(#{condition.deliverEndTime}) 
+					]]>
+					</if>
+					
+					<if test="condition.deliveryStatus != null">
+						and t1.delivery_status = #{condition.deliveryStatus} 
+					</if>
+					<if test="condition.orderStatus != null">
+						and t1.order_status = #{condition.orderStatus} 
+					</if>
+					<if test="condition.jAddrType == 1">
+						and t1.j_addr_type = 1
+					</if>
+					<if test="condition.jAddrType == 0">
+					<![CDATA[
+						and t1.j_addr_type != 1
+						]]>
+					</if>
+					<if test="condition.dAddrType == 1">
+						and t1.d_addr_type = 1
+					</if>
+					<if test="condition.dAddrType == 0">
+					<![CDATA[
+						and t1.d_addr_type != 1 
+						]]>
+					</if>
+					<if test="condition.mailChannel != null and condition.mailChannel != 0">
+						and t1.mail_channel = #{condition.mailChannel} 
+					</if>
+					
+				</where>
+				GROUP BY t1.j_address 
+				HAVING count(t1.j_address) > 1)
+			</if>
+			<if test="condition.insuredChannel != null and condition.insuredChannel != ''">
+				and o.insured_channel = #{condition.insuredChannel} 
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY  
+				<if test="condition.dBagIsSameAdree==1">
+					o.d_address,
+				</if>
+				<if test="condition.jBagIsSameAdree==1">
+					o.j_address,
+				</if>
+				${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseVersionMapper">
+
+	<resultMap id="BaseResultMap" type="BaseVersion">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="version" property="version" jdbcType="VARCHAR" />
+		<result column="reversion" property="reversion" jdbcType="VARCHAR" />
+		<result column="published_on" property="publishedOn" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="ResultMapWithBLOBs" type="BaseVersion" extends="BaseResultMap">
+		<result column="description" property="description" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, version, reversion, published_on
+	</sql>
+	
+	<sql id="Blob_Column_List">
+		description
+	</sql>
+	
+	<select id="selectById" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from base_version
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<insert id="insert" parameterType="BaseVersion" keyProperty="id" useGeneratedKeys="true">
+		insert into base_version (version, reversion,
+		published_on, description)
+		values (#{version,jdbcType=VARCHAR},
+		#{reversion,jdbcType=VARCHAR},
+		#{publishedOn,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR})
+	</insert>
+	
+	<update id="updateById" parameterType="BaseVersion">
+		update base_version
+		<set>
+			<if test="version != null">
+				version = #{version,jdbcType=VARCHAR},
+			</if>
+			<if test="reversion != null">
+				reversion = #{reversion,jdbcType=VARCHAR},
+			</if>
+			<if test="publishedOn != null">
+				published_on = #{publishedOn,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="findAll" resultMap="ResultMapWithBLOBs">
+		select 
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from base_version 
+		order by published_on desc
+	</select>
+	
+</mapper>

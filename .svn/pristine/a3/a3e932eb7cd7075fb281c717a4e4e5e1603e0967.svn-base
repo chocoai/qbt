@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+<meta name="renderer" content="webkit">
+<meta name="Keywords" content="高尔夫球包托运,快递高尔夫球包,球包快递">
+<meta name="Description" content="根据提示填写详细的高尔夫球包快递信息,快递员上门取件,球包通为您提供最专业的高尔夫球包托运服务。">
+<title>高尔夫球包托运_快递高尔夫球包-球包快递</title>
+<!-- Bootstrap -->
+<link href="assets/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+<link href="assets/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/normalize.css">
+<!--我的-->
+<link href="{{{/css/globle.css}}}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="css/idangerous.swiper.css">
+<link href="css/newbag.css" rel="stylesheet" type="text/css">
+<link href="{{{/css/shop.css}}}" rel="stylesheet" type="text/css">
+
+<!--[if lte IE 6]>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-ie6.css">
+  <link rel="stylesheet" type="text/css" href="css/ie.css">
+<![endif]-->
+<!--[if lt IE 9]>
+  <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<style>
+.open02 .tab{display: block !important;}
+.select p{color: #555;}
+.book-name{color: #555 !important;}
+a.list-group-item{line-height: 1.4;}
+a.list-group-item:hover{color: #fff;background-color: #15ca5f;}
+.hide{display: none;}
+.panel-green{border-color: #ddd;}
+.panel-green>.panel-heading{background-color: #15ca5f;color: #fff;border: 0;}
+.panel-title>img{height:20px;margin-right:15px;vertical-align: sub;}
+</style>
+</head>
+<body>
+<div id="app">
+<!--头部-->
+<header class="header">
+  <nav class="navbar scrolled">
+    <div class="container">
+        <div class="navbar-header">
+           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+               <span class="sr-only">切换导航</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+           </button>
+           <a href="/"><img src="images/logo-nav.png" alt="" style="max-height: 32px;margin-top:13px;"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/" class="main-nav-link ">主页</a> </li>
+                <li><a href="order.html" class="main-nav-link current">球包快递</a></li>
+                <li><a href="track.html" class="main-nav-link">球包追踪</a></li>
+                <li><a href="raiders.html" class="main-nav-link">球包通攻略</a></li>
+                <li><a href="service.html" class="main-nav-link ">客服中心</a></li>
+                <li><a href="about.html" class="main-nav-link">关于我们</a></li>
+                <li><a href="/news/" class="main-nav-link ">球包通新闻</a></li>
+                <li><a href="tel:400-609-0990;" style="font-weight:700;"><img src="images/nav-tel.png" alt="" style="height:25px;margin-right:15px;">400-609-0990</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+  </nav>
+</header>
+<!--头部 end-->
+<!--努力建设中-->
+<!-- <section class=" text-center mar-head fixed col-md-12" style="z-index:10; height:100%; top:-25px; background-color: rgba(255,255,255,0.9);"><br /><br /><br />
+<img src="images/build.png" class="center-block bg-f" />
+ <h4 >努力开发中,敬请期待...</h4><br /><br /><br /><br />
+</section> -->
+<!--努力建设中end-->
+
+<section class="book-tit ">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h3>球包下单</h3>
+        <p class="font16">
+          提供您的个人信息，即刻预约快递员为您提供上门服务</p>
+        <hr />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-bottom:50px;">
+  <div class="container">
+    <div class="row book-box">
+        <div class="col-md-6">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><img src="images/pos.png">寄包信息</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">姓名</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" placeholder="姓名" v-model="jUserName" maxlength="8">
+                          </div>
+                          <label class="col-sm-2 control-label">电话</label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control" placeholder="电话" v-model="jMobile" maxlength="15">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">地址类型</label>
+                          <div class="col-sm-10">
+                            <div class="select pull-left">
+                              <p>地址</p>
+                              <span></span>
+                              <ul>
+                                  <li class="selected" @click="jAddrType = 1">地址</li>
+                                  <li class="" @click="jAddrType = 2">球场</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group" v-show="jAddrType == 1">
+                          <label class="col-sm-2 control-label">所在地区</label>
+                          <div class="col-sm-10 city-box">
+                              <div class="col-md-12 bag-ci-box bg-f ">
+                              <input type="text" class=" form-control" id="city" placeholder="选择寄包城市..." readonly/>
+                              <span style="top:1px;width:34px;"></span>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="form-group" v-show="jAddrType == 1">
+                          <label class="col-sm-2 control-label">详细地址</label>
+                          <div class="col-sm-10">
+                            <input type="name" class="form-control" placeholder="请输入详细地址" v-model="jAddress" maxlength="32">
+                          </div>
+                        </div>
+                        <div class="form-group" v-show="jAddrType == 2">
+                          <label class="col-sm-2 control-label">球场</label>
+                          <div class="col-sm-10 city-box">
+                              <div class="col-md-3" style="padding-left:0;">
+                                  <select class="form-control" v-model="course_pro1">
+                                      <option v-for="item in province" :value="item.id">{{item.name}}</option>
+                                  </select>
+                              </div>
+                              <div class="col-md-9 bag-ci-box bg-f ">
+                                  <input type="text" class=" form-control" id="jCourse" placeholder="选择球场..." readonly @click.stop="showCourse(true)"/>
+                                  <span style="top:1px;width:34px;"></span>
+                                  <div style="position:absolute;width:100%;z-index:9;background-color:#fff;" class="hide" id="course1" @click.stop="">
+                                      <input class="form-control" placeholder="搜索.." v-model="searchCourse1">
+                                      <div class="list-group" style="max-height:250px;overflow:auto;">
+                                          <a href="javascript:;" class="list-group-item" v-for="item in courseList1" @click="chooseCourse(item,true)">{{item.name}}<i class="badge" v-show="item.activityType == 1" style="font-style:normal;background-color: #15ca5f;">减</i></a>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><img src="images/pos.png">收包信息</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">姓名</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" placeholder="姓名" v-model="dUserName" maxlength="8">
+                          </div>
+                          <label class="col-sm-2 control-label">电话</label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control" placeholder="电话" v-model="dMobile" maxlength="15">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">地址类型</label>
+                          <div class="col-sm-10">
+                            <div class="select pull-left">
+                              <p>地址</p>
+                              <span></span>
+                              <ul>
+                                  <li class="selected" @click="dAddrType = 1">地址</li>
+                                  <li class="" @click="dAddrType = 2">球场</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group" v-show="dAddrType == 1">
+                          <label class="col-sm-2 control-label">所在地区</label>
+                            <div class="col-sm-10 city-box">
+                              <div class="col-md-12 bag-ci-box bg-f ">
+                              <input type="text" class=" form-control" id="city-2" placeholder="选择收包城市..." readonly/>
+                              <span style="top:1px;width:34px;"></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group" v-show="dAddrType == 1">
+                          <label class="col-sm-2 control-label">详细地址</label>
+                          <div class="col-sm-10">
+                            <input type="name" class="form-control" placeholder="请输入详细地址" v-model="dAddress" maxlength="32">
+                          </div>
+                        </div>
+                        <div class="form-group" v-show="dAddrType == 2">
+                          <label class="col-sm-2 control-label">球场</label>
+                          <div class="col-sm-10 city-box">
+                              <div class="col-md-3" style="padding-left:0;">
+                                  <select class="form-control" v-model="course_pro2">
+                                      <<option v-for="item in province" :value="item.id">{{item.name}}</option>
+                                  </select>
+                              </div>
+                              <div class="col-md-9 bag-ci-box bg-f ">
+                                  <input type="text" class=" form-control" id="dCourse" placeholder="选择球场..." readonly @click.stop="showCourse(false)"/>
+                                  <span style="top:1px;width:34px;"></span>
+                                  <div style="position:absolute;width:100%;z-index:9;background-color:#fff;" class="hide" id="course2" @click.stop="">
+                                      <input class="form-control" placeholder="搜索.." v-model="searchCourse2">
+                                      <div class="list-group" style="max-height:250px;overflow:auto;">
+                                          <a href="javascript:;" class="list-group-item" v-for="item in courseList2" @click="chooseCourse(item,false)">{{item.name}}<i class="badge" v-show="item.activityType == 1" style="font-style:normal;background-color: #15ca5f;">减</i></a>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><img src="images/goods.png">物品</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">球包数量</label>
+                          <div class="col-sm-2">
+                            <input type="number" class="form-control" placeholder="球包数量" v-model="num">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">保价金额</label>
+                          <div class="col-sm-2">
+                            <input type="number" class="form-control" placeholder="保价金额" v-model="money">
+                          </div>
+                          <div class="col-md-1" style="padding-left: 0;">万元</div>
+                          <div class="col-sm-5"> 保价费：<span class="font-green">{{insuredPrice | currency('￥')}}</span> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><img src="images/time.png">时效信息</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">取包时间</label>
+                          <div class="col-sm-10">
+                            <div class="book-tab">
+                              <div class="book-name">{{time ? day + ' ' + time :''}}<span></span></div>
+                              <div class="tab" style="display: none;">
+                                <ul class="tab-hd book-day">
+                                  <li class="active">日期</li>
+                                  <li>时间</li>
+                                </ul>
+                                <ul class="tab-bd bg-f">
+                                  <li class="thisclass clearfix" style="display: list-item;">
+                                      <a href="javascript:;" v-for="item in timeList" @click="chooseDay(item.day,$event)">{{item.day}}</a>
+                                  </li>
+                                  <li class=" clearfix" style="display: none;">
+                                      <a href="javascript:;" v-for="item in timeList2" @click="chooseTime(item,$event)">{{item}}</a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">预计到达</label>
+                          <div class="col-sm-10">
+                            <div class="select pull-left" style="margin-right: 54px;">
+                              <p id="deliverTitle">请选择预计到达</p>
+                              <span></span>
+                              <ul>
+                                <li v-for="item in expect_times" @click="choosePrice(item,$event)">{{item.describe!==null&&item.business_type==='2' ? item.describe:item.deliver_time.split(',')[1]}} {{item.sf_price | currency('￥')}}<s style="padding-left:15px" v-if="item.origin_price>item.sf_price">原价:{{item.origin_price | currency('￥')}}</s></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">开球时间</label>
+                          <div class="col-sm-10">
+                              <input readonly="readonly" id="playBallTime" type="text" class="form-control" placeholder="请选择开球时间">
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><img src="images/right1.png">验证码</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">短信验证码</label>
+                            <div class="col-sm-8">
+                              <div class="input-group">
+                                  <input type="text" class="form-control" placeholder="短信验证码" v-model="smsCode" maxlength="6">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" style="background-color:#15ca5f;color:#fff;border-radius:4px;padding:4px 12px;" @click="openSms()">{{timeText}}</button>
+                                    </span>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 font-green font20" style="line-height:40px;">总价： {{totalPrice | currency('￥')}}</div>
+                <div class="col-md-6 font-green">
+                  <button class="btn btn-qiu book-btn" @click="confirm()" style="width:80%;">提交订单</button>
+                </div>
+            </div>
+        </div>
+      </div>
+  </div>
+</section>
+<!--底部-->
+@@include('include/footer.html')
+
+<div style="display:none" id="msgcode">
+    <div class="row" style="margin:0;padding-bottom:20px;">
+        <div class="col-md-12">
+            <div class="row" style="margin-top:20px;">
+                <label class="col-sm-2 control-label" style="line-height:34px;padding-right:5px;width:65px;">手机号</label>
+                <div class="col-sm-6" style="padding:0 5px;">
+                    <input type="text" class="form-control" placeholder="手机号" v-model="v_mobile" maxlength="11">
+                </div>
+            </div>
+            <div class="row" style="margin-top:20px;">
+                <label class="col-sm-2 control-label" style="line-height:34px;padding-right:5px;width:65px;">验证码</label>
+                <div class="col-sm-3" style="padding:0 5px;">
+                    <input type="text" class="form-control" placeholder="验证码" v-model="v_piccode" maxlength="4">
+                </div>
+                <img :src="v_pic" class="col-sm-2" style="height:34px;width:auto;cursor:pointer;padding:0 5px;" @click="getPic()">
+                <a style="line-height:0%;vertical-align: text-bottom;" @click="getPic()" href="javascript:;">看不清？</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<!--底部 end-->
+<script src="assets/jquery.min.js"></script>
+<script src="assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="assets/vue.min.js"></script>
+<script src="assets/layer/layer.js"></script>
+<script src="js/Popt.js"></script>
+<script src="{{{/js/cityList.js}}}"></script>
+<script src="{{{/js/citySet.js}}}"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/order.js}}}"></script>
+</html>

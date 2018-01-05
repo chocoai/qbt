@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="reportVipOrderCtrl">
+<div class="container containerWidthAuto">
+    <div class="row">
+    	<div class="col-sm-4">
+    		<div class="form-inline mb8">
+    			<label>开始日期：</label>
+    			<div class="inputDateClose">
+    				<input ng-model="startTime" type="text" class="form-control date-picker" readonly>
+    				<button ng-click="clearStartTime()" class="clearTime">x</button>
+    			</div>
+    		</div>
+    	</div>
+    	<div class="col-sm-4">
+            <div class="form-group form-inline marginRight5">
+                <label style="width:86px;">会员卡号：</label>
+                <input type="text" ng-model="vipNo" class="form-control" placeholder="输入会员卡号">
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group form-inline marginRight5">
+                <label>用户名：</label>
+                <input type="text" ng-model="userName" class="form-control" placeholder="输入用户名">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    	<div class="col-sm-4">
+    		<div class="form-inline mb8">
+    			<label>结束日期：</label>
+    			<div class="inputDateClose">
+    				<input ng-model="endTime" type="text" class="form-control date-picker" readonly>
+    				<button ng-click="clearEndTime()" class="clearTime">x</button>
+    			</div>
+    		</div>
+    	</div>
+        <div class="col-sm-4">
+            <div class="form-group form-inline marginRight5">
+                <label>会员卡类型：</label>
+                <select style="width:196px;" class="form-control" ng-model="vipTypeIdOrName">
+                    <option value="">全部</option>
+                    <option ng-repeat="vipType in vipTypes" value="{{vipType.id}}|{{vipType.name}}">{{vipType.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group form-inline marginRight5">
+                <label>手机号：</label>
+                <input type="text" ng-model="mobile" class="form-control" placeholder="输入手机号">
+            </div>
+        </div>
+    </div>
+   	<div class="row">
+   		<div class="col-sm-4">
+            <div class="form-group form-inline marginRight5">
+                <label style="min-width:72px;">订单号：</label>
+                <input type="text" ng-model="number" class="form-control" placeholder="输入订单号">
+            </div>
+        </div>
+   		<div class="col-sm-4">
+            <div class="form-group form-inline marginRight5">
+                <label style="min-width:72px;">销售人：</label>
+                <input type="text" ng-model="salesmanName" class="form-control" placeholder="输入销售人姓名">
+            </div>
+        </div>
+        <div class="col-sm-4">
+        	<div class="form-group pull-right">
+        		<button id="search" class="btn btn-primary marginRight5" ng-click="getList()">搜索</button>
+        		<button class="btn btn-primary" ng-click="reportDownload()">下载</button>
+        	</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <th>订单号</th>
+                    <th>会员卡号</th>
+                    <th>会员卡类型</th>
+                    <th>用户名</th>
+                    <th>手机号</th>
+                    <th>支付金额</th>
+                    <th>支付方式</th>
+                    <th>收款状态</th>
+                    <th>第三方支付流水号</th>
+                    <th>商户支付流水号</th>
+                    <th>销售人</th>
+                    <th>创建时间</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in list track by $index">
+                        <td>{{item.number}}</td>
+                        <td>{{item.vipNo}}</td>
+                        <td>{{item.name}}
+                            </br>
+                            <span style="font-size:12px">({{item.vipCardType == 1 ? '电子卡' : '实体卡'}})</span>
+                        </td>
+                        <td>{{item.userName}}</td>
+                        <td>{{item.mobile}}</td>
+                        <td>{{item.payAmount | number:2}}</td>
+                        <td>{{item.payMethod == 1 ? '微信支付' : 'boss购买'}}</td>
+                        <td>{{item.settlementStatus == 1 ? '已收款' : '未收款'}}</td>
+                        <td>{{item.payBakNo}}</td>
+                        <td>{{item.payNumber}}</td>
+                        <td>{{item.salesmanName}}</td>
+                        <td>{{item.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination page="page" change="getList(page)"></pagination>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/reportVipOrderCtrl.js}}}"></script>
+</body>
+</html>

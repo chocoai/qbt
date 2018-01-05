@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="travelDetailCtrl">
+  <div class="container containerWidthAuto">
+    <ul class="nav nav-tabs" id="myTab">
+      <li class="active"><a href="#detail" data-toggle="tab">合作方机构详情</a></li>
+      <li><a href="#personDetail" data-toggle="tab">合作方机构对应球包助理详情</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane fade in active rowMarginTop" id="detail">
+      
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">合作方机构基本信息</h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="form-group form-inline form-my-style-travel">
+                      <label>合作方机构名称：</label>
+                      <input ng-model="name" type="text" class="form-control" placeholder="输入名称" maxlength="20" style="width:62%">
+                    </div>  
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group form-inline form-my-style-travel">
+                      <label>类型：</label>
+                        <select ng-disabled="isUpdate" ng-model="partnerType" class="form-control" style="width:62%">
+                         <option value="1">旅行社</option>
+                       </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group form-inline form-my-style-travel">
+                      <label>共享订单：</label>
+                      <select ng-model="shareOrder" class="form-control" style="width:62%">
+                       <option value="true">是</option>
+                       <option value="false">否</option>
+                     </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-8" style="padding-left:0;padding-right:0">
+                    <div class="col-sm-6">
+                      <div class="form-group form-inline form-my-style-travel">
+                        <label>联系人：</label>
+                        <input ng-model="contact" type="text" class="form-control" placeholder="输入联系人" maxlength="20" style="width:62%">
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group form-inline form-my-style-travel">
+                        <label>联系电话：</label>
+                        <input ng-model="mobile" type="text" class="form-control" placeholder="输入联系电话" maxlength="" style="width:62%">
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group form-inline form-my-style-travel">
+                        <label>状态：</label>
+                        <select ng-model="status" class="form-control" style="width:62%">
+                         <option value="1">正常</option>
+                         <option value="2">无效</option>
+                       </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group form-inline form-my-style-travel">
+                        <label>网址：</label>
+                        <input ng-model="website" type="text" class="form-control" placeholder="输入网址" maxlength="100" style="width:62%">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4" style="padding-left:0;padding-right:0">
+                    <div class="col-sm-2">
+                      <div class="form-group form-inline form-my-style">
+                        <label>logo：</label>
+                        <button ngf-select="uploadImg($file)" class="btn btn-primary btn-xs">选择</button><br>
+                      </div>
+                    </div>
+                    <div class="col-sm-10">
+                      <div class="form-group">
+                          <div ng-if="!!image" class="row">
+                            <div class="col-sm-12">
+                                <img style="height:80px;width:auto" class="img-responsive form-control marginAuto heightAuto" ng-src="{{fBaseUrl + image}}">
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">地址信息</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="form-group form-inline form-my-style-travel">
+                        <label for="provinces">省：</label>
+                        <select id="provinces" ng-change="getCitieses()" class="form-control" ng-model="province" style="width:62%">
+                          <option value="">请选择</option>
+                          <option ng-repeat="datas in provinceses" value={{datas.id}}>
+                            {{datas.fullName}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group form-inline form-my-style-travel">
+                        <label for="cities">市：</label>
+                        <select id="cities" ng-change="getCounties()" class="form-control" ng-model="city" style="width:62%">
+                          <option value="">请选择</option>
+                          <option ng-repeat="datas in citieses" value={{datas.id}}>
+                            {{datas.fullName}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group form-inline form-my-style-travel">
+                        <label for="counties">区：</label>
+                        <select id="counties" ng-change="getLatLon(address)" class="form-control" ng-model="county" style="width:62%">
+                          <option value="">请选择</option>
+                          <option ng-repeat="datas in countieses" value={{datas.id}}>{{datas.fullName}}</option>
+                        </select>
+                      </div>   
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="form-group form-inline form-my-style-travel">
+                        <label>详细地址：</label>
+                        <input id="autoAddress" ng-change="getLatLon(address)" ng-model="address" type="text" class="form-control" placeholder="输入详细地址" maxlength="100" style="width:62%">
+                      </div>   
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group form-inline form-my-style-travel">
+                        <label>经度：</label>
+                        <input ng-model="lon" type="text" class="form-control" style="width:62%" readonly>
+                      </div>   
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group form-inline form-my-style-travel">
+                        <label>纬度：</label>
+                        <input ng-model="lat" type="text" class="form-control" style="width:62%" readonly>
+                      </div>   
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">结算模式基本信息</h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <div class="form-group form-inline">
+                      <label style="width:72px">结算模式：</label>
+                        <select ng-disabled="isUpdate" ng-model="settleType" class="form-control" style="width:66%">
+                         <option value="1">月结</option>
+                       </select>
+                    </div>  
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-group form-inline">
+                      <label style="width:72px">结算类型：</label>
+                        <select ng-disabled="isUpdate" ng-change="clearAmountConfigs()" ng-model="settleModel" class="form-control" style="width:66%">
+                         <option value="1">进阶模式</option>
+                         <option value="2">订单折扣模式</option>
+                         <option value="3">订单固定金额模式</option>
+                       </select>
+                    </div>  
+                  </div>
+                  <div class="col-sm-6">
+                    <div ng-show="settleModel == 1" class="form-group form-inline">
+                        <div>
+                          <label>进阶模式</label>
+                          <button ng-disabled="isUpdate" ng-click="addAmount()" class="btn btn-danger btn-xs">+</button>
+                          <label>（如：实际支付总额1000元，结算率1%）</label>
+                        </div>
+                        <div ng-repeat="amountConfig in amountConfigs track by $index" class="form-inline rowMarginTop">
+                          <label class="marginRight5">进阶限额(元)</label>
+                          <input ng-disabled="isUpdate" style="width:20%" ng-model="amountConfig.maxAmount" type="number" class="form-control marginRight5" placeholder="" min="0.0" step="0.01">
+                          <label class="marginRight5">结算返利比例(%)</label>
+                          <input ng-disabled="isUpdate" style="width:20%" ng-model="amountConfig.rate" type="number" class="form-control marginRight5" placeholder="" min="0.0" step="0.01">
+                          <button ng-disabled="isUpdate" ng-click="deleteAmount($index)" class="btn btn-danger btn-xs">删除</button>
+                        </div>
+                      </div>
+                      <div ng-show="settleModel == 2" class="form-group form-inline">
+                        <div>
+                          <label>订单折扣模式</label>
+                        </div>
+                        <div class="form-inline rowMarginTop">
+                          <label class="marginRight5">折扣(%)</label>
+                          <input ng-disabled="isUpdate" ng-change="updateRate()" style="width:20%" ng-model="maxRate" type="number" class="form-control marginRight5" placeholder="" min="0.0" step="0.01">
+                        </div>
+                      </div>
+                      <div ng-show="settleModel == 3" class="form-group form-inline">
+                        <div>
+                          <label>订单固定金额模式</label>
+                        </div>
+                        <div class="form-inline rowMarginTop">
+                          <label class="marginRight5">优惠金额(元)</label>
+                          <input ng-disabled="isUpdate" ng-change="updateMaxAmount()" style="width:20%" ng-model="maxAmount" type="number" class="form-control marginRight5" placeholder="" min="0.0" step="0.01">
+                        </div>
+                      </div>
+                    </div>  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+           <div class="row">
+            <div class="col-sm-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">语言及开票信息</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <div class="form-group form-inline">
+                        <label style="width:72px">语言：</label>
+                        <div class="form-group form-control" style="width:66%">
+                          <label ng-repeat="languageList in languageLists track by $index" class="checkbox-inline">
+                            <input ng-click="isClick(languageList.id)" ng-checked="isSelected(languageList.id)" type="checkbox">{{languageList.name}}
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-group form-inline form-my-style-travel">
+                        <label style="width:72px">是否开票：</label>
+                        <select class="form-control" ng-model="isTicket" style="width:66%">
+                          <option value="true">是</option>
+                          <option value="false">否</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group form-inline form-my-style-travel">
+                        <label>开票信息：</label>
+                        <textarea style="width:60%" class="form-control" ng-model="ticketMessage" maxlength="100"></textarea>
+                      </div>   
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">合作方机构说明信息</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="col-sm-12">
+                    <div class="form-group form-inline">
+                      <label>简介：</label>
+                      <textarea style="width:95%;width:-webkit-calc(100% - 47px);width:-moz-calc(100% - 47px);width:calc(100% - 47px);" ng-model="memo" class="form-control" maxlength="200"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div ng-show="!orderToTravel" class="row">
+            <div class="col-sm-12">
+             <div class="form-group">
+              <button type="button" class="btn btn-primary" ng-click="addTravel()">提交</button>
+            </div>
+            </div>
+          </div>
+  </div>
+  <div class="tab-pane fade" id="personDetail">
+  <div class="row rowMarginTop">
+    <div class="col-sm-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <th>姓名</th>
+                    <th>合作方机构名称</th>
+                    <th>类型</th>
+                    <th>昵称</th>
+                    <th>性别</th>
+                    <th>手机号码</th>
+                    <th>邮箱</th>
+                    <th>创建时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="person in persons track by $index">
+                        <td>{{person.name}}</td>
+                        <td>{{person.applyName}}</td>
+                        <td>{{person.applyType | commFilter : 'apply_type'}}</td>
+                        <td>{{person.nickname}}</td>
+                        <td>{{person.sex == 1 ? '男' : '女'}}</td>
+                        <td>{{person.mobile}}</td>
+                        <td>{{person.email}}</td>
+                        <td>{{person.createTime | date :'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>
+                          <label ng-if="person.status == 1" class="label label-warning">审核中</label>
+                          <label ng-if="person.status == 2" class="label label-primary">审核通过</label>
+                          <label ng-if="person.status == 3" class="label label-danger">审核不通过</label>
+                          <label ng-if="person.status == 4" class="label label-default">禁用</label>
+                        </td>
+                        <td>
+                          <button class="btn btn-danger btn-sm" ng-click="toDisable(person.id)" ng-show="person.status == 2">禁用</button>
+                          <button class="btn btn-success btn-sm" ng-click="toEnable(person.id)" ng-show="person.status == 4">启用</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+  </div>
+</div>
+
+
+</div>
+</div>
+
+<div id="map"></div>
+<script src="http://api.map.baidu.com/api?v=1.3"></script>
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/angular/ng-file-upload-all.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/travelDetailCtrl.js}}}"></script>
+</body>
+</html>

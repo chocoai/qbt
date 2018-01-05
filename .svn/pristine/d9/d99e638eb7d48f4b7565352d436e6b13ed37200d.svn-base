@@ -1,0 +1,110 @@
+"use strict";
+angular.module("app.views")
+    .controller('couponActivityListCtrl', ['$scope', 'CommonService', function ($scope, CommonService) {
+        $('body').niceScroll({cursorcolor: "#337ab7"});
+        $('.date-picker').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true
+        });
+        $scope.couponType = '1';
+        $scope.status = '1';
+        $scope.list = [];
+        $scope.ruleId = '';
+        $scope.getList = function (num) {
+            CommonService.pagination({
+                url: '/ticketPackageActivity/findByPage.api',
+                data: {
+                    pageNo: num || "1",
+                    activityName: $scope.activityName
+                }
+            }).then(function (data) {
+                $scope.list = data.item;
+                $scope.page = data.page;
+            });
+        }
+
+
+        $scope.addActivity = function () {
+            if (!$scope.couponActivityName) {
+                showWarn("礼品券活动名称不能为空");
+                return false;
+            }
+            if (!$scope.validDeadline || $scope.validDeadline < 1) {
+                showWarn("有效期限不正确");
+                return false;
+            }
+            if (!$scope.ruleId) {
+                showWarn("规则名称不能为空");
+                return false;
+            }
+            if (!$scope.desc) {
+                showWarn("礼品券包描述不能为空");
+                return false;
+            }
+
+
+            CommonService.httpRequest({
+                url: '/ticketPackageActivity/add.api',
+                method: 'post',
+                data: {
+                    ruleId: parseInt($scope.ruleId),
+                    activityName: $scope.couponActivityName,
+                    effectiveDay: $scope.validDeadline,
+                    status: $scope.status,
+                    description: $scope.desc,
+                }
+            }).then(function (data) {
+                showInfo("新增成功", function () {
+                    tabOpenParent({name: 'couponActivityList', url: 'couponActivityList.html', displayName: '活动管理'});
+                });
+            });
+        }
+
+
+        $scope.getRule = function () {
+            CommonService.httpRequest({
+                url: '/ticketPackageRule/findByPage.api',
+                method: 'post',
+                data: {}
+            }).then(function (data) {
+                $scope.rules = data.datas;
+            });
+        }
+
+        // $scope.setAmount = function() {
+        //     if (!!$scope.ruleId) {
+        //         CommonService.httpRequest({
+        //             url: '/activityRule/detail.api',
+        //             method: 'get',
+        //             data: {
+        //                 id: $scope.ruleId
+        //             }
+        //         }).then(function(data) {
+        //             $scope.amount = data.datas.amount;
+        //         });
+        //     } else {
+        //         $scope.amount = '';
+        //     }
+        // }
+
+        // 新增券包
+        $scope.addCoupon = function () {
+            tabOpenParent({name: 'couponActivityAdd', url: 'couponActivityAdd.html', displayName: '新增券包'});
+        }
+
+        // $scope.downloadActivity = function (id) {
+        //     window.open(rBasetUrl + '/activity/coupon.api?token=' + localStorage.getItem('token') + '&activityId=' + id);
+        // };
+
+        $scope.getList(1);
+        $scope.getRule();
+
+        document.onkeydown = function (event) {
+            var e = event || window.event || arguments.callee.caller.arguments[0];
+            if (e && e.keyCode == 13) { // enter 键
+                $scope.getList();
+            }
+        };
+
+    }]);

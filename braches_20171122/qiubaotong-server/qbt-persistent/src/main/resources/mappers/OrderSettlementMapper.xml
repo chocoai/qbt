@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderSettlementMapper">
+
+	<resultMap id="BaseResultMap" type="OrderSettlement">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="order_id" property="orderId" />
+		<result column="order_total_amount" property="orderTotalAmount" />
+		<result column="order_dicount" property="orderDicount" />
+		<result column="order_amount" property="orderAmount" />
+		<result column="settle_amount" property="settleAmount" />
+		<result column="settle_fee" property="settleFee" />
+		<result column="settle_model" property="settleModel" />
+		<result column="settle_mode_value" property="settleModeValue" />
+		<result column="settle_state" property="settleState" />
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="third_id" property="thirdId" />
+		<result column="third_name" property="thirdName" />
+		<result column="settle_time" property="settleTime" />
+		<result column="sys_user_id" property="sysUserId" />
+		<result column="sys_user_name" property="sysUserName" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	
+	<resultMap type="BossOrderSettlement" id="BossResultMap" extends="BaseResultMap">
+		<result column="order_number" property="orderNumber" />
+		<result column="order_status" property="orderStatus" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, order_id, order_total_amount, order_dicount, order_amount, 
+		settle_amount, settle_fee, settle_model, settle_mode_value, settle_state, 
+		user_id, user_name, third_id, third_name, settle_time, sys_user_id, 
+		sys_user_name, remark 
+	</sql>
+	
+	<insert id="insert" parameterType="OrderSettlement" keyProperty="id" useGeneratedKeys="true">
+		insert into order_settlement (
+			create_time, 
+			order_id, 
+			order_total_amount, 
+			order_dicount, 
+			order_amount, 
+			settle_amount, 
+			settle_fee, 
+			settle_model, 
+			settle_mode_value, 
+			settle_state, 
+			user_id, 
+			user_name, 
+			third_id, 
+			third_name, 
+			settle_time, 
+			sys_user_id, 
+			sys_user_name, 
+			remark
+		) 
+		values (
+			#{createTime},
+			#{orderId},
+			#{orderTotalAmount},
+			#{orderDicount},
+			#{orderAmount},
+			#{settleAmount},
+			#{settleFee},
+			#{settleModel},
+			#{settleModeValue},
+			#{settleState},
+			#{userId},
+			#{userName},
+			#{thirdId},
+			#{thirdName},
+			#{settleTime},
+			#{sysUserId},
+			#{sysUserName},
+			#{remark}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="OrderSettlement">
+		update order_settlement 
+		<set>
+			<if test="settleState != null">
+				settle_state = #{settleState},
+			</if>
+			<if test="sysUserId != null">
+				sys_user_id = #{sysUserId},
+			</if>
+			<if test="sysUserName != null and sysUserName != ''">
+				sys_user_name = #{sysUserName},
+			</if>
+			<if test="remark != null and remark != ''">
+				remark = #{remark},
+			</if>
+			settle_time = now() 
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="updateByOrderId" parameterType="OrderSettlement">
+		update order_settlement 
+		<set>
+			<if test="settleState != null">
+				settle_state = #{settleState},
+			</if>
+			<if test="remark != null and remark != ''">
+				remark = #{remark},
+			</if>
+			settle_time = now() 
+		</set>
+		where order_id = #{orderId}
+	</update>
+	
+	
+	<select id="findByPageForBoss" resultMap="BossResultMap">
+		select 
+			s.id, 
+			s.create_time, 
+			s.order_id,
+			o.number order_number,
+			o.order_status,
+			s.order_total_amount, 
+			s.order_dicount, 
+			s.order_amount, 
+			s.settle_amount, 
+			s.settle_fee, 
+			s.settle_model, 
+			s.settle_mode_value, 
+			s.settle_state, 
+			s.user_id, 
+			s.user_name, 
+			s.third_id, 
+			s.third_name, 
+			s.settle_time, 
+			s.sys_user_id, 
+			s.sys_user_name, 
+			s.remark 
+		from order_settlement s left join order_info o on s.order_id = o.id 
+		<where>
+			<if test="condition.startDate != null">
+				<![CDATA[
+					and date(s.create_time) >= date(#{condition.startDate})  
+				]]> 
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+					and date(s.create_time) <= date(#{condition.endDate})  
+				]]> 
+			</if>
+			<if test="condition.thirdType != null and condition.thirdType > 0">
+				and o.third_type = #{condition.thirdType} 
+			</if>
+			<if test="condition.orderNumber != null and condition.orderNumber != ''">
+				and o.number like concat('%',#{condition.orderNumber},'%') 
+			</if>
+			<if test="condition.orderStatus != null and condition.orderStatus > 0">
+				and o.order_status = #{condition.orderStatus} 
+			</if>
+			<if test="condition.settleModel != null and condition.settleModel > 0">
+				and s.settle_model = #{condition.settleModel} 
+			</if>
+			<if test="condition.settleState != null and condition.settleState > 0">
+				and s.settle_state = #{condition.settleState} 
+			</if>
+			<if test="condition.userName != null and condition.userName != ''">
+				and s.user_name like concat('%',#{condition.userName},'%') 
+			</if>
+			<if test="condition.thirdId != null and condition.thirdId > 0">
+				and s.third_id = #{condition.thirdId} 
+			</if>
+			<if test="condition.thirdName != null and condition.thirdName != ''">
+				and s.third_name like concat('%',#{condition.thirdName},'%') 
+			</if>
+		</where>
+		order by create_time desc 
+	</select>
+	
+	<select id="findById" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from order_settlement where id = #{id} 
+	</select>
+	
+	<update id="settlementByBatch">
+		update order_settlement s left join order_info o on s.order_id = o.id 
+		<set>
+			<if test="settlement.settleState != null">
+				s.settle_state = #{settlement.settleState},
+			</if>
+			<if test="settlement.sysUserId != null and settlement.sysUserId > 0">
+				s.sys_user_id = #{settlement.sysUserId},
+			</if>
+			<if test="settlement.sysUserName != null and settlement.sysUserName != ''">
+				s.sys_user_name = #{settlement.sysUserName},
+			</if>
+			<if test="settlement.remark != null and settlement.remark != ''">
+				s.remark = #{settlement.remark},
+			</if>
+			s.settle_time = now() 
+		</set>
+		<where>
+			<if test="condition.startDate != null">
+				<![CDATA[
+					and date(s.create_time) >= date(#{condition.startDate})  
+				]]> 
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+					and date(s.create_time) <= date(#{condition.endDate})  
+				]]> 
+			</if>
+			<if test="condition.thirdType != null and condition.thirdType > 0">
+				and o.third_type = #{condition.thirdType} 
+			</if>
+			<if test="condition.orderNumber != null and condition.orderNumber != ''">
+				and o.number like concat('%',#{condition.orderNumber},'%') 
+			</if>
+			<if test="condition.orderStatus != null and condition.orderStatus > 0">
+				and o.order_status = #{condition.orderStatus} 
+			</if>
+			<if test="condition.settleModel != null and condition.settleModel > 0">
+				and s.settle_model = #{condition.settleModel} 
+			</if>
+			<if test="condition.settleState != null and condition.settleState > 0">
+				and s.settle_state = #{condition.settleState} 
+			</if>
+			<if test="condition.userName != null and condition.userName != ''">
+				and s.user_name like concat('%',#{condition.userName},'%') 
+			</if>
+			<if test="condition.thirdId != null and condition.thirdId > 0">
+				and s.third_id = #{condition.thirdId} 
+			</if>
+			<if test="condition.thirdName != null and condition.thirdName != ''">
+				and s.third_name like concat('%',#{condition.thirdName},'%') 
+			</if>
+		</where>
+	</update>
+	
+	<select id="findByOrderId" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from order_settlement where order_id = #{orderId} 
+	</select>
+	
+	<select id="findSettlementByBatch" resultMap="BossResultMap">
+		select 
+			s.id, 
+			s.create_time, 
+			s.order_id,
+			o.number order_number,
+			o.order_status,
+			s.order_total_amount, 
+			s.order_dicount, 
+			s.order_amount, 
+			s.settle_amount, 
+			s.settle_fee, 
+			s.settle_model, 
+			s.settle_mode_value, 
+			s.settle_state, 
+			s.user_id, 
+			s.user_name, 
+			s.third_id, 
+			s.third_name, 
+			s.settle_time, 
+			s.sys_user_id, 
+			s.sys_user_name, 
+			s.remark 
+		from order_settlement s left join order_info o on s.order_id = o.id 
+		<where>
+			<if test="condition.startDate != null">
+				<![CDATA[
+					and date(s.create_time) >= date(#{condition.startDate})  
+				]]> 
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+					and date(s.create_time) <= date(#{condition.endDate})  
+				]]> 
+			</if>
+			<if test="condition.thirdType != null and condition.thirdType > 0">
+				and o.third_type = #{condition.thirdType} 
+			</if>
+			<if test="condition.orderNumber != null and condition.orderNumber != ''">
+				and o.number like concat('%',#{condition.orderNumber},'%') 
+			</if>
+			<if test="condition.orderStatus != null and condition.orderStatus > 0">
+				and o.order_status = #{condition.orderStatus} 
+			</if>
+			<if test="condition.settleModel != null and condition.settleModel > 0">
+				and s.settle_model = #{condition.settleModel} 
+			</if>
+			<if test="condition.settleState != null and condition.settleState > 0">
+				and s.settle_state = #{condition.settleState} 
+			</if>
+			<if test="condition.userName != null and condition.userName != ''">
+				and s.user_name like concat('%',#{condition.userName},'%') 
+			</if>
+			<if test="condition.thirdId != null and condition.thirdId > 0">
+				and s.third_id = #{condition.thirdId} 
+			</if>
+			<if test="condition.thirdName != null and condition.thirdName != ''">
+				and s.third_name like concat('%',#{condition.thirdName},'%') 
+			</if>
+		</where>
+	</select>
+	
+</mapper>

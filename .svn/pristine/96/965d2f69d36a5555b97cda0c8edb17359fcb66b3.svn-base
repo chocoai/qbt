@@ -1,0 +1,48 @@
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">{{platId == '1' ? '球包通管理系统' : '基础平台管理系统'}}</a>
+    </div>
+    <!-- /.navbar-header -->
+
+    <ul class="nav navbar-top-links navbar-right">
+        <li>
+            <a href="javascript:;">
+                <i class="fa fa-user fa-fw"></i>{{loginName}}
+            </a>
+        </li>
+        <li>
+            <a onclick="tabOpenParent({name:'updatePassword',url:'updatePassword.html',displayName:'修改密码'});" href="javascript:;">
+                <i class="fa fa-key fa-fw"></i>修改密码
+            </a>
+        </li>
+        <li>
+            <a ng-click="loginout()">
+                <i class="fa fa-power-off fa-fw"></i>退出
+            </a>
+        </li>
+    </ul>
+    <!-- /.navbar-top-links -->
+
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+            <ul class="nav" id="side-menu">
+                <li ng-repeat="item in menuList track by $index" ng-click="changeHeight($index)">
+                    <a href="javascript:;"><i class="fa {{item.ioc}}"></i>{{item.name}}<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li ng-repeat="subitem in item.item" ng-click="checked(subitem)">
+                            <a href="javascript:;"><i class="fa {{subitem.ioc}}"></i>{{subitem.name}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- /.sidebar-collapse -->
+    </div>
+    <!-- /.navbar-static-side -->
+</nav>

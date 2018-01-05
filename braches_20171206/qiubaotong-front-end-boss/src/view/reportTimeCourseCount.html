@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="reportTimeCourseCountCtrl">
+	<div class="container containerWidthAuto">
+		<div class="row">
+			<div class="col-sm-3" style="width:22%">
+                <div class="form-inline mb8">
+                    <div class="form-group">
+                        <label>开始日期：</label>
+						<div class="inputDateClose">
+							<input style="width:120px;" ng-model="startTime" type="text" class="form-control date-picker" placeholder="选择开始日期" readonly>
+							<button ng-click="clearStartTime()" class="clearTime">x</button>
+						</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3" style="width:22%">
+                <div class="form-inline mb8">
+                    <div class="form-group">
+                        <label>结束日期：</label>
+						<div class="inputDateClose">
+							<input style="width:120px;" ng-model="endTime" type="text" class="form-control date-picker" placeholder="选择结束日期" readonly>
+							<button ng-click="clearEndTime()" class="clearTime">x</button>
+						</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3" style="width:28%">
+                <div class="form-inline mb8">
+                    <div class="form-group">
+                        <label>取件开始日期：</label>
+						<div class="inputDateClose">
+                            <input style="padding:6px 12px;width:172px" ng-model="orderStartTime" type="text" placeholder="选择取件开始日期" class="datePicker form-control" readonly>
+                            <button ng-click="clearOrderStartTime()" class="clearTime">x</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3" style="width:28%">
+                <div class="form-inline mb8">
+                    <div class="form-group">
+                        <label>取件结束日期：</label>
+						<div class="inputDateClose">
+                            <input style="padding:6px 12px;width:172px" ng-model="orderEndTime" type="text" placeholder="选择取件结束日期" class="datePicker form-control" readonly>
+                            <button ng-click="clearOrderEndTime()" class="clearTime">x</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-inline mb8">
+                    <div class="form-group">
+                        <label>取包类型：</label>
+                        <select ng-change="clear_jSiteId()" style="min-width:93px" class="form-control marginRight5" ng-model="sendType">
+                            <option value="0">全部</option>
+                            <option value="1">球场</option>
+                            <option value="2">机场</option>
+                            <option value="3">银行</option>
+                            <option value="4">地域</option>
+                            <option value="5">顺丰站点</option>
+                        </select>
+                    </div>
+                        <div ng-show="sendType==4" class="form-group">
+                            <label>取包省：</label>
+                            <select style="min-width:93px" ng-change="getCitieses(1)" class="form-control marginRight5" ng-model="province1">
+                                <option value="">全部</option>
+                                <option ng-repeat="datas in provinceses1" value={{datas.id}}>
+                                {{datas.fullName}}
+                            </option>
+                            </select>
+                            <label>取包市：</label>
+                            <select style="min-width:93px" ng-change="getCounties(1)" class="form-control marginRight5" ng-model="city1">
+                                <option value="">全部</option>
+                                <option ng-repeat="datas in citieses1" value={{datas.id}}>
+                                    {{datas.fullName}}
+                                </option>
+                            </select>
+                            <label>取包区：</label>
+                            <select style="min-width:93px" class="form-control marginRight5" ng-model="county1">
+                                <option value="">全部</option>
+                                <option ng-repeat="datas in countieses1" value={{datas.id}}>{{datas.fullName}}</option>
+                            </select>
+                        </div>
+                        <div ng-show="sendType==1" class="form-group">
+                        <label>取包球场：</label>
+                        <div class="inputDateClose">
+                            <span id="courseText1" style="cursor:pointer" ng-click="selectCourse(1)" class="form-control">
+                        选择取包球场
+                            </span>
+                            <button ng-click="clearSendCourse()" class="clearTime">x</button>
+                        </div>
+                    </div>
+                    <div ng-show="sendType==2" class="form-group">
+                        <label>取包机场站点：</label>
+                        <div class="inputDateClose">
+                            <span id="airportText1" style="cursor:pointer" ng-click="selectAirport(1)" class="form-control">
+                        选择取包机场站点
+                         </span>
+                            <button ng-click="clearSendAirport()" class="clearTime">x</button>
+                        </div>
+                    </div>
+                    <div ng-show="sendType==3" class="form-group">
+                        <label>取包银行站点：</label>
+                        <div class="inputDateClose">
+                            <span id="bankText1" style="cursor:pointer" ng-click="selectBank(1)" class="form-control">
+                        选择取包银行站点
+                            </span>
+                            <button ng-click="clearSendBank()" class="clearTime">x</button>
+                        </div>
+                    </div>
+                    <div ng-show="sendType==5" class="form-group">
+                        <label>取包顺丰站点：</label>
+                        <div class="inputDateClose">
+                            <span id="sfText1" style="cursor:pointer" ng-click="selectSF(1)" class="form-control">
+                        选择取包顺丰站点
+                            </span>
+                            <button ng-click="clearSendSF()" class="clearTime">x</button>
+                        </div>
+                    </div>
+                    <div class="form-group pull-right paddingBottom10">
+                            <button id="search" class="btn btn-primary marginRight5" ng-click="getList()">搜索</button>
+                            <button class="btn btn-primary" ng-click="reportDownload()">下载</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+		<div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <th>取包地域/取包球场/取包站点</th>
+                    <th>取件日期</th>
+                    <th>取件时间区间</th>
+                    <th>总订单数</th>
+                    <th>有效订单</th>
+                    <th>取消订单</th>
+                    <th>总金额</th>
+                    <th>有效金额</th>
+                    <th>退货金额</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in list track by $index">
+                    	<td>{{item.jAddrName || item.jTreePath}}</td>
+                    	<td>{{item.sendSfDate}}</td>
+                    	<td>{{item.sendSfTime}}</td>
+                        <td>{{item.totalOrder}}</td>
+                        <td>{{item.validOrder}}</td>
+                        <td>{{item.cancelOrder}}</td>
+                        <td>{{item.totalAmount | number:2}}</td>
+                        <td>{{item.validAmount | number:2}}</td>
+                        <td>{{item.cancelAmount | number:2}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination page="page" change="getList(page)"></pagination>
+        </div>
+    </div>
+</div>
+
+<div id="memo1" class="form-group dashboard-mark" style="display:none">
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="form-inline applyCheckSearch">
+                <div class="form-group">
+                    <input placeholder="输入球场名称" ng-model="positionName" type="search" class="form-control" id="search">
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-primary" ng-click="getCourse()">查找</button>
+                  </div>
+            </form>
+        </div>
+    </div>
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
+            <th>球场名称</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="course in courses track by $index">
+                <td>
+                    {{course.name}}
+                </td>
+                <td>
+                    <button ng-click="selectedCourse(course.id,course.name)" class="btn btn-success btn-xs">选择</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination page="page1" change="getCourse(page)"></pagination>
+ </div>
+ <div id="memo2" class="form-group dashboard-mark" style="display:none">
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="form-inline applyCheckSearch">
+                <div class="form-group">
+                    <input placeholder="输入机场站点名称" ng-model="positionName" type="search" class="form-control" id="search">
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-primary" ng-click="getAirport()">查找</button>
+                  </div>
+            </form>
+        </div>
+    </div>
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
+            <th>机场站点名称</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="airport in airports track by $index">
+                <td>
+                    {{airport.name}}
+                </td>
+                <td>
+                    <button ng-click="selectedAirport(airport.id,airport.name)" class="btn btn-success btn-xs">选择</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination page="page2" change="getAirport(page)"></pagination>
+ </div>
+ <div id="memo3" class="form-group dashboard-mark" style="display:none">
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="form-inline applyCheckSearch">
+                <div class="form-group">
+                    <input placeholder="输入银行站点名称" ng-model="positionName" type="search" class="form-control" id="search">
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-primary" ng-click="getBank()">查找</button>
+                  </div>
+            </form>
+        </div>
+    </div>
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
+            <th>银行站点名称</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="bank in banks track by $index">
+                <td>
+                    {{bank.name}}
+                </td>
+                <td>
+                    <button ng-click="selectedBank(bank.id,bank.name)" class="btn btn-success btn-xs">选择</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination page="page3" change="getBank(page)"></pagination>
+ </div>
+ <div id="memo4" class="form-group dashboard-mark" style="display:none">
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="form-inline applyCheckSearch">
+                <div class="form-group">
+                    <input placeholder="输入顺丰站点名称" ng-model="positionName" type="search" class="form-control" id="search">
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-primary" ng-click="getSF()">查找</button>
+                  </div>
+            </form>
+        </div>
+    </div>
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
+            <th>顺丰站点名称</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="sf in sfs track by $index">
+                <td>
+                    {{sf.name}}
+                </td>
+                <td>
+                    <button ng-click="selectedSF(sf.id,sf.name)" class="btn btn-success btn-xs">选择</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination page="page4" change="getSF(page)"></pagination>
+ </div>
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/reportTimeCourseCountCtrl.js}}}"></script>
+</body>
+</html>

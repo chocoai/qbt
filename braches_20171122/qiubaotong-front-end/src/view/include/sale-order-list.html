@@ -1,0 +1,305 @@
+<template id="order-list">
+<div class="section">
+<!--头-->
+<div class="header tex-c" style="background-color:#fff;">
+  <a href="javascript:history.back();" class="back"><img src="/img/back.png" /></a>
+  我的订单
+</div>
+<!--头 end-->
+<div class="scroll marhead">
+<!--tab-->
+<div class="navbar bg scroll mar-t0" id="navbar">
+  <div class="bd" style="height: 100%; ">
+      <div class="weui_tab ">
+          <div class="weui_navbar pad-lr" >
+              <div class="weui_navbar_item" :class="{'weui_bar_item_on':tab == 1}" @click="toggleTab(1)">
+                  全部
+              </div>
+              <div class="weui_navbar_item" :class="{'weui_bar_item_on':tab == 2}" @click="toggleTab(2)">
+                  待付款
+              </div>
+              <div class="weui_navbar_item" :class="{'weui_bar_item_on':tab == 3}" @click="toggleTab(3)">
+                  待签收
+              </div>
+              <div class="weui_navbar_item" :class="{'weui_bar_item_on':tab == 4}" @click="toggleTab(4)">
+                  已签收
+              </div>
+          </div>
+          <div class="weui_tab_bd">
+            <!--全部-->
+            <div v-show="tab == 1" class="scroll" v-infinite-scroll="getMore(1)" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+              <!--1-->
+              <div class="order-all-lay mar-t" v-for="item in order_list1">
+                  <div @click="detailPay(item)">
+                    <div class="weui_cells font14">
+                         <div class="weui_cell">
+                           <div class="flex-1"></div>
+                           <div class="o-p-state tex-c" style="background-color:#fd5959;" v-if="item.orderStatus == 2">
+                             订单关闭
+                           </div>
+                           <div class="o-p-state tex-c" style="background-color:#fd5959;" v-if="item.orderStatus != 2 && item.payStatus == 1">
+                            待支付
+                           </div>
+                           <div class="o-p-state tex-c" style="background-color:#04be02;" v-if="item.orderStatus != 2 && item.payStatus == 2">
+                             支付成功
+                           </div>
+                         </div>
+                    </div>
+                    <div class="weui_cells font14">
+                         <div class="weui_cell">
+                           <div class="weui_cell_ft">订单编号：</div>
+                             <div class="weui_cell_bd weui_cell_primary tex-l">
+                                 <p>{{item.subNumber}}</p>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="weui_cells font14">
+                          <div class="weui_cell">
+                            <div class="weui_cell_ft">创建时间：</div>
+                              <div class="weui_cell_bd weui_cell_primary tex-l">
+                                  <p>{{item.createTime | dateFormat 'yyyy-MM-dd hh:mm:ss'}}</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="weui_cells font14">
+                           <div class="weui_cell">
+                             <div class="weui_cell_ft">取包信息：</div>
+                               <div class="weui_cell_bd weui_cell_primary tex-l">
+                                   <p>{{item.jContact}} {{item.jMobile}}</p>
+                                   <p>{{item.jTreePath}}{{item.jAddrName}}</p>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="weui_cells font14">
+                            <div class="weui_cell">
+                              <div class="weui_cell_ft">送包信息：</div>
+                                <div class="weui_cell_bd weui_cell_primary tex-l">
+                                    <p>{{item.dContact}} {{item.dMobile}}</p>
+                                    <p>{{item.dTreePath}}{{item.dAddrName}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="weui_cells font14">
+                             <div class="weui_cell">
+                               <div class="weui_cell_ft">球包数量：</div>
+                                 <div class="weui_cell_bd weui_cell_primary tex-l">
+                                     <p>{{item.quantity}}个</p>
+                                 </div>
+                             </div>
+                         </div>
+                    </div>
+                    <div class="weui_cells ">
+                        <div class="weui_cell o-p-btn font14">
+                            <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="detailPay(item)">详情</a>
+                           <!--  <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="goPay(item)" v-if="item.orderStatus == 1 && item.payStatus == 1">去付款</a> -->
+                            <div class="clear-div"></div>
+                        </div>
+                     </div>
+               </div>
+               <!--1-->
+              <!--没有订单时显示-->
+               <div class="order-none tex-c" v-show="order_list.length == 0">
+                 <img src="/img/file.png" alt="" />
+                 <p>无订单信息</p>
+               </div>
+            </div>
+            <!--待付款-->
+            <div v-show="tab == 2" class="scroll" v-infinite-scroll="getMore(2)" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+                <div class="order-all-lay mar-t" v-for="item in order_list2">
+                    <div @click="detailPay(item)">
+                      <div class="weui_cells font14">
+                           <div class="weui_cell">
+                             <div class="flex-1"></div>
+                             <div class="o-p-state tex-c" style="background-color:#fd5959;">
+                              待支付
+                             </div>
+                           </div>
+                      </div>
+                      <div class="weui_cells font14">
+                           <div class="weui_cell">
+                             <div class="weui_cell_ft">订单编号：</div>
+                               <div class="weui_cell_bd weui_cell_primary tex-l">
+                                   <p>{{item.subNumber}}</p>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="weui_cells font14">
+                            <div class="weui_cell">
+                              <div class="weui_cell_ft">创建时间：</div>
+                                <div class="weui_cell_bd weui_cell_primary tex-l">
+                                    <p>{{item.createTime | dateFormat 'yyyy-MM-dd hh:mm:ss'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="weui_cells font14">
+                             <div class="weui_cell">
+                               <div class="weui_cell_ft">取包信息：</div>
+                                 <div class="weui_cell_bd weui_cell_primary tex-l">
+                                     <p>{{item.jContact}} {{item.jMobile}}</p>
+                                     <p>{{item.jTreePath}}{{item.jAddrName}}</p>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="weui_cells font14">
+                              <div class="weui_cell">
+                                <div class="weui_cell_ft">送包信息：</div>
+                                  <div class="weui_cell_bd weui_cell_primary tex-l">
+                                      <p>{{item.dContact}} {{item.dMobile}}</p>
+                                      <p>{{item.dTreePath}}{{item.dAddrName}}</p>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="weui_cells font14">
+                               <div class="weui_cell">
+                                 <div class="weui_cell_ft">球包数量：</div>
+                                   <div class="weui_cell_bd weui_cell_primary tex-l">
+                                       <p>{{item.quantity}}个</p>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                      <div class="weui_cells ">
+                          <div class="weui_cell o-p-btn font14">
+                              <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="detailPay(item)">详情</a>
+                              <!-- <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="goPay(item)">去付款</a> -->
+                              <div class="clear-div"></div>
+                          </div>
+                       </div>
+                 </div>
+              <div class="order-none tex-c" v-show="order_list2.length == 0">
+                <img src="/img/file.png" alt="" />
+                <p>没有该类型订单</p>
+              </div>
+            </div>
+            <!--待签收-->
+            <div v-show="tab == 3" class="scroll" v-infinite-scroll="getMore(3)" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+              <!---->
+              <div class="order-all-lay mar-t" v-for="item in order_list3">
+                  <div @click="detail(item)">
+                    <div class="weui_cells font14">
+                         <div class="weui_cell">
+                           <div class="flex-1"></div>
+                           <div class="o-p-state tex-c" style="background-color:#04be02;">
+                             {{item.deliveryStatus | commFilter 'sf_type'}}
+                           </div>
+                         </div>
+                    </div>
+                    <div class="weui_cells font14">
+                         <div class="weui_cell">
+                           <div class="weui_cell_ft">订单编号：</div>
+                             <div class="weui_cell_bd weui_cell_primary tex-l">
+                                 <p>{{item.number}}</p>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="weui_cells font14">
+                          <div class="weui_cell">
+                            <div class="weui_cell_ft">创建时间：</div>
+                              <div class="weui_cell_bd weui_cell_primary tex-l">
+                                  <p>{{item.createTime | dateFormat 'yyyy-MM-dd hh:mm:ss'}}</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="weui_cells font14">
+                           <div class="weui_cell">
+                             <div class="weui_cell_ft">取包信息：</div>
+                               <div class="weui_cell_bd weui_cell_primary tex-l">
+                                   <p>{{item.jUserName}} {{item.jMobile}}</p>
+                                   <p>{{item.jCityName}}{{item.jAddressName}}</p>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="weui_cells font14">
+                            <div class="weui_cell">
+                              <div class="weui_cell_ft">送包信息：</div>
+                                <div class="weui_cell_bd weui_cell_primary tex-l">
+                                    <p>{{item.dUserName}} {{item.dMobile}}</p>
+                                    <p>{{item.dCityName}}{{item.dAddressName}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weui_cells ">
+                         <div class="weui_cell o-p-btn font14">
+                           <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="cancel(item)" v-show="showCancel(item.orderStatus,item.deliveryStatus)">取消</a>
+                           <!-- <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="redo(item.number,2)">返程</a>
+                           <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="redo(item.number,1)">重运</a> -->
+                           <div class="clear-div"></div>
+                         </div>
+                     </div>
+               </div>
+               <div class="order-none tex-c" v-show="order_list3.length == 0">
+                 <img src="/img/file.png" alt="" />
+                 <p>没有该类型订单</p>
+               </div>
+            </div>
+            <!--已签收-->
+            <div v-show="tab == 4" class="scroll" v-infinite-scroll="getMore(4)" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+                <div class="order-all-lay mar-t" v-for="item in order_list4">
+                    <div @click="detail(item)">
+                      <div class="weui_cells font14">
+                           <div class="weui_cell">
+                             <div class="flex-1"></div>
+                             <div class="o-p-state tex-c" style="background-color:#a664e2;">
+                               {{item.dAddrType == 4 ? '已签收' : '代签收'}}
+                             </div>
+                           </div>
+                      </div>
+                      <div class="weui_cells font14">
+                           <div class="weui_cell">
+                             <div class="weui_cell_ft">订单编号：</div>
+                               <div class="weui_cell_bd weui_cell_primary tex-l">
+                                   <p>{{item.number}}</p>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="weui_cells font14">
+                            <div class="weui_cell">
+                              <div class="weui_cell_ft">创建时间：</div>
+                                <div class="weui_cell_bd weui_cell_primary tex-l">
+                                    <p>{{item.createTime | dateFormat 'yyyy-MM-dd hh:mm:ss'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="weui_cells font14">
+                             <div class="weui_cell">
+                               <div class="weui_cell_ft">取包信息：</div>
+                                 <div class="weui_cell_bd weui_cell_primary tex-l">
+                                     <p>{{item.jUserName}} {{item.jMobile}}</p>
+                                     <p>{{item.jCityName}}{{item.jAddressName}}</p>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="weui_cells font14">
+                              <div class="weui_cell">
+                                <div class="weui_cell_ft">送包信息：</div>
+                                  <div class="weui_cell_bd weui_cell_primary tex-l">
+                                      <p>{{item.dUserName}} {{item.dMobile}}</p>
+                                      <p>{{item.dCityName}}{{item.dAddressName}}</p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="weui_cells ">
+                           <div class="weui_cell o-p-btn font14">
+                             <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="delete(item)">删除</a>
+                             <!-- <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="redo(item.number,2)">返程</a>
+                             <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="redo(item.number,1)">重运</a>
+                             <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="evaluate(item)" v-if="!item.comment">评价</a>
+                             <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="comment_detail(item)" v-if="item.comment">已评价</a> -->
+                             <div class="clear-div"></div>
+                           </div>
+                       </div>
+                 </div>
+                <div class="order-none tex-c" v-show="order_list4.length == 0">
+                  <img src="/img/file.png" alt="" />
+                  <p>没有该类型订单</p>
+                </div>
+            </div>
+          </div>
+          </div>
+      </div>
+</div>
+</div>
+</div>
+</template>

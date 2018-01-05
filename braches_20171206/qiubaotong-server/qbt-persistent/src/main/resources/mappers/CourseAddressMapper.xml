@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.CourseAddressMapper">
+		<resultMap id="BaseResultMap" type="com.qbt.persistent.entity.CourseAddress">
+				<result column="id" property="id"  />
+				<result column="province_id" property="provinceId"  />
+				<result column="course_name" property="courseName"  />
+				<result column="province_name" property="provinceName" />
+				<result column="juli" property="juli"  />	
+				<result column="area_id" property="areaId" />
+				<result column="address" property="address" />
+				
+				<result column="wechat_tip" property="wechatTip"  />	
+				<result column="is_out_range" property="isOutRange" />
+				<result column="out_range_time" property="outRangeTime" />
+				<result column="out_range_price" property="outRangePrice" />
+				<result column="is_tip" property="isTip" />
+				
+		</resultMap>
+		
+	<sql id="Base_Column_List">
+		a.province_id, a.province_name, a.id,  a.course_name,  a.address,  a.area_id, a.wechat_tip, a.is_out_range, a.out_range_time, a.out_range_price, a.is_tip
+	</sql>
+		
+	<select id="findCourseAddress" resultMap="BaseResultMap"> 
+	 	SELECT 
+			<include refid="Base_Column_List" />
+	 	 	<if test="lon != 0 and lat != 0">
+			, ROUND(6378.138*2*asin(sqrt(pow(sin(
+			(#{lat}*pi()/180-lat*pi()/180)/2),2)
+			+cos(#{lat}*pi()/180)*cos(lat*pi()/180)* pow(sin(
+			(#{lon}*pi()/180-lon*pi()/180)/2),2)))
+			*1000) AS juli
+		</if>
+		from (select bc.id,substring_index(bsa.tree_id,',',1) province_id, 
+									substring_index(bc.tree_path,',',1) province_name, bc.`name` as course_name,bc.area_id,bc.lon,bc.lat,bc.address,
+									bc.is_out_range,bc.out_range_time,bc.out_range_price,bc.is_tip,bc.wechat_tip
+									from base_course bc
+						left join 	base_sf_area bsa
+								on 	bc.area_id = bsa.id
+								where bc.is_delete =0 
+								)a
+						left join 	province 
+								on  province.province_id = a.province_id
+		where province.`status` ='1' or province.`status` is null
+		order by province.sort_number
+		
+	 </select>
+
+	<select id="findCourseAddressByCityId" resultMap="BaseResultMap"> 
+		SELECT 		
+		a.id,  a.course_name,  a.address,  a.area_id, a.wechat_tip, a.is_out_range, a.out_range_time, a.out_range_price, a.is_tip
+		<if test="lon != 0 and lat != 0">
+			, ROUND(6378.138*2*asin(sqrt(pow(sin(
+			(#{lat}*pi()/180-lat*pi()/180)/2),2)
+			+cos(#{lat}*pi()/180)*cos(lat*pi()/180)* pow(sin(
+			(#{lon}*pi()/180-lon*pi()/180)/2),2)))
+			*1000) AS juli
+		</if>
+				from(select bc.id, substring_index(substring_index(bsa.tree_id,',',2),',',-1) city_id,
+					substring_index(substring_index(bc.tree_path,',',2),',',-1)as city_name, bc.`name` as course_name,bc.area_id,bc.lon,bc.lat,bc.address,
+					bc.is_out_range,bc.out_range_time,bc.out_range_price,bc.is_tip,bc.wechat_tip
+					from base_course bc
+		left join 	base_sf_area bsa
+				on 	bc.area_id = bsa.id
+				where bc.is_delete =0 
+				)a
+
+			where a.city_id = #{id}
+			<if test="lon != 0 and lat != 0">
+			order by juli
+			</if>
+	</select>
+
+
+</mapper>

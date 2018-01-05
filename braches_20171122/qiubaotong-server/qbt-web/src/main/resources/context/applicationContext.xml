@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	http://www.springframework.org/schema/task 
+	http://www.springframework.org/schema/task/spring-task-3.2.xsd
+	http://www.springframework.org/schema/cache   
+    http://www.springframework.org/schema/cache/spring-cache.xsd ">
+
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>file:/data/qiubaotong/config/jdbc.properties</value>
+				<value>file:/data/qiubaotong/config/scp.properties</value>
+				<value>file:/data/qiubaotong/config/redis.properties</value>
+				<value>file:/data/qiubaotong/config/wechat.properties</value>
+				<value>file:/data/qiubaotong/config/sf.properties</value>
+				<value>file:/data/qiubaotong/config/timer.properties</value>
+				<value>file:/data/qiubaotong/config/sms.properties</value>
+				<value>file:/data/qiubaotong/config/email.properties</value> 
+				<value>file:/data/qiubaotong/config/image_template.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 用于持有ApplicationContext,可以使用SpringContextHolder.getBean('xxxx')的静态方法得到spring bean对象 -->  
+    <bean class="com.qbt.common.spring.SpringContextHolder" lazy-init="false" />
+    
+	<context:component-scan base-package="com.qbt"/>
+	<!-- 使用AspectJ方式配置AOP -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/plain;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+		<property name="config">
+			<bean class="com.google.code.kaptcha.util.Config">
+			<constructor-arg>
+				<props>
+					<prop key="kaptcha.border">yes</prop>
+					<prop key="kaptcha.border.color">238,238,238</prop>
+					<prop key="kaptcha.textproducer.font.color">blue</prop>
+					<prop key="kaptcha.image.width">80</prop>
+					<prop key="kaptcha.image.height">30</prop>
+					<prop key="kaptcha.textproducer.font.size">27</prop>
+					<prop key="kaptcha.session.key">code</prop>
+					<prop key="kaptcha.textproducer.char.length">4</prop>
+					<prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
+					<prop key="kaptcha.textproducer.char.string">23456789ABCDEFGHJKLMNPQRSTUVWXYZ</prop>
+					<prop key="kaptcha.obscurificator.impl">com.google.code.kaptcha.impl.ShadowGimpy</prop>
+					<prop key="kaptcha.noise.color">white</prop>
+					<prop key="kaptcha.noise.impl">com.google.code.kaptcha.impl.NoNoise</prop>
+					<prop key="kaptcha.background.clear.from">white</prop>
+					<prop key="kaptcha.background.clear.to">white</prop>
+				</props>
+			</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+    
+</beans>

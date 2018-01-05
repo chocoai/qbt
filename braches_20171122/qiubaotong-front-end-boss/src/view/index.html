@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>球包通管理系统</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="/assets/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{{/css/main.min.css}}}">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <header-sidebar></header-sidebar>
+
+        <!-- Page Content -->
+        <div id="page-wrapper" style="padding:0 10px;min-height:inherit">
+            <div class="container-fluid" style="padding:0;">
+                <div style="height:100%; padding-top:10px;" id="tabDiv"></div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="/assets/jquery/dist/jquery.min.js"></script>
+    <script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+    <!-- Angular -->
+    <script src="/assets/angular/angular.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/assets/metisMenu/dist/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <!-- <script src="/assets/admin/js/sb-admin-2.js"></script> -->
+    <script src="/assets/layer/layer.js"></script>
+    <script src="{{{/js/app.js}}}"></script>
+    <script src="{{{/js/tabControl.js}}}"></script>
+    <script>
+        jQuery(document).ready(function() {
+            if(isMobile.any()){
+                return;
+            }
+            //初始化tab层
+            window.tabc=new TabControl("tabDiv",'tab','','100%','100%');
+            var plat = localStorage.getItem('b_plat');
+            if( plat == "0"){
+                return;
+            }
+            $(function(){
+                tabc.AddTab("dashboard","仪表盘", "<iframe id='iframedashboard' src='dashboard.html'></iframe>",true);
+                // tabc.AddTab("dashboard","仪表盘", "<iframe id='iframedashboard' src='saleCodeCreate.html'></iframe>",true);
+                $("#tab").children('div').children('button').children('span').remove();
+                $('#contenttab').outerHeight($(window).height() - 100);
+            });
+        });
+    </script>
+</body>
+
+</html>

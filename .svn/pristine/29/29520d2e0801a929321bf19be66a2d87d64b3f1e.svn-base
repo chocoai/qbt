@@ -1,0 +1,45 @@
+package com.qbt.service.impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.qbt.common.entity.PageEntity;
+import com.qbt.persistent.entity.UserActivityOrderDetail;
+import com.qbt.persistent.mapper.UserActivityOrderDetailMapper;
+import com.qbt.service.UserActivityOrderDetailService;
+
+@Service
+public class UserActivityOrderDetailServiceImpl implements UserActivityOrderDetailService {
+	
+	@Resource
+	private UserActivityOrderDetailMapper userActivityOrderDetailMapper;
+	
+	@Override
+	public List<UserActivityOrderDetail> findByPage(PageEntity<UserActivityOrderDetail> pageEntity) {
+		return userActivityOrderDetailMapper.findByPage(pageEntity);
+	}
+
+	@Override
+	public UserActivityOrderDetail findById(Integer id) {
+		return userActivityOrderDetailMapper.selectById(id);
+	}
+
+	@Override
+	public int insert(UserActivityOrderDetail ticket) {
+		userActivityOrderDetailMapper.insert(ticket);
+		return ticket.getId();
+	}
+
+	@Override
+	public int update(UserActivityOrderDetail ticket) {
+		if(ticket.getId() > 0){
+			int count = userActivityOrderDetailMapper.updateById(ticket);			
+			return count;
+		}
+		return 0;
+	}
+
+}

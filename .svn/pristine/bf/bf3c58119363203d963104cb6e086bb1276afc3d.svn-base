@@ -1,0 +1,6 @@
+pg.driver=org.postgresql.Driver
+
+#Test Env
+pg.username=qiubaotong
+pg.password=pcS235bSkEaorFw8
+pg.url=jdbc:postgresql://rdsui2ry52u42d5901vg.pg.rds.aliyuncs.com:3433/qiubaotong

@@ -1,0 +1,45 @@
+<template id="wechat-user">
+  <div class="page" style="padding-bottom:100px;">
+    <tel-contact></tel-contact>
+    <section>
+      <div class="page__bd" style="position: fixed;top: 0;left: 0;right: 0;z-index: 5">
+        <div class="weui-cells weui-cells_form" style="margin-top:0">
+          <div class="weui-cell">
+            <div class="weui-cell__hd" style="text-align: center;width: 100%">
+              <h4 class="weui-label" >选择关联下单用户</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="weui-search-bar" id="searchBar" style="margin-top: 60px;">
+        <div class="weui-search-bar__form">
+          <div class="weui-search-bar__box" style="padding: 0 40px">
+            <i class="weui-icon-search" style="line-height: 45px;font-size: 18px"></i>
+            <input type="text" @change="getList()" v-model="keyword" class="weui-search-bar__input" placeholder="输入关键字搜索" style="height: 35px;font-size: 18px">
+            <a href="javascript:" @click="keyword='';getList()" class="weui-icon-clear" style="line-height: 45px;font-size: 18px"></a>
+          </div>
+        </div>
+      </div>
+     <div class="weui-cells">
+        <div class="weui-cell text-center font14" v-for="user in userList" @click="goView(3,user)" style="padding: 15px 5px">
+          <div class="weui-cell__bd">
+            <img :src="user.headImgUrl" style="width:30px;display:inline-block;" />
+          </div>
+          <div class="weui-cell__bd">
+            <p>{{user.nickname}}</p>
+          </div>
+          <div class="weui-cell__bd">
+            <p class="">{{user.name}}</p>
+          </div>
+          <div class="weui-cell__bd">{{user.mobile}}</div>
+          <div class="weui-cell__bd" @click.stop="updataUser(user)"><span style="color: #fff;line-height: 1.9;font-size: 14px;padding: 0 .75em;display: inline-block;background-color: #04be02;border-radius: 5px;">编辑</span></div>
+        </div>
+    </div>
+    <div class="footer" style="bottom: 0;">
+      <div class="weui-flex">
+        <a class="weui-flex__item footer-confirm" href="javascript:;" @click="goView(2)" style="background-color:#15CA5F;font-size: 22px;">跳过</a>
+      </div>
+    </div>
+  </div>
+</template>
+

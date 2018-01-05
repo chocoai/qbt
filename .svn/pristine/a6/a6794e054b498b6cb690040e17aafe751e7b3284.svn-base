@@ -1,0 +1,37 @@
+package com.qbt.service;
+
+import java.util.List;
+
+import com.qbt.common.entity.PageEntity;
+import com.qbt.persistent.entity.TicketPackage;
+
+public interface TicketPackageService {
+	
+	/**
+	 * 分页查询
+	 * @param pageEntity
+	 * @return
+	 */
+	List<TicketPackage> findByPage(PageEntity<TicketPackage> pageEntity);
+	
+	/**
+	 * 根据id查询
+	 * @param id
+	 * @return
+	 */
+	TicketPackage findById(Integer id);
+	
+	/**
+	 * 新增活动
+	 * @param activity
+	 * @return
+	 */
+	int insert(TicketPackage ticketPackage);
+	
+	/**
+	 * 更新活动
+	 * @param activity
+	 * @return
+	 */
+	int update(TicketPackage ticketPackage);
+}

@@ -1,0 +1,104 @@
+/*球包清单*/
+.detailde-list {
+    margin-top: 10px;
+    .weui_cells_title {
+        margin: 0;
+        padding: 5px 15px;
+    }
+    .weui_cells {
+        padding: 15px;
+        .weui_cell_bd {
+            p {
+                margin-bottom: 5px;
+            }
+        }
+        .text {
+            line-height: 26px;
+        }
+        .icon {
+            background-color: #f85a5c;
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 12px;
+            border-radius: 10px;
+            margin-left: 4px;
+            line-height: 14px;
+        }
+        .icon02 {
+            background-color: #808080;
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 12px;
+            border-radius: 10px;
+            margin-left: 4px;
+            line-height: 14px;
+        }
+        .add {
+            font-size: 0;
+            height: 26px;
+            a {
+                display: inline-block;
+                font-size: 20px;
+                text-align:  center;
+                width: 30px;
+                color: #808080;
+                border: 1px solid #d8d8d8;
+            }
+            .in-text {
+                border-left: 0;
+                border-right: 0;
+            }
+        }
+    }
+
+}
+section.invalid {
+    color: #808080;
+    .weui_cell_bd {
+        color: inherit;
+    }
+    .font-red {
+        color: inherit;
+    }
+    .icon {
+        background-color: #808080 !important    ;
+    }
+}
+.ma-bag-name {
+    .weui_cells {
+        margin-top: 0;
+    }
+    .weui_cells:before {
+        border: 0;
+    }
+    .weui_cells:after {
+        border: 0;
+    }
+}
+.ma-bag-address,.many-pay-box {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    .weui_cells {
+        margin-top: 0;
+        img {
+            max-height: 22px;
+            margin-right: .8rem;
+        }
+        .weui_cell {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+    }
+    .weui_cells:before {
+        border: 0;
+    }
+    .weui_cells:after {
+        border: 0;
+    }
+}
+.ma-bag-name {
+    .weui_cell {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}

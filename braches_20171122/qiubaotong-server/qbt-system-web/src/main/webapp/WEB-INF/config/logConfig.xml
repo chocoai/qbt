@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true">
+     
+    <property name="USER_HOME" value="${logPath}/qbt-system" />
+    <property name="AUTO" value="auto"/>
+    <property name="DEFAULT" value="qbt-system"/>
+    
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"> 
+	    <encoder> 
+	    	<pattern>%d{yyyyMMdd HH:mm:ss SSS}[%thread][%level][%X{LINE}]-%msg%n</pattern> 
+	    </encoder> 
+    </appender>
+    
+    
+    <!-- debug 开发使用 -->  
+    <appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${USER_HOME}/${DEFAULT}-debug.log</File>   
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        	<fileNamePattern>${USER_HOME}/${DEFAULT}-debug-%d{yyyyMMdd}.log</fileNamePattern>
+        	<maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <layout>
+            <Pattern>%d{yyyyMMdd HH:mm:ss SSS}[%thread][%level][%X{LINE}]-%msg%n</Pattern>
+        </layout>
+    </appender>
+   
+    <!-- =========================================公用配置Start=============================== -->
+     <appender name="DEFAULT-INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${USER_HOME}/${DEFAULT}-info.log</File>   
+         <filter class="ch.qos.logback.core.filter.EvaluatorFilter"> 
+	        <evaluator> 
+	        	<expression>(level>=INFO)</expression> 
+	        </evaluator> 
+	        <OnMatch>ACCEPT</OnMatch>
+        	<OnMismatch>DENY</OnMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        	<fileNamePattern>${USER_HOME}/${DEFAULT}-info-%d{yyyyMMdd}.log</fileNamePattern>
+        	<maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <layout>
+            <Pattern>%d{yyyyMMdd HH:mm:ss SSS}[%thread][%level][%X{LINE}]-%msg%n</Pattern>
+        </layout>
+    </appender>
+    
+    
+    <appender name="DEFAULT-ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${USER_HOME}/${DEFAULT}-error.log</File>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter"> 
+	        <evaluator> 
+	        	<expression>(level==ERROR)</expression> 
+	        </evaluator> 
+	        <OnMatch>ACCEPT</OnMatch>
+        	<OnMismatch>DENY</OnMismatch> 
+        </filter>
+        
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        	<fileNamePattern>${USER_HOME}/${DEFAULT}-error-%d{yyyyMMdd}.log</fileNamePattern>
+        	<maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <layout>
+            <Pattern>%d{yyyyMMdd HH:mm:ss SSS} [%thread][%level][%X{LINE}]-%msg%n</Pattern>
+        </layout>
+    </appender>
+    
+    <!-- =========================================公用配置End=============================== -->
+    
+    <root level="DEBUG">
+        	
+     <appender-ref ref="DEFAULT-ERROR"/>
+     <appender-ref ref="DEFAULT-INFO"/>
+     <appender-ref ref="DEBUG"/>
+   		 <!-- <appender-ref ref="STDOUT"/> -->
+    </root>
+</configuration>
+

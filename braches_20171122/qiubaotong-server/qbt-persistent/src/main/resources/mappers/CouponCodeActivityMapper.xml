@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.CouponCodeActivityMapper">
+	<resultMap id="BaseResultMap" type="com.qbt.persistent.entity.CouponCodeActivity">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="count" property="count" jdbcType="INTEGER" />
+		<result column="use_count" property="useCount" jdbcType="INTEGER" />
+		<result column="rule_full" property="ruleFull" jdbcType="DECIMAL" />
+		<result column="rule_reduce" property="ruleReduce" jdbcType="DECIMAL" />
+		<result column="rule_type" property="ruleType" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, name, start_time, end_time, code, count,
+		use_count,
+		rule_full, rule_reduce, rule_type, status, remark
+	</sql>
+	
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from coupon_code_activity
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<insert id="insert" parameterType="com.qbt.persistent.entity.CouponCodeActivity"
+		keyProperty="id" useGeneratedKeys="true">
+		insert into coupon_code_activity (create_time, update_time,
+		name, start_time, end_time,
+		code, count, use_count,
+		rule_full, rule_reduce, rule_type,
+		status, remark)
+		values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		#{name,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP},
+		#{endTime,jdbcType=TIMESTAMP},
+		#{code,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{useCount,jdbcType=INTEGER},
+		#{ruleFull,jdbcType=DECIMAL}, #{ruleReduce,jdbcType=DECIMAL},
+		#{ruleType,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+	</insert>
+
+
+	<update id="updateById" parameterType="com.qbt.persistent.entity.CouponCodeActivity">
+		update coupon_code_activity
+		<set>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM coupon_code_activity
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%')
+			</if>
+			<if test="condition.code != null and condition.code != ''">
+				AND code LIKE CONCAT('%',#{condition.code},'%')
+			</if>
+			<if test="condition.status != 0 and condition.status != null">
+				AND status = #{condition.status}
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findByCode" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from coupon_code_activity
+		where code = #{code}
+	</select>
+	
+	<update id="updateUseCountByCode">
+		update coupon_code_activity 
+		set use_count = #{useCount} 
+		where code = #{code}
+	</update>
+	
+</mapper>

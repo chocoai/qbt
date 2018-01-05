@@ -1,0 +1,27 @@
+<template id="agent-address">
+<div class="pad-b">
+<!--头-->
+<div class="header tex-c">
+  <a href="javascript:history.back();" class="back"><img src="/img/back.png" /></a>
+  选择{{isJ ? '寄' : '收'}}球包地址
+</div>
+<div class="scroll marhead">
+    <div class="weui_panel weui_panel_access mar-t0 " v-show="addr_list.length>0">
+          <div class="weui_panel_bd">
+              <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg address-lay pad-lr pd-tb0 " @click="save(item)" v-for="item in addr_list">
+                  <div class="weui_media_bd">
+                      <h4 class="weui_media_title font14"><span class="mar-r">{{item.name}}</span>  {{item.mobile}} </h4>
+                      <p class="weui_media_desc">{{item.cityName}}{{item.address}}</p>
+                  </div>
+                  <div class="weui_media_hd mar-r0">
+                  </div>
+              </a>
+          </div>
+     </div>
+</div>
+<div class="add-new-flex" style="position:absolute;bottom:0px;z-index:0;">
+   <a href="javascript:;" class="weui_btn weui_btn_plain_primary" @click="goNewAddr()">新增地址</a>
+</div>
+</div>
+
+</template>

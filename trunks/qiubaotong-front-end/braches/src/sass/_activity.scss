@@ -1,0 +1,103 @@
+
+//tab
+.tab{ width:100%; margin:0 auto 50px;}
+.tab-hd { color: #333; overflow:hidden; zoom:1;}
+.tab-hd li{ float:left; width:33.3333%; color:#333; text-align:center; cursor:pointer;}
+.tab-hd li.active{ color: #15ca5f;}
+.tab-bd li{display:none;}
+.tab-bd li.thisclass{ display:list-item;}
+
+.activity {
+    padding-top: 1px;
+    .tab {
+        .tab-hd {
+            padding: 5px 15px;
+            margin: 10px 0;
+            color: #808080;
+            li {
+                width: auto;
+                padding: 0 10px;
+                float: right;
+                border-right: 1px solid #808080;
+                line-height: 1;
+            }
+        }
+        .tab-hd li:first-child {
+            border: 0;
+            padding-right: 0;
+        }
+        .tab-bd {
+            li {
+                a {
+                    position: relative;
+                    display: block;
+                    color: #fff;
+                    margin-bottom: 10px;
+                }
+                div {
+                    position: absolute;
+                    padding: 2px 10px;
+                    border-radius: 2px;
+                }
+                div:nth-of-type(1) {
+                    top: 10px;
+                    left: 20px;
+                }
+                div:nth-of-type(2) {
+                    width: 100%;
+                    font-weight: 600;
+                    top: 45%;
+                    font-size: 16px;
+                    margin-top: -15px;
+                }
+                div:last-child {
+                    bottom: 10px;
+                    right: 10px;
+                }
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        }
+    }
+}
+.activity-detail {
+    h4 {
+        font-size: 16px;
+    }
+    .weui_media_box {
+        padding-top: 0;
+        padding-bottom: 0;
+        .weui_media_desc {
+            color: #333;
+            line-height: 2;
+            -webkit-line-clamp: inherit;
+            font-size: 14px;
+        }
+    }
+    .weui_media_title {
+        font-size: 14px;
+        margin-bottom: 2px !important;
+    }
+}
+.act-cell {
+    width: 80%;
+    margin: 10px auto 0;
+    padding: 8px 0;
+    border-radius: 20px;
+    i {
+        display: inline-block;
+        background-color: #ff545b;
+        color: #fff;
+        border-radius: 50px;
+        width: 22px;
+        height: 22px;
+        margin: 0 10px;
+        font-style:  normal;
+    }
+    span {
+        font-size: 16px;
+        font-weight: 600;
+    }
+}

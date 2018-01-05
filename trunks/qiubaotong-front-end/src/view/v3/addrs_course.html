@@ -1,0 +1,159 @@
+<template id="address_course_select">
+    <section class="page">
+        <!--<tel-contact></tel-contact>-->
+        <div class="weui-tab">
+
+            <div class="weui-tab__panel">
+                <div class="page__bd">
+                    <div class="weui-search-bar">
+                        <div class="weui-search-bar__form">
+                            <div class="weui-search-bar__box" style="padding: 0 40px">
+                                <i class="weui-icon-search" style="line-height: 45px;font-size: 18px"></i>
+                                <input v-model="courtK" type="search" class="weui-search-bar__input"
+                                       placeholder="输入球场名称" required="" style="height: 35px;font-size: 18px">
+                                <a @click="courtK = ''" href="javascript:" class="weui-icon-clear"
+                                   style="line-height: 45px;font-size: 18px"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-show="!courtK">
+                    <div class="course-city-label" v-if="historyCity&&historyCity.length>0">历史订单城市</div>
+                    <div v-if="historyCity&&historyCity.length>0">
+                        <div class="weui-flex" v-for="(item,index) in historyCity" v-if="index%3==0">
+                            <div class="weui-flex__item">
+                                <div class="course-city"
+                                     @click="citySelect(true,historyCity[index].id,historyCity[index].cityName)">
+                                    <span>{{historyCity[index].cityName}}</span>
+                                </div>
+                            </div>
+                            <div class="weui-flex__item">
+                                <div class="course-city" v-if="historyCity.length>index+1"
+                                     @click="citySelect(true,historyCity[index+1].id,historyCity[index+1].cityName)">
+                                    <span>{{historyCity[index+1].cityName}}</span>
+                                </div>
+                            </div>
+                            <div class="weui-flex__item">
+                                <div class="course-city" v-if="historyCity.length>index+2"
+                                     @click="citySelect(true,historyCity[index+2].id,historyCity[index+2].cityName)">
+                                    <span>{{historyCity[index+2].cityName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="course-city-label" v-if="hotCity&&hotCity.length>0">热门城市</div>
+                    <div v-if="hotCity&&hotCity.length>0">
+                        <div class="weui-flex">
+                            <div class="weui-flex__item" v-for="(item,index) in hotCity" v-if="index<3">
+                                <div class="course-city" @click="citySelect(true,item.id,item.name)"><span>{{hotCity[index].name}}</span>
+                                </div>
+                            </div>
+                            <div class="weui-flex__item" v-if="hotCity.length<2">
+                            </div>
+                            <div class="weui-flex__item" v-if="hotCity.length<3">
+                            </div>
+                        </div>
+                    </div>
+                    <div v-show="citySelectId">
+                        <div class="weui-cells course-province" style="margin-top: 15px">
+                            <div @click="citySelect(false)" class="city-title">
+                                <span class="city-arrow-down">{{citySelectName}}</span>
+                            </div>
+                            <div class="weui-cells course-province">
+                                <div @click="save(item,2)" v-for="item in cityCourseList"
+                                     class="weui-cell course_airport_list">
+                                    <div class="weui-cell__bd">
+                                        <p class="font16">{{item.name}}</p>
+                                        <p class="font12" style="color: grey">{{item.address}}</p>
+                                    </div>
+                                    <div class="course-distance">
+                                        <p class="font12">{{item.juliStr}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div v-show="!citySelectId">
+                        <div class="course-city-label">国内城市</div>
+                        <div class="weui-cells course-province" v-for="item in court_list">
+                            <div @click="expandProvince(item)" class="weui-cell title">
+                                <div :class="[item.isExpand?'pro-arrow-up':'pro-arrow-down']">
+                                </div>
+                                <div class="weui-cell__bd">{{item.name}}
+
+                                </div>
+                            </div>
+                            <div v-show="item.isExpand" class="weui-cells course-province">
+                                <div @click="save(subItem,2)" v-for="subItem in item.courseAddressVoList"
+                                     class="weui-cell course_airport_list">
+                                    <div class="weui-cell__bd">
+                                        <p class="font16">{{subItem.name}}</p>
+                                        <p class="font12" style="color: grey">{{subItem.address}}</p>
+                                    </div>
+                                    <div class="course-distance">
+                                        <p class="font12">{{subItem.juliStr}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div v-show="courtK">
+                    <div @click="save(subItem,2)" v-for="subItem in filterCourtList"
+                         class="weui-cell course_airport_list">
+                        <div class="weui-cell__bd">
+                            <p class="font16">{{subItem.name}}</p>
+                            <p class="font12" style="color: grey">{{subItem.address}}</p>
+                        </div>
+                        <div class="course-distance">
+                            <p class="font12">{{subItem.juliStr}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="weui-flex course_type">-->
+                <!--<div class="weui-flex__item">-->
+                <!--<span>大陆</span>-->
+                <!--</div>-->
+                <!--<div class="weui-flex__item" @click="showCourseType = !showCourseType" style="position: relative;">-->
+                <!--<span class="triangle_down">{{courseType==1?'球场':'练习场'}}</span>-->
+                <!--<div v-show="showCourseType" class="course_select">-->
+                <!--<p @click.stop="chooseCourseType(1)">球场</p>-->
+                <!--<p @click.stop="chooseCourseType(2)">练习场</p>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div @click="save(item,2)" v-show="courseType == 1" v-for="item in filterCourtList"-->
+                <!--class="weui-flex course_airport_list">-->
+                <!--<div class="weui-flex__item">-->
+                <!--<p class="font16">{{item.name}}</p>-->
+                <!--<p>{{item.address}}</p>-->
+                <!--</div>-->
+                <!--<div class="course-distance">-->
+                <!--<p class="font12">{{item.juliStr}}</p>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div @click="save(item,2)" v-show="courseType == 2" v-for="item in filterCourtList2"-->
+                <!--class="weui-flex course_airport_list">-->
+                <!--<div class="weui-flex__item">-->
+                <!--<p class="font16">{{item.name}}</p>-->
+                <!--<p>{{item.address}}</p>-->
+                <!--</div>-->
+                <!--<div class="course-distance">-->
+                <!--<p class="font12">{{item.juliStr}}</p>-->
+                <!--</div>-->
+                <!--</div>-->
+
+            </div>
+        </div>
+        <footer class="footer footer-ios">
+            <div class="weui-flex">
+                <div @click="goBack" class="weui-flex__item footer-cancel">
+                    <p>返回</p>
+                </div>
+            </div>
+        </footer>
+    </section>
+</template>

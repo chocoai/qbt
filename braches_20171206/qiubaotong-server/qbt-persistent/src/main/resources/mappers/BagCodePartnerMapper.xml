@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BagCodePartnerMapper">
+	<resultMap id="BaseResultMap" type="BagCodePartner">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="name" property="name" />
+		<result column="bag_code" property="bagCode" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
+		<result column="activity_id" property="activityId" />
+		<result column="activity_name" property="activityName" />
+		<result column="same_info" property="sameInfo" />
+		<result column="sender_random" property="senderRandom" />
+		<result column="status" property="status" />
+		<result column="operator_id" property="operatorId" />
+		<result column="operator_name" property="operatorName" />
+		<result column="contact" property="contact" />
+		<result column="mobile" property="mobile" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, name, bag_code, start_date, end_date,
+		activity_id,activity_name, same_info, sender_random, status, 
+		operator_id, operator_name, contact, mobile, remark
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from bag_code_partner
+		where id = #{id}
+	</select>
+	
+	<select id="findByBagCode" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bag_code_partner
+		where bag_code = #{bagCode}
+	</select>
+	
+	<insert id="insert" parameterType="BagCodePartner" keyProperty="id" useGeneratedKeys="true">
+		insert into bag_code_partner (
+			create_time, 
+			update_time,
+			name, 
+			bag_code, 
+			start_date,
+			end_date, 
+			activity_id, 
+			activity_name,
+			same_info, 
+			sender_random, 
+			status,
+			operator_id, 
+			operator_name, 
+			contact, 
+			mobile, 
+			remark
+		) values (
+			#{createTime},
+			#{updateTime},
+			#{name}, 
+			#{bagCode}, 
+			#{startDate},
+			#{endDate}, 
+			#{activityId},
+			#{activityName},
+			#{sameInfo}, 
+			#{senderRandom}, 
+			#{status},
+			#{operatorId}, 
+			#{operatorName},
+			#{contact},
+			#{mobile}, 
+			#{remark}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="BagCodePartner">
+		update bag_code_partner
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="startDate != null">
+				start_date = #{startDate},
+			</if>
+			<if test="endDate != null">
+				end_date = #{endDate},
+			</if>
+			<if test="activityId != null">
+				activity_id = #{activityId},
+			</if>
+			<if test="activityName != null">
+				activity_name = #{activityName},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="operatorId != null">
+				operator_id = #{operatorId},
+			</if>
+			<if test="operatorName != null">
+				operator_name = #{operatorName},
+			</if>
+			<if test="contact != null">
+				contact = #{contact},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bag_code_partner 
+		<where>
+			<if test="condition.keyword != null and condition.keyword != ''">
+				and (
+					name like concat('%',#{condition.keyword},'%') 
+					or bag_code like concat('%',#{condition.keyword},'%') 
+				)
+			</if>
+			<if test="condition.startDate != null">
+				and start_date <![CDATA[>=]]> date(#{condition.startDate}) 
+			</if>
+			<if test="condition.endDate != null">
+				and end_date <![CDATA[<=]]> date(#{condition.endDate}) 
+			</if>
+			<if test="condition.startTime != null">
+				and create_time <![CDATA[>=]]> date(#{condition.startTime}) 
+			</if>
+			<if test="condition.endTime != null">
+				and create_time <![CDATA[<=]]> date(#{condition.endTime}) 
+			</if>
+			<if test="condition.status != null">
+				and status = #{condition.status} 
+			</if>
+		</where>
+		order by id desc
+	</select>
+	
+	<select id="exists" parameterType="BagCodePartner" resultType="int">
+		select count(1) 
+		from bag_code_partner 
+		<where>
+			<if test="name != null">
+				or name = #{name} 
+			</if>
+			<if test="bagCode != null">
+				or bag_code = #{bagCode} 
+			</if>
+			<if test="id > 0">
+				and id != #{id} 
+			</if>
+		</where>
+	</select>
+	
+</mapper>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="userCheckDetailCtrl">
+<div class="container containerWidthAuto">
+    <ul class="nav nav-tabs" id="myTab">
+	    <li class="active"><a href="#detail" data-toggle="tab">用户详情</a></li>
+        <li><a href="#address" data-toggle="tab">常用地址</a></li>
+        <li><a href="#bagDetail" data-toggle="tab">用户球包</a></li>
+        <li><a href="#addressCount" data-toggle="tab">地址统计</a></li>
+        <li><a href="#routeCount" data-toggle="tab">路线统计</a></li>
+    </ul>
+    <div class="tab-content">
+    	<div class="tab-pane fade in active" id="detail">
+		    <div class="row rowMarginTop">
+                <div class="col-sm-3">
+                    <div class="panel panel-default" id="rolelist">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">微信用户基本信息</h3>
+                        </div>
+                        <div class="panel-body">
+                           <table class="table table-user">
+                                <tr>
+                                    <td style="padding-top:0" colspan="2" class="text-center">
+                                        <img style="max-width:70px;max-height:70px" ng-src="{{weixin.headImgUrl}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="qbt-font2">昵称</td>
+                                    <td class="text-right">{{weixin.nickname}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="qbt-font2">姓名</td>
+                                    <td class="text-right">{{weixin.name}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="qbt-font3">手机号</td>
+                                    <td class="text-right">{{weixin.mobile}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="qbt-font2">邮箱</td>
+                                    <td class="text-right">{{weixin.email}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="qbt-font2">性别</td>
+                                    <td class="text-right">{{weixin.sex == 1 ? '男' : '女'}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="qbt-font2">地区</td>
+                                    <td class="text-right">{{weixin.province}} {{weixin.city}}</td>
+                                </tr>
+                                <tr ng-show="weixin.mobile">
+                                    <td colspan="2" class="text-center">
+                                        <button ng-click="toSendMsg(weixin.mobile)" class="btn btn-primary btn-sm">发送短信</button>
+                                    </td>
+                                </tr>
+                           </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="panel panel-default" id="rolelist">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">备注</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row ">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td colspan="2">
+                                                <label>默认标签</label>
+                                            </td>
+                                        </tr>
+                                        <tr ng-repeat="label in labels">
+                                            <td style="min-width:130px">{{label.name}}</td>
+                                            <td>
+                                                <label style="margin-left:0px;margin-right:10px;min-width:90px" ng-repeat="childLabel in label.item track by $index" class="checkbox-inline">
+                                                    <input ng-click="isClick(childLabel.id)" ng-checked="isSelected(childLabel.id)" type="checkbox">{{childLabel.name}}
+                                                </label>
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="form-inline">
+                                                    <div class="form-group">
+                                                        <label>自定义标签：</label>
+                                                      </div>
+                                                      <div class="form-group marginRight5">
+                                                        <input ng-model="selfLabel" type="text" class="form-control" placeholder="输入标签" maxlength="300">
+                                                        <button ng-click="addSelfLabel()" class="btn btn-primary btn-sm">新增</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td colspan="2">
+                                                <div ng-repeat="selfLabel in contentList" class="form-control text-center marginRight5 panel-primary selfLabel">
+                                                    <pre>{{selfLabel}}</pre>
+                                                    <span class="IselfLabel" ng-click="deleteSelfLabel(selfLabel)">×</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button ng-click="addStyleLabel()" class="btn btn-primary">提交</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+		        <div class="col-sm-12">
+                    <div class="panel panel-default" id="rolelist">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">订单详情</h3>
+                        </div>
+                        <div class="panel-body">
+                           <table class="table table-bordered table-hover table-striped table-condensed">
+                            <thead>
+                                <th>订单号</th>
+                                <th>创建时间</th>
+                                <th>运单号</th>
+                                <th>昵称</th>
+                                <th>取包信息</th>
+                                <th>送包信息</th>
+                                <th>订单状态</th>
+                                <th>物流状态</th>
+                            </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in list track by $index">
+                                        <td><a href="javascript:void(0)" ng-click="detail(item.id)">{{item.number}}</td>
+                                        <td>{{item.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>
+                                            <a href="javascript:void(0)" ng-click="detail(item.id)">{{item.mailNo}}</a>
+                                        </td>
+                                        <td>{{weixin.nickname}}</td>
+                                        <td ng-if="item.jAddrType == 4">
+                                            <a ng-click="isWeixin(item.jMobile,item.id)" href="javascript:void(0)">{{item.jContact}}<br/>{{item.jMobile}}</a>
+                                            <br/>{{item.jTreePath}}{{item.jAddress}}</td>
+                                        <td ng-if="item.jAddrType != 4">
+                                            <a ng-click="isWeixin(item.jMobile,item.id)" href="javascript:void(0)">{{item.jContact}}<br/>{{item.jMobile}}</a>
+                                            <br/>
+                                            <i ng-if="item.jAddrType == 1" class="fa">
+                                            <img src="../img/golf.png">
+                                            </i>
+                                            <label class="label" ng-class="{'label-success':item.jCourseStatus   == 1,'label-warning':item.jCourseStatus   == 2,'label-danger':item.jCourseStatus   == 3,'label-default':item.jCourseStatus   == 4}">
+                                            <a style="color:#fff" href="javascript:void(0);" ng-if="item.jAddrType == 1" ng-click="courseDetail(item.jAddrId,item.jAddrType)">{{item.jAddrName}}</a>
+                                        </label>
+                                            <span ng-if="item.jAddrType != 1">{{item.jAddrName}}</span>
+                                        </td>
+                                        <td ng-if="item.dAddrType == 4">
+                                            <a ng-click="isWeixin(item.dMobile,item.id)" href="javascript:void(0)">{{item.dContact}}<br/>{{item.dMobile}}</a>
+                                        <br/>{{item.dTreePath}}{{item.dAddress}}</td>
+                                        <td ng-if="item.dAddrType != 4">
+                                            <a ng-click="isWeixin(item.dMobile,item.id)" href="javascript:void(0)">{{item.dContact}}<br/>{{item.dMobile}}</a>
+                                            <br/>
+                                            <i ng-if="item.dAddrType == 1" class="fa">
+                                                <img src="../img/golf.png">
+                                            </i>
+                                            <label class="label" ng-class="{'label-success':item.dCourseStatus  == 1,'label-warning':item.dCourseStatus  == 2,'label-danger':item.dCourseStatus  == 3,'label-default':item.dCourseStatus  == 4}">
+                                                <a style="color:#fff" href="javascript:void(0);" ng-if="item.dAddrType == 1" ng-click="courseDetail(item.dAddrId,item.dAddrType)">{{item.dAddrName}}</a>
+                                            </label>
+                                            <span ng-if="item.dAddrType != 1">{{item.dAddrName}}</span>
+                                        </td>
+                                        <td>{{item.orderStatus | commFilter:'order_type'}}</td>
+                                        <td>
+                                            <label class="label padding7-10" ng-class="{'label-info':item.deliveryStatus == 1,'label-default':item.deliveryStatus == 2,'label-blue':item.deliveryStatus == 3,'label-green':item.deliveryStatus == 4,'label-success':item.deliveryStatus == 5,'label-primary':item.deliveryStatus == 6,'label-warning':item.deliveryStatus == 7,}">{{item.deliveryStatus | commFilter:'sf_type'}}</label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <pagination page="page" change="getList(page)"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="address">
+			 <div class="row rowMarginTop">
+                <div class="col-sm-12">
+                    <table class="table table-bordered table-striped table-hover table-condensed">
+                        <thead>
+                            <th>联系人</th>
+                            <th>手机号</th>
+                            <th>省</th>
+                            <th>市</th>
+                            <th>区</th>
+                            <th>详细地址</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in userAddrList track by $index">
+                                <td>{{item.contact}}</td>
+                                <td>{{item.mobile}}</td>
+                                <td>{{item.treePath.split(',')[0]}}</td>
+                                <td>{{item.treePath.split(',')[1]}}</td>
+                                <td>{{item.treePath.split(',')[2]}}</td>
+                                <td>{{item.address}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination page="page1" change="getUserAddr(page)"></pagination>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade in active" id="bagDetail">
+            <div class="row rowMarginTop">
+                <div class="col-sm-12">
+                    <div class="panel panel-default" id="rolelist">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">球包照片</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <span style="line-height:46px;">上传球包</span>
+                                        <button ngf-select="uploadImg($file,1)" class="btn btn-primary btn-lg pull-right">+</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="line-height:34px;">已上传照片</span>
+                                        <button ng-show="_bagList.length>0" ng-click="selectToDelete(1)" class="btn btn-primary pull-right" ng-bind="isSelectDelete"></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <div ng-repeat="item in _bagList track by $index" class="col-md-3 bagCol">
+                                            <img ng-click="imgShow(fBaseUrl+item.imageUrl,1)" ng-if="item" class="img-responsive marginAuto"  ng-src={{fBaseUrl+item.imageUrl}}>
+                                            <div ng-click="selectBag(item.id,$index,1)" ng-show="isBagSelect" class="bagDelete">
+                                                <i class="fa fa-check-circle-o fa-2x pull-right" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade in active" id="personDetail">
+            <div class="row rowMarginTop">
+                <div class="col-sm-12">
+                    <div class="panel panel-default" id="personList">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">证件照片</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <span style="line-height:46px;">上传证件照</span>
+                                        <button ngf-select="uploadImg($file,2)" class="btn btn-primary btn-lg pull-right">+</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="line-height:34px;">已上传照片</span>
+                                        <button ng-show="_perList.length>0" ng-click="selectToDelete(2)" class="btn btn-primary pull-right" ng-bind="IsSelectDelete"></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <div ng-repeat="item in _perList track by $index" class="col-md-3 BagCol">
+                                            <img ng-click="imgShow(fBaseUrl+item.imageUrl,2)" ng-if="item" class="img-responsive marginAuto"  ng-src="{{fBaseUrl+item.imageUrl}}">
+                                            <div ng-click="selectBag(item.id,$index,2)" ng-show="IsBagSelect" class="bagDelete">
+                                                <i class="fa fa-check-circle-o fa-2x pull-right" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="addressCount">
+            <div class="row" style="margin-top:20px;">
+                <div class="col-sm-4">
+                    <div class="form-group form-inline marginRight5">
+                        <label style="min-width:75px;">统计开始：</label>
+                        <div class="inputDateClose">
+                            <input type="text" class="form-control date-picker" readonly placeholder="选择统计开始日期" ng-model="addrStartOrderTime">
+                            <button ng-click="addrStartOrderTime = ''" class="clearTime">x</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group form-inline marginRight5">
+                        <label style="min-width:75px;">统计结束：</label>
+                        <div class="inputDateClose">
+                            <input type="text" class="form-control date-picker" readonly placeholder="选择统计截至日期" ng-model="addrEndOrderTime">
+                            <button ng-click="addrEndOrderTime = ''" class="clearTime">x</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group form-inline marginRight5">
+                        <label style="min-width:75px;">排序组合：</label>
+                        <select ng-model="addrSort" class="form-control" style="min-width:196px;">
+                            <option value="">不限</option>
+                            <option value="country">国家</option>
+                            <option value="province">省</option>
+                            <option value="city">市</option>
+                            <option value="district">区</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group form-inline marginRight5">
+                        <label style="min-width:75px;">寄/收：</label>
+                        <select ng-model="addrType" class="form-control" style="min-width:196px;">
+                            <option value="">不限</option>
+                            <option value="1">寄件</option>
+                            <option value="2">收件</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group form-inline marginRight5">
+                        <label style="min-width:75px;">寄/收包人：</label>
+                        <input type="text" ng-model="addrContact" class="form-control" placeholder="输入寄/收包人" maxlength="11">
+                    </div>
+                </div>
+                 <div class="col-sm-4">
+                    <div class="form-group form-inline marginRight5">
+                        <label style="min-width:75px;">电话号：</label>
+                        <input type="text" ng-model="addrMobile" class="form-control" placeholder="输入电话号" maxlength="11">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group form-inline marginRight5">
+                        <label style="min-width:75px;">类型：</label>
+                        <select ng-model="addrAddrType" class="form-control" style="min-width:196px;">
+                            <option value="">全部</option>
+                            <option value="1">球场</option>
+                            <option value="2">机场</option>
+                            <option value="3">银行</option>
+                            <option value="4">个人地址</option>
+                            <option value="5">顺丰站点</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group form-inline marginRight5 pull-right">
+                        <button class="btn btn-primary" ng-click="getAddrCount()">搜索</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-bordered table-striped table-hover table-condensed">
+                        <thead>
+                            <th>国家</th>
+                            <th>省份</th>
+                            <th>市</th>
+                            <th>区</th>
+                            <th>详细地址</th>
+                            <th>姓名</th>
+                            <th>电话号</th>
+                            <th>使用次数</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in addresses track by $index">
+                                <td>{{item.countryAreaName}}</td>
+                                <td>{{item.provinceAreaName}}</td>
+                                <td>{{item.cityAreaName}}</td>
+                                <td>{{item.districtAreaName}}</td>
+                                <td><span ng-show="item.addrType == 4">{{item.address}}</span>
+                                    <span ng-hide="item.addrType == 4">{{item.addrName}}</span>
+                                </td>
+                                <td>{{item.contact}}</td>
+                                <td>{{item.mobile}}</td>
+                                <td>{{item.orderCount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination page="pageAddrCount" change="getAddrCount(page)"></pagination>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="routeCount">
+            <div class="row" style="margin-top:20px;">
+                <div class="col-sm-4">
+                    <div class="form-group form-inline marginRight5">
+                        <label style="min-width:75px;">统计开始：</label>
+                        <div class="inputDateClose">
+                            <input type="text" class="form-control date-picker" readonly placeholder="选择统计开始日期" ng-model="routerStartOrderTime">
+                            <button ng-click="routerStartOrderTime = ''" class="clearTime">x</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group form-inline marginRight5">
+                        <label style="min-width:75px;">统计结束：</label>
+                        <div class="inputDateClose">
+                            <input type="text" class="form-control date-picker" readonly placeholder="选择统计截至日期" ng-model="routerEndOrderTime">
+                            <button ng-click="routerEndOrderTime = ''" class="clearTime">x</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group form-inline marginRight5">
+                        <label style="min-width:75px;">寄/收包人：</label>
+                        <input type="text" ng-model="routerContact" class="form-control" placeholder="输入寄/收包人" maxlength="10">
+                    </div>
+                </div>
+                 <div class="col-sm-4">
+                    <div class="form-group form-inline marginRight5">
+                        <label style="min-width:75px;">电话号：</label>
+                        <input type="text" ng-model="routerMobile" class="form-control" placeholder="输入电话号" maxlength="11">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group form-inline marginRight5 pull-right">
+                        <button class="btn btn-primary" ng-click="getRouteCount()">搜索</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-bordered table-striped table-hover table-condensed">
+                        <thead>
+                            <th colspan="7" class="text-center">路线</th>
+                            <th>使用次数</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in routes track by $index">
+                                <td>{{item.jAddress}}</td>
+                                <td>{{item.jContact}}</td>
+                                <td>{{item.jMobile}}</td>
+                                <td class="text-center"> --> </td>
+                                <td>{{item.dAddress}}</td>
+                                <td>{{item.dContact}}</td>
+                                <td>{{item.dMobile}}</td>
+                                <td>{{item.orderCount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination page="pageRouteCount" change="getRouteCount(page)"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<img id="picShow" ng-click="picRotate()" ng-src="{{imgToBig}}">
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/angular/ng-file-upload-all.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/userCheckDetailCtrl.js}}}"></script>
+</body>
+</html>

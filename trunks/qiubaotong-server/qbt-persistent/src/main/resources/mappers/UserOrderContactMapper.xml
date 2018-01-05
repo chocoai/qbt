@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.UserOrderContactMapper" >
+  <resultMap id="BaseResultMap" type="com.qbt.persistent.entity.UserOrderContact" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, user_id, contact, mobile, uuid
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_order_contact
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.qbt.persistent.entity.UserOrderContact" >
+    insert into user_order_contact (id, create_time, user_id, 
+      contact, mobile, uuid
+      )
+    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, 
+      #{contact,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateById" parameterType="com.qbt.persistent.entity.UserOrderContact" >
+    update user_order_contact
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="contact != null" >
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null" >
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findOldContactsByUserId" resultMap="BaseResultMap">
+		select id, contact,mobile 
+		from user_order_contact  
+		where user_id = #{userId}  
+		group by contact,mobile 
+		order by id desc 
+		limit 50
+	</select>
+	
+	<delete id="deleteOldContactsById">
+		delete from user_order_contact where id = #{id}
+	</delete>
+	
+	<select id="findByUuid" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from user_order_contact  where uuid = #{uuid}
+	</select>
+  
+  <!-- 获取最新的订单时间 -->
+	<select id="findMaxDate" resultType="java.lang.String">
+		select max(date(create_time)) from user_order_contact
+	</select>
+  
+</mapper>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrgGroupMapper">
+	<resultMap id="BaseResultMap" type="OrgGroup">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="name" property="name" />
+		<result column="short_name" property="shortName" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
+		<result column="contact" property="contact" />
+		<result column="mobile" property="mobile" />
+		<result column="status" property="status" />
+		<result column="remark" property="remark" />
+		<result column="operator_id" property="operatorId" />
+		<result column="operator_name" property="operatorName"  />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, name, short_name, start_date, end_date, contact, mobile,
+		status, remark, operator_id, operator_name
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from org_group
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="OrgGroup" keyProperty="id" useGeneratedKeys="true">
+		insert into org_group (
+			create_time, 
+			name,
+			short_name, 
+			start_date, 
+			end_date,
+			contact,
+			mobile,
+			status,
+			remark,
+			operator_id, 
+			operator_name
+		) values (
+			#{createTime},
+			#{name},
+			#{shortName}, 
+			#{startDate}, 
+			#{endDate},
+			#{contact}, 
+			#{mobile},
+			#{status}, 
+			#{remark},
+			#{operatorId},
+			#{operatorName}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="OrgGroup">
+		update org_group
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="shortName != null">
+				short_name = #{shortName},
+			</if>
+			<if test="startDate != null">
+				start_date = #{startDate},
+			</if>
+			<if test="endDate != null">
+				end_date = #{endDate},
+			</if>
+			<if test="contact != null">
+				contact = #{contact},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			<if test="operatorId != null">
+				operator_id = #{operatorId},
+			</if>
+			<if test="operatorName != null">
+				operator_name = #{operatorName},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from org_group 
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				and (name like concat('%',#{condition.name},'%') or short_name like concat('%',#{condition.name},'%')) 
+			</if>
+			<if test="condition.status != null and condition.status != 0">
+				and status = #{condition.status} 
+			</if>
+			<if test="condition.startDate != null">
+				and start_date <![CDATA[>=]]> date(#{condition.startDate}) 
+			</if>
+			<if test="condition.endDate != null">
+				and end_date <![CDATA[<=]]> date(#{condition.endDate}) 
+			</if>
+		</where>
+		order by id desc
+	</select>
+	
+	
+	<select id="list" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from org_group 
+		order by id desc
+	</select>
+	
+	
+	<select id="exists" parameterType="OrgGroup" resultType="int">
+		select count(1) from org_group 
+		<where>
+			name = #{name} 
+			<if test="id > 0">
+				and id != #{id} 
+			</if>
+		</where>
+	</select>
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from org_group where id = #{id}
+	</delete>
+	
+</mapper>

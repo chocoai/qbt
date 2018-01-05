@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.UserImageMapper">
+	<resultMap id="BaseResultMap" type="UserImage">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="image_url" property="imageUrl" />
+		<result column="type" property="type" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, user_id, image_url, type
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user_image
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="UserImage" keyProperty="id" useGeneratedKeys="true">
+		insert into user_image (
+			user_id, 
+			image_url,
+			type
+		)
+		values (
+			#{userId},
+			#{imageUrl},
+			#{type}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="UserImage">
+		update user_image
+		<set>
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>
+			<if test="imageUrl != null">
+				image_url = #{imageUrl},
+			</if>
+			<if test="type != null">
+				type = #{type},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from user_image where id = #{id}
+	</delete>
+	
+	<select id="selectByUserId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_image
+		where user_id = #{userId} and type = #{type}
+	</select>
+	
+	<delete id="deleteByIds">
+		delete from user_image 
+		where 
+			id in 
+			<foreach collection="ids" item="id" index="i" separator="," open="(" close=")">
+				#{id}
+			</foreach>
+	</delete>
+	
+	<select id="selectByIds" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_image
+		where 
+			id in 
+			<foreach collection="ids" item="id" index="i" separator="," open="(" close=")">
+				#{id}
+			</foreach>
+	</select>
+	
+</mapper>

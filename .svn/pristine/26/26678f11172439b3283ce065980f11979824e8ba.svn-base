@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseAreaMapper" >
+  <resultMap id="BaseResultMap" type="BaseArea" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="super_id" property="superId" jdbcType="INTEGER" />
+    <result column="tree_path" property="treePath" jdbcType="VARCHAR" />
+    <result column="tree_id" property="treeId" jdbcType="VARCHAR" />
+    <result column="lat" property="lat"/>
+    <result column="lon" property="lon"/>
+    <result column="level" property="level"/>
+    <result column="sort" property="sort"/>
+    <result column="sf_code" property="sfCode"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, name, super_id, tree_path, tree_id,lat,lon,level,sort,sf_code
+  </sql>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_area
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="BaseArea" useGeneratedKeys="true" keyProperty="id">
+    insert into base_area (name, super_id, 
+      tree_path, tree_id,lat,lon,level,sort)
+    values (#{name,jdbcType=VARCHAR}, #{superId,jdbcType=INTEGER}, 
+      #{treePath,jdbcType=VARCHAR}, #{treeId,jdbcType=VARCHAR},#{lat},#{lon},#{level},#{sort})
+  </insert>
+  
+  <update id="updateById" parameterType="BaseArea" >
+    update base_area
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="superId != null" >
+        super_id = #{superId,jdbcType=INTEGER},
+      </if>
+      <if test="treePath != null" >
+        tree_path = #{treePath,jdbcType=VARCHAR},
+      </if>
+      <if test="treeId != null" >
+        tree_id = #{treeId,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null" >
+        lon = #{lon,jdbcType=VARCHAR},
+      </if>
+       <if test="level >0" >
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="sort >0" >
+        sort = #{sort,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findBySupperId" resultMap="BaseResultMap">
+  	select * from base_area where super_id=#{superId} order by sort
+  </select>
+  
+  <select id="findByName" resultMap="BaseResultMap" >
+  	select * from base_area where name=#{name}
+  </select>
+  
+  <select id="findLikeName" resultMap="BaseResultMap" >
+  	select * from base_area where name like concat('',#{name},'%') and tree_id like concat('%',#{superId},'%') and level = #{level}
+  </select>
+  
+  <update id="updateCodeBySf" >
+  	update base_area set sf_code=#{code} where name like concat('',#{name},'%') and tree_id like concat('%',#{superId},'%') and level = #{level}
+  </update>
+  
+  
+  <select id="findByDistrict" resultMap="BaseResultMap" >
+  	select * from base_area where name=#{district} and super_id in(select id from base_area where name=#{city} )
+  </select>
+  
+  <select id="findByLevel" resultMap="BaseResultMap">
+  	<![CDATA[
+  		select id, name, super_id, tree_id,level from base_area where level <=#{level} order by level,sort
+  	]]>
+  </select>
+  
+</mapper>

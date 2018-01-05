@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.UserAssistantApplyMapper">
+	<resultMap id="BaseResultMap" type="UserAssistantApply">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="assistant_id" property="assistantId" />
+		<result column="name" property="name" />
+		<result column="identity_code" property="identityCode" />
+		<result column="photo1_url" property="photo1Url" />
+		<result column="photo2_url" property="photo2Url" />
+		<result column="apply_type" property="applyType" />
+		<result column="apply_id" property="applyId" />
+		<result column="apply_name" property="applyName" />
+		<result column="remark" property="remark" />
+	</resultMap>
+
+	<resultMap id="UserAssistantApplyWXResultMap" type="UserAssistantApplyWX" extends="BaseResultMap">
+	     <result column="nickname" property="nickname" />
+	     <result column="sex" property="sex" />
+	     <result column="mobile" property="mobile" />
+	     <result column="email" property="email" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		id, create_time, assistant_id, name, identity_code, photo1_url,
+		photo2_url, apply_type,
+		apply_id, apply_name, remark
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user_assistant_apply where id = #{id}
+	</select>
+
+
+	<select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user_assistant_apply
+		where assistant_id = #{userId}
+	</select>
+
+
+
+
+	<insert id="insert" parameterType="UserAssistantApply" useGeneratedKeys="true" keyProperty="id">
+		insert into user_assistant_apply (create_time, assistant_id,
+		name, identity_code, photo1_url,
+		photo2_url, apply_type, apply_id, apply_name, remark)
+		values (#{createTime}, #{assistantId},
+		#{name}, #{identityCode}, #{photo1Url},
+		#{photo2Url}, #{applyType}, #{applyId}, #{applyName},#{remark})
+	</insert>
+
+	<insert id="insertSelective" parameterType="UserAssistantApply">
+		insert into user_assistant_apply
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="userId != null">
+				assistant_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="identityCode != null">
+				identity_code,
+			</if>
+			<if test="photo1Url != null">
+				photo1_url,
+			</if>
+			<if test="photo2Url != null">
+				photo2_url,
+			</if>
+			<if test="applyType != null">
+				apply_type,
+			</if>
+			<if test="rejectReason != null">
+				reject_reason,
+			</if>
+			<if test="applyId != null">
+				apply_id,
+			</if>
+			<if test="applyName != null">
+				apply_name,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="identityCode != null">
+				#{identityCode,jdbcType=VARCHAR},
+			</if>
+			<if test="photo1Url != null">
+				#{photo1Url,jdbcType=VARCHAR},
+			</if>
+			<if test="photo2Url != null">
+				#{photo2Url,jdbcType=VARCHAR},
+			</if>
+			<if test="applyType != null">
+				#{applyType,jdbcType=INTEGER},
+			</if>
+			<if test="rejectReason != null">
+				#{rejectReason,jdbcType=VARCHAR},
+			</if>
+			<if test="applyId != null">
+				#{applyId,jdbcType=INTEGER},
+			</if>
+			<if test="applyName != null">
+				#{applyName,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="UserAssistantApply">
+		update user_assistant_apply
+		<set>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="assistantId != null"> assistant_id = #{assistantId},
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="identityCode != null">
+				identity_code = #{identityCode},
+			</if>
+			<if test="photo1Url != null">
+				photo1_url = #{photo1Url},
+			</if>
+			<if test="photo2Url != null">
+				photo2_url = #{photo2Url},
+			</if>
+			<if test="applyType != null">
+				apply_type = #{applyType},
+			</if>
+			<if test="applyId != null">
+				apply_id = #{applyId},
+			</if>
+			<if test="applyName != null">
+				apply_name = #{applyName},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			<if test="memo != null">
+				memo = #{memo},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+
+	<update id="updateByPrimaryKey" parameterType="UserAssistantApply">
+		update user_assistant_apply
+		set create_time = #{createTime,jdbcType=TIMESTAMP},
+		assistant_id = #{assistantId,jdbcType=INTEGER},
+		name = #{name,jdbcType=VARCHAR},
+		identity_code = #{identityCode,jdbcType=VARCHAR},
+		photo1_url = #{photo1Url,jdbcType=VARCHAR},
+		photo2_url = #{photo2Url,jdbcType=VARCHAR},
+		apply_type = #{applyType,jdbcType=INTEGER},
+		apply_id = #{applyId,jdbcType=INTEGER},
+		apply_name = #{applyName,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+
+	<update id="updateByAssistantId" parameterType="UserAssistantApply">
+		update user_assistant_apply
+		set create_time = #{createTime},
+		assistant_id = #{assistantId},
+		name = #{name},
+		identity_code = #{identityCode},
+		photo1_url = #{photo1Url},
+		photo2_url = #{photo2Url},
+		apply_type = #{applyType},
+		apply_id = #{applyId},
+		apply_name = #{applyName},
+		remark = #{remark}
+		where assistant_id = #{assistantId}
+	</update>
+
+
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		uaa.id,
+		uaa.create_time,
+		uaa.assistant_id,
+		uaa.name,
+		uaa.identity_code,
+		uaa.photo1_url,
+		uaa.photo2_url,
+		uaa.apply_type,
+		uaa.apply_id,
+		uaa.apply_name,
+		uaa.remark,
+		ua.status AS status
+		FROM user_assistant_apply uaa
+		LEFT JOIN
+		user_assistant ua ON uaa.assistant_id = ua.id
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND uaa.name LIKE CONCAT('%',#{condition.name},'%')
+			</if>
+			<if test="condition.identityCode != null and condition.identityCode != ''">
+				AND uaa.identityCode LIKE
+				CONCAT('%',#{condition.identityCode},'%')
+			</if>
+			<if test="condition.applyName != null and condition.applyName != ''">
+				AND uaa.apply_name LIKE
+				CONCAT('%',#{condition.applyName},'%')
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY uaa.create_time desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findByAssitantId" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM user_assistant_apply
+		<where>
+			assistant_id = #{id}
+		</where>
+	</select>
+	
+	<select id="list" resultMap="UserAssistantApplyWXResultMap">
+ 	 select *
+		from user_assistant ua 
+		left join user_assistant_apply uaa on uaa.assistant_id = ua.id 
+		LEFT JOIN user_weixin uw ON ua.user_id = uw.id
+		where 
+			uaa.apply_id = #{applyId} 
+			<choose>
+				<when test="applyType == 1 or applyType == 2">
+					and uaa.apply_type in (1,2) 
+				</when>
+				<otherwise>
+					and uaa.apply_type = #{applyType} 
+				</otherwise>
+			</choose>
+ 	</select>
+	
+	<select id="findByApplyIdAndApplyType" resultMap="BaseResultMap">
+	select * from user_assistant_apply where apply_id = #{applyId} and apply_type = #{applyType}
+	</select>
+	
+	<update id="updatestatusStop">
+	UPDATE user_assistant ua
+	SET ua.status = #{status}
+	WHERE ua.id IN (
+		SELECT assistant_id FROM user_assistant_apply 
+		WHERE apply_type = #{applyType} AND apply_id = #{applyId}
+	)
+	</update>
+	
+	<select id="findPartnerByUserId" resultMap="BaseResultMap">
+		select ap.apply_id,ap.apply_name,name from user_assistant_apply ap where exists(
+			select 'z' from user_assistant a where a.id = ap.assistant_id and a.user_id=#{userId}  and a.status=2
+		) and ap.apply_type = #{type} limit 1
+	</select>
+	
+</mapper>

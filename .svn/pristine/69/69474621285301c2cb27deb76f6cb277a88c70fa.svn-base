@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>球包通</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Cache-Control" content="max-age=0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="{{{/css/main.min.css}}}">
+</head>
+<body ontouchstart id="app">
+<div class="container " id="container">
+
+<router-view keep-alive transition="fade"  transition-mode="out-in"></router-view>
+<!--订单菜单-->
+@@include('include/order-menu.html')
+<!--订单列表-->
+@@include('include/order-list.html')
+<!--订单支付-->
+<!-- @@include('include/order-pay.html') -->
+<!--订单详情-->
+@@include('include/order-detail.html')
+<!--券码选择-->
+@@include('include/order-coupon.html')
+<!--我的代金券-->
+@@include('include/order-voucher.html')
+<!--我的券包-->
+@@include('include/order-voucherbag.html')
+<!--评价-->
+@@include('include/order-comment.html')
+<!--评价详情-->
+@@include('include/order-commentdetail.html')
+<!--活动详情-->
+@@include('include/order-activity.html')
+<!--子订单列表-->
+@@include('include/order-sublist.html')
+<!--订单支付-->
+@@include('include/order-mpay.html')
+</div>
+</body>
+<script src="/assets/js/libs.min.js?v2"></script>
+<script src="/assets/js/vue-infinite-scroll.js"></script>
+<script src="/assets/js/swiper-3.3.1.jquery.min.js"></script>
+<script src="/assets/js/jweixin-1.0.0.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/order.js}}}"></script>
+</html>

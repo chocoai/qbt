@@ -1,0 +1,54 @@
+<template id="vip-active">
+<section class="section bg" id="vip" style="padding-bottom:50px;">
+<!--头-->
+<div class="header tex-c bg-white">
+    <a href="javascript:history.back();" class="back"><img src="/img/back.png" /></a>
+    激活实体会员卡
+</div>
+<div class="scroll marhead">
+	<div class="weui_cells weui_cells_form mar-t">
+	    <div class="weui_cell">
+	        <div class="weui_cell_hd" style="width:75px;"><label class="weui_label">卡号：</label></div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <input class="weui_input" type="text" placeholder="请输入您的卡号" v-model="vipNo" maxlength="8">
+	        </div>
+	    </div>
+	    <div class="weui_cell">
+	        <div class="weui_cell_hd" style="width:75px;"><label class="weui_label">验证码：</label></div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <input class="weui_input" type="text" placeholder="请输入您的验证码" v-model="random" maxlength="4">
+	        </div>
+	    </div>
+	    <div class="weui_cell">
+	        <div class="weui_cell_hd" style="width:75px;"><label class="weui_label">姓名：</label></div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <input class="weui_input" type="text" placeholder="请输入您的姓名" v-model="userName" maxlength="8">
+	        </div>
+	    </div>
+	    <div class="weui_cell">
+	        <div class="weui_cell_hd" style="width:75px;"><label class="weui_label">电话：</label></div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <input class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入您的电话" v-model="mobile">
+	        </div>
+	    </div>
+	</div>
+	<div class="pad-lr mar-t20">
+		<a href="javascript:;" class="weui_btn weui_btn_primary font14" style="padding: 2px 0;" @click="active()">激活</a>
+	</div>
+</div>
+
+
+<div class="weui_dialog_confirm" id="errorActive" style="display:none">
+	<div class="weui_mask"></div>
+	<div class="weui_dialog">
+		<div class="weui_dialog_hd"><strong class="weui_dialog_title">温馨提示</strong></div>
+		<div class="weui_dialog_bd">{{errorMsg}}</div>
+		<div class="weui_dialog_ft">
+			<a href="tel:4006090990" class="weui_btn_dialog default">联系客服</a>
+			<a @click="closeConfirm()" href="javascript:;" class="weui_btn_dialog primary">重新输入</a>
+		</div>
+	</div>
+</div>
+
+</section>
+</template>

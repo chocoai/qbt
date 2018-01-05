@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.ChannelQrcodeInfoMapper">
+	<resultMap id="BaseResultMap" type="com.qbt.persistent.entity.ChannelQrcodeInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="channel_qrcode_code" property="channelQrcodeCode"
+			jdbcType="VARCHAR" />
+		<result column="ticket" property="ticket" jdbcType="VARCHAR" />
+		<result column="qrcode_url" property="qrcodeUrl" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, create_time, name, channel_qrcode_code, ticket, qrcode_url, status,
+		remark
+	</sql>
+
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from channel_qrcode_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<insert id="insert" parameterType="com.qbt.persistent.entity.ChannelQrcodeInfo">
+		insert into channel_qrcode_info (id, create_time, name,
+		channel_qrcode_code, ticket, qrcode_url,
+		status, remark)
+		values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+		#{name,jdbcType=VARCHAR},
+		#{channelQrcodeCode,jdbcType=VARCHAR}, #{ticket,jdbcType=VARCHAR}, #{qrcodeUrl,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateById" parameterType="com.qbt.persistent.entity.ChannelQrcodeInfo">
+		update channel_qrcode_info
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM channel_qrcode_info
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%')
+			</if>
+			<if
+				test="condition.channelQrcodeCode != null and condition.channelQrcodeCode != ''">
+				AND channel_qrcode_code LIKE
+				CONCAT('%',#{condition.channelQrcodeCode},'%')
+			</if>
+			<if test="condition.remark != null and condition.remark != ''">
+				AND remark LIKE CONCAT('%',#{condition.remark},'%')
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<update id="updateStatus">
+		update channel_qrcode_info set status = #{status}
+		where id = #{id}
+	</update>
+
+	<select id="findByChannelQrcodeCode" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from channel_qrcode_info
+    where channel_qrcode_code = #{channelQrcodeCode}
+ 	 </select>
+ 	 
+	<select id="findAllChannelQrcodeCode" resultType="java.lang.String">
+		select channel_qrcode_code from channel_qrcode_info
+	</select>
+
+</mapper>

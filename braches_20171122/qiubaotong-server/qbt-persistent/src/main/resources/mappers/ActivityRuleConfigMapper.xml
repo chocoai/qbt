@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.ActivityRuleConfigMapper">
+
+	<resultMap id="BaseResultMap" type="ActivityRuleConfig">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="rule_id" property="ruleId" />
+		<result column="amount" property="amount" />
+		<result column="number" property="number" />
+		<result column="limit_amount" property="limitAmount" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, rule_id, amount, number, limit_amount 
+	</sql>
+	
+	<insert id="insert" parameterType="ActivityRuleConfig" keyProperty="id" useGeneratedKeys="true">
+		insert into activity_rule_config (
+			create_time,
+			update_time,
+			rule_id,
+			amount,
+			number,
+			limit_amount
+		) values (
+			#{createTime},
+			#{updateTime},
+			#{ruleId},
+			#{amount},
+			#{number},
+			#{limitAmount}
+		)
+	</insert>
+	
+	<insert id="insertByBatch">
+		insert into activity_rule_config (
+			create_time,
+			update_time,
+			rule_id,
+			amount,
+			number,
+			limit_amount
+		) values 
+		<foreach collection="configs" item="config" index="i" separator=",">
+		(
+			#{config.createTime},
+			#{config.updateTime},
+			#{config.ruleId},
+			#{config.amount},
+			#{config.number},
+			#{config.limitAmount}
+		)
+		</foreach>
+	</insert>
+	
+	<update id="updateById" parameterType="ActivityRuleConfig">
+		update activity_rule_config 
+		<set>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+			<if test="amount != null">
+				amount = #{amount},
+			</if>
+			<if test="number != null">
+				number = #{number},
+			</if>
+			<if test="limitAmount != null">
+				limit_amount = #{limitAmount},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<select id="findById" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from activity_rule_config where id=#{id}
+	</select>
+	
+	<select id="findByRuleId" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from activity_rule_config where rule_id=#{ruleId}
+	</select>
+	
+	<delete id="deleteByRuleId">
+		delete from activity_rule_config where rule_id=#{ruleId}
+	</delete>
+	
+</mapper>

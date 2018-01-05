@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseSfPriceMapper" >
+  <resultMap id="BaseResultMap" type="BaseSfPrice" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="start_province" property="startProvince" jdbcType="VARCHAR" />
+    <result column="start_city" property="startCity" jdbcType="VARCHAR" />
+    <result column="end_province" property="endProvince" jdbcType="VARCHAR" />
+    <result column="end_city" property="endCity" jdbcType="VARCHAR" />
+    <result column="cichen_sf_price" property="cichenSfPrice" jdbcType="DECIMAL" />
+    <result column="cichen_qbt_price" property="cichenQbtPrice" jdbcType="DECIMAL" />
+    <result column="cichen_first_price" property="cichenFirstPrice" jdbcType="DECIMAL" />
+    <result column="cichen_second_price" property="cichenSecondPrice" jdbcType="DECIMAL" />
+    <result column="ciri_sf_price" property="ciriSfPrice" jdbcType="DECIMAL" />
+    <result column="ciri_qbt_price" property="ciriQbtPrice" jdbcType="DECIMAL" />
+    <result column="ciri_first_price" property="ciriFirstPrice" jdbcType="DECIMAL" />
+    <result column="ciri_second_price" property="ciriSecondPrice" jdbcType="DECIMAL" />
+    <result column="jiri_sf_price" property="jiriSfPrice" jdbcType="DECIMAL" />
+    <result column="jiri_qbt_price" property="jiriQbtPrice" jdbcType="DECIMAL" />
+    <result column="jiri_first_price" property="jiriFirstPrice" jdbcType="DECIMAL" />
+    <result column="jiri_second_price" property="jiriSecondPrice" jdbcType="DECIMAL" />
+    <result column="geri_sf_price" property="geriSfPrice" jdbcType="DECIMAL" />
+    <result column="geri_qbt_price" property="geriQbtPrice" jdbcType="DECIMAL" />
+    <result column="geri_first_price" property="geriFirstPrice" jdbcType="DECIMAL" />
+    <result column="geri_second_price" property="geriSecondPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, update_time, start_province, start_city, end_province, 
+    end_city, cichen_sf_price, cichen_qbt_price, cichen_first_price, cichen_second_price, 
+    ciri_sf_price, ciri_qbt_price, ciri_first_price, ciri_second_price, jiri_sf_price, 
+    jiri_qbt_price, jiri_first_price, jiri_second_price, geri_sf_price, geri_qbt_price, 
+    geri_first_price, geri_second_price
+  </sql>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_sf_price
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="BaseSfPrice" useGeneratedKeys="true" keyProperty="id">
+    insert into base_sf_price (create_time, update_time, 
+      start_province, start_city, 
+      end_province, end_city,
+      cichen_sf_price, cichen_qbt_price, cichen_first_price, 
+      cichen_second_price, ciri_sf_price, ciri_qbt_price, 
+      ciri_first_price, ciri_second_price, jiri_sf_price, 
+      jiri_qbt_price, jiri_first_price, jiri_second_price, 
+      geri_sf_price, geri_qbt_price, geri_first_price, 
+      geri_second_price)
+    values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{startProvince,jdbcType=VARCHAR}, #{startCity,jdbcType=VARCHAR},
+      #{endProvince,jdbcType=VARCHAR}, #{endCity,jdbcType=VARCHAR},
+      #{cichenSfPrice,jdbcType=DECIMAL}, #{cichenQbtPrice,jdbcType=DECIMAL}, #{cichenFirstPrice,jdbcType=DECIMAL}, 
+      #{cichenSecondPrice,jdbcType=DECIMAL}, #{ciriSfPrice,jdbcType=DECIMAL}, #{ciriQbtPrice,jdbcType=DECIMAL}, 
+      #{ciriFirstPrice,jdbcType=DECIMAL}, #{ciriSecondPrice,jdbcType=DECIMAL}, #{jiriSfPrice,jdbcType=DECIMAL}, 
+      #{jiriQbtPrice,jdbcType=DECIMAL}, #{jiriFirstPrice,jdbcType=DECIMAL}, #{jiriSecondPrice,jdbcType=DECIMAL}, 
+      #{geriSfPrice,jdbcType=DECIMAL}, #{geriQbtPrice,jdbcType=DECIMAL}, #{geriFirstPrice,jdbcType=DECIMAL}, 
+      #{geriSecondPrice,jdbcType=DECIMAL})
+  </insert>
+  
+  <update id="updateById" parameterType="BaseSfPrice" >
+    update base_sf_price
+    <set >
+      <if test="updateTime != null" >
+        update_time = now(),
+      </if>
+      <if test="startProvince != null" >
+        start_province = #{startProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="startCity != null" >
+        start_city = #{startCity,jdbcType=VARCHAR},
+      </if>
+      <if test="endProvince != null" >
+        end_province = #{endProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="endCity != null" >
+        end_city = #{endCity,jdbcType=VARCHAR},
+      </if>
+      <if test="cichenSfPrice != null" >
+        cichen_sf_price = #{cichenSfPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="cichenQbtPrice != null" >
+        cichen_qbt_price = #{cichenQbtPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="cichenFirstPrice != null" >
+        cichen_first_price = #{cichenFirstPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="cichenSecondPrice != null" >
+        cichen_second_price = #{cichenSecondPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ciriSfPrice != null" >
+        ciri_sf_price = #{ciriSfPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ciriQbtPrice != null" >
+        ciri_qbt_price = #{ciriQbtPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ciriFirstPrice != null" >
+        ciri_first_price = #{ciriFirstPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ciriSecondPrice != null" >
+        ciri_second_price = #{ciriSecondPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="jiriSfPrice != null" >
+        jiri_sf_price = #{jiriSfPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="jiriQbtPrice != null" >
+        jiri_qbt_price = #{jiriQbtPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="jiriFirstPrice != null" >
+        jiri_first_price = #{jiriFirstPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="jiriSecondPrice != null" >
+        jiri_second_price = #{jiriSecondPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="geriSfPrice != null" >
+        geri_sf_price = #{geriSfPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="geriQbtPrice != null" >
+        geri_qbt_price = #{geriQbtPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="geriFirstPrice != null" >
+        geri_first_price = #{geriFirstPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="geriSecondPrice != null" >
+        geri_second_price = #{geriSecondPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findByCityName" resultMap="BaseResultMap">
+  	select * from base_sf_price
+  	<where>
+  	  <if test="startProvince != null and startProvince != ''" >
+        start_province = #{startProvince,jdbcType=VARCHAR}
+      </if>
+      <if test="startCity != null and startCity != ''" >
+       and start_city LIKE CONCAT('%','${startCity}','%' )
+      </if>
+      <if test="endProvince != null and endProvince != ''" >
+       and end_province = #{endProvince,jdbcType=VARCHAR}
+      </if>
+      <if test="endCity != null and endCity != ''" >
+       and end_city LIKE CONCAT('%','${endCity}','%' )
+      </if>
+      order by cichen_sf_price limit 1
+   </where>
+  </select>
+  
+  <select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_sf_price 
+		<where>
+			<if test="condition.startProvince != null and condition.startProvince != ''">
+				AND start_province LIKE CONCAT('%',#{condition.startProvince},'%') 
+			</if>
+			<if test="condition.startCity != null and condition.startCity != ''">
+				AND start_city LIKE CONCAT('%',#{condition.startCity},'%') 
+			</if>
+			<if test="condition.endProvince != null and condition.endProvince != ''">
+				AND end_province LIKE CONCAT('%',#{condition.endProvince},'%') 
+			</if>
+			<if test="condition.endCity != null and condition.endCity != ''">
+				AND end_city LIKE CONCAT('%',#{condition.endCity},'%') 
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+  
+  <delete id="deleteById">
+		DELETE FROM base_sf_price WHERE id = #{id,jdbcType=INTEGER}
+	</delete>
+  
+  <insert id="insertSql">
+  	${startCity}
+  </insert>
+  
+  <update id="updateSql">
+  	${startCity}
+  </update>
+  
+   <select id="whereSql" resultType="int">
+  	${startCity}
+  </select>
+  
+</mapper>

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.VipOrderMapper">
+
+	<resultMap id="BaseResultMap" type="VipOrder">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="number" property="number" />
+		<result column="vip_no" property="vipNo" />
+		<result column="user_id" property="userId" />
+		<result column="pay_amount" property="payAmount" />
+		<result column="pay_method" property="payMethod" />
+		<result column="vip_type_id" property="vipTypeId" />
+		<result column="name" property="name" />
+		<result column="user_name" property="userName" />
+		<result column="mobile" property="mobile" />
+		<result column="valid_desc" property="validDesc" />
+		<result column="valid" property="valid" />
+		<result column="settlement_status" property="settlementStatus" />
+		<result column="pay_id" property="payId" />
+		<result column="pay_number" property="payNumber" />
+		<result column="pay_bak_no" property="payBakNo" />
+		<result column="vip_card_type" property="vipCardType"/>
+		<result column="salesman_name" property="salesmanName"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, number, vip_no, user_id, pay_amount,
+		pay_method, vip_type_id,name,
+		user_name, mobile, valid_desc, valid, settlement_status, pay_id, pay_number,
+		pay_bak_no,vip_card_type, salesman_name
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from vip_order
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="VipOrder" keyProperty="id" useGeneratedKeys="true">
+		insert into vip_order (
+			create_time, 
+			update_time,
+			number, 
+			vip_no, 
+			user_id,
+			pay_amount, 
+			pay_method, 
+			vip_type_id,
+			name,
+			user_name, 
+			mobile, 
+			valid_desc,
+			valid, 
+			settlement_status, 
+			pay_id,
+			pay_number, 
+			pay_bak_no,
+			vip_card_type,
+			salesman_name
+		) values (
+			#{createTime},
+			#{updateTime},
+			#{number}, 
+			#{vipNo}, 
+			#{userId},
+			#{payAmount}, 
+			#{payMethod},
+			#{vipTypeId},
+			#{name},
+			#{userName}, 
+			#{mobile}, 
+			#{validDesc},
+			#{valid}, 
+			#{settlementStatus},
+			#{payId},
+			#{payNumber}, 
+			#{payBakNo},
+			#{vipCardType},
+			#{salesmanName}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="VipOrder">
+		update vip_order
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="number != null">
+				number = #{number},
+			</if>
+			<if test="vipNo != null">
+				vip_no = #{vipNo},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>
+			<if test="payAmount != null">
+				pay_amount = #{payAmount},
+			</if>
+			<if test="payMethod != null">
+				pay_method = #{payMethod},
+			</if>
+			<if test="vipTypeId != null">
+				vip_type_id = #{vipTypeId},
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="validDesc != null">
+				valid_desc = #{validDesc},
+			</if>
+			<if test="valid != null">
+				valid = #{valid},
+			</if>
+			<if test="settlementStatus != null">
+				settlement_status = #{settlementStatus},
+			</if>
+			<if test="payId != null">
+				pay_id = #{payId},
+			</if>
+			<if test="payNumber != null">
+				pay_number = #{payNumber},
+			</if>
+			<if test="payBakNo != null">
+				pay_bak_no = #{payBakNo},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	
+	<update id="updateByNumber" parameterType="VipOrder">
+		update vip_order
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>
+			<if test="payAmount != null">
+				pay_amount = #{payAmount},
+			</if>
+			<if test="payMethod != null">
+				pay_method = #{payMethod},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="settlementStatus != null">
+				settlement_status = #{settlementStatus},
+			</if>
+			<if test="payId != null">
+				pay_id = #{payId},
+			</if>
+			<if test="payNumber != null">
+				pay_number = #{payNumber},
+			</if>
+			<if test="payBakNo != null">
+				pay_bak_no = #{payBakNo},
+			</if>
+		</set>
+		where number = #{number}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM vip_order
+		<where>
+		    <if test="condition.startDate != null">
+				<![CDATA[
+				and date(create_time) >= date(#{condition.startDate}) 
+				]]>
+			</if>
+			<if test="condition.endDate != null">
+				<![CDATA[
+				and date(create_time) <= date(#{condition.endDate}) 
+				]]>
+			</if>
+			<if test="condition.number != null and condition.number != ''">
+				AND number LIKE CONCAT('%',#{condition.number},'%') 
+			</if>
+			<if test="condition.vipNo != null and condition.vipNo != ''">
+				AND vip_no LIKE CONCAT('%',#{condition.vipNo},'%') 
+			</if>
+			<if test="condition.vipTypeId != null and condition.vipTypeId > 0">
+				and vip_type_id = #{condition.vipTypeId} 
+			</if>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.userName != null and condition.userName != ''">
+				AND user_name LIKE CONCAT('%',#{condition.userName},'%') 
+			</if>
+			<if test="condition.mobile != null and condition.mobile != ''">
+				AND mobile LIKE CONCAT('%',#{condition.mobile},'%') 
+			</if>
+			<if test="condition.vipCardType != null and condition.vipCardType > 0">
+				AND vip_card_type = #{condition.vipCardType}
+			</if>
+			<if test="condition.settlementStatus != null and condition.settlementStatus > 0">
+				AND settlement_status = #{condition.settlementStatus}
+			</if>
+			<if test="condition.cardSellStatus != null and condition.cardSellStatus > 0">
+				AND number not in (select vip_order_number from vip_create_info where sell_status = #{condition.cardSellStatus})
+			</if>
+			<if test="condition.salesmanName != null and condition.salesmanName != ''">
+				AND salesman_name LIKE CONCAT('%',#{condition.salesmanName},'%') 
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	<select id="selectByNumber" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from vip_order
+		where number = #{number}
+	</select>
+	
+	<update id="updateByNumbers" parameterType="VipOrder">
+		update vip_order 
+		set 
+			update_time = now(),
+			pay_amount = #{payAmount},
+			pay_method = #{payMethod}
+		where 
+			number in 
+			<foreach collection="numbers" item="number" index="i" separator="," open="(" close=")">
+				#{number}
+			</foreach>
+	</update>
+	
+	<insert id="insertBatch">
+		insert into vip_order (
+			create_time, 
+			update_time,
+			number, 
+			vip_no, 
+			user_id,
+			pay_amount, 
+			pay_method, 
+			vip_type_id,
+			name,
+			user_name, 
+			mobile, 
+			valid_desc,
+			valid, 
+			settlement_status, 
+			pay_id,
+			pay_number, 
+			pay_bak_no,
+			vip_card_type,
+			salesman_name
+		) values 
+		<foreach collection="vipOrders" item="order" index="i" separator=",">
+		(
+			#{order.createTime},
+			#{order.updateTime},
+			#{order.number}, 
+			#{order.vipNo}, 
+			#{order.userId},
+			#{order.payAmount}, 
+			#{order.payMethod},
+			#{order.vipTypeId},
+			#{order.name},
+			#{order.userName}, 
+			#{order.mobile}, 
+			#{order.validDesc},
+			#{order.valid}, 
+			#{order.settlementStatus},
+			#{order.payId},
+			#{order.payNumber}, 
+			#{order.payBakNo},
+			#{order.vipCardType},
+			#{order.salesmanName}
+		)
+		</foreach>
+	</insert>
+	
+</mapper>

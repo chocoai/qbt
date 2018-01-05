@@ -1,0 +1,55 @@
+<template id="invoice_addr_select">
+  <section class="page">
+    <tel-contact></tel-contact>
+    <div class="weui-tab">
+      <div class="weui-tab__panel" style="height: 100%">
+          <div>
+            <p v-for="(item,index) in orderList" class="weui-panel weui-panel_access" style="margin-top: 10px;box-sizing: border-box">
+              <span style="display: block;font-weight:bold" class="weui-panel__hd">
+                {{item.confirmTime | dateFormat('yyyy-MM-dd')}}<span style="float:right;"><span style="color: #E8393C">¥{{item.amount}}.00</span>元</span>
+              </span>
+              <span style="display: block;margin:10px 0 0 0;position: relative;" class="weui-panel__bd">
+                <span style="display: block;" class="weui-flex">
+                  <label style="display: block;overflow: hidden" class="weui-flex__item" @click="selectMeb(index)">
+                    <span class="" style="display: block;float: left;position:absolute;top: 35%;">
+                      <span class="circle_v3" :class="{'circle_v3_hover': checkList[index].checked}" style="margin-left:15px;"></span>
+                      <!--<input class="invoice-checkbox2" v-model="item.check" type="checkbox" style="border-radius: 5px;width: 17px;height: 17px;">-->
+                      <!--<span class="invoice&#45;&#45;checkbox invoice&#45;&#45;radioInput" style="position: absolute;top: 0;"></span>-->
+                    </span>
+                    <span style="display: block;float: left;margin-left: 40px;padding: 0 0 10px 0;position: relative;">
+                      <span style="display: block;position:relative;">
+                        <img style="width: 10%;position: absolute;top: 0" src="/img/send_v3_bank.png" alt=""><span class="font_change" style="display: inline-block;margin-left: 37px;">{{item.jTreePath}}{{item.jAddress}}</span>
+                      </span>
+                      <br>
+                      <span style="display: block;position:relative;">
+                        <img style="width: 10%;position: absolute;top: 0" src="/img/send1_v3_bank.png" alt=""><span class="font_change" style="display: inline-block;margin-left: 37px;">{{item.dTreePath}}{{item.dAddress}}</span>
+                      </span>
+                    </span>
+                  </label>
+                </span>
+              </span>
+            </p>
+          </div>
+          <!--列表为空时显示的内容-->
+          <div v-show="orderList.length==0" style="text-align:center;padding-top:80px">
+            <img src="/img/file.png"  style="max-height: 60px" />
+            <p style="padding-top: 20px;color:#cdcdcd;font-size:16px">没有可开发票的订单！</p>
+          </div>
+      </div>
+      <footer class="footer" style="height: 49px">
+        <div class="weui-flex">
+          <div class="weui-flex__item" style="padding-left:10px;text-align:left;">
+            <p style="line-height: 30px" @click="selectAllMeb"><span style="font-size: 16px;font-weight: bold">全选</span>
+              <strong style="float: left;padding-right:10px;font-weight: normal;margin-top:-2px;position: relative;top: 1px;"><span class="circle_v3" :class="{'circle_v3_hover': selectMebPoint}"  style="margin-left:15px;"></span></strong>
+            </p>
+            <p class="chang_a" style="line-height:18px;color:#E8393C;">快递费用20元，顺丰到付</p>
+          </div>
+          <div class="weui-flex__item footer-confirm" style="line-height: 49px" @click="goNext">
+            下一步
+          </div>
+        </div>
+      </footer>
+    </div>
+  </section>
+</template>
+

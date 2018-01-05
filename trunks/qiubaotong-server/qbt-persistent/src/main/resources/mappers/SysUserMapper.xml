@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.SysUserMapper">
+
+	<resultMap id="BaseResultMap" type="SysUser">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="salt" property="salt" jdbcType="VARCHAR" />
+		<result column="is_validated" property="isValidated" jdbcType="BIT" />
+		<result column="is_super_user" property="isSuperUser" jdbcType="BIT" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="wx_user_id" property="wxUserId"/>
+		<result column="wx_open_id" property="wxOpenId"/>
+		<result column="wx_nickname" property="wxNickname"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, email, mobile, password, salt, is_validated,
+		is_super_user, status, name, wx_user_id, wx_open_id, wx_nickname
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sys_user 
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<insert id="insert" parameterType="SysUser" keyProperty="id" useGeneratedKeys="true">
+		INSERT into sys_user (
+			create_time, 
+			email,
+			mobile, 
+			password, 
+			salt,
+			is_validated, 
+			is_super_user, 
+			status,
+			name,
+			wx_user_id, 
+			wx_open_id, 
+			wx_nickname
+		)
+		VALUES (
+			#{createTime,jdbcType=TIMESTAMP},
+			#{email,jdbcType=VARCHAR},
+			#{mobile,jdbcType=VARCHAR}, 
+			#{password,jdbcType=VARCHAR}, 
+			#{salt,jdbcType=VARCHAR},
+			#{isValidated,jdbcType=BIT}, 
+			#{isSuperUser,jdbcType=BIT},
+			#{status,jdbcType=INTEGER},
+			#{name,jdbcType=VARCHAR},
+			#{wxUserId},
+			#{wxOpenId},
+			#{wxNickname}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="SysUser">
+		UPDATE sys_user 
+		<set>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="salt != null">
+				salt = #{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="isValidated != null">
+				is_validated = #{isValidated,jdbcType=BIT},
+			</if>
+			<if test="isSuperUser != null">
+				is_super_user = #{isSuperUser,jdbcType=BIT},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="wxUserId != 0 and wxUserId != null">
+				wx_user_id = #{wxUserId},
+			</if>
+			<if test="wxOpenId != null">
+				wx_open_id = #{wxOpenId},
+			</if>
+			<if test="wxNickname != null">
+				wx_nickname = #{wxNickname},
+			</if>
+		</set>
+		WHERE id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="list" resultMap="BaseResultMap">
+		SELECT * FROM sys_user
+	</select>
+
+	<delete id="delete">
+		DELETE FROM sys_user where id = #{id}
+	</delete>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" />
+		FROM sys_user 
+		<where>
+			<if test="condition.email != null and condition.email != ''">
+				and email LIKE CONCAT('%',#{condition.email},'%') 
+			</if>
+			<if test="condition.mobile != null and condition.mobile != ''">
+				and mobile LIKE CONCAT('%',#{condition.mobile},'%') 
+			</if>
+			<if test="condition.name != null and condition.name != ''">
+				and (name LIKE CONCAT('%',#{condition.name},'%') 
+				or wx_nickname LIKE CONCAT('%',#{condition.name},'%')) 
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	<select id="findByMobile" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" />
+		FROM sys_user 
+		WHERE mobile = #{mobile} 
+	</select>
+	
+	<select id="findByCondition" parameterType="SysUser" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from sys_user
+		<where>
+			<if test="mobile != null">
+				and mobile = #{mobile} 
+			</if>
+		</where>
+	</select>
+	
+	<select id="listUserByRoleId" resultMap="BaseResultMap">
+	SELECT * FROM sys_user WHERE id IN (
+	SELECT user_id FROM sys_user_role WHERE role_id = #{roleId}
+	)
+	</select>
+	
+	<select id="getPlatId" resultType="Integer">
+	SELECT plat_id FROM sys_user su 
+	LEFT JOIN sys_user_role sur 
+	ON su.id = sur.user_id 
+	WHERE mobile = #{mobile} 
+	GROUP BY sur.plat_id
+	</select>
+	
+</mapper>

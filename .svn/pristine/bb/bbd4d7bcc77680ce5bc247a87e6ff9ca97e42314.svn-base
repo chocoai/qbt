@@ -1,0 +1,72 @@
+package com.qbt.web.support.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.qbt.common.entity.PageEntity;
+import com.qbt.common.enums.ErrorCodeEnum;
+import com.qbt.common.exception.BusinessException;
+import com.qbt.common.util.BeanUtil;
+import com.qbt.common.util.Checker;
+import com.qbt.persistent.entity.UserPackageTicket;
+import com.qbt.service.UserPackageTicketService;
+import com.qbt.web.pojo.ticket.UserPackageTicketAddReqVo;
+import com.qbt.web.pojo.ticket.UserPackageTicketPageReqVo;
+import com.qbt.web.pojo.ticket.UserPackageTicketVo;
+import com.qbt.web.support.UserPackageTicketSupport;
+
+@Service
+public class UserPackageTicketSupportImpl implements UserPackageTicketSupport {
+
+	@Resource
+	UserPackageTicketService userPackageTicketService;
+		
+	@Override
+	public List<UserPackageTicketVo> findByPage(UserPackageTicketPageReqVo reqVo) {
+		PageEntity<UserPackageTicket> pageEntity = BeanUtil.pageConvert(reqVo, UserPackageTicket.class);
+		List<UserPackageTicket> list = userPackageTicketService.findByPage(pageEntity);
+		
+		List<UserPackageTicketVo> voList = new ArrayList<UserPackageTicketVo>();
+		for(UserPackageTicket act : list){
+			UserPackageTicketVo vo = BeanUtil.a2b(act, UserPackageTicketVo.class);
+			voList.add(vo);
+		}
+		reqVo.setTotalCount(pageEntity.getTotalCount());
+		return voList;
+	}
+
+	@Override
+	public UserPackageTicketVo findById(Integer id) {
+		UserPackageTicket ticket = userPackageTicketService.findById(id);
+		UserPackageTicketVo vo = BeanUtil.a2b(ticket, UserPackageTicketVo.class);
+		return vo;
+	}
+
+	@Override
+	public int add(UserPackageTicketAddReqVo vo) {
+		UserPackageTicket ticket = BeanUtil.a2b(vo, UserPackageTicket.class);
+		int ticketId = userPackageTicketService.insert(ticket);
+		
+		return ticketId;
+	}
+
+	@Override
+	public boolean update(UserPackageTicketVo vo) {
+		UserPackageTicket order = userPackageTicketService.findById(vo.getId());
+		if(Checker.isEmpty(order)) {
+			throw new BusinessException(ErrorCodeEnum.ERROR_VALID_FAIL, "无效的数据");
+		}
+		order.setUsedQuantity(vo.getUsedQuantity());
+		order.setQuantity(vo.getQuantity());
+		order.setTicketName(vo.getTicketName());
+		order.setUseLimit(vo.getUseLimit());
+		order.setUseStatus(vo.getUseStatus());
+		
+		return userPackageTicketService.update(order) > 0;
+	}
+
+}

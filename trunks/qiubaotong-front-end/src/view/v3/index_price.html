@@ -1,0 +1,27 @@
+<template id="index_price">
+<section class="page" style="background: #ffffff">
+    <tel-contact></tel-contact>
+	<div style="text-align:center;background-color: #fff;">
+      	<img style="width:100%;" src="/img/price_v3.png">
+    </div>
+    <div style="margin:25px 0;padding-left:8px">
+        <p>
+            <strong>温馨提示：</strong>
+            <span>阶梯价格表为十个热门城市运费。以上价格仅指运费，不含运费以外的偏远费、保价费等额外费用。</span>
+        </p>
+    </div>
+    <div class="button-sp-area bgWhite" style="margin:0 auto;text-align: center;padding-bottom: 50px">
+        <a style="font-size: 24px;width:60%;border-radius:0;border:0;background: #bae43f;color: #ffffff" href="javascript:;" @click="goView" class="weui-btn weui-btn_plain-primary" >寄球包</a>
+        <a href="javascript:;" @click="baggage" class="weui-btn weui-btn_plain-primary" style="font-size: 24px;width:60%;border-radius:0;border:0;background: #01a1ef;color: #ffffff">寄行李</a>
+        <a style="padding:15px 0;display: inline-block;font-size:16px;color: #43b05a;" href="freight.html">运费测算</a>
+    </div>
+
+    <footer class="footer">
+        <div class="weui-flex">
+            <div @click="goBack" class="weui-flex__item font16" style="background-color:#fff;font-size: 24px">
+				<p>返回</p>
+            </div>
+        </div>
+   </footer>
+</section>
+</template>

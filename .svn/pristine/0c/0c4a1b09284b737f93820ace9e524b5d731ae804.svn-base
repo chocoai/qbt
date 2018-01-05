@@ -1,0 +1,43 @@
+<template id="ball_bag_photo">
+    <section class="page">
+        <!-- 顶部通栏 -->
+        <header>
+            <div class="header-left" @click="getBack()">
+                <img src="/img/back.png" alt="">
+            </div>
+            <div class="header-middle">
+                <span>指定球包</span>
+            </div>
+            <div class="header-right">
+                <span>确定</span>
+            </div>
+        </header>
+        <div class="uplode-photo">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <div class="weui-uploader">
+                        <div class="weui-uploader__hd">
+                            <p class="weui-uploader__title">未上传相册</p>
+                            <div class="weui-uploader__info">0/2</div>
+                        </div>
+                        <div class="weui-uploader__bd">
+                            <div class="weui-uploader__input-box">
+                                <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple/>
+                            </div>
+                            <ul class="weui-uploader__files" id="uploaderFiles">
+                                <li class="weui-uploader__file weui-uploader__file_status">
+                                    <div class="weui-uploader__file-content">
+                                        <i class="weui-icon-warn"></i>
+                                    </div>
+                                </li>
+                                <li class="weui-uploader__file weui-uploader__file_status">
+                                    <div class="weui-uploader__file-content">50%</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>

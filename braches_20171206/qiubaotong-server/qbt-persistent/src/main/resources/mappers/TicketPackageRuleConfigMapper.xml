@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.TicketPackageRuleConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.qbt.persistent.entity.TicketPackageRuleConfig" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="rule_id" property="ruleId" />
+    <result column="create_time" property="createTime"  />
+    <result column="update_time" property="updateTime" />
+    <result column="ticket_price" property="ticketPrice"  />
+    <result column="pay_price" property="payPrice" />
+    <result column="quantity" property="quantity"  />
+    <result column="use_limit" property="useLimit"  />
+     <result column="ticket_name" property="ticketName"  />  
+  </resultMap>
+  
+  
+  <insert id="insertByBatch">
+		insert into ticket_package_rule_config (
+			rule_id,
+			create_time,
+			update_time,
+			ticket_price,
+			pay_price,
+			quantity,
+			use_limit,
+			ticket_name
+		) values 
+		<foreach collection="configs" item="config" index="i" separator=",">
+		(
+			#{config.ruleId},
+			#{config.createTime},
+			#{config.updateTime},
+			#{config.ticketPrice},
+			#{config.payPrice},
+			#{config.quantity},
+			#{config.useLimit},
+			#{config.ticketName}
+		)
+		
+		</foreach>
+	</insert>
+  
+  
+     <select id="findByRuleId" resultMap="BaseResultMap" parameterType="TicketPackageRuleConfig">
+	  	SELECT
+			id,
+			rule_id,
+			ticket_price,
+			pay_price,
+			quantity,
+			use_limit,
+			ticket_name
+		
+		FROM
+			ticket_package_rule_config
+		where 	1=1
+				and rule_id = #{ruleId}			
+  
+  </select>
+  </mapper>

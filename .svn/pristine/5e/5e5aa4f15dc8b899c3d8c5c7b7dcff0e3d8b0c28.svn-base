@@ -1,0 +1,48 @@
+{
+	"info": {
+		"name": "qiubaotong",
+		"_postman_id": "764672a1-a176-a7a7-282f-01b04a5bf7f1",
+		"description": "qiubaotong",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get course address info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/qbt-web/courseAddress/list.api?lon=118.1544&lat=29.1544",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"qbt-web",
+						"courseAddress",
+						"list.api"
+					],
+					"query": [
+						{
+							"key": "lon",
+							"value": "118.1544",
+							"equals": true
+						},
+						{
+							"key": "lat",
+							"value": "29.1544",
+							"equals": true
+						}
+					]
+				},
+				"description": "Get course address info"
+			},
+			"response": []
+		}
+	]
+}

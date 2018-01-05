@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseSpecialStoreMapper" >
+  <resultMap id="BaseResultMap" type="com.qbt.persistent.entity.BaseSpecialStore" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="VARCHAR" />
+    <result column="tree_path" property="treePath" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="stores_number" property="storesNumber" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="business_time" property="businessTime" jdbcType="VARCHAR" />
+    <result column="lon" property="lon" jdbcType="DOUBLE" />
+    <result column="lat" property="lat" jdbcType="DOUBLE" />
+    <result column="manager" property="manager" jdbcType="VARCHAR" />
+    <result column="front_manager" property="frontManager" jdbcType="VARCHAR" />
+    <result column="manager_sale" property="managerSale" jdbcType="VARCHAR" />
+    <result column="business_scope" property="businessScope" jdbcType="VARCHAR" />
+    <result column="nearest_course" property="nearestCourse" jdbcType="VARCHAR" />
+    <result column="nearest_workshop" property="nearestWorkshop" jdbcType="VARCHAR" />
+    <result column="nearest_practic_range" property="nearestPracticRange" jdbcType="VARCHAR" />
+    <result column="nearest_rail_name" property="nearestRailName" jdbcType="VARCHAR" />
+    <result column="nearest_rail" property="nearestRail" jdbcType="VARCHAR" />
+    <result column="highway_store" property="highwayStore" jdbcType="VARCHAR" />
+    <result column="nearest_airport" property="nearestAirport" jdbcType="VARCHAR" />
+    <result column="nearest_sf" property="nearestSf" jdbcType="VARCHAR" />
+    <result column="goods_company" property="goodsCompany" jdbcType="VARCHAR" />
+    <result column="is_join_bag" property="isJoinBag" jdbcType="BIT" />
+    <result column="join_bag_address" property="joinBagAddress" jdbcType="VARCHAR" />
+    <result column="is_fee_bag" property="isFeeBag" jdbcType="BIT" />
+    <result column="put_bag_address" property="putBagAddress" jdbcType="VARCHAR" />
+    <result column="is_collect_bag" property="isCollectBag" jdbcType="BIT" />
+    <result column="collect_bag_address" property="collectBagAddress" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="bag_worker" property="bagWorker" jdbcType="VARCHAR" />
+    <result column="is_note" property="isNote" jdbcType="BIT" />
+    <result column="is_declare" property="isDeclare" jdbcType="BIT" />
+    <result column="is_posts" property="isPosts" jdbcType="BIT" />
+    <result column="is_ylb" property="isYlb" jdbcType="BIT" />
+    <result column="is_order" property="isOrder" jdbcType="BIT" />
+    <result column="is_declare_service" property="isDeclareService" jdbcType="BIT" />
+    <result column="found_time" property="foundTime" jdbcType="TIMESTAMP"/>
+    <result column="manage_mobile" property="manageMobile" jdbcType="VARCHAR" />
+    <result column="manager_front_mobile" property="managerFrontMobile" jdbcType="VARCHAR" />
+    <result column="manager_sale_mobile" property="managerSaleMobile" jdbcType="VARCHAR" />
+    <result column="bag_worker_mobile" property="bagWorkerMobile" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, area_id, tree_path, address, stores_number, create_time, business_time, 
+    lon, lat, manager, front_manager, manager_sale, business_scope, nearest_course, nearest_workshop, 
+    nearest_practic_range, nearest_rail_name, nearest_rail, highway_store, nearest_airport, 
+    nearest_sf, goods_company, is_join_bag, join_bag_address, is_fee_bag, put_bag_address, 
+    is_collect_bag, collect_bag_address, department, bag_worker, is_note, is_declare, 
+    is_posts, is_ylb, is_order, is_declare_service, found_time, manage_mobile, 
+    manager_front_mobile, manager_sale_mobile, bag_worker_mobile
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_special_store
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.qbt.persistent.entity.BaseSpecialStore" >
+    insert into base_special_store (id, name, area_id, 
+      tree_path, address, 
+      stores_number, create_time, business_time, 
+      lon, lat, manager, front_manager, 
+      manager_sale, business_scope, nearest_course, 
+      nearest_workshop, nearest_practic_range, nearest_rail_name, 
+      nearest_rail, highway_store, nearest_airport, 
+      nearest_sf, goods_company, is_join_bag, 
+      join_bag_address, is_fee_bag, put_bag_address, 
+      is_collect_bag, collect_bag_address, department, 
+      bag_worker, is_note, is_declare, 
+      is_posts, is_ylb, is_order, is_declare_service,found_time, 
+      manage_mobile, manager_front_mobile, manager_sale_mobile,
+      bag_worker_mobile
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{areaId,jdbcType=INTEGER}, 
+      #{treePath,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{storesNumber,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{businessTime,jdbcType=VARCHAR}, 
+      #{lon,jdbcType=DOUBLE}, #{lat,jdbcType=DOUBLE}, #{manager,jdbcType=VARCHAR}, #{frontManager,jdbcType=VARCHAR}, 
+      #{managerSale,jdbcType=VARCHAR}, #{businessScope,jdbcType=VARCHAR}, #{nearestCourse,jdbcType=VARCHAR}, 
+      #{nearestWorkshop,jdbcType=VARCHAR}, #{nearestPracticRange,jdbcType=VARCHAR}, #{nearestRailName,jdbcType=VARCHAR}, 
+      #{nearestRail,jdbcType=VARCHAR}, #{highwayStore,jdbcType=VARCHAR}, #{nearestAirport,jdbcType=VARCHAR}, 
+      #{nearestSf,jdbcType=VARCHAR}, #{goodsCompany,jdbcType=VARCHAR}, #{isJoinBag,jdbcType=BIT}, 
+      #{joinBagAddress,jdbcType=VARCHAR}, #{isFeeBag,jdbcType=BIT}, #{putBagAddress,jdbcType=VARCHAR}, 
+      #{isCollectBag,jdbcType=BIT}, #{collectBagAddress,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{bagWorker,jdbcType=VARCHAR}, #{isNote,jdbcType=BIT}, #{isDeclare,jdbcType=BIT}, 
+      #{isPosts,jdbcType=BIT}, #{isYlb,jdbcType=BIT}, #{isOrder,jdbcType=BIT}, #{isDeclareService,jdbcType=BIT},
+       #{foundTime,jdbcType=TIMESTAMP}, #{manageMobile,jdbcType=VARCHAR},
+        #{managerFrontMobile,jdbcType=VARCHAR}, #{managerSaleMobile,jdbcType=VARCHAR},
+         #{bagWorkerMobile,jdbcType=VARCHAR}
+        
+      )
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qbt.persistent.entity.BaseSpecialStore" >
+    update base_special_store
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="treePath != null" >
+        tree_path = #{treePath,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="storesNumber != null" >
+        stores_number = #{storesNumber,jdbcType=INTEGER},
+      </if>
+      <if test="businessTime != null" >
+        business_time = #{businessTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null" >
+        lon = #{lon,jdbcType=DOUBLE},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=DOUBLE},
+      </if>
+      <if test="manager != null" >
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="frontManager != null" >
+        front_manager = #{frontManager,jdbcType=VARCHAR},
+      </if>
+      <if test="managerSale != null" >
+        manager_sale = #{managerSale,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        business_scope = #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="nearestCourse != null" >
+        nearest_course = #{nearestCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="nearestWorkshop != null" >
+        nearest_workshop = #{nearestWorkshop,jdbcType=VARCHAR},
+      </if>
+      <if test="nearestPracticRange != null" >
+        nearest_practic_range = #{nearestPracticRange,jdbcType=VARCHAR},
+      </if>
+      <if test="nearestRailName != null" >
+        nearest_rail_name = #{nearestRailName,jdbcType=VARCHAR},
+      </if>
+      <if test="nearestRail != null" >
+        nearest_rail = #{nearestRail,jdbcType=VARCHAR},
+      </if>
+      <if test="highwayStore != null" >
+        highway_store = #{highwayStore,jdbcType=VARCHAR},
+      </if>
+      <if test="nearestAirport != null" >
+        nearest_airport = #{nearestAirport,jdbcType=VARCHAR},
+      </if>
+      <if test="nearestSf != null" >
+        nearest_sf = #{nearestSf,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCompany != null" >
+        goods_company = #{goodsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="isJoinBag != null" >
+        is_join_bag = #{isJoinBag,jdbcType=BIT},
+      </if>
+      <if test="joinBagAddress != null" >
+        join_bag_address = #{joinBagAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="isFeeBag != null" >
+        is_fee_bag = #{isFeeBag,jdbcType=BIT},
+      </if>
+      <if test="putBagAddress != null" >
+        put_bag_address = #{putBagAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="isCollectBag != null" >
+        is_collect_bag = #{isCollectBag,jdbcType=BIT},
+      </if>
+      <if test="collectBagAddress != null" >
+        collect_bag_address = #{collectBagAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="bagWorker != null" >
+        bag_worker = #{bagWorker,jdbcType=VARCHAR},
+      </if>
+      <if test="isNote != null" >
+        is_note = #{isNote,jdbcType=BIT},
+      </if>
+      <if test="isDeclare != null" >
+        is_declare = #{isDeclare,jdbcType=BIT},
+      </if>
+      <if test="isPosts != null" >
+        is_posts = #{isPosts,jdbcType=BIT},
+      </if>
+      <if test="isYlb != null" >
+        is_ylb = #{isYlb,jdbcType=BIT},
+      </if>
+      <if test="isOrder != null" >
+        is_order = #{isOrder,jdbcType=BIT},
+      </if>
+      <if test="isDeclareService != null" >
+        is_declare_service = #{isDeclareService,jdbcType=BIT},
+      </if>
+      <if test="foundTime != null" >
+        found_time = #{foundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="manageMobile != null" >
+        manage_mobile = #{manageMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="managerFrontMobile != null" >
+        manager_front_mobile = #{managerFrontMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="managerSaleMobile != null" >
+        manager_sale_mobile = #{managerSaleMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="bagWorkerMobile != null" >
+        bag_worker_mobile = #{bagWorkerMobile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+   <select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_special_store
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.address != null and condition.address != ''">
+				AND address LIKE CONCAT('%',#{condition.address},'%') 
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List"></include>
+    from base_special_store
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteById">
+  	delete from base_special_store where id = #{id}
+  </delete>
+</mapper>

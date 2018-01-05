@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.TicketPackageActivityMapper">
+
+	<resultMap id="BaseResultMap" type="TicketPackageActivity">
+		<id column="id" property="id" />
+		<result column="activity_name" property="activityName" />
+		<result column="effective_day" property="effectiveDay" />
+		<result column="rule_id" property="ruleId" />
+		<result column="status" property="status" />
+		<result column="create_time" property="createTime" />
+		<result column="description" property="description" />
+		<result column="operator" property="operator" />
+	</resultMap>
+	
+	 
+  <insert id="insert" parameterType="TicketPackageActivity" keyProperty="id" useGeneratedKeys="true">
+		insert into ticket_package_activity (
+			rule_id, 
+			activity_name, 
+			status, 
+			effective_day,
+			description,
+			create_time, 
+			operator
+			
+		) values (
+			#{ruleId},
+			#{activityName},
+			#{status},
+			#{effectiveDay},
+			#{description},
+			#{createTime},
+			#{operator}
+		)
+	</insert>
+	
+	 <select id="findByPage" resultMap="BaseResultMap" parameterType="TicketPackageActivity">
+	  	select
+			id,
+			rule_id, 
+			activity_name, 
+			status, 
+			effective_day,
+			description,
+			create_time, 
+			operator
+		FROM ticket_package_activity 
+	  <where>
+			<if test="condition.activityName != null and condition.activityName != ''">
+				AND activity_name LIKE CONCAT('%',#{condition.activityName},'%') 
+			</if>
+			<if test="condition.ruleId != null and condition.ruleId>0">
+				AND rule_id = #{condition.ruleId} 
+			</if>
+			<if test="condition.status != null and condition.status>0">
+				AND status = #{condition.status} 
+			</if>
+	</where>
+  </select>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="TicketPackageActivity">
+		SELECT 
+			id,
+			rule_id, 
+			activity_name, 
+			status, 
+			effective_day,
+			description,
+			create_time, 
+			operator
+		FROM ticket_package_activity 
+		WHERE id = #{id}
+	</select>
+
+	<select id="findAvailableTicketByUserId" resultMap="UserPackageTicketMap">
+		SELECT
+		u2.*,
+		u1.user_id,
+		u1.expiration_time
+		FROM
+		user_activity_order_detail u1,
+		user_package_ticket u2
+		WHERE
+		u1.user_id =
+		#{userId}
+		AND
+		u1.id=u2.order_detail_id
+		AND u2.use_status = 0
+		AND u1.expiration_time >
+		#{sysdatetime}
+		order by u1.expiration_time
+	</select>
+
+	<select id="findDisableTicketByUserId" resultMap="UserPackageTicketMap">
+		SELECT
+		u2.*,
+		u1.user_id,
+		u1.expiration_time
+		FROM
+		user_activity_order_detail u1,
+		user_package_ticket u2
+		WHERE
+		u1.user_id =
+		#{userId}
+		AND u1.id=u2.order_detail_id
+		AND (u2.use_status = 1
+		OR
+		u1.expiration_time <![CDATA[ < ]]>
+		#{sysdatetime})
+		order by u1.expiration_time
+	</select>
+
+	<resultMap type="com.qbt.persistent.entity.UserPackageTicket"
+		id="UserPackageTicketMap">
+		<id column="id" property="id" />
+		<result column="package_id" property="packageId" />
+		<result column="order_detail_id" property="orderDetailId" />
+		<result column="ticket_price" property="ticketPrice" />
+		<result column="ticket_name" property="ticketName" />
+		<result column="quantity" property="quantity" />
+		<result column="used_quantity" property="usedQuantity" />
+		<result column="use_limit" property="useLimit" />
+		<result column="use_status" property="useStatus" />
+		<result column="user_id" property="userId" />
+		<result column="expiration_time" property="expirationTime" />
+	</resultMap>
+
+	<update id="updateTicketByUsed" parameterType="java.lang.Integer">
+		update
+		user_package_ticket set used_quantity=used_quantity+1 where
+		id=#{ticketId}
+	</update>
+
+	<update id="updateTicketAsUsed" parameterType="java.lang.Integer">
+		update
+		user_package_ticket set use_status=1 where id=#{ticketId}
+	</update>
+
+	<select id="findTicketByTicketId" parameterType="java.lang.Integer"
+		resultMap="UserPackageTicketMap">
+		select * from user_package_ticket where id= #{ticketId}
+	</select>
+
+	<select id="findByPackageId" parameterType="java.lang.Integer"
+		resultMap="UserPackageInfoMap">
+		SELECT
+		u3.id,
+		u2.activity_name,
+		u1.expiration_time,
+		u4.effective_day,
+		u1.activate_time,
+		u1.activate_user,
+		u1.activate_phone_number,
+		u1.code,
+		u1.code_status,
+		u1.status,
+		u1.active_status
+		FROM
+		user_activity_order_detail u1,
+		user_activity_order
+		u2,
+		user_activity_package u3,
+		ticket_package_activity u4
+		WHERE
+		u1.order_id = u2.id
+		AND u1.id = u3.order_detail_id
+		AND u2.id =
+		u3.order_id
+		AND u2.activity_id = u4.id
+		AND u3.id= #{packageId}
+	</select>
+
+	<select id="findTicketsByPackageId" resultMap="UserPackageTicketMap">
+		select * from user_package_ticket where package_id= #{packageId}
+	</select>
+
+	<resultMap type="com.qbt.persistent.entity.ActivityTicketPackage"
+		id="UserPackageInfoMap">
+		<id column="id" property="id" />
+		<result column="activity_name" property="activityName" />
+		<result column="expiration_time" property="expirationTime" />
+		<result column="effective_day" property="effectiveDay" />
+		<result column="activate_time" property="activateTime" />
+		<result column="activate_user" property="activateUser" />
+		<result column="activate_phone_number" property="activatePhoneNumber" />
+		<result column="code" property="code" />
+		<result column="code_status" property="codeStatus" />
+		<result column="status" property="status" />
+		<result column="active_status" property="activeStatus" />
+
+		<collection property="tickets" column="id"
+			select="com.qbt.persistent.mapper.TicketPackageActivityMapper.findTicketsByPackageId">
+		</collection>
+	</resultMap>
+
+</mapper>

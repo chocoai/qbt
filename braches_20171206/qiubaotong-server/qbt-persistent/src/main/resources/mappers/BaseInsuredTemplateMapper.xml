@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseInsuredTemplateMapper" >
+  <resultMap id="BaseResultMap" type="BaseInsuredTemplate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="insured_rates" property="insuredRates" jdbcType="DECIMAL" />
+    <result column="free_insured" property="freeInsured" jdbcType="DECIMAL" />
+    <result column="insured_minimum" property="insuredMinimum" jdbcType="DECIMAL" />
+    <result column="insured_maximum" property="insuredMaximum" jdbcType="DECIMAL" />
+    <result column="desc_insured_minimum" property="descInsuredMinimum" jdbcType="VARCHAR" />
+    <result column="desc_insured_maximum" property="descInsuredMaximum" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="insured_origin_rates" property="insuredOriginRates"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, create_time, update_time, name, insured_rates, free_insured, insured_minimum, 
+    insured_maximum, desc_insured_minimum, desc_insured_maximum, state, remark, insured_origin_rates
+  </sql>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_insured_template
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="BaseInsuredTemplate" useGeneratedKeys="true" keyProperty="id">
+    insert into base_insured_template (create_time, update_time, 
+      name, insured_rates, free_insured, 
+      insured_minimum, insured_maximum, desc_insured_minimum, 
+      desc_insured_maximum, state, remark, insured_origin_rates
+      )
+    values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{name,jdbcType=VARCHAR}, #{insuredRates,jdbcType=DECIMAL}, #{freeInsured,jdbcType=DECIMAL}, 
+      #{insuredMinimum,jdbcType=DECIMAL}, #{insuredMaximum,jdbcType=DECIMAL}, #{descInsuredMinimum,jdbcType=VARCHAR}, 
+      #{descInsuredMaximum,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{insuredOriginRates}
+      )
+  </insert>
+  
+  <update id="updateById" parameterType="BaseInsuredTemplate" >
+    update base_insured_template
+    <set >
+      <if test="updateTime != null" >
+        update_time = now(),
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredRates != null" >
+        insured_rates = #{insuredRates,jdbcType=DECIMAL},
+      </if>
+      <if test="freeInsured != null" >
+        free_insured = #{freeInsured,jdbcType=DECIMAL},
+      </if>
+      <if test="insuredMinimum != null" >
+        insured_minimum = #{insuredMinimum,jdbcType=DECIMAL},
+      </if>
+      <if test="insuredMaximum != null" >
+        insured_maximum = #{insuredMaximum,jdbcType=DECIMAL},
+      </if>
+      <if test="descInsuredMinimum != null" >
+        desc_insured_minimum = #{descInsuredMinimum,jdbcType=VARCHAR},
+      </if>
+      <if test="descInsuredMaximum != null" >
+        desc_insured_maximum = #{descInsuredMaximum,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null and state > 0" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredOriginRates != null" >
+        insured_origin_rates = #{insuredOriginRates},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+ 
+  <select id="findValid" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from base_insured_template where state = 1
+  </select>
+  
+  <update id="updateState">
+  	update base_insured_template set state=#{state} where id != #{id}
+  </update>
+ 
+  <update id="updateInvalid">
+  	upate base_insured_template set state=2 where id != #{id} and state = 1
+  </update>
+  
+  <select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_insured_template 
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	<delete id="deleteById">
+			DELETE FROM base_insured_template WHERE id = #{id,jdbcType=INTEGER}
+	</delete>
+	<select id="findByCondition" parameterType="BaseInsuredTemplate" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" /> 
+		from base_insured_template
+		<where>
+			<if test="name != null">
+				and name = #{name} 
+			</if>
+		</where>
+	</select>
+ 
+</mapper>

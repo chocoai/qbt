@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+    <meta name="renderer" content="webkit">
+    <title>球包通-微信公众号</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/normalize.css">
+    <!--我的-->
+    <link href="{{{/css/globle.css}}}" rel="stylesheet" type="text/css">
+    <link href="css/newbag.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/shop.css}}}" rel="stylesheet" type="text/css">
+
+    <!--[if lte IE 6]>
+      <link rel="stylesheet" type="text/css" href="css/bootstrap-ie6.css">
+      <link rel="stylesheet" type="text/css" href="css/ie.css">
+    <![endif]-->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+<!--头部-->
+<header class="header">
+    <nav class="navbar scrolled">
+      <div class="container">
+          <div class="navbar-header">
+             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                 <span class="sr-only">切换导航</span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+             </button>
+             <a href="/"><img src="images/logo-nav.png" alt="" style="max-height: 32px;margin-top:13px;"></a>
+          </div>
+          <div class="collapse navbar-collapse" id="navbar-collapse">
+              <ul class="nav navbar-nav">
+                  <li><a href="/" class="main-nav-link ">主页</a> </li>
+                  <li><a href="order.html" class="main-nav-link ">球包快递</a></li>
+                  <li><a href="track.html" class="main-nav-link">球包追踪</a></li>
+                  <li><a href="raiders.html" class="main-nav-link">球包通攻略</a></li>
+                  <li><a href="service.html" class="main-nav-link ">客服中心</a></li>
+                  <li><a href="about.html" class="main-nav-link">关于我们</a></li>
+                  <li><a href="/news/" class="main-nav-link ">球包通新闻</a></li>
+                  <li><a href="tel:400-609-0990;" style="font-weight:700;"><img src="images/nav-tel.png" alt="" style="height:25px;margin-right:15px;">400-609-0990</a></li>
+              </ul>
+          </div>
+      </div>
+    </nav>
+</header>
+    <!--头部 end-->
+    <!--内容-->
+    <div class="wrapper" id="main-container" role="main" style="padding-top: 50px;">
+        <div id="app_alerts"></div>
+        <div id="how-it-works">
+            <section class="content-block">
+                <div class="container claim-font-size-17">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="sm-nav-title"> 关注球包通微信公众号</h4>
+                            <hr class="title-hr">
+                            <div>
+                                <img src="/images/er.png" style="width: 280px;" />
+                            </div>
+                            <hr class="space-md">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content-block">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr class="space-md">
+                            <h4 class="underlined-header">联系我们</h4>
+                            <table class="contact-info">
+                                <tbody>
+                                    <tr>
+                                        <th>电话: &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <td><span itemprop="telephone">400-609-0990</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email:</th>
+                                        <td><a href="javascript:;" class="a"  >support@qiubaotong.com</a></td>
+                                    </tr>
+                                </tbody>
+                            </table> <br />
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!--内容end-->
+    <!--底部-->
+    @@include('include/footer.html')
+    <!--底部 end-->
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap.min.js"></script>
+</body>
+
+</html>

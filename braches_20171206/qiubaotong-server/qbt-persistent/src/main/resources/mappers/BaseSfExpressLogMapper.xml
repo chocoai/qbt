@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseSfExpressLogMapper">
+	<resultMap id="BaseResultMap" type="BaseSfExpressLog">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="service_name" property="serviceName" />
+		<result column="keyword" property="keyword" />
+		<result column="status" property="status" />
+		<result column="request_body" property="requestBody" />
+		<result column="response_body" property="responseBody" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, service_name, keyword, status, request_body, response_body
+	</sql>
+		
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from base_sf_express_log
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="BaseSfExpressLog" keyProperty="id" useGeneratedKeys="true">
+		insert into base_sf_express_log (
+			create_time, 
+			service_name,
+			keyword, 
+			status, 
+			request_body,
+			response_body
+		) values (
+			#{createTime},
+			#{serviceName},
+			#{keyword}, 
+			#{status}, 
+			#{requestBody},
+			#{responseBody}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="BaseSfExpressLog">
+		update base_sf_express_log
+		<set>
+			<if test="serviceName != null">
+				service_name = #{serviceName},
+			</if>
+			<if test="keyword != null">
+				keyword = #{keyword},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="requestBody != null">
+				request_body = #{requestBody},
+			</if>
+			<if test="responseBody != null">
+				response_body = #{responseBody},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_sf_express_log
+		<where>
+			<if test="condition.keyword != null and condition.keyword != ''">
+				AND keyword LIKE CONCAT('%',#{condition.keyword},'%') 
+			</if>
+			<if test="condition.status > 0 ">
+				AND status = #{condition.status}
+			</if>
+			<if test="condition.serviceName != null and condition.serviceName != ''">
+				AND service_name = #{condition.serviceName}
+			</if>
+			<if test="condition.beginTime != null and condition.beginTime != ''">
+				<![CDATA[
+				and create_time >= #{condition.beginTime} 
+				]]>
+			</if>
+			<if test="condition.endTime != null and condition.endTime != ''">
+				<![CDATA[
+				and create_time <= #{condition.endTime}
+				]]>
+			</if>
+		</where>
+		order by create_time desc 
+	</select>
+	
+	<delete id="deleteByDay">
+		delete from base_sf_express_log where date(create_time) <![CDATA[<=]]> DATE_SUB(CURDATE(),INTERVAL #{day} day)
+	</delete>
+	
+</mapper>

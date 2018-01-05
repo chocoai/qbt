@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.WinnerListMapper">
+	 <resultMap id="BaseResultMap" type="WinnerList" >
+	 	<id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+	    <result column="user_id" property="userId" jdbcType="INTEGER" />
+	    <result column="user_info" property="userInfo" jdbcType="VARCHAR" />
+	    <result column="reward_actitvity_id" property="rewardActivityId" jdbcType="INTEGER" />
+	    <result column="reward_actitvity_info" property="rewardActivityInfo" jdbcType="VARCHAR" />
+	    <result column="status" property="status" jdbcType="INTEGER" />
+	 </resultMap>
+	
+	<insert id="insert" parameterType="WinnerList" useGeneratedKeys="true" keyProperty="id">
+		insert into winner_list (
+			create_time,
+			order_id,
+			user_id,
+			user_info,
+			reward_actitvity_id,
+			reward_actitvity_info,
+			status
+			)
+			 values 
+			 (
+			#{createTime},
+			#{orderId},
+			#{userId},
+			#{userInfo},
+			#{rewardActivityId},
+			#{rewardActivityInfo},
+			0
+			)
+	</insert>
+	
+	<update id="update" parameterType="WinnerList" >
+		update winner_list
+			set update_time = now(),status = 1
+		   where order_id = #{orderId}
+	</update>
+	
+	<select id="findByPage"  resultType="WinnerList">
+		select id,create_time createTime,update_time updateTime,
+		user_id userId, user_info userInfo,
+		reward_actitvity_id rewardActivityId,
+	    reward_actitvity_info	rewardActivityInfo,
+		status from  winner_list  t		
+		<where>
+			t.reward_actitvity_id = #{condition.rewardActivityId}
+			<if test="condition.status!=null">
+				and t.status = #{condition.status}
+			</if>
+		</where> 
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+					ORDER BY ${orderByColumn} ${orderByType}
+				</when>
+				<otherwise>
+					ORDER BY t.create_time desc 
+				</otherwise>
+		</choose>
+	
+	</select>
+</mapper>

@@ -1,0 +1,41 @@
+<template id="org-menu">
+<section>
+    <div class="header tex-c" style="background-color:#fff;">
+      {{applyName}}
+    </div>
+<div class="scroll">
+    <!--按钮-->
+    <div class="lo-btn-lay">
+      <div class="flex">
+        <div class="flex-1">
+          <a href="javascript:;" @click="goList(1)">
+              <img src="/img/org-p.png" />
+              <label>个人订单</label>
+          </a>
+        </div>
+        <div class="flex-1">
+          <a href="javascript:;" @click="goList(2)">
+              <img src="/img/org-o.png" />
+              <label>机构订单</label>
+          </a>
+        </div>
+      </div>
+      <div class="flex" style="margin-top: 40px;">
+          <div class="flex-1">
+              <a href="javascript:;" @click="goIndex()">
+                  <img src="/img/org-x.png" />
+                  <label>立即下单</label>
+              </a>
+          </div>
+          <div class="flex-1">
+              <a href="tel:4006090990">
+                  <img src="/img/phone02.png" />
+                  <label>联系客服</label>
+              </a>
+          </div>
+      </div>
+    </div>
+    <!--按钮-->
+    </div>
+</section>
+</template>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="insuranceDetailCtrl">
+    <div class="container containerWidthAuto">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>保价名称：</label>
+                    <input ng-model="name" type="text" class="form-control" placeholder="输入保价名称" maxlength="100">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>保价费率：</label>
+                    <input ng-model="insuredRates" type="number" class="form-control" placeholder="输入保价费率(0~0.999)" min="0.0" step="0.001">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>原保价费率：</label>
+                    <input type="number" ng-model="insuredOriginRates" class="form-control" placeholder="输入原保价费率(0~0.999)" min="0.0" step="0.001">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>免费保价金额（万元）：</label>
+                    <input ng-model="freeInsured" type="number" class="form-control" placeholder="输入免费保价金额" min="0.0" step="0.01">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>最小保价金额（万元）：</label>
+                    <input ng-model="insuredMinimum" type="number" class="form-control" placeholder="输入最小保价金额" min="0.0" step="0.01">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>最大保价金额（万元）：</label> 
+                    <input ng-model="insuredMaximum" type="number" class="form-control" placeholder="输入最大保价金额" min="0.0" step="0.01">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>最小保价金额描述：</label>
+                    <textarea ng-model="descInsuredMinimum" class="form-control" maxlength="100">
+                    </textarea>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>最大保价金额描述：</label>
+                    <textarea ng-model="descInsuredMaximum" class="form-control" maxlength="100">
+                    </textarea>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>状态：</label>
+                    <select ng-model="state" class="form-control">
+                        <option value="2">无效</option>
+                        <option value="1">有效</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>备注：</label>
+                    <textarea ng-model="remark" class="form-control" maxlength="100">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" ng-click="addInsurance()">提交</button>
+                </div>
+            </div>
+        </div>
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/insuranceDetailCtrl.js}}}"></script>
+</body>
+</html>

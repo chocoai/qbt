@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.geling.qbt.server</groupId>
+    <artifactId>qbt-server</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>qbt-mybatis-common</artifactId>
+  
+  <dependencies>
+  		<!-- common -->
+       <dependency>
+			 <groupId>com.geling.qbt.server</groupId>
+   			 <artifactId>qbt-common</artifactId>
+		</dependency>
+  	
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
+  		
+  		  <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+        </dependency>
+        <dependency>
+		    <groupId>redis.clients</groupId>  
+		    <artifactId>jedis</artifactId>  
+		</dependency>
+  </dependencies>
+  
+  
+</project>

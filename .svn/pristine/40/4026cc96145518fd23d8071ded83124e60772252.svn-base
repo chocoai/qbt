@@ -1,0 +1,192 @@
+<template id="invoiceNote_company">
+  <div class="page">
+    <tel-contact></tel-contact>
+    <section class="weui-tab">
+      <div class="page__bd">
+        <div class="weui-cells weui-cells_form">
+          <div class="weui-cell">
+            <div class="weui-cell__hd">
+              <h4>公司发票</h4>
+            </div>
+          </div>
+          <div class="weui-cell">
+            <div class="weui-cell__hd">
+              <label class="weui-label">发票抬头</label>
+            </div>
+            <div class="weui-cell__bd">
+              <span>{{invoice_detail.title}}</span>
+            </div>
+          </div>
+          <div class="weui-cell">
+            <div class="weui-cell__hd">
+              <label class="weui-label">税号</label>
+            </div>
+            <div class="weui-cell__bd">
+              <span>{{invoice_detail.taxFileNumber}}</span>
+            </div>
+          </div>
+          <div v-show="invoice_detail.bankNumber!=null" class="weui-cell">
+            <div class="weui-cell__hd">
+              <label class="weui-label">账号</label>
+            </div>
+            <div class="weui-cell__bd">
+              <span>{{invoice_detail.bankNumber}}</span>
+            </div>
+          </div>
+          <div v-show="invoice_detail.bank!=null" class="weui-cell">
+            <div class="weui-cell__hd">
+              <label class="weui-label">开户行</label>
+            </div>
+            <div class="weui-cell__bd">
+              <span>{{invoice_detail.bank}}</span>
+            </div>
+          </div>
+          <div v-show="invoice_detail.companyTelephone!=null" class="weui-cell">
+            <div class="weui-cell__hd">
+              <label class="weui-label">电话</label>
+            </div>
+            <div class="weui-cell__bd">
+              <span>{{invoice_detail.companyTelephone}}</span>
+            </div>
+          </div>
+          <div v-show="invoice_detail.companyAddress!=null" class="weui-cell">
+            <div class="weui-cell__hd">
+              <label class="weui-label">地址</label>
+            </div>
+            <div class="weui-cell__bd">
+              <span>{{invoice_detail.companyAddress}}</span>
+            </div>
+          </div>
+          <div class="weui-cell">
+            <div class="weui-cell__hd">
+              <label class="weui-label">发票内容</label>
+            </div>
+            <div class="weui-cell__bd">
+              <span>服务费</span>
+            </div>
+          </div>
+          <div class="weui-cell">
+            <div class="weui-cell__hd">
+              <label class="weui-label">发票金额</label>
+            </div>
+            <div class="weui-cell__bd">
+              <span>¥{{invoice_detail.price}}.00</span>
+            </div>
+          </div>
+        </div>
+        <!--电子-->
+        <div v-show="invoice_detail.billType==1" class="page__bd">
+          <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <h4>收票人信息</h4>
+              </div>
+            </div>
+            <div v-show="invoice_detail.email!=null" class="weui-cell">
+              <div class="weui-cell__hd">
+                <label class="weui-label">邮箱</label>
+              </div>
+              <div class="weui-cell__bd">
+                <span>{{invoice_detail.email}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--纸质-->
+        <div v-show="invoice_detail.billType==2">
+          <div class="page__bd">
+            <div class="weui-cells weui-cells_form">
+              <div class="weui-cell">
+                <div class="weui-cell__hd">
+                  <h4>收票人信息</h4>
+                </div>
+              </div>
+              <div v-show="invoice_detail.name!=null" class="weui-cell">
+                <div class="weui-cell__hd">
+                  <label class="weui-label">姓名</label>
+                </div>
+                <div class="weui-cell__bd">
+                  <span>{{invoice_detail.name}}</span>
+                </div>
+              </div>
+              <div v-show="invoice_detail.telephone!=null" class="weui-cell">
+                <div class="weui-cell__hd">
+                  <label class="weui-label">电话</label>
+                </div>
+                <div class="weui-cell__bd">
+                  <span>{{invoice_detail.telephone}}</span>
+                </div>
+              </div>
+              <div v-show="invoice_detail.address!=null" class="weui-cell">
+                <div class="weui-cell__hd">
+                  <label class="weui-label">地址</label>
+                </div>
+                <div class="weui-cell__bd">
+                  <span>{{invoice_detail.address}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--快递费-->
+          <div class="page__bd">
+            <div class="weui-cells">
+              <div class="weui-cell">
+                <div class="weui-cell__hd">快递费用</div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="weui-cell__bd">
+                  <p style="color: #E8393C">¥20</p>
+                </div>
+                <div class="weui-cell__ft">顺丰到付</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--跳转列表-->
+        <div class="page__bd">
+          <div class="weui-cells">
+            <a class="weui-cell weui-cell_access" href="javascript:;" @click="goDetail(invoice_detail.orderId)">
+              <div class="weui-cell__bd">
+                <p>一张发票，含{{orderAmount.length}}笔订单</p>
+              </div>
+              <div class="weui-cell__ft">
+              </div>
+            </a>
+          </div>
+        </div>
+        <!--进程图形-->
+        <div class="page__bd">
+          <div class="weui-cells" style="height: 100%">
+            <timeline>
+              <li style="padding-left:10px" class="vux-timeline-item">
+                <div class="vux-timeline-item-color vux-timeline-item-head-first">
+                  <i :class="{'weui-icon-success-no-circle':invoice_detail.status==2}" class="vux-timeline-item-checked weui-icon weui_icon_success_no_circle"></i>
+                </div>
+                <div class="vux-timeline-item-tail"></div>
+                <div class="vux-timeline-item-content">
+                  <h4 class="font14" :class="{'fontGray':invoice_detail.status!==2}" :style="{}">
+                    {{invoice_detail.status==2?'已':'未'}}邮寄
+                  </h4>
+                  <p style="padding-top:20px" v-show="invoice_detail.status!==2"></p>
+                  <p class="font14" style="color:#b0b0b0;padding-top:10px" v-show="invoice_detail.status==2">您的报销凭证已发出，请耐心等待</p>
+                </div>
+              </li>
+              <li style="padding-left:10px" class="vux-timeline-item">
+                <div class="vux-timeline-item-color vux-timeline-item-head-first">
+                  <i :class="{'weui-icon-success-no-circle':invoice_detail.status==1 || invoice_detail.status==2}" class="vux-timeline-item-checked weui-icon weui_icon_success_no_circle"></i>
+                </div>
+                <div class="vux-timeline-item-tail"></div>
+                <div class="vux-timeline-item-content">
+                  <h4 class="font14" :style="{}">
+                    已申请
+                  </h4>
+                  <p class="font14" style="color:#b0b0b0;padding-top:10px">{{invoice_detail.createTime | dateFormat('yyyy-MM-dd')}}</p>
+                  <p class="font14" style="color:#b0b0b0;padding-top:10px">获取报销凭证状态：申请成功，我们会尽快为您安排邮寄</p>
+                </div>
+              </li>
+            </timeline>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>

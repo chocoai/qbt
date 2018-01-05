@@ -1,0 +1,51 @@
+<template id="freight">
+<section>
+    <!--头-->
+    <div class="header tex-c" style="background-color:#fff !important;">
+      运费测算
+    </div>
+    <!--头 end-->
+    <div class="scroll">
+    <div style="margin-top: 80px;">
+        <div class="weui_cells weui_cells_access mar-t0 font14">
+          <div class="weui_cell">
+              <div class="weui_cell_hd"><label class="weui_label">寄包地址：</label></div>
+              <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" type="text"  placeholder="请选择地区" readonly @click="checkCity(true)" v-bind:value="jAddress"/>
+              </div>
+          </div>
+          <div class="weui_cell">
+              <div class="weui_cell_hd"><label class="weui_label">收包地址：</label></div>
+              <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" type="text"  placeholder="请选择地区" readonly @click="checkCity(false)" v-bind:value="dAddress"/>
+              </div>
+          </div>
+          <div class="weui_cell">
+              <div class="weui_cell_hd"><label class="weui_label">取包时间：</label></div>
+              <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" type="text"  placeholder="请选择取包时间" readonly @click="checkTime()" v-bind:value="send_time"/>
+              </div>
+          </div>
+        </div>
+    </div>
+    <div class="time02" v-show="expect_times.length>0" style="margin-top:15px;">
+        <div class="weui_cells" v-for="item in expect_times">
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <!-- <span >{{item.business_type | commFilter 'business_type' }}</span> -->
+                    <span >预计 {{item.deliver_time.split(',')[1]}} 送达</span>
+                </div>
+                <div class="weui_cell_ft font-red">{{item.sf_price | currency '￥'}}
+                  <p v-if="item.origin_price>item.sf_price"><s style="color:#888888">原价:{{item.origin_price | currency '￥'}}</s></p>
+                </div>
+            </div>
+        </div>
+        <p style="font-size:12px;margin-left:10px;color:#c70707;">由于部分地点位置偏远，节假日和取包时间超出等原因，会造成实际到达时间延后</p>
+     </div>
+     <div class="flex-box" style="margin-top:20px;">
+          <a href="javascript:;" class="weui_btn weui_btn_primary font14 btn"  @click="getAmount()">查 询</a>
+          <a href="javascript:locationTo('index.html');" class="weui_btn weui_btn_primary font14 btn">马上寄</a>
+     </div>
+  </div>
+</section>
+</template>

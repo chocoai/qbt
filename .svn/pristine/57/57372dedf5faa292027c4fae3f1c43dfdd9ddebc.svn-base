@@ -1,0 +1,116 @@
+package com.qbt.web.support.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.qbt.common.entity.PageEntity;
+import com.qbt.common.enums.ErrorCodeEnum;
+import com.qbt.common.exception.BusinessException;
+import com.qbt.common.util.BeanUtil;
+import com.qbt.common.util.Checker;
+import com.qbt.persistent.entity.Ticket;
+import com.qbt.persistent.entity.TicketPackage;
+import com.qbt.persistent.entity.TicketPackageOrder;
+import com.qbt.service.TicketPackageOrderService;
+import com.qbt.service.TicketPackageService;
+import com.qbt.service.TicketService;
+import com.qbt.web.pojo.ticket.TicketPackageOrderAddReqVo;
+import com.qbt.web.pojo.ticket.TicketPackageOrderPageReqVo;
+import com.qbt.web.pojo.ticket.TicketPackageOrderVo;
+import com.qbt.web.pojo.ticket.TicketPackageVo;
+import com.qbt.web.pojo.ticket.TicketVo;
+import com.qbt.web.support.TicketPackageOrderSupport;
+
+@Service
+public class TicketPackageOrderSupportImpl implements TicketPackageOrderSupport {
+
+	@Resource
+	TicketPackageOrderService ticketPackageOrderService;
+	
+	@Resource
+	TicketPackageService ticketPackageService;
+	
+	@Resource
+	TicketService ticketService;
+	
+	@Override
+	public List<TicketPackageOrderVo> findByPage(TicketPackageOrderPageReqVo reqVo) {
+		PageEntity<TicketPackageOrder> pageEntity = BeanUtil.pageConvert(reqVo, TicketPackageOrder.class);
+		
+		List<TicketPackageOrder> list = ticketPackageOrderService.findByPage(pageEntity);
+		List<TicketPackageOrderVo> voList = new ArrayList<TicketPackageOrderVo>();
+		for(TicketPackageOrder act : list){
+			TicketPackageOrderVo vo = BeanUtil.a2b(act, TicketPackageOrderVo.class);
+			voList.add(vo);
+		}
+		reqVo.setTotalCount(pageEntity.getTotalCount());
+		return voList;
+	}
+
+	@Override
+	public TicketPackageOrderVo findById(Integer id) {
+		TicketPackageOrder ticketPackageOrder = ticketPackageOrderService.findById(id);
+		TicketPackageOrderVo vo = BeanUtil.a2b(ticketPackageOrder, TicketPackageOrderVo.class);
+		return vo;
+	}
+
+	@Override
+	public int add(TicketPackageOrderAddReqVo vo) {
+		TicketPackageOrder order = BeanUtil.a2b(vo, TicketPackageOrder.class);
+		
+		// add order
+		int orderId = ticketPackageOrderService.insert(order);
+		
+		// add package		
+		List<TicketPackageVo> tpvos = vo.getTicketPackageVos();
+		if(tpvos != null) {
+			for(TicketPackageVo tpvo : tpvos) {
+				TicketPackage ticketPackage = BeanUtil.a2b(tpvo, TicketPackage.class);
+				ticketPackage.setOrderId(orderId);
+				int packageId = ticketPackageService.insert(ticketPackage);
+				
+				// add ticket
+				List<TicketVo> ticketvos = tpvo.getTicketVos();
+				if(ticketvos != null) {
+					for(TicketVo ticketvo: ticketvos) {
+						Ticket ticket = BeanUtil.a2b(ticketvo, Ticket.class);
+						ticket.setPackageId(packageId);
+						
+						ticketService.insert(ticket);
+					}
+				}
+			}
+		}
+		
+		
+		// add ticket
+		
+		return orderId;
+	}
+
+	@Override
+	public boolean update(TicketPackageOrderVo vo) {
+		TicketPackageOrder order = ticketPackageOrderService.findById(vo.getId());
+		if(Checker.isEmpty(order)) {
+			throw new BusinessException(ErrorCodeEnum.ERROR_VALID_FAIL, "无效的数据");
+		}
+		
+		order.setActivityName(vo.getActivityName());
+		order.setOperatorId(vo.getOperatorId());
+		order.setOperatorName(vo.getOperatorName());
+		order.setPayStatus(vo.getPayStatus());
+		order.setProxyUser(vo.getProxyUser());
+		order.setPurchaser(vo.getPurchaser());
+		order.setPurchaserAddress(vo.getPurchaserAddress());
+		order.setPurchaserNumber(vo.getPurchaserNumber());
+		order.setType(vo.getType());
+		order.setStatus(vo.getStatus());
+		
+		return ticketPackageOrderService.update(order) > 0;
+	}
+
+}

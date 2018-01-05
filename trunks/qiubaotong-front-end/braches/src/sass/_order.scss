@@ -1,0 +1,229 @@
+.ord-logistics {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border-radius: 0 !important;
+  padding: 10px 20px;
+  border-bottom: 1px solid #e6e6e6;
+}
+.ord-transport,.ord-transport-2,.ord-transport-3,.ord-transport-4 {
+  position: relative;;
+  width: 90%;
+  left: 5%;
+  top: 2px;
+  background-color: #cccccc;
+  height: 6px;
+  ul {
+      font-size: 0;
+      width: 140%;
+      position: absolute;
+      left: -20%;
+      top: -6px;
+      li {
+          text-align: center;
+          display: inline-block;
+          font-size: 12px;
+          width: 25%;
+          i {
+              border-radius: 50%;
+              background-color: #ccc;
+              width: 18px;
+              height: 18px;
+              display: block;
+              margin: 0 auto 4px;
+          }
+      }
+  }
+}
+.ord-transport-on {
+  position: absolute;
+  height: 6px;
+  left: 0;
+  top: 0;
+  background-color: #15ca5f;
+}
+.ord-transport {
+    .ord-transport-on {
+        width: 0;
+    }
+}
+.ord-transport-2 {
+    .ord-transport-on {
+        width: 33.3333%;
+    }
+}
+.ord-transport-3 {
+    .ord-transport-on {
+        width: 66.6666%;
+    }
+}
+.ord-transport-4 {
+    .ord-transport-on {
+        width: 100%;
+    }
+}
+.ord-transport li:first-child,.ord-transport-2 li:nth-child(1),.ord-transport-3 li:nth-child(1),.ord-transport-3 li:nth-child(2) {
+    i {
+      background-color: #15ca5f !important;
+    }
+}
+.ord-transport-2 li:nth-child(2),.ord-transport-3 li:nth-child(1),.ord-transport-3 li:nth-child(2) {
+  i {
+     background-color: #15ca5f !important;
+    }
+}
+.ord-transport-3 li:nth-child(3) {
+  i {
+     background-color: #15ca5f !important;
+    }
+}
+.ord-transport-4 li {
+  i {
+     background-color: #15ca5f !important;
+    }
+}
+.log-detail {
+  margin-top: 20px;
+  border-left: 1px solid $secondColor;
+  min-height: 250px;
+  position: relative;
+  li {
+    margin-top: 20px;
+    padding-left: 20px;
+    position: relative;
+
+  }
+}
+.log-icon,.log-icon02 {
+  position: absolute;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  left: -6px;
+  top: 4px;
+  z-index: 2;
+  display: block;
+}
+.log-icon {
+  background-color: $secondColor;
+}
+.log-icon02 {
+  border: 1px solid $secondColor;
+  background-color: #fff;
+}
+
+.ord-details-lay {
+    padding-top: 45px;
+  .weui_cells {
+    margin-top: 0;
+    .weui_cell {
+      padding: 10px 20px 0;
+
+    }
+  }
+  .weui_cells:before {
+    border: 0;
+  }
+  .weui_cells:after {
+    border: 0;
+  }
+  .or-d-main {
+      padding-bottom: 10px;
+  }
+}
+.ord-details-botton {
+    position: absolute;
+    bottom: 0;
+    height: 55px;
+    width: 100%;
+    border-top: 1px solid #ddd;
+    .weui_cell {
+        padding: 0;
+    }
+    a {
+    padding: 10px 25px;
+    border-radius: 0;
+    margin-left: 20px;
+    }
+    .weui_btn:after {
+    border-radius: 0;
+    border: 0;
+    }
+}
+.ordre-btn {
+  border-color: #cccccc;
+  display: inline-block;
+  padding:2px 14px;
+  line-height: 1.2;
+  position: relative;
+  color: #000;
+}
+.num {
+  position: absolute;
+  min-width: 20px;
+  padding: 2px;
+  border-radius: 20px;
+  background-color: #f85a5c;
+  color: #fff;
+  font-size: 12px;
+  top: -10px;
+  right: -10px;
+  font-style: normal;
+}
+.or-address {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    img {
+        max-height: 36px;
+        margin-right: 10px;
+    }
+}
+.order-all-lay {
+  position: relative;
+  .weui_cells {
+    margin-top: 0;
+    .weui_cell {
+      padding-top: 0;
+      padding-bottom: 0;
+      line-height: 28px;
+      align-items: flex-start;
+      -webkit-align-items : flex-start;
+      .weui_cell_ft {
+          font-weight: 600;
+      }
+    }
+    }
+    .weui_cells:before {
+      border: 0;
+    }
+    .weui_cells:after {
+      border: 0;
+    }
+    .o-p-state {
+      border-radius: 0px 0px 6px 6px;
+      color: #fff;
+      width: 60px;
+      padding: 2px 0;
+      font-size: $font12;
+      line-height: 2;
+    }
+}
+.o-p-btn {
+    display: block;
+    border-top: 1px solid #d9d9d9;
+    margin-top: 20px;
+  a {
+    font-size: $font14;
+    margin: 10px 0 10px 5px !important;
+    float: right;
+    line-height: 1.2;
+    padding: 6px 10px;
+  }
+}
+.order-none {
+  font-size: 18px;
+  color: #d8d8d8;
+  margin-top: 80px;
+  img {
+    max-height: 60px;
+  }
+}

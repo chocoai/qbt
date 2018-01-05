@@ -1,0 +1,58 @@
+<template id="sale-info" >
+<section class="section">
+<div class="header tex-c" style="background-color:#fff;">
+  <a href="javascript:;" class="back" @click="goBack()"><img src="/img/back.png" /></a>
+  销售人员通道
+</div>
+<div class="scroll">
+    <!--按钮-->
+    <div class="lo-btn-lay">
+        <div class="flex">
+            <div class="flex-1">
+              <a href="javascript:;" @click="goV2Nav('agent_v3.html','/')"><img src="/img/org-x.png" style="height:88px;width:88px;"/>
+                <label>代下单</label>
+              </a>
+            <!--   <a href="agent_v3.html"><img src="/img/org-x.png" style="height:88px;width:88px;"/>
+                <label>代下单</label>
+              </a> -->
+          <!--     <a href="agent.html"><img src="/img/org-x.png" style="height:88px;width:88px;"/>
+                <label>代下单</label>
+              </a> -->
+              <!--<a href="javascript:;" @click="goView('wechat_user_view')"><img src="/img/org-x.png" style="height:88px;width:88px;"/>-->
+                <!--<label>代下单</label>-->
+              <!--</a>-->
+            </div>
+            <div class="flex-1">
+              <a href="javascript:;" @click="goView('sale_report_view')"><img src="/img/sale_02.png" style="height:88px;width:88px;"/>
+                  <label>我的业绩</label>
+              </a>
+            </div>
+        </div>
+        <div class="flex" style="margin-top: 30px;">
+            <div class="flex-1">
+              <a href="javascript:;" @click="_goV2Nav('index.html','/order')"><img src="/img/ordericon01.png" style="height:88px;width:88px;"/>
+                <label>代下单记录</label>
+              </a>
+            </div>
+            <div class="flex-1">
+              <a href="javascript:;" @click="goView('sale_commission_view')"><img src="/img/sale_04.png" style="height:88px;width:88px;"/>
+                <label>提成方式</label>
+              </a>
+            </div>
+        </div>
+        <div class="flex" style="margin-top: 30px;">
+            <div class="flex-1">
+              <a href="tel:4006090990"><img src="/img/phone02.png" style="height:88px;width:88px;"/>
+                <label>联系我们</label>
+              </a>
+            </div>
+            <div class="flex-1">
+              <a href="javascript:;" @click="goView('sale_data_view')"><img src="/img/sale_01.png" style="height:88px;width:88px;"/>
+                <label>个人资料</label>
+              </a>
+            </div>
+        </div>
+      </div>
+</div>
+</section>
+</template>
