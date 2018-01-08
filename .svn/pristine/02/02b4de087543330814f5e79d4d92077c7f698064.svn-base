@@ -1,0 +1,86 @@
+loginSupportImpl.java
+
+UserWeixin user = userWeixinService.findByOpenId(openid);
+		if(user ==  null){
+		
+		
+
+待下单，如果有够选了激活
+
+支付成功后，需要处理激活		
+
+----------
+支付回调：
+@RequestMapping("/callbak")
+public class CallBackController {
+
+weixinPayReturn（）
+
+}
+
+支付发起：
+PyamentSupportImpl.java
+{
+	pay(orderId, openid)
+}
+
+PyamentController.java
+ 	/**
+	 *  订单下单微信支付
+	  * @Title: payOrder
+	  * @Description: TODO
+	  * @author: share 2016年8月13日
+	  * @modify: share 2016年8月13日
+	  * @param orderInfo
+	  * @return
+	 */
+	@RequestMapping("/v2/order")
+	public Result<Map<String,String>> payOrderV2(HttpServletRequest request,String orderId){
+	
+	
+	
+	
+
+TODO:
+
+
+1. 配置文件更改[ok]
+
+@Value("${ticket_package_notify_url}") // TODO add it to configure
+
+1.1 wechat.properties
+	增加一个微信发送模板
+
+2. 微信的通知模板
+ 
+模板Id：wait_pay_tip
+//下推微信通知 TODO 微信下发
+//wechatMessageSupport.ticketPackageSuccessPayNotify(vipInfo);	
+
+
+3. ticketPackageActivity 增加一个更新的接口
+//1 - active；2- inactive
+	
+更改订单支付状态
+
+4. 球包规则增加了一个实际支付价格payPrice，增加的时候需要设置下 【ui需要做】
+	原来的price是票面价格
+
+	
+5. 支付url：
+/ticketPackagePay/pay
+
+6. 下单	
+/ticketPackageOrder/order
+
+7. web端实现一个订单详情
+http://localhost:7070/system-web/ticketPackageOrder/detail.api?id=27
+
+8. web支付pay，需要校验订单和价格
+
+
+部署文档：
+球包通服务器目录：
+球包通服务器信息及发布.docx
+
+星期二下午三点

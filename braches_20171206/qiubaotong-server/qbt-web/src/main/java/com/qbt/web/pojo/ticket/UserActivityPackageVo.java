@@ -16,6 +16,8 @@ public class UserActivityPackageVo {
 	String activityName;
 	float price;
 	int effectiveDay;
+	int packageType;
+	Date activateTime;
 	
 	public List<UserPackageTicketVo> getTicketVos() {
 		return ticketVos;
@@ -65,12 +67,6 @@ public class UserActivityPackageVo {
 	public void setOperatorName(String operatorName) {
 		this.operatorName = operatorName;
 	}
-	public Date getExpirationTime() {
-		return expirationTime;
-	}
-	public void setExpirationTime(Date expirationTime) {
-		this.expirationTime = expirationTime;
-	}
 	public String getActivityName() {
 		return activityName;
 	}
@@ -89,4 +85,23 @@ public class UserActivityPackageVo {
 	public void setEffectiveDay(int effectiveDay) {
 		this.effectiveDay = effectiveDay;
 	}
+	public int getPackageType() {
+		return packageType;
+	}
+	public void setPackageType(int packageType) {
+		this.packageType = packageType;
+	}
+	public Date getExpirationTime() {
+		return expirationTime;
+	}
+	public void setExpirationTime(Date expirationTime) {
+		this.expirationTime = expirationTime;
+	}
+	public Date getActivateTime() {
+		return activateTime;
+	}
+	public void setActivateTime(Date activateTime) {
+		this.activateTime = activateTime;
+	}
+	
 }

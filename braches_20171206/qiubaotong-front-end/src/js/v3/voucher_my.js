@@ -20,7 +20,17 @@ var voucher_my_view = Vue.extend({
         },
         //获取代金券列表
         getVoucherList: function() {
-            console.log(123);
+            var self = this;
+            $.commonAjax({
+                url : '/myTicketPackage/listAvailableTicket.api',
+                success : function(data){
+                    var datas = data.datas;
+                    self.voucherList = datas;
+                },
+                error : function(){
+                    $.toast('查询失败');
+                }
+            });
         }
     }
 });

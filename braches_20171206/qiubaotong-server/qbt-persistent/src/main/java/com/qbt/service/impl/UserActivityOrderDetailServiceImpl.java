@@ -44,13 +44,18 @@ public class UserActivityOrderDetailServiceImpl implements UserActivityOrderDeta
 	}
 
 	@Override
-	public List<UserActivityPackage> findlistUsed(int userId,String sysdatetime) {
-		return userActivityOrderDetailMapper.findlistUsed(userId, sysdatetime);
+	public List<UserActivityPackage> findlistUsed(int userId) {
+		return userActivityOrderDetailMapper.findlistUsed(userId);
 	}
 
 	@Override
 	public List<UserActivityPackage> findlistNotActive(int userId) {
 		return userActivityOrderDetailMapper.findlistNotActive(userId);
+	}
+
+	@Override
+	public int findEffectiveDayByOrderDetailId(int orderDetailId) {
+		return userActivityOrderDetailMapper.findEffectiveDayByOrderDetailId(orderDetailId);
 	}
 
 }

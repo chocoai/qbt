@@ -42,7 +42,9 @@ public interface UserActivityOrderDetailService {
 	 * @param expirationTime
 	 * @return
 	 */
-	List<UserActivityPackage> findlistUsed(int userId,String sysdatetime);
+	List<UserActivityPackage> findlistUsed(int userId);
 	
 	List<UserActivityPackage> findlistNotActive(int userId);
+	
+	int findEffectiveDayByOrderDetailId(int orderDetailId);
 }

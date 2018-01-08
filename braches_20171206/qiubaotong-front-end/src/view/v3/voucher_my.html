@@ -22,7 +22,7 @@
                     <div class="weui_tab_bd">
                         <!-- 可使用代金券 -->
                         <div class="weui-panel weui-panel_access">
-                            <div class="weui-panel__bd">
+                            <div class="weui-panel__bd" v-for="item in voucherList" :key="item.id">
                                 <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg" style="padding:15px 15px 15px 6px">
                                     <div class="weui-media-box__hd voucher-property">
                                         <p>￥60</p>
@@ -35,6 +35,10 @@
                                     </div>
                                     <div class="voucher-use" @click="useNow()">立即使用</div>
                                 </a>
+                            </div>
+                            <div class="order-none tex-c" v-show="voucherList.length == 0" style="margin-top:50px;color:#ccc;">
+                                <img src="/img/nocoupon.png" alt="" />
+                                <p>无代金券信息</p>
                             </div>
                         </div>
                     </div>

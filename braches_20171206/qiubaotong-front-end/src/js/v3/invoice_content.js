@@ -158,19 +158,19 @@ var invoice_content_view = Vue.extend({
         type : 'get',
         data : {},
         success : function (data) {
-          if(data.datas!==''){
-            _self.personalType = data.datas.orgType;
-            _self.invoiceType = data.datas.billType;
-            _self.perEmail = data.datas.email;
-            _self.taxNum = data.datas.taxFileNumber;
-            _self.comNum = data.datas.bankNumber;
-            _self.comBank =  data.datas.bank;
-            _self.comTel = data.datas.companyTelephone;
-            _self.comAddr = data.datas.companyAddress;
-            _self.inName = data.datas.title;
-            _self.perName = data.datas.name;
-            _self.perTel = data.datas.telephone;
-            _self.perAddr = data.datas.address;
+          if(data.datas&&data.datas!=='') {
+              _self.personalType = data.datas.orgType;
+              _self.invoiceType = data.datas.billType;
+              _self.perEmail = data.datas.email;
+              _self.taxNum = data.datas.taxFileNumber;
+              _self.comNum = data.datas.bankNumber;
+              _self.comBank = data.datas.bank;
+              _self.comTel = data.datas.companyTelephone;
+              _self.comAddr = data.datas.companyAddress;
+              _self.inName = data.datas.title;
+              _self.perName = data.datas.name;
+              _self.perTel = data.datas.telephone;
+              _self.perAddr = data.datas.address;
           }
         },
         error : function (err) {

@@ -241,7 +241,10 @@ angular.module("app.views")
                             },
                             //取消
                             end: function () {
-
+                                //选择了微信用户、推送微信支付消息
+                                if ($scope.order.openid) {
+                                    $scope.pushPay(data.datas);
+                                }
                             }
                         });
                     });
@@ -261,6 +264,24 @@ angular.module("app.views")
                 //支付成功
                 if (data.code == "0000") {
                     showInfo("确认支付成功");
+                } else {
+                    showWarn(data.msg);
+                }
+
+            });
+
+        }
+
+        //推送支付消息
+        $scope.pushPay = function (orderId) {
+            CommonService.httpRequest({
+                url: '/proxyTicketPackage/pushPayment.api',
+                method: 'post',
+                data: {id: orderId, paymentUrl: wechatUrl + '/view/pkgPushPay.html?id=' + orderId}
+            }).then(function (data) {
+                //支付成功
+                if (data.code == "0000") {
+                    showInfo("推送客户支付成功");
                 } else {
                     showWarn(data.msg);
                 }

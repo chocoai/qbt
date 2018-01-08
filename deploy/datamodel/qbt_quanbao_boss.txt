@@ -82,7 +82,7 @@ ticketPackageActivityController
 			id
 			activity_name
 			description
-			status
+			status  //1 - active；2- inactive
 			rule_id			
 			effective_day
 			create_time
@@ -162,7 +162,7 @@ TicketPackageOrderController
 		purchaser_phone_number int
 		purchaser_address	varchar			
 		status(0 - inactive; 1 - active)		
-		pay_status (0  - paid ; 1 - not paid)
+		pay_status (0  - not paid ; 1 - paid)
 		proxy_user_id -生成客服
 		proxy_user
 		operator_id  -当前登录用户 操作员

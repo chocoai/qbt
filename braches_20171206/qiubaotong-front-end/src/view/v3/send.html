@@ -65,16 +65,16 @@
                 <div class="weui-cell__ft">
                 </div>
             </div>
-            <!--<div class="weui-cell weui-cell_access">-->
-                <!--<div class="weui-cell__hd ">-->
-                    <!--开球时间-->
-                <!--</div>-->
-                <!--<div class="weui-cell__bd" style="text-align:right;padding-right:15px;">-->
-                <!--</div>-->
-                <!--<datetime class="data_time" :min-hour="minH" :max-hour="maxH" :confirm-text="'确定'" :cancel-text="'取消'"-->
-                          <!--:start-date=start_date clear-text="清空" @on-clear="clearLimit" v-model="limitHourValue"-->
-                          <!--format="YYYY-MM-DD HH" :default-selected-value="defaultSelVal"></datetime>-->
-            <!--</div>-->
+            <div class="weui-cell weui-cell_access">
+                <div class="weui-cell__hd ">
+                    开球时间
+                </div>
+                <div class="weui-cell__bd" style="text-align:right;padding-right:15px;">
+                </div>
+                <datetime class="data_time" :min-hour="minH" :max-hour="maxH" :confirm-text="'确定'" :cancel-text="'取消'"
+                          :start-date=start_date clear-text="清空" @on-clear="clearLimit" v-model="limitHourValue"
+                          format="YYYY-MM-DD HH" :default-selected-value="defaultSelVal"></datetime>
+            </div>
             <!--<div class="weui-cell weui-cell_access" @click="showBagNum">-->
             <!--<div class="weui-cell__hd ">-->
             <!--球包数量-->

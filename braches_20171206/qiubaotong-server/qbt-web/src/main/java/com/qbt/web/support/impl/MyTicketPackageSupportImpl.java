@@ -3,6 +3,7 @@ package com.qbt.web.support.impl;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.qbt.common.util.ScpUtil;
 import com.qbt.persistent.entity.ActivityTicketPackage;
 import com.qbt.persistent.entity.UserActivityOrderDetail;
 import com.qbt.persistent.entity.UserActivityPackage;
@@ -59,10 +61,9 @@ public class MyTicketPackageSupportImpl implements MyTicketPackageSupport {
 			userActivityPackageVo.setStatus(u.getStatus());
 			userActivityPackageVo.setOperatorId(u.getOperatorId());
 			userActivityPackageVo.setOperatorName(u.getOperatorName());
-			userActivityPackageVo.setExpirationTime(u.getExpirationTime());
 			userActivityPackageVo.setActivityName(u.getActivityName());
 			userActivityPackageVo.setPrice(u.getPrice());
-			userActivityPackageVo.setEffectiveDay(u.getEffectiveDay());
+			userActivityPackageVo.setPackageType(u.getPackageType());
 			result.add(userActivityPackageVo);
 		   }
 		}
@@ -72,8 +73,7 @@ public class MyTicketPackageSupportImpl implements MyTicketPackageSupport {
 
 	@Override
 	public List<UserActivityPackageVo> findlistUsed(int userId) {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		List<UserActivityPackage> lists=userActivityOrderDetailService.findlistUsed(userId,df.format(new Date()).toString());
+		List<UserActivityPackage> lists=userActivityOrderDetailService.findlistUsed(userId);
 		List<UserActivityPackageVo> result=new ArrayList<UserActivityPackageVo>();
 		UserActivityPackageVo userActivityPackageVo=null;
 		
@@ -88,8 +88,10 @@ public class MyTicketPackageSupportImpl implements MyTicketPackageSupport {
 			userActivityPackageVo.setOperatorId(u.getOperatorId());
 			userActivityPackageVo.setOperatorName(u.getOperatorName());
 			userActivityPackageVo.setExpirationTime(u.getExpirationTime());
+			userActivityPackageVo.setActivateTime(u.getActivateTime());
 			userActivityPackageVo.setActivityName(u.getActivityName());
 			userActivityPackageVo.setPrice(u.getPrice());
+			userActivityPackageVo.setPackageType(u.getPackageType());
 			userActivityPackageVo.setEffectiveDay(u.getEffectiveDay());
 			result.add(userActivityPackageVo);
 		   }
@@ -119,6 +121,8 @@ public class MyTicketPackageSupportImpl implements MyTicketPackageSupport {
 				userPackageTicketVo.setUseStatus(u.getUseStatus());
 				userPackageTicketVo.setUserId(u.getUserId());
 				userPackageTicketVo.setExpirationTime(u.getExpirationTime());
+				userPackageTicketVo.setEffectiveDay(u.getEffectiveDay());
+				userPackageTicketVo.setActivate_time(u.getActivateTime());
 				result.add(userPackageTicketVo);
 			}
 		}
@@ -146,6 +150,8 @@ public class MyTicketPackageSupportImpl implements MyTicketPackageSupport {
 				userPackageTicketVo.setUseStatus(u.getUseStatus());
 				userPackageTicketVo.setUserId(u.getUserId());
 				userPackageTicketVo.setExpirationTime(u.getExpirationTime());
+				userPackageTicketVo.setEffectiveDay(u.getEffectiveDay());
+				userPackageTicketVo.setActivate_time(u.getActivateTime());
 				result.add(userPackageTicketVo);
 			}
 		}
@@ -153,7 +159,7 @@ public class MyTicketPackageSupportImpl implements MyTicketPackageSupport {
 	}
 	
 	@Override
-	public String activate(int packageId) {
+	public String activate(int packageId,String activateUser,String activatePhoneNumber,String code,int codeStatus) {
 		String result="";
 		Object obj=userActivityPackageService.findOrderDetailIdByPackageId(packageId);
 		if(obj!=null){
@@ -161,12 +167,22 @@ public class MyTicketPackageSupportImpl implements MyTicketPackageSupport {
 			//判断券包是否已经激活
 			UserActivityOrderDetail userActivityOrderDetail=userActivityOrderDetailService.findById(orderDetailId);
 			if(userActivityOrderDetail!=null){
-				if(userActivityOrderDetail.getActiveStatus()==1){
-					result="亲，你已经激活过了，无需重复激活!";
+				if(userActivityOrderDetail.getActiveStatus()==1||userActivityOrderDetail.getPackageType()==1||userActivityOrderDetail.getPackageType()==2){
+					result="亲,操作失败,该券包已经激活或已赠送!";
 				}else{
+					int effectiveDay=userActivityOrderDetailService.findEffectiveDayByOrderDetailId(orderDetailId);
 					UserActivityOrderDetail ticket =new UserActivityOrderDetail();
 					ticket.setId(orderDetailId);
 					ticket.setActiveStatus(1);
+					ticket.setPackageType(0);
+					ticket.setActivateTime(new Date());
+					Calendar cal = Calendar.getInstance();   
+					cal.add(Calendar.DAY_OF_MONTH, effectiveDay);  
+					ticket.setExpirationTime(cal.getTime());
+					ticket.setActivateUser(activateUser);
+					ticket.setActivatePhoneNumber(activatePhoneNumber);
+					ticket.setCode(code);
+					ticket.setCodeStatus(codeStatus);
 					userActivityOrderDetailService.update(ticket);
 					UserActivityPackage ticketPackage = new UserActivityPackage();
 					ticketPackage.setId(packageId);
@@ -260,6 +276,10 @@ public class MyTicketPackageSupportImpl implements MyTicketPackageSupport {
 					//根据url产生一个二维码图片
 					try{
 						ZxingUtil.createQRCode(url, new File(qrCodePath));
+						
+						//scp handle
+//						ScpUtil.uploadFile(qrCodePath, packageId+"_qrCode"+".png", scpDir, cfg);
+						
 						qrCode_data=ZxingUtil.imageTobyte(qrCodePath);
 					}catch(Exception e){
 						e.printStackTrace();

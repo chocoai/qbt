@@ -121,7 +121,7 @@
                                 <!-- vincent 2017-11-23 update 三种状态都需要返程 -->
                                 <a v-if="isReplace == 0" @click="backOrder(item)" style="border: 1px solid #999999;background: none;color: #999999;" href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">返程</a>
                                 <a v-if="orderStatus==4 && item.cancelAble==true && isReplace == 0" style="border: 1px solid #999999;background: none;color: #999999;" href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default" @click="cancel(item,4)">取消</a>
-                                <a v-if="isReplace==0 && item.isConfirmReceive!=true" v-show="orderStatus==2" @click="confirmReceive(item.id)" style="border: 1px solid #15ca5f;background: none;color: #15ca5f;" href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">确认已送达</a>
+                                <a v-if="isReplace==0 && item.isConfirmReceive!=true" v-show="orderStatus==3||orderStatus==2" @click="confirmReceive(item.id)" style="border: 1px solid #15ca5f;background: none;color: #15ca5f;" href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">确认已送达</a>
                                 <a @click="showDetails_b(index,2)" style="border: 1px solid #15ca5f;background: none;color: #15ca5f;" href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">{{orderStatus==2?'物流追踪':'详情'}}</a>
                             </span>
                         </p>

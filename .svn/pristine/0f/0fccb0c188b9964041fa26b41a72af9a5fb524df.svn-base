@@ -1,0 +1,70 @@
+.my-voucher {
+  .weui_tab {
+    background-color: #f3f3f3;
+    .weui_media_hd.voucher-property1 {
+      width: 100px;
+      height: 100px;
+      color: #fff;
+      font-size: 14px;
+      background-image: url('/img/1.png');
+      >p {
+        line-height: 100px;
+        font-size: 22px;
+      }
+    }
+    .weui_media_bd {
+      overflow: hidden;
+      .weui_media_title.voucher-name1 {
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+      .weui_media_desc.voucher-time1 {
+        font-size: 15px;
+        line-height: 20px;
+      }
+    }
+    // 立即使用-二维码赠送
+    .voucher-use,.voucher-active,.voucher-code {
+      width: 70px;
+      height: 30px;
+      box-sizing: border-box;
+      border: 2px solid #15ca5f;
+      border-radius: 30px;
+      color: #15ca5f;
+      text-align: center;
+      line-height: 28px;
+      font-size: 12px;
+    }
+    // 激活
+    .voucher-active {
+      background-color: #15ca5f;
+      border-radius: 30px;
+      color: #fff;
+      margin-bottom: 15px;
+    }
+  }
+}
+
+
+//激活券包弹窗
+.layui-m-layerchild.layui-m-anim-scale .layui-m-layercont {
+  padding: 0;
+}
+
+.layui-m-layerbtn span {
+    font-size: 18px!important;
+}
+
+.activeCode {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  background-color: #15ca5f;
+  width: 70px;
+  height: 35px;
+  border-radius: 5px;
+  color: #fff;
+  text-align: center;
+  line-height: 35px;
+  font-size: 15px;
+}

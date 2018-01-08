@@ -15,6 +15,7 @@ public class UserPackageTicketVo {
 	int userId;
 	Date expirationTime;
 	int effectiveDay;
+	Date activate_time;
 	
 	public int getId() {
 		return id;
@@ -87,6 +88,12 @@ public class UserPackageTicketVo {
 	}
 	public void setEffectiveDay(int effectiveDay) {
 		this.effectiveDay = effectiveDay;
+	}
+	public Date getActivate_time() {
+		return activate_time;
+	}
+	public void setActivate_time(Date activate_time) {
+		this.activate_time = activate_time;
 	}
 
 }

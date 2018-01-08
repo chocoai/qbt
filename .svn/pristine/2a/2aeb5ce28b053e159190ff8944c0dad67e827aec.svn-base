@@ -1,0 +1,85 @@
+<template id="order_voucherbag">
+    <section class="section bg">
+        <!--头-->
+        <div class="header tex-c bg-white">
+          <a href="javascript:;" class="back" @click="goBack()"><img src="/img/back.png" /></a>
+          我的券包
+        </div>
+        <!-- 导航栏 -->
+        <div class="scroll marhead">
+            <div class="navbar my-voucher scroll mar-t0">
+                <div class="bd" style="height: 100%;">
+                    <div class="weui_tab">
+                        <div class="weui_navbar bg-white"  style="position:static;">
+                            <div class="weui_navbar_item" :class="{'weui_bar_item_on':voucher_tab == 1}" @click="toggleTab(1)">
+                                未激活券包
+                            </div>
+                            <div class="weui_navbar_item" :class="{'weui_bar_item_on':voucher_tab == 2}" @click="toggleTab(2)">
+                                已使用券包
+                            </div>
+                        </div>
+                        <div class="weui_panel_bd">
+                            <!-- 未激活券包 -->
+                            <div v-show="voucher_tab == 1">
+                                <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg" v-for="item in notActiveList" :key="item.id" style="padding:15px 15px 15px 6px;background-color:#fff;">
+                                    <div class="weui_media_hd voucher-property1">
+                                        <p>￥{{item.price}}</p>
+                                    </div>
+                                    <div class="weui_media_bd">
+                                        <h4 class="weui_media_title voucher-name1">{{item.activityName}}</h4>
+                                    </div>
+                                    <div>
+                                        <div class="voucher-active" @click="active(1)">激活</div>
+                                        <div class="voucher-code" @click="codeSend()">二维码赠送</div>
+                                    </div>
+                                </a>
+                                <div class="order-none tex-c" v-show="notActiveList.length == 0">
+                                    <img src="/img/nocoupon.png" alt="" />
+                                    <p>无券包信息</p>
+                                </div>
+                            </div>
+                            <!-- 已使用券包 -->
+                            <div v-show="voucher_tab == 2">
+                                <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg" v-for="item in activedList" :key="item.id" style="padding:15px 15px 15px 6px;background-color:#fff;">
+                                    <div class="weui_media_hd voucher-property1">
+                                        <p>￥{{item.price}}</p>
+                                    </div>
+                                    <div class="weui_media_bd">
+                                        <h4 class="weui_media_title voucher-name1">{{item.activityName}}</h4>
+                                        <p class="weui_media_desc voucher-time1">{{item.activateTime | dateFormat 'yyyy.MM.dd'}} - {{item.expirationTime | dateFormat 'yyyy.MM.dd'}}</p>
+                                    </div>
+                                    <div class="voucher-use">立即使用</div>
+                                </a>
+                                <div class="order-none tex-c" v-show="activedList.length == 0">
+                                    <img src="/img/nocoupon.png" alt="" />
+                                    <p>没有该类型券包</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 弹框 -->
+        <div style="display: none;" class="tankuang">
+            <form action="#">
+                <div style="padding:15px;border-bottom:1px solid #ccc">
+                    <label for="name" style="font-size:16px;">姓名：</label>
+                    <input type="text" id="name" style="border:0 none;outline: none;font-size:16px;">
+                </div>
+                <div style="padding:15px;border-bottom:1px solid #ccc;position:relative;">
+                    <label for="cellphone" style="font-size:16px;">手机：</label>
+                    <input type="number" id="cellphone" style="border:0 none;outline: none;font-size:16px;">
+                    <div class="activeCode">
+                        <span>验证码</span>
+                    </div>
+                </div>
+                <div style="padding:15px;border-bottom:1px solid #ccc">
+                    <label for="code" style="font-size:16px;">验证码：</label>
+                    <input type="text" id="code" style="border:0 none;outline: none;font-size:16px;">    
+                </div>
+            </form>
+            <p style="color:blue;text-align:center;font-size:16px;line-height: 60px;">券包激活后不能赠送！</p>
+        </div>
+    </section>
+</template>

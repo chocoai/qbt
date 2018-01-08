@@ -257,7 +257,7 @@
         var token = $.ls("token");
     	if(!token){
     		//var code = $.getQueryString('code');
-             var code="081TfhQP083L7c24p2PP0VutQP0TfhQF";
+             var code="001RRVpz0g4rMg1K0Qqz0lrwpz0RRVpN";
     		if(code == null){
     			var fromurl = location.href;
     			var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+$.appId+'&redirect_uri=' + encodeURIComponent(fromurl) + '&response_type=code&scope=snsapi_userinfo&state=0#wechat_redirect';

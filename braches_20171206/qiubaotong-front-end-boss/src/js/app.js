@@ -4,12 +4,14 @@
  // var wBaseUrl = "/api/wapi";
  // var fBaseUrl = "/file";
  // var rBasetUrl = '/api/report';
+ // var wechatUrl='http://weixin.qiubaotong.com';
 
 //var baseUrl = "http://localhost:7070/system-web";
 var baseUrl = "http://qbt.missionsky.cn:6047/system-web";
 var wBaseUrl = "http://qbt.missionsky.cn:6047/qbt-web";
 var fBaseUrl = "http://qbt.missionsky.cn:6047/file";
 var rBasetUrl = 'http://qbt.missionsky.cn:6047/qbt-report';
+var wechatUrl='http://qbt.wechat.missionsky.cn';
 
 
 //person

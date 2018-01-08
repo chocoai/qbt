@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>球包通</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Cache-Control" content="max-age=0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" type="text/css" href="/assets/css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="{{{/css/main.min.css}}}">
+</head>
+<body class="bg" ontouchstart id="app">
+<div class="container">
+    <!--头-->
+    <div class="header tex-c bg bd-b">
+        券包支付
+    </div>
+    <!--头 end-->
+    <div class="scroll">
+        <div class="Apply mar">
+            <div class="bg-white">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">券包类型：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        {{orderInfo.type==0?"电子券":"优惠券"}}
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">券包名称：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        {{orderInfo.activityName}}
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">券包属性：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <ul v-if="orderInfo.userActivityOrderDetailVos&&orderInfo.userActivityOrderDetailVos.length>0">
+                            <li v-for="item in orderInfo.userActivityOrderDetailVos[0].ticketVos">
+                                {{item.ticketPrice}}张{{ item.ticketName }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">数量：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        {{orderInfo.activityAmount}}
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">姓名：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        {{orderInfo.purchaser}}
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">手机号：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        {{orderInfo.purchaserNumber}}
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui-label">地址：</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        {{orderInfo.purchaserAddress}}
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui-label">订单总额：</label></div>
+                    <div class="weui_cell_bd weui_cell_primary" style="color: red">
+                        {{orderInfo.payAmount|currency('￥')}}
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">支付状态：</div>
+                    <div class="weui_cell_bd weui_cell_primary" style="color: red">
+                        {{orderInfo.payStatus==0?"待支付":"已支付"}}
+                    </div>
+                </div>
+            </div>
+
+            <a v-if="orderInfo.payStatus==0" href="javascript:;" class="weui_btn weui_btn_primary font14"
+               @click="goPay()">去支付</a>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/assets/js/libs.min.js?v2"></script>
+<script src="/assets/js/jweixin-1.0.0.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/pkgPushPay.js}}}"></script>
+</html>

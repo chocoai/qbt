@@ -172,7 +172,8 @@ var agent_address_course_select_view = Vue.extend({
                 item.siteName = item.name;
                 //item.name = '';
             }
-            setStore('addrMsg', item);
+            //复制对象以防止对象被修改影响列表显示
+            setStore('addrMsg', $.extend({}, item));
             setStore('tabStyle', type);
             //setStore('label_type', this.addressType)
             router.push('/agent_address');

@@ -81,6 +81,7 @@
 		u2.*,
 		u1.user_id,
 		u1.expiration_time,
+		u1.activate_time,
 		u5.effective_day
 		FROM
 		user_activity_order_detail u1,
@@ -96,6 +97,7 @@
 		AND u2.package_id=u4.id
 		AND u4.order_id=u3.id
 		AND u3.activity_id=u5.id
+		AND u1.user_id=u4.user_id
 		AND u3.status=1
 		AND u3.pay_status=1
 		AND u1.active_status=1
@@ -110,6 +112,7 @@
 		u2.*,
 		u1.user_id,
 		u1.expiration_time,
+		u1.activate_time,
 		u5.effective_day
 		FROM
 		user_activity_order_detail u1,
@@ -125,6 +128,7 @@
 		AND u2.package_id=u4.id
 		AND u4.order_id=u3.id
 		AND u3.activity_id=u5.id
+		AND u1.user_id=u4.user_id
 		AND u3.status=1
 		AND u3.pay_status=1
 		AND u1.active_status=1
@@ -149,6 +153,7 @@
 		<result column="user_id" property="userId" />
 		<result column="expiration_time" property="expirationTime" />
 		<result column="effective_day" property="effectiveDay" />
+		<result column="activate_time" property="activateTime" />
 	</resultMap>
 
 	<update id="updateTicketByUsed" parameterType="java.lang.Integer">

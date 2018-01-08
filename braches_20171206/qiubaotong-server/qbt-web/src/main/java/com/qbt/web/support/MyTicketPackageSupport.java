@@ -11,18 +11,16 @@ public interface MyTicketPackageSupport {
 
 	/**
 	  * @Title: listNotActive
-	  * @Description: Search (active_status=0 and package_type in (0,1,2))
+	  * @Description: Search (active_status=0 and package_type=0))
 	  * @author: andy.li
-	  * @param userId
 	  * @return List<UserActivityPackageVo>
 	  */
 	public List<UserActivityPackageVo> findlistNotActive(int userId);
 	
 	/**
 	  * @Title: listUsed
-	  * @Description: Search (active_status=1 or package_type=3 or(active_status=1 and today>expiration_time))
+	  * @Description: Search (active_status=1 or package_type in(1,2) or(active_status=1 and today>expiration_time))
 	  * @author: andy.li
-	  * @param userId
 	  * @return List<UserActivityPackageVo>
 	 */
 	public List<UserActivityPackageVo> findlistUsed(int userId);
@@ -30,7 +28,6 @@ public interface MyTicketPackageSupport {
 	/**
 	 * @Title: listAvailableTicket
 	 * @author: andy.li
-	 * @param packageId
 	 * @return List<UserPackageTicketVo>
 	 */
 	public List<UserPackageTicketVo> findlistAvailableTicket(int userId);
@@ -38,7 +35,6 @@ public interface MyTicketPackageSupport {
 	/**
 	 * @Title: listDisableTicket
 	 * @author: andy.li
-	 * @param packageId
 	 * @return List<UserPackageTicketVo>
 	 */
 	public List<UserPackageTicketVo> findlistDisableTicket(int userId);
@@ -46,11 +42,15 @@ public interface MyTicketPackageSupport {
 	/**
 	 * @Title: activate
 	 * @Description:update active_status  = 1
-	 * @author: andy.li
 	 * @param packageId
+	 * @param activateUser
+	 * @param activatePhoneNumber
+	 * @param code
+	 * @param codeStatus
+	 * @author: andy.li
 	 * @return
 	 */
-	public String activate(int packageId);
+	public String activate(int packageId,String activateUser,String activatePhoneNumber,String code,int codeStatus);
 	
 	/**
 	 * @Title: cancel

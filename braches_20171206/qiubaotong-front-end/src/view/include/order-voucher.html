@@ -21,35 +21,42 @@
                         <div class="weui_panel_bd">
                             <!-- 可使用代金券 -->
                             <div v-show="voucher_tab == 1">
-                                <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg" style="padding:15px 15px 15px 6px">
+                                <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg" v-for="item in voucherAvailableList" :key="item.id" style="padding:15px 15px 15px 6px;background-color:#fff;">
                                     <div class="weui_media_hd voucher-property">
-                                        <p>￥60</p>
-                                        <p>满100元可用</p>
+                                        <p>￥{{item.ticketPrice}}</p>
                                     </div>
                                     <div class="weui_media_bd" style="position:relative;">
-                                        <h4 class="weui_media_title voucher-name">球包通通用券</h4>
-                                        <p class="weui_media_desc voucher-time">2017.10.18-2017.12.18</p>
-                                        <p class="weui_media_desc voucher-count"><i class="weui_icon_warn"></i>数量50张，每单限用1张</p>
+                                        <h4 class="weui_media_title voucher-name">{{item.ticketName}}</h4>
+                                        <p class="weui_media_desc voucher-time">{{item.activate_time | dateFormat 'yyyy.MM.dd'}}-{{item.expirationTime | dateFormat 'yyyy.MM.dd'}}</p>
+                                        <p class="weui_media_desc voucher-count"><i class="weui_icon_warn"></i>数量{{item.usedQuantity}}张，每单限用{{item.useLimit}}张</p>
                                     </div>
-                                    <div class="voucher-use">立即使用</div>
+                                    <div class="voucher-use" @click="useNow(item.id)">立即使用</div>
                                 </a>
+                                <div class="order-none tex-c" v-show="voucherAvailableList.length == 0">
+                                    <img src="/img/nocoupon.png" alt="" />
+                                    <p>无代金券信息</p>
+                                </div>
                             </div>
                             <!-- 不可使用代金券 -->
                             <div v-show="voucher_tab == 2">
-                                <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg" style="padding:15px 15px 15px 6px">
+                                <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg" v-for="item in voucherDisableList" :key="item.id" style="padding:15px 15px 15px 6px;background-color:#fff;">
                                     <div class="weui_media_hd voucher-property">
-                                        <p>￥60</p>
-                                        <p>满100元可用</p>
+                                        <p>￥{{item.ticketPrice}}</p>
                                     </div>
                                     <div class="weui_media_bd">
-                                        <h4 class="weui_media_title voucher-name">球包通通用券</h4>
-                                        <p class="weui_media_desc voucher-time">2017.10.18-2017.12.18</p>
-                                        <p class="weui_media_desc voucher-count"><i class="weui_icon_warn"></i>数量50张，每单限用1张</p>
+                                        <h4 class="weui_media_title voucher-name">{{item.ticketName}}</h4>
+                                        <p class="weui_media_desc voucher-time">{{item.activate_time | dateFormat 'yyyy.MM.dd'}}-{{item.expirationTime | dateFormat 'yyyy.MM.dd'}}</p>
+                                        <p class="weui_media_desc voucher-count"><i class="weui_icon_warn"></i>数量{{item.usedQuantity}}张，每单限用{{item.useLimit}}张</p>
                                     </div>
                                     <div class="voucher-used">
-                                        <img src="/img/quan-icon02.png" alt="">
+                                        <img v-show="item.useStatus == 0" src="/img/已过期.png" alt="">
+                                        <img v-show="item.useStatus == 1" src="/img/已使用.png" alt="">
                                     </div>
                                 </a>
+                                <div class="order-none tex-c" v-show="voucherDisableList.length == 0">
+                                    <img src="/img/nocoupon.png" alt="" />
+                                    <p>没有该类型代金券</p>
+                                </div>
                             </div>
                         </div>
                     </div>

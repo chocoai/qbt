@@ -86,14 +86,14 @@
 
 	<select id="findOrderDetailIdByPackageId" parameterType="java.lang.Integer"
 		resultType="java.lang.Object">
-		SELECT
-		u1.id
-		FROM
-		user_activity_order_detail u1,
-		user_activity_package u2
-		WHERE
-		u1.id = u2.order_detail_id
-		AND u2.id = #{packageId}
+		  SELECT
+		  u1.id
+		  FROM
+		  user_activity_order_detail u1,
+		  user_activity_package u2
+		  WHERE
+		  u1.id = u2.order_detail_id
+		  AND u2.id = #{packageId}
 	</select>
 	
 </mapper>

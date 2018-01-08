@@ -1,0 +1,49 @@
+<template id="voucher_my">
+    <!-- 代金券 -->
+    <section class="page">
+        <!-- 顶部通栏 -->
+        <header>
+            <div class="header-left" @click="getBack()">
+                <img src="/img/back.png" alt="">
+            </div>
+            <div class="header-middle">
+                <span>我的代金券</span>
+            </div>
+        </header>
+        <!-- 导航栏 -->
+        <div class="scroll marhead">
+            <div class="page__bd" style="height: 100%;">
+                <div class="weui-tab">
+                    <div class="weui-navbar voucher-navbar">
+                        <div class="weui-navbar__item weui_bar_item_on">
+                            可使用代金券
+                        </div>
+                    </div>
+                    <div class="weui_tab_bd">
+                        <!-- 可使用代金券 -->
+                        <div class="weui-panel weui-panel_access">
+                            <div class="weui-panel__bd" v-for="item in voucherList" :key="item.id">
+                                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg" style="padding:15px 15px 15px 6px">
+                                    <div class="weui-media-box__hd voucher-property">
+                                        <p>￥60</p>
+                                        <p>满100元可用</p>
+                                    </div>
+                                    <div class="weui-media-box__bd">
+                                        <h4 class="weui-media-box__title voucher-name">球包通通用券</h4>
+                                        <p class="weui-media-box__desc voucher-time">2017.10.18-2017.12.18</p>
+                                        <p class="weui-media-box__desc voucher-count"><i class="weui-icon-warn"></i>数量50张，每单限用1张</p>
+                                    </div>
+                                    <div class="voucher-use" @click="useNow()">立即使用</div>
+                                </a>
+                            </div>
+                            <div class="order-none tex-c" v-show="voucherList.length == 0" style="margin-top:50px;color:#ccc;">
+                                <img src="/img/nocoupon.png" alt="" />
+                                <p>无代金券信息</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>

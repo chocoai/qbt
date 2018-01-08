@@ -1122,7 +1122,7 @@ header .header-middle {
 }
 
 .festivals .activate>p .cancel-activate {
-    background-color: #ccc;
+    background-color: #15ca5f;
     display: inline-block;
     padding: 3px;
     border-radius: 3px;
@@ -1235,7 +1235,6 @@ header .header-middle {
 .tabbar .total {
     flex: 2;
     box-sizing: border-box;
-    border-top: 1px solid #D9D9D9;
     padding-left: 10px;
     line-height: 50px;
     font-size: 14px;
@@ -1287,7 +1286,6 @@ header .header-right {
 .weui-media-box__hd.voucher-property {
     min-width: 100px;
     height: auto;
-    // background-color: #15ca5f;
     color: #fff;
     font-size: 14px;
     background-image: url('/img/1.png');

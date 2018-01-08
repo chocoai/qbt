@@ -16,7 +16,12 @@
 		"c9b88719-cc55-b69a-99c2-0bfe54a575ff",
 		"99485830-1312-a383-9676-6adcdbb9a392",
 		"b09aafcd-8ebc-eee7-aa87-89c1ccb294bf",
-		"7c07362b-7b4c-6f2b-cc7c-09b9702a4aaf"
+		"bc113ec3-cb0b-08aa-17bb-2071ee1349ad",
+		"7c07362b-7b4c-6f2b-cc7c-09b9702a4aaf",
+		"647f98a1-ef1a-ffec-bddd-476787926f75",
+		"16897b25-9eab-e16c-634d-ab949bbeba64",
+		"9ac776aa-7e0e-a312-a85c-237b65832f6b",
+		"bc401788-f4bf-6369-4d6d-0b55b308783b"
 	],
 	"folders": [],
 	"folders_order": [],
@@ -29,7 +34,7 @@
 	"requests": [
 		{
 			"id": "0621d05f-5bf9-01a6-25d6-314d4e4b4607",
-			"headers": "Content-Type: application/json\ntoken: 8d4d9147d6ee4741a0f5ae9aba5aefe5\n",
+			"headers": "Content-Type: application/json\ntoken: 355999ff489245a1aac936e6edd1554c\n",
 			"headerData": [
 				{
 					"key": "Content-Type",
@@ -39,7 +44,7 @@
 				},
 				{
 					"key": "token",
-					"value": "8d4d9147d6ee4741a0f5ae9aba5aefe5",
+					"value": "355999ff489245a1aac936e6edd1554c",
 					"description": "",
 					"enabled": true
 				}
@@ -54,14 +59,14 @@
 			"dataMode": "raw",
 			"version": 2,
 			"auth": null,
-			"time": 1514891907410,
+			"time": 1515120176258,
 			"name": "http://localhost:7070/system-web/ticketPackageRule/findByPage.api",
 			"description": "",
 			"collectionId": "570e2436-101d-764f-c765-414d32ede36e",
 			"responses": [],
 			"currentHelper": null,
 			"helperAttributes": null,
-			"rawModeData": "{\n\t\"ruleName\":\"元旦礼包规则\"\n}"
+			"rawModeData": "{\n\t\n}"
 		},
 		{
 			"id": "148d80dd-7510-035e-246a-bb5a7936ab2b",
@@ -97,6 +102,349 @@
 			"currentHelper": null,
 			"helperAttributes": null,
 			"rawModeData": "{\n\t\"type\":1,\n\t\"activityId\":6,\n\t\"activityAmount\": 3,\n\t\"activityName\":\"元旦大礼包\",\n\t\n\t\n\t\"purchaser\":\"购买人\",\n\t\"purchaserAddress\": \"购买人地址\",\n\t\"purchaserNumber\":\"1325654455454\"\n\t\n\t,\"openid\":\"o5GmCt72V95WdD9z8Nv43w2r01IE\",\n\t\"proxyUser\":\"proxyUser\",\n\t\"proxyUserId\":12\n\t\n}"
+		},
+		{
+			"id": "16897b25-9eab-e16c-634d-ab949bbeba64",
+			"headers": "Content-Type: application/json\ntoken: 373d3d8d2cea47aeae1b2500f975b6e0\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "token",
+					"value": "373d3d8d2cea47aeae1b2500f975b6e0",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:7070/qbt-web/ticketPackageOrder/detail.api?id=31",
+			"queryParams": [
+				{
+					"key": "id",
+					"value": "31",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"events": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1515381485019,
+			"name": "http://localhost:7070/qbt-web/ticketPackageOrder/detail.api",
+			"description": "",
+			"collectionId": "570e2436-101d-764f-c765-414d32ede36e",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 1068,
+					"headers": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "accept,content-type,token,userId",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": "The language the content is in"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 02 Jan 2018 10:38:09 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Server",
+							"value": "Apache-Coyote/1.1",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "JSESSIONID=C60CCAC10D4F62B709B392CB1D59EC9A; Path=/system-web/; HttpOnly",
+							"name": "Set-Cookie",
+							"description": "an HTTP cookie"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookies": [
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/system-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "C60CCAC10D4F62B709B392CB1D59EC9A"
+						},
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/qbt-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "68BE5B848DFADAA234E85445C488C732"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":\"0000\",\"msg\":\"ok\",\"datas\":{\"id\":10,\"orderNumber\":\"201801021616101243\",\"wechatTransactionNumber\":null,\"userId\":95,\"type\":1,\"activityId\":6,\"activityAmount\":3,\"activityName\":\"元旦大礼包\",\"purchaser\":\"购买人\",\"purchaserAddress\":\"购买人地址\",\"purchaserNumber\":\"1325654455454\",\"status\":0,\"payStatus\":1,\"proxyUserId\":null,\"proxyUser\":null,\"operatorId\":95,\"operatorName\":\"feng\",\"userActivityPackageVos\":null,\"userActivityOrderDetailVos\":[{\"id\":21,\"userId\":95,\"orderId\":10,\"type\":1,\"expirationTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"activateTime\":null,\"code\":null,\"codeStatus\":null,\"status\":0,\"activeStatus\":0,\"packageType\":0,\"qrCode\":null,\"operatorId\":95,\"operatorName\":\"feng\",\"ticketVos\":[{\"id\":39,\"packageId\":21,\"orderDetailId\":21,\"ticketPrice\":100,\"ticketName\":\"消费500抵用\",\"quantity\":5,\"usedQuantity\":0,\"useLimit\":500,\"useStatus\":0},{\"id\":40,\"packageId\":21,\"orderDetailId\":21,\"ticketPrice\":400,\"ticketName\":\"消费100抵用\",\"quantity\":3,\"usedQuantity\":0,\"useLimit\":1000,\"useStatus\":0}]},{\"id\":22,\"userId\":95,\"orderId\":10,\"type\":1,\"expirationTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"activateTime\":null,\"code\":null,\"codeStatus\":null,\"status\":0,\"activeStatus\":0,\"packageType\":0,\"qrCode\":null,\"operatorId\":95,\"operatorName\":\"feng\",\"ticketVos\":[{\"id\":41,\"packageId\":22,\"orderDetailId\":22,\"ticketPrice\":100,\"ticketName\":\"消费500抵用\",\"quantity\":5,\"usedQuantity\":0,\"useLimit\":500,\"useStatus\":0},{\"id\":42,\"packageId\":22,\"orderDetailId\":22,\"ticketPrice\":400,\"ticketName\":\"消费100抵用\",\"quantity\":3,\"usedQuantity\":0,\"useLimit\":1000,\"useStatus\":0}]}]}}",
+					"language": "json",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"code": 200,
+					"responseSize": {
+						"body": 1609,
+						"header": 468,
+						"total": 2077
+					},
+					"mimeType": "text",
+					"fileName": "response.json",
+					"dataURI": "data:application/json;base64, eyJjb2RlIjoiMDAwMCIsIm1zZyI6Im9rIiwiZGF0YXMiOnsiaWQiOjEwLCJvcmRlck51bWJlciI6IjIwMTgwMTAyMTYxNjEwMTI0MyIsIndlY2hhdFRyYW5zYWN0aW9uTnVtYmVyIjpudWxsLCJ1c2VySWQiOjk1LCJ0eXBlIjoxLCJhY3Rpdml0eUlkIjo2LCJhY3Rpdml0eUFtb3VudCI6MywiYWN0aXZpdHlOYW1lIjoi5YWD5pem5aSn56S85YyFIiwicHVyY2hhc2VyIjoi6LSt5Lmw5Lq6IiwicHVyY2hhc2VyQWRkcmVzcyI6Iui0reS5sOS6uuWcsOWdgCIsInB1cmNoYXNlck51bWJlciI6IjEzMjU2NTQ0NTU0NTQiLCJzdGF0dXMiOjAsInBheVN0YXR1cyI6MSwicHJveHlVc2VySWQiOm51bGwsInByb3h5VXNlciI6bnVsbCwib3BlcmF0b3JJZCI6OTUsIm9wZXJhdG9yTmFtZSI6ImZlbmciLCJ1c2VyQWN0aXZpdHlQYWNrYWdlVm9zIjpudWxsLCJ1c2VyQWN0aXZpdHlPcmRlckRldGFpbFZvcyI6W3siaWQiOjIxLCJ1c2VySWQiOjk1LCJvcmRlcklkIjoxMCwidHlwZSI6MSwiZXhwaXJhdGlvblRpbWUiOm51bGwsImFjdGl2YXRlVXNlciI6bnVsbCwiYWN0aXZhdGVQaG9uZU51bWJlciI6bnVsbCwiYWN0aXZhdGVUaW1lIjpudWxsLCJjb2RlIjpudWxsLCJjb2RlU3RhdHVzIjpudWxsLCJzdGF0dXMiOjAsImFjdGl2ZVN0YXR1cyI6MCwicGFja2FnZVR5cGUiOjAsInFyQ29kZSI6bnVsbCwib3BlcmF0b3JJZCI6OTUsIm9wZXJhdG9yTmFtZSI6ImZlbmciLCJ0aWNrZXRWb3MiOlt7ImlkIjozOSwicGFja2FnZUlkIjoyMSwib3JkZXJEZXRhaWxJZCI6MjEsInRpY2tldFByaWNlIjoxMDAsInRpY2tldE5hbWUiOiLmtojotLk1MDDmirXnlKgiLCJxdWFudGl0eSI6NSwidXNlZFF1YW50aXR5IjowLCJ1c2VMaW1pdCI6NTAwLCJ1c2VTdGF0dXMiOjB9LHsiaWQiOjQwLCJwYWNrYWdlSWQiOjIxLCJvcmRlckRldGFpbElkIjoyMSwidGlja2V0UHJpY2UiOjQwMCwidGlja2V0TmFtZSI6Iua2iOi0uTEwMOaKteeUqCIsInF1YW50aXR5IjozLCJ1c2VkUXVhbnRpdHkiOjAsInVzZUxpbWl0IjoxMDAwLCJ1c2VTdGF0dXMiOjB9XX0seyJpZCI6MjIsInVzZXJJZCI6OTUsIm9yZGVySWQiOjEwLCJ0eXBlIjoxLCJleHBpcmF0aW9uVGltZSI6bnVsbCwiYWN0aXZhdGVVc2VyIjpudWxsLCJhY3RpdmF0ZVBob25lTnVtYmVyIjpudWxsLCJhY3RpdmF0ZVRpbWUiOm51bGwsImNvZGUiOm51bGwsImNvZGVTdGF0dXMiOm51bGwsInN0YXR1cyI6MCwiYWN0aXZlU3RhdHVzIjowLCJwYWNrYWdlVHlwZSI6MCwicXJDb2RlIjpudWxsLCJvcGVyYXRvcklkIjo5NSwib3BlcmF0b3JOYW1lIjoiZmVuZyIsInRpY2tldFZvcyI6W3siaWQiOjQxLCJwYWNrYWdlSWQiOjIyLCJvcmRlckRldGFpbElkIjoyMiwidGlja2V0UHJpY2UiOjEwMCwidGlja2V0TmFtZSI6Iua2iOi0uTUwMOaKteeUqCIsInF1YW50aXR5Ijo1LCJ1c2VkUXVhbnRpdHkiOjAsInVzZUxpbWl0Ijo1MDAsInVzZVN0YXR1cyI6MH0seyJpZCI6NDIsInBhY2thZ2VJZCI6MjIsIm9yZGVyRGV0YWlsSWQiOjIyLCJ0aWNrZXRQcmljZSI6NDAwLCJ0aWNrZXROYW1lIjoi5raI6LS5MTAw5oq155SoIiwicXVhbnRpdHkiOjMsInVzZWRRdWFudGl0eSI6MCwidXNlTGltaXQiOjEwMDAsInVzZVN0YXR1cyI6MH1dfV19fQ==",
+					"name": "http://localhost:7070/system-web/ticketPackageOrder/detail.api",
+					"id": "5d21bee2-edf6-c600-9d56-c953778e9c34",
+					"request": "16897b25-9eab-e16c-634d-ab949bbeba64",
+					"requestObject": {
+						"url": "http://localhost:7070/system-web/ticketPackageOrder/detail.api?id=10",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "id",
+								"value": "10",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"enabled": true,
+								"disabled": false
+							},
+							{
+								"key": "token",
+								"value": "df1a42935983498fac2211fe8d3cc30d",
+								"description": "",
+								"enabled": true,
+								"disabled": false
+							}
+						],
+						"headers": "Content-Type: application/json\ntoken: df1a42935983498fac2211fe8d3cc30d\n",
+						"data": [],
+						"method": "GET",
+						"dataMode": "params"
+					}
+				},
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 6661,
+					"headers": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "accept,content-type,token,userId",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": "The language the content is in"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 05 Jan 2018 08:38:44 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Server",
+							"value": "Apache-Coyote/1.1",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookies": [
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/system-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "E9A8BAEA568F247BF1ABE1B593B0C0C5"
+						},
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/qbt-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "A479ED261B3B9452D054B32E23A3AA56"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":\"0000\",\"msg\":\"ok\",\"datas\":{\"id\":31,\"orderNumber\":\"201801051631581918\",\"wechatTransactionNumber\":null,\"userId\":177,\"openid\":\"o5GmCt3cnhNLnmoO80Qr29gAIWzw\",\"type\":0,\"activityId\":14,\"activityAmount\":1,\"activityName\":\"元旦活动\",\"purchaser\":\"Chausson\",\"purchaserAddress\":\"宝安区深圳市广东sdgsd\",\"purchaserNumber\":\"13545099891\",\"status\":1,\"payAmount\":1000.0,\"payStatus\":1,\"proxyUserId\":96,\"proxyUser\":\"13545099891\",\"operatorId\":96,\"operatorName\":\"13545099891\",\"buyActive\":1,\"createTime\":1515141119000,\"updateTime\":1515141119000,\"userActivityPackageVos\":null,\"userActivityOrderDetailVos\":[{\"id\":61,\"userId\":177,\"orderId\":31,\"type\":0,\"expirationTime\":1515141119000,\"activateUser\":null,\"activatePhoneNumber\":\"\",\"activateTime\":1515141119000,\"code\":null,\"codeStatus\":null,\"status\":1,\"activeStatus\":1,\"packageType\":0,\"qrCode\":null,\"operatorId\":96,\"operatorName\":\"13545099891\",\"ticketVos\":[{\"id\":106,\"packageId\":68,\"orderDetailId\":61,\"ticketPrice\":100,\"ticketName\":\"100元券\",\"quantity\":6,\"usedQuantity\":0,\"useLimit\":0,\"useStatus\":0,\"userId\":0,\"expirationTime\":null},{\"id\":107,\"packageId\":68,\"orderDetailId\":61,\"ticketPrice\":50,\"ticketName\":\"50元券\",\"quantity\":8,\"usedQuantity\":0,\"useLimit\":0,\"useStatus\":0,\"userId\":0,\"expirationTime\":null}]}],\"description\":\"sfggs\"}}",
+					"language": "json",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"code": 200,
+					"responseSize": {
+						"body": 1277,
+						"header": 382,
+						"total": 1659
+					},
+					"mimeType": "text",
+					"fileName": "response.json",
+					"dataURI": "data:application/json;base64, eyJjb2RlIjoiMDAwMCIsIm1zZyI6Im9rIiwiZGF0YXMiOnsiaWQiOjMxLCJvcmRlck51bWJlciI6IjIwMTgwMTA1MTYzMTU4MTkxOCIsIndlY2hhdFRyYW5zYWN0aW9uTnVtYmVyIjpudWxsLCJ1c2VySWQiOjE3Nywib3BlbmlkIjoibzVHbUN0M2NuaE5Mbm1vTzgwUXIyOWdBSVd6dyIsInR5cGUiOjAsImFjdGl2aXR5SWQiOjE0LCJhY3Rpdml0eUFtb3VudCI6MSwiYWN0aXZpdHlOYW1lIjoi5YWD5pem5rS75YqoIiwicHVyY2hhc2VyIjoiQ2hhdXNzb24iLCJwdXJjaGFzZXJBZGRyZXNzIjoi5a6d5a6J5Yy65rex5Zyz5biC5bm/5Licc2Rnc2QiLCJwdXJjaGFzZXJOdW1iZXIiOiIxMzU0NTA5OTg5MSIsInN0YXR1cyI6MSwicGF5QW1vdW50IjoxMDAwLjAsInBheVN0YXR1cyI6MSwicHJveHlVc2VySWQiOjk2LCJwcm94eVVzZXIiOiIxMzU0NTA5OTg5MSIsIm9wZXJhdG9ySWQiOjk2LCJvcGVyYXRvck5hbWUiOiIxMzU0NTA5OTg5MSIsImJ1eUFjdGl2ZSI6MSwiY3JlYXRlVGltZSI6MTUxNTE0MTExOTAwMCwidXBkYXRlVGltZSI6MTUxNTE0MTExOTAwMCwidXNlckFjdGl2aXR5UGFja2FnZVZvcyI6bnVsbCwidXNlckFjdGl2aXR5T3JkZXJEZXRhaWxWb3MiOlt7ImlkIjo2MSwidXNlcklkIjoxNzcsIm9yZGVySWQiOjMxLCJ0eXBlIjowLCJleHBpcmF0aW9uVGltZSI6MTUxNTE0MTExOTAwMCwiYWN0aXZhdGVVc2VyIjpudWxsLCJhY3RpdmF0ZVBob25lTnVtYmVyIjoiIiwiYWN0aXZhdGVUaW1lIjoxNTE1MTQxMTE5MDAwLCJjb2RlIjpudWxsLCJjb2RlU3RhdHVzIjpudWxsLCJzdGF0dXMiOjEsImFjdGl2ZVN0YXR1cyI6MSwicGFja2FnZVR5cGUiOjAsInFyQ29kZSI6bnVsbCwib3BlcmF0b3JJZCI6OTYsIm9wZXJhdG9yTmFtZSI6IjEzNTQ1MDk5ODkxIiwidGlja2V0Vm9zIjpbeyJpZCI6MTA2LCJwYWNrYWdlSWQiOjY4LCJvcmRlckRldGFpbElkIjo2MSwidGlja2V0UHJpY2UiOjEwMCwidGlja2V0TmFtZSI6IjEwMOWFg+WIuCIsInF1YW50aXR5Ijo2LCJ1c2VkUXVhbnRpdHkiOjAsInVzZUxpbWl0IjowLCJ1c2VTdGF0dXMiOjAsInVzZXJJZCI6MCwiZXhwaXJhdGlvblRpbWUiOm51bGx9LHsiaWQiOjEwNywicGFja2FnZUlkIjo2OCwib3JkZXJEZXRhaWxJZCI6NjEsInRpY2tldFByaWNlIjo1MCwidGlja2V0TmFtZSI6IjUw5YWD5Yi4IiwicXVhbnRpdHkiOjgsInVzZWRRdWFudGl0eSI6MCwidXNlTGltaXQiOjAsInVzZVN0YXR1cyI6MCwidXNlcklkIjowLCJleHBpcmF0aW9uVGltZSI6bnVsbH1dfV0sImRlc2NyaXB0aW9uIjoic2ZnZ3MifX0=",
+					"name": "http://localhost:7070/qbt-web/ticketPackageOrder/detail.api",
+					"id": "72a13a7e-e80d-8428-6580-6b870dab2aff",
+					"request": {
+						"url": "http://localhost:7070/qbt-web/ticketPackageOrder/detail.api?id=31",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "id",
+								"value": "31",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"enabled": true
+							},
+							{
+								"key": "token",
+								"value": "373d3d8d2cea47aeae1b2500f975b6e0",
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headers": "Content-Type: application/json\ntoken: 373d3d8d2cea47aeae1b2500f975b6e0\n",
+						"data": "{\n\t\"id\":26,\n\t\"paymentUrl\":\"http://www.baidu.com\"\n}",
+						"method": "POST",
+						"dataMode": "raw"
+					}
+				}
+			],
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n\t\"id\":26,\n\t\"paymentUrl\":\"http://www.baidu.com\"\n}"
 		},
 		{
 			"id": "2235e064-dcd9-eedf-9386-e558d26bc0d2",
@@ -279,6 +627,196 @@
 			"currentHelper": null,
 			"helperAttributes": null,
 			"rawModeData": "{\n\n\t\n\t\n}"
+		},
+		{
+			"id": "647f98a1-ef1a-ffec-bddd-476787926f75",
+			"headers": "Content-Type: application/json\ntoken: 51fda9b1150e49d6a680917e92dc077c\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "token",
+					"value": "51fda9b1150e49d6a680917e92dc077c",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:7070/system-web/proxyTicketPackage/pushPayment.api",
+			"queryParams": [],
+			"events": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1515381542555,
+			"name": "http://localhost:7070/system-web/proxyTicketPackage/pushPayment.api",
+			"description": "",
+			"collectionId": "570e2436-101d-764f-c765-414d32ede36e",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 1068,
+					"headers": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "accept,content-type,token,userId",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": "The language the content is in"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 02 Jan 2018 10:38:09 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Server",
+							"value": "Apache-Coyote/1.1",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "JSESSIONID=C60CCAC10D4F62B709B392CB1D59EC9A; Path=/system-web/; HttpOnly",
+							"name": "Set-Cookie",
+							"description": "an HTTP cookie"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookies": [
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/system-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "C60CCAC10D4F62B709B392CB1D59EC9A"
+						},
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/qbt-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "68BE5B848DFADAA234E85445C488C732"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":\"0000\",\"msg\":\"ok\",\"datas\":{\"id\":10,\"orderNumber\":\"201801021616101243\",\"wechatTransactionNumber\":null,\"userId\":95,\"type\":1,\"activityId\":6,\"activityAmount\":3,\"activityName\":\"元旦大礼包\",\"purchaser\":\"购买人\",\"purchaserAddress\":\"购买人地址\",\"purchaserNumber\":\"1325654455454\",\"status\":0,\"payStatus\":1,\"proxyUserId\":null,\"proxyUser\":null,\"operatorId\":95,\"operatorName\":\"feng\",\"userActivityPackageVos\":null,\"userActivityOrderDetailVos\":[{\"id\":21,\"userId\":95,\"orderId\":10,\"type\":1,\"expirationTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"activateTime\":null,\"code\":null,\"codeStatus\":null,\"status\":0,\"activeStatus\":0,\"packageType\":0,\"qrCode\":null,\"operatorId\":95,\"operatorName\":\"feng\",\"ticketVos\":[{\"id\":39,\"packageId\":21,\"orderDetailId\":21,\"ticketPrice\":100,\"ticketName\":\"消费500抵用\",\"quantity\":5,\"usedQuantity\":0,\"useLimit\":500,\"useStatus\":0},{\"id\":40,\"packageId\":21,\"orderDetailId\":21,\"ticketPrice\":400,\"ticketName\":\"消费100抵用\",\"quantity\":3,\"usedQuantity\":0,\"useLimit\":1000,\"useStatus\":0}]},{\"id\":22,\"userId\":95,\"orderId\":10,\"type\":1,\"expirationTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"activateTime\":null,\"code\":null,\"codeStatus\":null,\"status\":0,\"activeStatus\":0,\"packageType\":0,\"qrCode\":null,\"operatorId\":95,\"operatorName\":\"feng\",\"ticketVos\":[{\"id\":41,\"packageId\":22,\"orderDetailId\":22,\"ticketPrice\":100,\"ticketName\":\"消费500抵用\",\"quantity\":5,\"usedQuantity\":0,\"useLimit\":500,\"useStatus\":0},{\"id\":42,\"packageId\":22,\"orderDetailId\":22,\"ticketPrice\":400,\"ticketName\":\"消费100抵用\",\"quantity\":3,\"usedQuantity\":0,\"useLimit\":1000,\"useStatus\":0}]}]}}",
+					"language": "json",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"code": 200,
+					"responseSize": {
+						"body": 1609,
+						"header": 468,
+						"total": 2077
+					},
+					"mimeType": "text",
+					"fileName": "response.json",
+					"dataURI": "data:application/json;base64, eyJjb2RlIjoiMDAwMCIsIm1zZyI6Im9rIiwiZGF0YXMiOnsiaWQiOjEwLCJvcmRlck51bWJlciI6IjIwMTgwMTAyMTYxNjEwMTI0MyIsIndlY2hhdFRyYW5zYWN0aW9uTnVtYmVyIjpudWxsLCJ1c2VySWQiOjk1LCJ0eXBlIjoxLCJhY3Rpdml0eUlkIjo2LCJhY3Rpdml0eUFtb3VudCI6MywiYWN0aXZpdHlOYW1lIjoi5YWD5pem5aSn56S85YyFIiwicHVyY2hhc2VyIjoi6LSt5Lmw5Lq6IiwicHVyY2hhc2VyQWRkcmVzcyI6Iui0reS5sOS6uuWcsOWdgCIsInB1cmNoYXNlck51bWJlciI6IjEzMjU2NTQ0NTU0NTQiLCJzdGF0dXMiOjAsInBheVN0YXR1cyI6MSwicHJveHlVc2VySWQiOm51bGwsInByb3h5VXNlciI6bnVsbCwib3BlcmF0b3JJZCI6OTUsIm9wZXJhdG9yTmFtZSI6ImZlbmciLCJ1c2VyQWN0aXZpdHlQYWNrYWdlVm9zIjpudWxsLCJ1c2VyQWN0aXZpdHlPcmRlckRldGFpbFZvcyI6W3siaWQiOjIxLCJ1c2VySWQiOjk1LCJvcmRlcklkIjoxMCwidHlwZSI6MSwiZXhwaXJhdGlvblRpbWUiOm51bGwsImFjdGl2YXRlVXNlciI6bnVsbCwiYWN0aXZhdGVQaG9uZU51bWJlciI6bnVsbCwiYWN0aXZhdGVUaW1lIjpudWxsLCJjb2RlIjpudWxsLCJjb2RlU3RhdHVzIjpudWxsLCJzdGF0dXMiOjAsImFjdGl2ZVN0YXR1cyI6MCwicGFja2FnZVR5cGUiOjAsInFyQ29kZSI6bnVsbCwib3BlcmF0b3JJZCI6OTUsIm9wZXJhdG9yTmFtZSI6ImZlbmciLCJ0aWNrZXRWb3MiOlt7ImlkIjozOSwicGFja2FnZUlkIjoyMSwib3JkZXJEZXRhaWxJZCI6MjEsInRpY2tldFByaWNlIjoxMDAsInRpY2tldE5hbWUiOiLmtojotLk1MDDmirXnlKgiLCJxdWFudGl0eSI6NSwidXNlZFF1YW50aXR5IjowLCJ1c2VMaW1pdCI6NTAwLCJ1c2VTdGF0dXMiOjB9LHsiaWQiOjQwLCJwYWNrYWdlSWQiOjIxLCJvcmRlckRldGFpbElkIjoyMSwidGlja2V0UHJpY2UiOjQwMCwidGlja2V0TmFtZSI6Iua2iOi0uTEwMOaKteeUqCIsInF1YW50aXR5IjozLCJ1c2VkUXVhbnRpdHkiOjAsInVzZUxpbWl0IjoxMDAwLCJ1c2VTdGF0dXMiOjB9XX0seyJpZCI6MjIsInVzZXJJZCI6OTUsIm9yZGVySWQiOjEwLCJ0eXBlIjoxLCJleHBpcmF0aW9uVGltZSI6bnVsbCwiYWN0aXZhdGVVc2VyIjpudWxsLCJhY3RpdmF0ZVBob25lTnVtYmVyIjpudWxsLCJhY3RpdmF0ZVRpbWUiOm51bGwsImNvZGUiOm51bGwsImNvZGVTdGF0dXMiOm51bGwsInN0YXR1cyI6MCwiYWN0aXZlU3RhdHVzIjowLCJwYWNrYWdlVHlwZSI6MCwicXJDb2RlIjpudWxsLCJvcGVyYXRvcklkIjo5NSwib3BlcmF0b3JOYW1lIjoiZmVuZyIsInRpY2tldFZvcyI6W3siaWQiOjQxLCJwYWNrYWdlSWQiOjIyLCJvcmRlckRldGFpbElkIjoyMiwidGlja2V0UHJpY2UiOjEwMCwidGlja2V0TmFtZSI6Iua2iOi0uTUwMOaKteeUqCIsInF1YW50aXR5Ijo1LCJ1c2VkUXVhbnRpdHkiOjAsInVzZUxpbWl0Ijo1MDAsInVzZVN0YXR1cyI6MH0seyJpZCI6NDIsInBhY2thZ2VJZCI6MjIsIm9yZGVyRGV0YWlsSWQiOjIyLCJ0aWNrZXRQcmljZSI6NDAwLCJ0aWNrZXROYW1lIjoi5raI6LS5MTAw5oq155SoIiwicXVhbnRpdHkiOjMsInVzZWRRdWFudGl0eSI6MCwidXNlTGltaXQiOjEwMDAsInVzZVN0YXR1cyI6MH1dfV19fQ==",
+					"name": "http://localhost:7070/system-web/ticketPackageOrder/detail.api",
+					"id": "515586bd-3290-d4ad-dcbb-2b1f55c4fce7",
+					"request": "647f98a1-ef1a-ffec-bddd-476787926f75",
+					"requestObject": {
+						"url": "http://localhost:7070/system-web/ticketPackageOrder/detail.api?id=10",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "id",
+								"value": "10",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"enabled": true,
+								"disabled": false
+							},
+							{
+								"key": "token",
+								"value": "df1a42935983498fac2211fe8d3cc30d",
+								"description": "",
+								"enabled": true,
+								"disabled": false
+							}
+						],
+						"headers": "Content-Type: application/json\ntoken: df1a42935983498fac2211fe8d3cc30d\n",
+						"data": [],
+						"method": "GET",
+						"dataMode": "params"
+					}
+				}
+			],
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n\t\"id\":26,\n\t\"paymentUrl\":\"http://www.baidu.com\"\n}"
 		},
 		{
 			"id": "6fcd2334-e8ee-58f4-b117-eea81a7e8471",
@@ -507,7 +1045,7 @@
 		},
 		{
 			"id": "7c498fc5-9493-6661-58ea-eb858b1302ca",
-			"headers": "Content-Type: application/json\ntoken: bd2d8c8893694dffb5793a5159335634\n",
+			"headers": "Content-Type: application/json\ntoken: 355999ff489245a1aac936e6edd1554c\n",
 			"headerData": [
 				{
 					"key": "Content-Type",
@@ -517,16 +1055,16 @@
 				},
 				{
 					"key": "token",
-					"value": "bd2d8c8893694dffb5793a5159335634",
+					"value": "355999ff489245a1aac936e6edd1554c",
 					"description": "",
 					"enabled": true
 				}
 			],
-			"url": "http://localhost:7070/system-web/ticketPackageRule/findById.api?id=2",
+			"url": "http://localhost:7070/system-web/ticketPackageRule/findById.api?id=6",
 			"queryParams": [
 				{
 					"key": "id",
-					"value": "2",
+					"value": "6",
 					"equals": true,
 					"description": "",
 					"enabled": true
@@ -540,7 +1078,7 @@
 			"dataMode": "raw",
 			"version": 2,
 			"auth": null,
-			"time": 1514860098250,
+			"time": 1515381546461,
 			"name": "http://localhost:7070/system-web/ticketPackageRule/findById.api",
 			"description": "",
 			"collectionId": "570e2436-101d-764f-c765-414d32ede36e",
@@ -699,7 +1237,7 @@
 		},
 		{
 			"id": "9400089f-b6a0-efd5-cca5-dc91a5bbaec8",
-			"headers": "Content-Type: application/json\ntoken: 2d2812b1a4df479ea3a75dd770644117\n",
+			"headers": "Content-Type: application/json\ntoken: c719995588594384ba0237fabfbd359d\n",
 			"headerData": [
 				{
 					"key": "Content-Type",
@@ -709,16 +1247,16 @@
 				},
 				{
 					"key": "token",
-					"value": "2d2812b1a4df479ea3a75dd770644117",
+					"value": "c719995588594384ba0237fabfbd359d",
 					"description": "",
 					"enabled": true
 				}
 			],
-			"url": "http://localhost:7070/system-web/ticketPackageOrder/detail.api?id=11",
+			"url": "http://localhost:7070/system-web/ticketPackageOrder/detail.api?id=27",
 			"queryParams": [
 				{
 					"key": "id",
-					"value": "11",
+					"value": "27",
 					"equals": true,
 					"description": "",
 					"enabled": true
@@ -731,7 +1269,7 @@
 			"data": [],
 			"dataMode": "params",
 			"auth": null,
-			"time": 1514964347321,
+			"time": 1515381548320,
 			"name": "http://localhost:7070/system-web/ticketPackageOrder/detail.api",
 			"description": "",
 			"collectionId": "570e2436-101d-764f-c765-414d32ede36e",
@@ -1083,6 +1621,342 @@
 			"currentHelper": null,
 			"helperAttributes": null,
 			"rawModeData": "{\n\t\"id\":17,\n\t\"status\": 1,\n\t\"userId\":95,\n\t\"orderId\": 9,\n\t\"orderDetailId\":17,\n\t\"operatorId\":95,\n\t\"operatorName\":\"feng\"\n}"
+		},
+		{
+			"id": "9ac776aa-7e0e-a312-a85c-237b65832f6b",
+			"headers": "Content-Type: application/json\ntoken: 373d3d8d2cea47aeae1b2500f975b6e0\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "token",
+					"value": "373d3d8d2cea47aeae1b2500f975b6e0",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:7070/qbt-web/ticketPackageOrder/add.api",
+			"queryParams": [],
+			"events": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1515382744372,
+			"name": "http://localhost:7070/qbt-web/ticketPackageOrder/add.api",
+			"description": "",
+			"collectionId": "570e2436-101d-764f-c765-414d32ede36e",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 1068,
+					"headers": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "accept,content-type,token,userId",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": "The language the content is in"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 02 Jan 2018 10:38:09 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Server",
+							"value": "Apache-Coyote/1.1",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "JSESSIONID=C60CCAC10D4F62B709B392CB1D59EC9A; Path=/system-web/; HttpOnly",
+							"name": "Set-Cookie",
+							"description": "an HTTP cookie"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookies": [
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/system-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "C60CCAC10D4F62B709B392CB1D59EC9A"
+						},
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/qbt-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "68BE5B848DFADAA234E85445C488C732"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":\"0000\",\"msg\":\"ok\",\"datas\":{\"id\":10,\"orderNumber\":\"201801021616101243\",\"wechatTransactionNumber\":null,\"userId\":95,\"type\":1,\"activityId\":6,\"activityAmount\":3,\"activityName\":\"元旦大礼包\",\"purchaser\":\"购买人\",\"purchaserAddress\":\"购买人地址\",\"purchaserNumber\":\"1325654455454\",\"status\":0,\"payStatus\":1,\"proxyUserId\":null,\"proxyUser\":null,\"operatorId\":95,\"operatorName\":\"feng\",\"userActivityPackageVos\":null,\"userActivityOrderDetailVos\":[{\"id\":21,\"userId\":95,\"orderId\":10,\"type\":1,\"expirationTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"activateTime\":null,\"code\":null,\"codeStatus\":null,\"status\":0,\"activeStatus\":0,\"packageType\":0,\"qrCode\":null,\"operatorId\":95,\"operatorName\":\"feng\",\"ticketVos\":[{\"id\":39,\"packageId\":21,\"orderDetailId\":21,\"ticketPrice\":100,\"ticketName\":\"消费500抵用\",\"quantity\":5,\"usedQuantity\":0,\"useLimit\":500,\"useStatus\":0},{\"id\":40,\"packageId\":21,\"orderDetailId\":21,\"ticketPrice\":400,\"ticketName\":\"消费100抵用\",\"quantity\":3,\"usedQuantity\":0,\"useLimit\":1000,\"useStatus\":0}]},{\"id\":22,\"userId\":95,\"orderId\":10,\"type\":1,\"expirationTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"activateTime\":null,\"code\":null,\"codeStatus\":null,\"status\":0,\"activeStatus\":0,\"packageType\":0,\"qrCode\":null,\"operatorId\":95,\"operatorName\":\"feng\",\"ticketVos\":[{\"id\":41,\"packageId\":22,\"orderDetailId\":22,\"ticketPrice\":100,\"ticketName\":\"消费500抵用\",\"quantity\":5,\"usedQuantity\":0,\"useLimit\":500,\"useStatus\":0},{\"id\":42,\"packageId\":22,\"orderDetailId\":22,\"ticketPrice\":400,\"ticketName\":\"消费100抵用\",\"quantity\":3,\"usedQuantity\":0,\"useLimit\":1000,\"useStatus\":0}]}]}}",
+					"language": "json",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"code": 200,
+					"responseSize": {
+						"body": 1609,
+						"header": 468,
+						"total": 2077
+					},
+					"mimeType": "text",
+					"fileName": "response.json",
+					"dataURI": "data:application/json;base64, eyJjb2RlIjoiMDAwMCIsIm1zZyI6Im9rIiwiZGF0YXMiOnsiaWQiOjEwLCJvcmRlck51bWJlciI6IjIwMTgwMTAyMTYxNjEwMTI0MyIsIndlY2hhdFRyYW5zYWN0aW9uTnVtYmVyIjpudWxsLCJ1c2VySWQiOjk1LCJ0eXBlIjoxLCJhY3Rpdml0eUlkIjo2LCJhY3Rpdml0eUFtb3VudCI6MywiYWN0aXZpdHlOYW1lIjoi5YWD5pem5aSn56S85YyFIiwicHVyY2hhc2VyIjoi6LSt5Lmw5Lq6IiwicHVyY2hhc2VyQWRkcmVzcyI6Iui0reS5sOS6uuWcsOWdgCIsInB1cmNoYXNlck51bWJlciI6IjEzMjU2NTQ0NTU0NTQiLCJzdGF0dXMiOjAsInBheVN0YXR1cyI6MSwicHJveHlVc2VySWQiOm51bGwsInByb3h5VXNlciI6bnVsbCwib3BlcmF0b3JJZCI6OTUsIm9wZXJhdG9yTmFtZSI6ImZlbmciLCJ1c2VyQWN0aXZpdHlQYWNrYWdlVm9zIjpudWxsLCJ1c2VyQWN0aXZpdHlPcmRlckRldGFpbFZvcyI6W3siaWQiOjIxLCJ1c2VySWQiOjk1LCJvcmRlcklkIjoxMCwidHlwZSI6MSwiZXhwaXJhdGlvblRpbWUiOm51bGwsImFjdGl2YXRlVXNlciI6bnVsbCwiYWN0aXZhdGVQaG9uZU51bWJlciI6bnVsbCwiYWN0aXZhdGVUaW1lIjpudWxsLCJjb2RlIjpudWxsLCJjb2RlU3RhdHVzIjpudWxsLCJzdGF0dXMiOjAsImFjdGl2ZVN0YXR1cyI6MCwicGFja2FnZVR5cGUiOjAsInFyQ29kZSI6bnVsbCwib3BlcmF0b3JJZCI6OTUsIm9wZXJhdG9yTmFtZSI6ImZlbmciLCJ0aWNrZXRWb3MiOlt7ImlkIjozOSwicGFja2FnZUlkIjoyMSwib3JkZXJEZXRhaWxJZCI6MjEsInRpY2tldFByaWNlIjoxMDAsInRpY2tldE5hbWUiOiLmtojotLk1MDDmirXnlKgiLCJxdWFudGl0eSI6NSwidXNlZFF1YW50aXR5IjowLCJ1c2VMaW1pdCI6NTAwLCJ1c2VTdGF0dXMiOjB9LHsiaWQiOjQwLCJwYWNrYWdlSWQiOjIxLCJvcmRlckRldGFpbElkIjoyMSwidGlja2V0UHJpY2UiOjQwMCwidGlja2V0TmFtZSI6Iua2iOi0uTEwMOaKteeUqCIsInF1YW50aXR5IjozLCJ1c2VkUXVhbnRpdHkiOjAsInVzZUxpbWl0IjoxMDAwLCJ1c2VTdGF0dXMiOjB9XX0seyJpZCI6MjIsInVzZXJJZCI6OTUsIm9yZGVySWQiOjEwLCJ0eXBlIjoxLCJleHBpcmF0aW9uVGltZSI6bnVsbCwiYWN0aXZhdGVVc2VyIjpudWxsLCJhY3RpdmF0ZVBob25lTnVtYmVyIjpudWxsLCJhY3RpdmF0ZVRpbWUiOm51bGwsImNvZGUiOm51bGwsImNvZGVTdGF0dXMiOm51bGwsInN0YXR1cyI6MCwiYWN0aXZlU3RhdHVzIjowLCJwYWNrYWdlVHlwZSI6MCwicXJDb2RlIjpudWxsLCJvcGVyYXRvcklkIjo5NSwib3BlcmF0b3JOYW1lIjoiZmVuZyIsInRpY2tldFZvcyI6W3siaWQiOjQxLCJwYWNrYWdlSWQiOjIyLCJvcmRlckRldGFpbElkIjoyMiwidGlja2V0UHJpY2UiOjEwMCwidGlja2V0TmFtZSI6Iua2iOi0uTUwMOaKteeUqCIsInF1YW50aXR5Ijo1LCJ1c2VkUXVhbnRpdHkiOjAsInVzZUxpbWl0Ijo1MDAsInVzZVN0YXR1cyI6MH0seyJpZCI6NDIsInBhY2thZ2VJZCI6MjIsIm9yZGVyRGV0YWlsSWQiOjIyLCJ0aWNrZXRQcmljZSI6NDAwLCJ0aWNrZXROYW1lIjoi5raI6LS5MTAw5oq155SoIiwicXVhbnRpdHkiOjMsInVzZWRRdWFudGl0eSI6MCwidXNlTGltaXQiOjEwMDAsInVzZVN0YXR1cyI6MH1dfV19fQ==",
+					"name": "http://localhost:7070/system-web/ticketPackageOrder/detail.api",
+					"id": "cbcf8c28-ebe3-1c47-e08f-e3c56dd29e81",
+					"request": "9ac776aa-7e0e-a312-a85c-237b65832f6b",
+					"requestObject": {
+						"url": "http://localhost:7070/system-web/ticketPackageOrder/detail.api?id=10",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "id",
+								"value": "10",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"enabled": true,
+								"disabled": false
+							},
+							{
+								"key": "token",
+								"value": "df1a42935983498fac2211fe8d3cc30d",
+								"description": "",
+								"enabled": true,
+								"disabled": false
+							}
+						],
+						"headers": "Content-Type: application/json\ntoken: df1a42935983498fac2211fe8d3cc30d\n",
+						"data": [],
+						"method": "GET",
+						"dataMode": "params"
+					}
+				},
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 6661,
+					"headers": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "accept,content-type,token,userId",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": "The language the content is in"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 05 Jan 2018 08:38:44 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Server",
+							"value": "Apache-Coyote/1.1",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookies": [
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/system-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "E9A8BAEA568F247BF1ABE1B593B0C0C5"
+						},
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/qbt-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "A479ED261B3B9452D054B32E23A3AA56"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":\"0000\",\"msg\":\"ok\",\"datas\":{\"id\":31,\"orderNumber\":\"201801051631581918\",\"wechatTransactionNumber\":null,\"userId\":177,\"openid\":\"o5GmCt3cnhNLnmoO80Qr29gAIWzw\",\"type\":0,\"activityId\":14,\"activityAmount\":1,\"activityName\":\"元旦活动\",\"purchaser\":\"Chausson\",\"purchaserAddress\":\"宝安区深圳市广东sdgsd\",\"purchaserNumber\":\"13545099891\",\"status\":1,\"payAmount\":1000.0,\"payStatus\":1,\"proxyUserId\":96,\"proxyUser\":\"13545099891\",\"operatorId\":96,\"operatorName\":\"13545099891\",\"buyActive\":1,\"createTime\":1515141119000,\"updateTime\":1515141119000,\"userActivityPackageVos\":null,\"userActivityOrderDetailVos\":[{\"id\":61,\"userId\":177,\"orderId\":31,\"type\":0,\"expirationTime\":1515141119000,\"activateUser\":null,\"activatePhoneNumber\":\"\",\"activateTime\":1515141119000,\"code\":null,\"codeStatus\":null,\"status\":1,\"activeStatus\":1,\"packageType\":0,\"qrCode\":null,\"operatorId\":96,\"operatorName\":\"13545099891\",\"ticketVos\":[{\"id\":106,\"packageId\":68,\"orderDetailId\":61,\"ticketPrice\":100,\"ticketName\":\"100元券\",\"quantity\":6,\"usedQuantity\":0,\"useLimit\":0,\"useStatus\":0,\"userId\":0,\"expirationTime\":null},{\"id\":107,\"packageId\":68,\"orderDetailId\":61,\"ticketPrice\":50,\"ticketName\":\"50元券\",\"quantity\":8,\"usedQuantity\":0,\"useLimit\":0,\"useStatus\":0,\"userId\":0,\"expirationTime\":null}]}],\"description\":\"sfggs\"}}",
+					"language": "json",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"code": 200,
+					"responseSize": {
+						"body": 1277,
+						"header": 382,
+						"total": 1659
+					},
+					"mimeType": "text",
+					"fileName": "response.json",
+					"dataURI": "data:application/json;base64, eyJjb2RlIjoiMDAwMCIsIm1zZyI6Im9rIiwiZGF0YXMiOnsiaWQiOjMxLCJvcmRlck51bWJlciI6IjIwMTgwMTA1MTYzMTU4MTkxOCIsIndlY2hhdFRyYW5zYWN0aW9uTnVtYmVyIjpudWxsLCJ1c2VySWQiOjE3Nywib3BlbmlkIjoibzVHbUN0M2NuaE5Mbm1vTzgwUXIyOWdBSVd6dyIsInR5cGUiOjAsImFjdGl2aXR5SWQiOjE0LCJhY3Rpdml0eUFtb3VudCI6MSwiYWN0aXZpdHlOYW1lIjoi5YWD5pem5rS75YqoIiwicHVyY2hhc2VyIjoiQ2hhdXNzb24iLCJwdXJjaGFzZXJBZGRyZXNzIjoi5a6d5a6J5Yy65rex5Zyz5biC5bm/5Licc2Rnc2QiLCJwdXJjaGFzZXJOdW1iZXIiOiIxMzU0NTA5OTg5MSIsInN0YXR1cyI6MSwicGF5QW1vdW50IjoxMDAwLjAsInBheVN0YXR1cyI6MSwicHJveHlVc2VySWQiOjk2LCJwcm94eVVzZXIiOiIxMzU0NTA5OTg5MSIsIm9wZXJhdG9ySWQiOjk2LCJvcGVyYXRvck5hbWUiOiIxMzU0NTA5OTg5MSIsImJ1eUFjdGl2ZSI6MSwiY3JlYXRlVGltZSI6MTUxNTE0MTExOTAwMCwidXBkYXRlVGltZSI6MTUxNTE0MTExOTAwMCwidXNlckFjdGl2aXR5UGFja2FnZVZvcyI6bnVsbCwidXNlckFjdGl2aXR5T3JkZXJEZXRhaWxWb3MiOlt7ImlkIjo2MSwidXNlcklkIjoxNzcsIm9yZGVySWQiOjMxLCJ0eXBlIjowLCJleHBpcmF0aW9uVGltZSI6MTUxNTE0MTExOTAwMCwiYWN0aXZhdGVVc2VyIjpudWxsLCJhY3RpdmF0ZVBob25lTnVtYmVyIjoiIiwiYWN0aXZhdGVUaW1lIjoxNTE1MTQxMTE5MDAwLCJjb2RlIjpudWxsLCJjb2RlU3RhdHVzIjpudWxsLCJzdGF0dXMiOjEsImFjdGl2ZVN0YXR1cyI6MSwicGFja2FnZVR5cGUiOjAsInFyQ29kZSI6bnVsbCwib3BlcmF0b3JJZCI6OTYsIm9wZXJhdG9yTmFtZSI6IjEzNTQ1MDk5ODkxIiwidGlja2V0Vm9zIjpbeyJpZCI6MTA2LCJwYWNrYWdlSWQiOjY4LCJvcmRlckRldGFpbElkIjo2MSwidGlja2V0UHJpY2UiOjEwMCwidGlja2V0TmFtZSI6IjEwMOWFg+WIuCIsInF1YW50aXR5Ijo2LCJ1c2VkUXVhbnRpdHkiOjAsInVzZUxpbWl0IjowLCJ1c2VTdGF0dXMiOjAsInVzZXJJZCI6MCwiZXhwaXJhdGlvblRpbWUiOm51bGx9LHsiaWQiOjEwNywicGFja2FnZUlkIjo2OCwib3JkZXJEZXRhaWxJZCI6NjEsInRpY2tldFByaWNlIjo1MCwidGlja2V0TmFtZSI6IjUw5YWD5Yi4IiwicXVhbnRpdHkiOjgsInVzZWRRdWFudGl0eSI6MCwidXNlTGltaXQiOjAsInVzZVN0YXR1cyI6MCwidXNlcklkIjowLCJleHBpcmF0aW9uVGltZSI6bnVsbH1dfV0sImRlc2NyaXB0aW9uIjoic2ZnZ3MifX0=",
+					"name": "http://localhost:7070/qbt-web/ticketPackageOrder/detail.api",
+					"id": "f1db148f-479d-5b40-8565-d43ca3fe73ff",
+					"request": "9ac776aa-7e0e-a312-a85c-237b65832f6b",
+					"requestObject": {
+						"url": "http://localhost:7070/qbt-web/ticketPackageOrder/detail.api?id=31",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "id",
+								"value": "31",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"enabled": true
+							},
+							{
+								"key": "token",
+								"value": "373d3d8d2cea47aeae1b2500f975b6e0",
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headers": "Content-Type: application/json\ntoken: 373d3d8d2cea47aeae1b2500f975b6e0\n",
+						"data": "{\n\t\"id\":26,\n\t\"paymentUrl\":\"http://www.baidu.com\"\n}",
+						"method": "POST",
+						"dataMode": "raw"
+					}
+				}
+			],
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n\t\"type\":1,\n\t\"activityId\":12,\n\t\"activityAmount\": 3,\n\t\"activityName\":\"圣诞活动\",\n\t\n\t\n\t\"purchaser\":\"购买人feng\",\n\t\"purchaserAddress\": \"购买人地址sz\",\n\t\"purchaserNumber\":\"1325654455454\"\n\t\n\t\n}"
 		},
 		{
 			"id": "a2b84ee4-f7ce-4bbb-34bc-3b65e7a7cfed",
@@ -1738,6 +2612,532 @@
 			"currentHelper": null,
 			"helperAttributes": null,
 			"rawModeData": "{\n\t\"openid\":\"o5GmCt2PRJYGXWUUTw3pM4rcNnxI\",\n\t\"activityId\":6,\n\t\"activityAmount\": 3,\n\t\"activityName\":\"元旦大礼包\",\n\t\"type\":1,\n\t\n\t\n\t\"purchaser\":\"购买人\",\n\t\"purchaserAddress\": \"购买人地址\",\n\t\"purchaserNumber\":\"1325654455454\",\n\t\n\t\"description\":\"我要下单了。。。\"\n}"
+		},
+		{
+			"id": "bc113ec3-cb0b-08aa-17bb-2071ee1349ad",
+			"headers": "Content-Type: application/json\ntoken: 208cb6da0a0742d0be41de3d123869d2\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "token",
+					"value": "208cb6da0a0742d0be41de3d123869d2",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:7070/qbt-web/proxyTicketPackage/order.api",
+			"queryParams": [],
+			"events": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1515149617069,
+			"name": "http://localhost:7070/qbt-web/proxyTicketPackage/order.api",
+			"description": "",
+			"collectionId": "570e2436-101d-764f-c765-414d32ede36e",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 1068,
+					"headers": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "accept,content-type,token,userId",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": "The language the content is in"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 02 Jan 2018 10:38:09 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Server",
+							"value": "Apache-Coyote/1.1",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "JSESSIONID=C60CCAC10D4F62B709B392CB1D59EC9A; Path=/system-web/; HttpOnly",
+							"name": "Set-Cookie",
+							"description": "an HTTP cookie"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookies": [
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/system-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "C60CCAC10D4F62B709B392CB1D59EC9A"
+						},
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/qbt-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "68BE5B848DFADAA234E85445C488C732"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":\"0000\",\"msg\":\"ok\",\"datas\":{\"id\":10,\"orderNumber\":\"201801021616101243\",\"wechatTransactionNumber\":null,\"userId\":95,\"type\":1,\"activityId\":6,\"activityAmount\":3,\"activityName\":\"元旦大礼包\",\"purchaser\":\"购买人\",\"purchaserAddress\":\"购买人地址\",\"purchaserNumber\":\"1325654455454\",\"status\":0,\"payStatus\":1,\"proxyUserId\":null,\"proxyUser\":null,\"operatorId\":95,\"operatorName\":\"feng\",\"userActivityPackageVos\":null,\"userActivityOrderDetailVos\":[{\"id\":21,\"userId\":95,\"orderId\":10,\"type\":1,\"expirationTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"activateTime\":null,\"code\":null,\"codeStatus\":null,\"status\":0,\"activeStatus\":0,\"packageType\":0,\"qrCode\":null,\"operatorId\":95,\"operatorName\":\"feng\",\"ticketVos\":[{\"id\":39,\"packageId\":21,\"orderDetailId\":21,\"ticketPrice\":100,\"ticketName\":\"消费500抵用\",\"quantity\":5,\"usedQuantity\":0,\"useLimit\":500,\"useStatus\":0},{\"id\":40,\"packageId\":21,\"orderDetailId\":21,\"ticketPrice\":400,\"ticketName\":\"消费100抵用\",\"quantity\":3,\"usedQuantity\":0,\"useLimit\":1000,\"useStatus\":0}]},{\"id\":22,\"userId\":95,\"orderId\":10,\"type\":1,\"expirationTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"activateTime\":null,\"code\":null,\"codeStatus\":null,\"status\":0,\"activeStatus\":0,\"packageType\":0,\"qrCode\":null,\"operatorId\":95,\"operatorName\":\"feng\",\"ticketVos\":[{\"id\":41,\"packageId\":22,\"orderDetailId\":22,\"ticketPrice\":100,\"ticketName\":\"消费500抵用\",\"quantity\":5,\"usedQuantity\":0,\"useLimit\":500,\"useStatus\":0},{\"id\":42,\"packageId\":22,\"orderDetailId\":22,\"ticketPrice\":400,\"ticketName\":\"消费100抵用\",\"quantity\":3,\"usedQuantity\":0,\"useLimit\":1000,\"useStatus\":0}]}]}}",
+					"language": "json",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"code": 200,
+					"responseSize": {
+						"body": 1609,
+						"header": 468,
+						"total": 2077
+					},
+					"mimeType": "text",
+					"fileName": "response.json",
+					"dataURI": "data:application/json;base64, eyJjb2RlIjoiMDAwMCIsIm1zZyI6Im9rIiwiZGF0YXMiOnsiaWQiOjEwLCJvcmRlck51bWJlciI6IjIwMTgwMTAyMTYxNjEwMTI0MyIsIndlY2hhdFRyYW5zYWN0aW9uTnVtYmVyIjpudWxsLCJ1c2VySWQiOjk1LCJ0eXBlIjoxLCJhY3Rpdml0eUlkIjo2LCJhY3Rpdml0eUFtb3VudCI6MywiYWN0aXZpdHlOYW1lIjoi5YWD5pem5aSn56S85YyFIiwicHVyY2hhc2VyIjoi6LSt5Lmw5Lq6IiwicHVyY2hhc2VyQWRkcmVzcyI6Iui0reS5sOS6uuWcsOWdgCIsInB1cmNoYXNlck51bWJlciI6IjEzMjU2NTQ0NTU0NTQiLCJzdGF0dXMiOjAsInBheVN0YXR1cyI6MSwicHJveHlVc2VySWQiOm51bGwsInByb3h5VXNlciI6bnVsbCwib3BlcmF0b3JJZCI6OTUsIm9wZXJhdG9yTmFtZSI6ImZlbmciLCJ1c2VyQWN0aXZpdHlQYWNrYWdlVm9zIjpudWxsLCJ1c2VyQWN0aXZpdHlPcmRlckRldGFpbFZvcyI6W3siaWQiOjIxLCJ1c2VySWQiOjk1LCJvcmRlcklkIjoxMCwidHlwZSI6MSwiZXhwaXJhdGlvblRpbWUiOm51bGwsImFjdGl2YXRlVXNlciI6bnVsbCwiYWN0aXZhdGVQaG9uZU51bWJlciI6bnVsbCwiYWN0aXZhdGVUaW1lIjpudWxsLCJjb2RlIjpudWxsLCJjb2RlU3RhdHVzIjpudWxsLCJzdGF0dXMiOjAsImFjdGl2ZVN0YXR1cyI6MCwicGFja2FnZVR5cGUiOjAsInFyQ29kZSI6bnVsbCwib3BlcmF0b3JJZCI6OTUsIm9wZXJhdG9yTmFtZSI6ImZlbmciLCJ0aWNrZXRWb3MiOlt7ImlkIjozOSwicGFja2FnZUlkIjoyMSwib3JkZXJEZXRhaWxJZCI6MjEsInRpY2tldFByaWNlIjoxMDAsInRpY2tldE5hbWUiOiLmtojotLk1MDDmirXnlKgiLCJxdWFudGl0eSI6NSwidXNlZFF1YW50aXR5IjowLCJ1c2VMaW1pdCI6NTAwLCJ1c2VTdGF0dXMiOjB9LHsiaWQiOjQwLCJwYWNrYWdlSWQiOjIxLCJvcmRlckRldGFpbElkIjoyMSwidGlja2V0UHJpY2UiOjQwMCwidGlja2V0TmFtZSI6Iua2iOi0uTEwMOaKteeUqCIsInF1YW50aXR5IjozLCJ1c2VkUXVhbnRpdHkiOjAsInVzZUxpbWl0IjoxMDAwLCJ1c2VTdGF0dXMiOjB9XX0seyJpZCI6MjIsInVzZXJJZCI6OTUsIm9yZGVySWQiOjEwLCJ0eXBlIjoxLCJleHBpcmF0aW9uVGltZSI6bnVsbCwiYWN0aXZhdGVVc2VyIjpudWxsLCJhY3RpdmF0ZVBob25lTnVtYmVyIjpudWxsLCJhY3RpdmF0ZVRpbWUiOm51bGwsImNvZGUiOm51bGwsImNvZGVTdGF0dXMiOm51bGwsInN0YXR1cyI6MCwiYWN0aXZlU3RhdHVzIjowLCJwYWNrYWdlVHlwZSI6MCwicXJDb2RlIjpudWxsLCJvcGVyYXRvcklkIjo5NSwib3BlcmF0b3JOYW1lIjoiZmVuZyIsInRpY2tldFZvcyI6W3siaWQiOjQxLCJwYWNrYWdlSWQiOjIyLCJvcmRlckRldGFpbElkIjoyMiwidGlja2V0UHJpY2UiOjEwMCwidGlja2V0TmFtZSI6Iua2iOi0uTUwMOaKteeUqCIsInF1YW50aXR5Ijo1LCJ1c2VkUXVhbnRpdHkiOjAsInVzZUxpbWl0Ijo1MDAsInVzZVN0YXR1cyI6MH0seyJpZCI6NDIsInBhY2thZ2VJZCI6MjIsIm9yZGVyRGV0YWlsSWQiOjIyLCJ0aWNrZXRQcmljZSI6NDAwLCJ0aWNrZXROYW1lIjoi5raI6LS5MTAw5oq155SoIiwicXVhbnRpdHkiOjMsInVzZWRRdWFudGl0eSI6MCwidXNlTGltaXQiOjEwMDAsInVzZVN0YXR1cyI6MH1dfV19fQ==",
+					"name": "http://localhost:7070/system-web/ticketPackageOrder/detail.api",
+					"id": "03729d13-9028-8544-a2d8-1a4d51cfae8a",
+					"request": "bc113ec3-cb0b-08aa-17bb-2071ee1349ad",
+					"requestObject": {
+						"url": "http://localhost:7070/system-web/ticketPackageOrder/detail.api?id=10",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "id",
+								"value": "10",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"enabled": true,
+								"disabled": false
+							},
+							{
+								"key": "token",
+								"value": "df1a42935983498fac2211fe8d3cc30d",
+								"description": "",
+								"enabled": true,
+								"disabled": false
+							}
+						],
+						"headers": "Content-Type: application/json\ntoken: df1a42935983498fac2211fe8d3cc30d\n",
+						"data": [],
+						"method": "GET",
+						"dataMode": "params"
+					}
+				}
+			],
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n\t\"openid\":\"o5GmCt2PRJYGXWUUTw3pM4rcNnxI\",\n\t\"activityId\":6,\n\t\"activityAmount\": 3,\n\t\"activityName\":\"元旦大礼包\",\n\t\"type\":1,\n\t\n\t\n\t\"purchaser\":\"购买人\",\n\t\"purchaserAddress\": \"购买人地址\",\n\t\"purchaserNumber\":\"1325654455454\",\n\t\n\t\"description\":\"我要下单了。。。\"\n}"
+		},
+		{
+			"id": "bc401788-f4bf-6369-4d6d-0b55b308783b",
+			"headers": "Content-Type: application/json\ntoken: 373d3d8d2cea47aeae1b2500f975b6e0\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "token",
+					"value": "373d3d8d2cea47aeae1b2500f975b6e0",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://qbt.missionsky.cn:6047/qbt-web/ticketPackagePay/pay.api",
+			"queryParams": [],
+			"events": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1515381487472,
+			"name": "http://localhost:7070/qbt-web/ticketPackagePay/pay.api",
+			"description": "",
+			"collectionId": "570e2436-101d-764f-c765-414d32ede36e",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 1068,
+					"headers": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "accept,content-type,token,userId",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": "The language the content is in"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 02 Jan 2018 10:38:09 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Server",
+							"value": "Apache-Coyote/1.1",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "JSESSIONID=C60CCAC10D4F62B709B392CB1D59EC9A; Path=/system-web/; HttpOnly",
+							"name": "Set-Cookie",
+							"description": "an HTTP cookie"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookies": [
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/system-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "C60CCAC10D4F62B709B392CB1D59EC9A"
+						},
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/qbt-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "68BE5B848DFADAA234E85445C488C732"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":\"0000\",\"msg\":\"ok\",\"datas\":{\"id\":10,\"orderNumber\":\"201801021616101243\",\"wechatTransactionNumber\":null,\"userId\":95,\"type\":1,\"activityId\":6,\"activityAmount\":3,\"activityName\":\"元旦大礼包\",\"purchaser\":\"购买人\",\"purchaserAddress\":\"购买人地址\",\"purchaserNumber\":\"1325654455454\",\"status\":0,\"payStatus\":1,\"proxyUserId\":null,\"proxyUser\":null,\"operatorId\":95,\"operatorName\":\"feng\",\"userActivityPackageVos\":null,\"userActivityOrderDetailVos\":[{\"id\":21,\"userId\":95,\"orderId\":10,\"type\":1,\"expirationTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"activateTime\":null,\"code\":null,\"codeStatus\":null,\"status\":0,\"activeStatus\":0,\"packageType\":0,\"qrCode\":null,\"operatorId\":95,\"operatorName\":\"feng\",\"ticketVos\":[{\"id\":39,\"packageId\":21,\"orderDetailId\":21,\"ticketPrice\":100,\"ticketName\":\"消费500抵用\",\"quantity\":5,\"usedQuantity\":0,\"useLimit\":500,\"useStatus\":0},{\"id\":40,\"packageId\":21,\"orderDetailId\":21,\"ticketPrice\":400,\"ticketName\":\"消费100抵用\",\"quantity\":3,\"usedQuantity\":0,\"useLimit\":1000,\"useStatus\":0}]},{\"id\":22,\"userId\":95,\"orderId\":10,\"type\":1,\"expirationTime\":null,\"activateUser\":null,\"activatePhoneNumber\":null,\"activateTime\":null,\"code\":null,\"codeStatus\":null,\"status\":0,\"activeStatus\":0,\"packageType\":0,\"qrCode\":null,\"operatorId\":95,\"operatorName\":\"feng\",\"ticketVos\":[{\"id\":41,\"packageId\":22,\"orderDetailId\":22,\"ticketPrice\":100,\"ticketName\":\"消费500抵用\",\"quantity\":5,\"usedQuantity\":0,\"useLimit\":500,\"useStatus\":0},{\"id\":42,\"packageId\":22,\"orderDetailId\":22,\"ticketPrice\":400,\"ticketName\":\"消费100抵用\",\"quantity\":3,\"usedQuantity\":0,\"useLimit\":1000,\"useStatus\":0}]}]}}",
+					"language": "json",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"code": 200,
+					"responseSize": {
+						"body": 1609,
+						"header": 468,
+						"total": 2077
+					},
+					"mimeType": "text",
+					"fileName": "response.json",
+					"dataURI": "data:application/json;base64, eyJjb2RlIjoiMDAwMCIsIm1zZyI6Im9rIiwiZGF0YXMiOnsiaWQiOjEwLCJvcmRlck51bWJlciI6IjIwMTgwMTAyMTYxNjEwMTI0MyIsIndlY2hhdFRyYW5zYWN0aW9uTnVtYmVyIjpudWxsLCJ1c2VySWQiOjk1LCJ0eXBlIjoxLCJhY3Rpdml0eUlkIjo2LCJhY3Rpdml0eUFtb3VudCI6MywiYWN0aXZpdHlOYW1lIjoi5YWD5pem5aSn56S85YyFIiwicHVyY2hhc2VyIjoi6LSt5Lmw5Lq6IiwicHVyY2hhc2VyQWRkcmVzcyI6Iui0reS5sOS6uuWcsOWdgCIsInB1cmNoYXNlck51bWJlciI6IjEzMjU2NTQ0NTU0NTQiLCJzdGF0dXMiOjAsInBheVN0YXR1cyI6MSwicHJveHlVc2VySWQiOm51bGwsInByb3h5VXNlciI6bnVsbCwib3BlcmF0b3JJZCI6OTUsIm9wZXJhdG9yTmFtZSI6ImZlbmciLCJ1c2VyQWN0aXZpdHlQYWNrYWdlVm9zIjpudWxsLCJ1c2VyQWN0aXZpdHlPcmRlckRldGFpbFZvcyI6W3siaWQiOjIxLCJ1c2VySWQiOjk1LCJvcmRlcklkIjoxMCwidHlwZSI6MSwiZXhwaXJhdGlvblRpbWUiOm51bGwsImFjdGl2YXRlVXNlciI6bnVsbCwiYWN0aXZhdGVQaG9uZU51bWJlciI6bnVsbCwiYWN0aXZhdGVUaW1lIjpudWxsLCJjb2RlIjpudWxsLCJjb2RlU3RhdHVzIjpudWxsLCJzdGF0dXMiOjAsImFjdGl2ZVN0YXR1cyI6MCwicGFja2FnZVR5cGUiOjAsInFyQ29kZSI6bnVsbCwib3BlcmF0b3JJZCI6OTUsIm9wZXJhdG9yTmFtZSI6ImZlbmciLCJ0aWNrZXRWb3MiOlt7ImlkIjozOSwicGFja2FnZUlkIjoyMSwib3JkZXJEZXRhaWxJZCI6MjEsInRpY2tldFByaWNlIjoxMDAsInRpY2tldE5hbWUiOiLmtojotLk1MDDmirXnlKgiLCJxdWFudGl0eSI6NSwidXNlZFF1YW50aXR5IjowLCJ1c2VMaW1pdCI6NTAwLCJ1c2VTdGF0dXMiOjB9LHsiaWQiOjQwLCJwYWNrYWdlSWQiOjIxLCJvcmRlckRldGFpbElkIjoyMSwidGlja2V0UHJpY2UiOjQwMCwidGlja2V0TmFtZSI6Iua2iOi0uTEwMOaKteeUqCIsInF1YW50aXR5IjozLCJ1c2VkUXVhbnRpdHkiOjAsInVzZUxpbWl0IjoxMDAwLCJ1c2VTdGF0dXMiOjB9XX0seyJpZCI6MjIsInVzZXJJZCI6OTUsIm9yZGVySWQiOjEwLCJ0eXBlIjoxLCJleHBpcmF0aW9uVGltZSI6bnVsbCwiYWN0aXZhdGVVc2VyIjpudWxsLCJhY3RpdmF0ZVBob25lTnVtYmVyIjpudWxsLCJhY3RpdmF0ZVRpbWUiOm51bGwsImNvZGUiOm51bGwsImNvZGVTdGF0dXMiOm51bGwsInN0YXR1cyI6MCwiYWN0aXZlU3RhdHVzIjowLCJwYWNrYWdlVHlwZSI6MCwicXJDb2RlIjpudWxsLCJvcGVyYXRvcklkIjo5NSwib3BlcmF0b3JOYW1lIjoiZmVuZyIsInRpY2tldFZvcyI6W3siaWQiOjQxLCJwYWNrYWdlSWQiOjIyLCJvcmRlckRldGFpbElkIjoyMiwidGlja2V0UHJpY2UiOjEwMCwidGlja2V0TmFtZSI6Iua2iOi0uTUwMOaKteeUqCIsInF1YW50aXR5Ijo1LCJ1c2VkUXVhbnRpdHkiOjAsInVzZUxpbWl0Ijo1MDAsInVzZVN0YXR1cyI6MH0seyJpZCI6NDIsInBhY2thZ2VJZCI6MjIsIm9yZGVyRGV0YWlsSWQiOjIyLCJ0aWNrZXRQcmljZSI6NDAwLCJ0aWNrZXROYW1lIjoi5raI6LS5MTAw5oq155SoIiwicXVhbnRpdHkiOjMsInVzZWRRdWFudGl0eSI6MCwidXNlTGltaXQiOjEwMDAsInVzZVN0YXR1cyI6MH1dfV19fQ==",
+					"name": "http://localhost:7070/system-web/ticketPackageOrder/detail.api",
+					"id": "4de71920-bbc5-ff8b-801c-1c6569475937",
+					"request": "bc401788-f4bf-6369-4d6d-0b55b308783b",
+					"requestObject": {
+						"url": "http://localhost:7070/system-web/ticketPackageOrder/detail.api?id=10",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "id",
+								"value": "10",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"enabled": true,
+								"disabled": false
+							},
+							{
+								"key": "token",
+								"value": "df1a42935983498fac2211fe8d3cc30d",
+								"description": "",
+								"enabled": true,
+								"disabled": false
+							}
+						],
+						"headers": "Content-Type: application/json\ntoken: df1a42935983498fac2211fe8d3cc30d\n",
+						"data": [],
+						"method": "GET",
+						"dataMode": "params"
+					}
+				},
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 6661,
+					"headers": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "accept,content-type,token,userId",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Language",
+							"value": "en-US",
+							"name": "Content-Language",
+							"description": "The language the content is in"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 05 Jan 2018 08:38:44 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 01 Jan 1970 00:00:00 GMT",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Server",
+							"value": "Apache-Coyote/1.1",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookies": [
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/system-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "E9A8BAEA568F247BF1ABE1B593B0C0C5"
+						},
+						{
+							"domain": "localhost",
+							"expirationDate": 2147483647,
+							"httpOnly": true,
+							"name": "JSESSIONID",
+							"path": "/qbt-web/",
+							"secure": false,
+							"url": "http://localhost:7070",
+							"value": "A479ED261B3B9452D054B32E23A3AA56"
+						}
+					],
+					"mime": "",
+					"text": "{\"code\":\"0000\",\"msg\":\"ok\",\"datas\":{\"id\":31,\"orderNumber\":\"201801051631581918\",\"wechatTransactionNumber\":null,\"userId\":177,\"openid\":\"o5GmCt3cnhNLnmoO80Qr29gAIWzw\",\"type\":0,\"activityId\":14,\"activityAmount\":1,\"activityName\":\"元旦活动\",\"purchaser\":\"Chausson\",\"purchaserAddress\":\"宝安区深圳市广东sdgsd\",\"purchaserNumber\":\"13545099891\",\"status\":1,\"payAmount\":1000.0,\"payStatus\":1,\"proxyUserId\":96,\"proxyUser\":\"13545099891\",\"operatorId\":96,\"operatorName\":\"13545099891\",\"buyActive\":1,\"createTime\":1515141119000,\"updateTime\":1515141119000,\"userActivityPackageVos\":null,\"userActivityOrderDetailVos\":[{\"id\":61,\"userId\":177,\"orderId\":31,\"type\":0,\"expirationTime\":1515141119000,\"activateUser\":null,\"activatePhoneNumber\":\"\",\"activateTime\":1515141119000,\"code\":null,\"codeStatus\":null,\"status\":1,\"activeStatus\":1,\"packageType\":0,\"qrCode\":null,\"operatorId\":96,\"operatorName\":\"13545099891\",\"ticketVos\":[{\"id\":106,\"packageId\":68,\"orderDetailId\":61,\"ticketPrice\":100,\"ticketName\":\"100元券\",\"quantity\":6,\"usedQuantity\":0,\"useLimit\":0,\"useStatus\":0,\"userId\":0,\"expirationTime\":null},{\"id\":107,\"packageId\":68,\"orderDetailId\":61,\"ticketPrice\":50,\"ticketName\":\"50元券\",\"quantity\":8,\"usedQuantity\":0,\"useLimit\":0,\"useStatus\":0,\"userId\":0,\"expirationTime\":null}]}],\"description\":\"sfggs\"}}",
+					"language": "json",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"code": 200,
+					"responseSize": {
+						"body": 1277,
+						"header": 382,
+						"total": 1659
+					},
+					"mimeType": "text",
+					"fileName": "response.json",
+					"dataURI": "data:application/json;base64, eyJjb2RlIjoiMDAwMCIsIm1zZyI6Im9rIiwiZGF0YXMiOnsiaWQiOjMxLCJvcmRlck51bWJlciI6IjIwMTgwMTA1MTYzMTU4MTkxOCIsIndlY2hhdFRyYW5zYWN0aW9uTnVtYmVyIjpudWxsLCJ1c2VySWQiOjE3Nywib3BlbmlkIjoibzVHbUN0M2NuaE5Mbm1vTzgwUXIyOWdBSVd6dyIsInR5cGUiOjAsImFjdGl2aXR5SWQiOjE0LCJhY3Rpdml0eUFtb3VudCI6MSwiYWN0aXZpdHlOYW1lIjoi5YWD5pem5rS75YqoIiwicHVyY2hhc2VyIjoiQ2hhdXNzb24iLCJwdXJjaGFzZXJBZGRyZXNzIjoi5a6d5a6J5Yy65rex5Zyz5biC5bm/5Licc2Rnc2QiLCJwdXJjaGFzZXJOdW1iZXIiOiIxMzU0NTA5OTg5MSIsInN0YXR1cyI6MSwicGF5QW1vdW50IjoxMDAwLjAsInBheVN0YXR1cyI6MSwicHJveHlVc2VySWQiOjk2LCJwcm94eVVzZXIiOiIxMzU0NTA5OTg5MSIsIm9wZXJhdG9ySWQiOjk2LCJvcGVyYXRvck5hbWUiOiIxMzU0NTA5OTg5MSIsImJ1eUFjdGl2ZSI6MSwiY3JlYXRlVGltZSI6MTUxNTE0MTExOTAwMCwidXBkYXRlVGltZSI6MTUxNTE0MTExOTAwMCwidXNlckFjdGl2aXR5UGFja2FnZVZvcyI6bnVsbCwidXNlckFjdGl2aXR5T3JkZXJEZXRhaWxWb3MiOlt7ImlkIjo2MSwidXNlcklkIjoxNzcsIm9yZGVySWQiOjMxLCJ0eXBlIjowLCJleHBpcmF0aW9uVGltZSI6MTUxNTE0MTExOTAwMCwiYWN0aXZhdGVVc2VyIjpudWxsLCJhY3RpdmF0ZVBob25lTnVtYmVyIjoiIiwiYWN0aXZhdGVUaW1lIjoxNTE1MTQxMTE5MDAwLCJjb2RlIjpudWxsLCJjb2RlU3RhdHVzIjpudWxsLCJzdGF0dXMiOjEsImFjdGl2ZVN0YXR1cyI6MSwicGFja2FnZVR5cGUiOjAsInFyQ29kZSI6bnVsbCwib3BlcmF0b3JJZCI6OTYsIm9wZXJhdG9yTmFtZSI6IjEzNTQ1MDk5ODkxIiwidGlja2V0Vm9zIjpbeyJpZCI6MTA2LCJwYWNrYWdlSWQiOjY4LCJvcmRlckRldGFpbElkIjo2MSwidGlja2V0UHJpY2UiOjEwMCwidGlja2V0TmFtZSI6IjEwMOWFg+WIuCIsInF1YW50aXR5Ijo2LCJ1c2VkUXVhbnRpdHkiOjAsInVzZUxpbWl0IjowLCJ1c2VTdGF0dXMiOjAsInVzZXJJZCI6MCwiZXhwaXJhdGlvblRpbWUiOm51bGx9LHsiaWQiOjEwNywicGFja2FnZUlkIjo2OCwib3JkZXJEZXRhaWxJZCI6NjEsInRpY2tldFByaWNlIjo1MCwidGlja2V0TmFtZSI6IjUw5YWD5Yi4IiwicXVhbnRpdHkiOjgsInVzZWRRdWFudGl0eSI6MCwidXNlTGltaXQiOjAsInVzZVN0YXR1cyI6MCwidXNlcklkIjowLCJleHBpcmF0aW9uVGltZSI6bnVsbH1dfV0sImRlc2NyaXB0aW9uIjoic2ZnZ3MifX0=",
+					"name": "http://localhost:7070/qbt-web/ticketPackageOrder/detail.api",
+					"id": "cd9697a5-0847-3689-7c25-af6a07649013",
+					"request": "bc401788-f4bf-6369-4d6d-0b55b308783b",
+					"requestObject": {
+						"url": "http://localhost:7070/qbt-web/ticketPackageOrder/detail.api?id=31",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "id",
+								"value": "31",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"enabled": true
+							},
+							{
+								"key": "token",
+								"value": "373d3d8d2cea47aeae1b2500f975b6e0",
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headers": "Content-Type: application/json\ntoken: 373d3d8d2cea47aeae1b2500f975b6e0\n",
+						"data": "{\n\t\"id\":26,\n\t\"paymentUrl\":\"http://www.baidu.com\"\n}",
+						"method": "POST",
+						"dataMode": "raw"
+					}
+				}
+			],
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n\t\"orderId\":26\n\t\n}"
 		},
 		{
 			"id": "c9b88719-cc55-b69a-99c2-0bfe54a575ff",

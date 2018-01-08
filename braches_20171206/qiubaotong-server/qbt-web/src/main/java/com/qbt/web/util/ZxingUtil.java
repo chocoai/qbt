@@ -118,6 +118,7 @@ public class ZxingUtil {
 	
 	/**
 	 * 生成一个简易的二维码code
+	 * @author andy.li
 	 * @return
 	 */
 	public static String GetQrCode()

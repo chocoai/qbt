@@ -18,7 +18,6 @@ import com.qbt.common.logback.LogCvt;
 import com.qbt.common.result.Result;
 import com.qbt.persistent.entity.ActivityTicketPackage;
 import com.qbt.persistent.entity.UserWeixin;
-import com.qbt.web.util.ZxingUtil;
 import com.qbt.web.pojo.ticket.UserActivityPackageVo;
 import com.qbt.web.pojo.ticket.UserPackageTicketVo;
 import com.qbt.web.support.LoginSupport;
@@ -41,9 +40,8 @@ public class MyTicketPackageController {
 	
 	/**
 	  * @Title: listNotActive
-	  * @Description: Search (active_status=0 and package_type in (0,1,2))
+	  * @Description: Search (active_status=0 and package_type=0))
 	  * @author: andy.li
-	  * @param userId
 	  * @return List<UserActivityPackageVo>
 	  */
 	@RequestMapping("/listNotActive")
@@ -67,9 +65,8 @@ public class MyTicketPackageController {
 	
 	/**
 	  * @Title: listUsed
-	  * @Description: Search (active_status=1 or package_type=3 or(active_status=1 and today>expiration_time))
+	  * @Description: Search (active_status=1 or package_type in(1,2) or(active_status=1 and today>expiration_time))
 	  * @author: andy.li
-	  * @param userId
 	  * @return List<UserActivityPackageVo>
 	 */
 	@RequestMapping("/listUsed")
@@ -93,7 +90,6 @@ public class MyTicketPackageController {
 	/**
 	 * @Title: listAvailableTicket
 	 * @author: andy.li
-	 * @param packageId
 	 * @return List<UserPackageTicketVo>
 	 */
 	@RequestMapping("/listAvailableTicket")
@@ -117,7 +113,6 @@ public class MyTicketPackageController {
 	/**
 	 * @Title: listDisableTicket
 	 * @author: andy.li
-	 * @param packageId
 	 * @return List<UserPackageTicketVo>
 	 */
 	@RequestMapping("/listDisableTicket")
@@ -143,14 +138,18 @@ public class MyTicketPackageController {
 	 * @Title: activate
 	 * @Description:update active_status  = 1
 	 * @param packageId
+	 * @param activateUser
+	 * @param activatePhoneNumber
+	 * @param code
+	 * @param codeStatus
 	 * @author: andy.li
 	 * @return
 	 */
 	@RequestMapping("/activate")
-	public Result<String> activate(int packageId){
+	public Result<String> activate(int packageId,String activateUser,String activatePhoneNumber,String code,int codeStatus){
 		Result<String> result = new Result<String>();
 		try {
-			result.setDatas(myTicketPackageSupport.activate(packageId));
+			result.setDatas(myTicketPackageSupport.activate(packageId,activateUser,activatePhoneNumber,code,codeStatus));
 		}catch (WechatException e) {
 			result.setCode(e.getCode());
 			result.setMsg(e.getMsg());
@@ -238,11 +237,11 @@ public class MyTicketPackageController {
 			e.printStackTrace();
 		}
 		//清除服务器下二维码临时图片
-		try {
-			ZxingUtil.deletefile(webpath);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			ZxingUtil.deletefile(webpath);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	  }else{
 		  result.setDatas("获取二维码失败!");
 	  }

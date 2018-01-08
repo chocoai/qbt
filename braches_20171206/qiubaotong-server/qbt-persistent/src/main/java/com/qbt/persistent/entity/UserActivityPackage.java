@@ -16,6 +16,8 @@ public class UserActivityPackage extends BaseEntity {
 	String activityName;
 	float price;
 	int effectiveDay;
+	int packageType;
+	Date activateTime;
 	
 	public int getId() {
 		return id;
@@ -82,6 +84,18 @@ public class UserActivityPackage extends BaseEntity {
 	}
 	public void setEffectiveDay(int effectiveDay) {
 		this.effectiveDay = effectiveDay;
+	}
+	public int getPackageType() {
+		return packageType;
+	}
+	public void setPackageType(int packageType) {
+		this.packageType = packageType;
+	}
+	public Date getActivateTime() {
+		return activateTime;
+	}
+	public void setActivateTime(Date activateTime) {
+		this.activateTime = activateTime;
 	}
 	
 }

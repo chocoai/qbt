@@ -21,8 +21,12 @@ var voucher_buy_view = Vue.extend({
         },
         //获取验证码
         getSecurityCode: function() {
+            if(!$.comReg.isMobile($('.receivePhone').val())) {
+                $.toast('电话号码不正确');
+                return;
+            }
             this.securityCode = true;
-            const TIME_COUNT = 60;
+            const TIME_COUNT = 59;
             if (!this.timer) {
                 this.count = TIME_COUNT;
                 this.show = false;
@@ -39,9 +43,9 @@ var voucher_buy_view = Vue.extend({
             }
         },
         //获取球包
-        getBallBagPhoto: function() {
-            router.push('/send/ball_bag_photo');
-        },
+        // getBallBagPhoto: function() {
+        //     router.push('/send/ball_bag_photo');
+        // },
         //增加券包数量
         increaseVoucherCount: function() {
             this.voucherCount++;

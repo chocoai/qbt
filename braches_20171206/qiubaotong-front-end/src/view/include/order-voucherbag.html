@@ -19,43 +19,67 @@
                             </div>
                         </div>
                         <div class="weui_panel_bd">
-                            <!-- 可使用代金券 -->
+                            <!-- 未激活券包 -->
                             <div v-show="voucher_tab == 1">
-                                <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg" style="padding:15px 15px 15px 6px">
-                                    <div class="weui_media_hd voucher-property">
-                                        <p>￥60</p>
-                                        <p>满100元可用</p>
+                                <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg" v-for="item in notActiveList" :key="item.id" style="padding:15px 15px 15px 6px;background-color:#fff;">
+                                    <div class="weui_media_hd voucher-property1">
+                                        <p>￥{{item.price}}</p>
                                     </div>
                                     <div class="weui_media_bd">
-                                        <h4 class="weui_media_title voucher-name">球包通通用券</h4>
-                                        <p class="weui_media_desc voucher-time">2017.10.18-2017.12.18</p>
-                                        <p class="weui_media_desc voucher-count"><i class="weui_icon_warn"></i>数量50张，每单限用1张</p>
+                                        <h4 class="weui_media_title voucher-name1">{{item.activityName}}</h4>
                                     </div>
                                     <div>
-                                        <div class="voucher-active" @click="active()">激活</div>
+                                        <div class="voucher-active" @click="active(1)">激活</div>
                                         <div class="voucher-code" @click="codeSend()">二维码赠送</div>
                                     </div>
                                 </a>
+                                <div class="order-none tex-c" v-show="notActiveList.length == 0">
+                                    <img src="/img/nocoupon.png" alt="" />
+                                    <p>无券包信息</p>
+                                </div>
                             </div>
-                            <!-- 不可使用代金券 -->
+                            <!-- 已使用券包 -->
                             <div v-show="voucher_tab == 2">
-                                <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg" style="padding:15px 15px 15px 6px">
-                                    <div class="weui_media_hd voucher-property">
-                                        <p>￥60</p>
-                                        <p>满100元可用</p>
+                                <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg" v-for="item in activedList" :key="item.id" style="padding:15px 15px 15px 6px;background-color:#fff;">
+                                    <div class="weui_media_hd voucher-property1">
+                                        <p>￥{{item.price}}</p>
                                     </div>
                                     <div class="weui_media_bd">
-                                        <h4 class="weui_media_title voucher-name">球包通通用券</h4>
-                                        <p class="weui_media_desc voucher-time">2017.10.18-2017.12.18</p>
-                                        <p class="weui_media_desc voucher-count"><i class="weui_icon_warn"></i>数量50张，每单限用1张</p>
+                                        <h4 class="weui_media_title voucher-name1">{{item.activityName}}</h4>
+                                        <p class="weui_media_desc voucher-time1">{{item.activateTime | dateFormat 'yyyy.MM.dd'}} - {{item.expirationTime | dateFormat 'yyyy.MM.dd'}}</p>
                                     </div>
                                     <div class="voucher-use">立即使用</div>
                                 </a>
+                                <div class="order-none tex-c" v-show="activedList.length == 0">
+                                    <img src="/img/nocoupon.png" alt="" />
+                                    <p>没有该类型券包</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <!-- 弹框 -->
+        <div style="display: none;" class="tankuang">
+            <form action="#">
+                <div style="padding:15px;border-bottom:1px solid #ccc">
+                    <label for="name" style="font-size:16px;">姓名：</label>
+                    <input type="text" id="name" style="border:0 none;outline: none;font-size:16px;">
+                </div>
+                <div style="padding:15px;border-bottom:1px solid #ccc;position:relative;">
+                    <label for="cellphone" style="font-size:16px;">手机：</label>
+                    <input type="number" id="cellphone" style="border:0 none;outline: none;font-size:16px;">
+                    <div class="activeCode">
+                        <span>验证码</span>
+                    </div>
+                </div>
+                <div style="padding:15px;border-bottom:1px solid #ccc">
+                    <label for="code" style="font-size:16px;">验证码：</label>
+                    <input type="text" id="code" style="border:0 none;outline: none;font-size:16px;">    
+                </div>
+            </form>
+            <p style="color:blue;text-align:center;font-size:16px;line-height: 60px;">券包激活后不能赠送！</p>
         </div>
     </section>
 </template>

@@ -23,7 +23,9 @@ public interface UserActivityOrderDetailMapper {
      */
     List<UserActivityOrderDetail> findByPage(PageEntity<UserActivityOrderDetail> pageEntity);
     
-    List<UserActivityPackage> findlistUsed(@Param("userId")int userId,@Param("sysdatetime")String sysdatetime);
+    List<UserActivityPackage> findlistUsed(int userId);
     
     List<UserActivityPackage> findlistNotActive(int userId);
+    
+    int findEffectiveDayByOrderDetailId(int orderDetailId);
 }

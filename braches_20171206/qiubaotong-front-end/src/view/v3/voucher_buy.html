@@ -24,7 +24,6 @@
             </div>
             <div class="ticket-content">
                 <p>电子券</p>
-                <!-- <div><i class="weui-icon-success-no-circle"></i></div> -->
                 <ul>
                     <li>
                         <div @click="chooseVoucher(1)" :class="{'chooseVoucher':voucher_type == 1}">
@@ -47,7 +46,7 @@
                 </ul>
             </div>
             <div class="activate">
-                <p>未激活券包可赠送好友，是否激活？<span class="cancel-activate" @click="isActivate()">取消激活</span></p>
+                <p>未激活券包可赠送好友，是否激活？<span class="cancel-activate" @click="isActivate()">激活</span></p>
                 <p>（卡券包属于特殊商品，不支持退换）</p>
             </div>
             <div class="voucherProperty" v-show="voucherProperty">
@@ -60,13 +59,13 @@
             </div>
         </section>
         <!-- 球包照片 -->
-        <div class="weui-cell weui-cell_access ballBagPhoto" @click="getBallBagPhoto()">
+        <!-- <div class="weui-cell weui-cell_access ballBagPhoto" @click="getBallBagPhoto()">
             <div class="weui-cell__hd">
                 球包照片
             </div>
             <div class="weui-cell__bd" style="text-align:right;padding-right:15px;"></div>
             <div class="weui-cell__ft"></div>
-        </div>
+        </div> -->
         <!-- 球包数量 -->
         <div class="weui-cell weui-cell_access giftBag">
             <div class="weui-cell__hd">
@@ -99,7 +98,7 @@
                         <label class="weui-label">手机号</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" placeholder="请输入收件人手机号码" />
+                        <input class="weui-input receivePhone" placeholder="请输入收件人手机号码" />
                     </div>
                     <div class="securityCode" @click="getSecurityCode">
                         <span v-show="show">发送验证码</span>

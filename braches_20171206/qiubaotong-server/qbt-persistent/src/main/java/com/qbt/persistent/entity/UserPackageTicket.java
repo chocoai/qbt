@@ -22,6 +22,7 @@ public class UserPackageTicket extends BaseEntity {
 	int userId;
 	Date expirationTime;
 	int effectiveDay;
+	Date activateTime;
 	
 	public int getId() {
 		return id;
@@ -94,6 +95,12 @@ public class UserPackageTicket extends BaseEntity {
 	}
 	public void setEffectiveDay(int effectiveDay) {
 		this.effectiveDay = effectiveDay;
+	}
+	public Date getActivateTime() {
+		return activateTime;
+	}
+	public void setActivateTime(Date activateTime) {
+		this.activateTime = activateTime;
 	}
 
 }

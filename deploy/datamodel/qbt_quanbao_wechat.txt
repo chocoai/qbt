@@ -38,6 +38,7 @@ myTicketPackageController
 		update package_type = 2
 		copy a new package to current user
 		Create a new user if openid dont existed in system
+		[根据手机号查询 UserWeixinService.isWeiXinUser()]
 		
 		
 	3.activate.api
