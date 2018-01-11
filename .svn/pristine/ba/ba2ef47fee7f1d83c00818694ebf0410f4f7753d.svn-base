@@ -1,0 +1,134 @@
+loginSupportImpl.java
+
+UserWeixin user = userWeixinService.findByOpenId(openid);
+		if(user ==  null){
+		
+		
+
+待下单，如果有够选了激活
+
+支付成功后，需要处理激活		
+
+----------
+支付回调：
+@RequestMapping("/callbak")
+public class CallBackController {
+
+weixinPayReturn（）
+
+}
+
+支付发起：
+PyamentSupportImpl.java
+{
+	pay(orderId, openid)
+}
+
+PyamentController.java
+ 	/**
+	 *  订单下单微信支付
+	  * @Title: payOrder
+	  * @Description: TODO
+	  * @author: share 2016年8月13日
+	  * @modify: share 2016年8月13日
+	  * @param orderInfo
+	  * @return
+	 */
+	@RequestMapping("/v2/order")
+	public Result<Map<String,String>> payOrderV2(HttpServletRequest request,String orderId){
+	
+	
+	
+	
+
+TODO:
+
+
+1. 配置文件更改[ok]
+
+@Value("${ticket_package_notify_url}") // TODO add it to configure
+
+1.1 wechat.properties
+	增加一个微信发送模板
+
+2. 微信的通知模板
+ 
+模板Id：wait_pay_tip
+//下推微信通知 TODO 微信下发
+//wechatMessageSupport.ticketPackageSuccessPayNotify(vipInfo);	
+
+
+3. ticketPackageActivity 增加一个更新的接口
+//1 - active；2- inactive
+	
+更改订单支付状态
+
+4. 球包规则增加了一个实际支付价格payPrice，增加的时候需要设置下 【ui需要做】
+	原来的price是票面价格
+
+	
+5. 支付url：
+/ticketPackagePay/pay
+
+6. 下单	
+/ticketPackageOrder/order
+
+7. web端实现一个订单详情
+http://localhost:7070/system-web/ticketPackageOrder/detail.api?id=27
+
+8. web支付pay，需要校验订单和价格
+
+
+部署文档：
+球包通服务器目录：
+球包通服务器信息及发布.docx
+
+星期二下午三点
+
+
+======1/8=========
+bug fix from dana:
+226 - 修改问题保存时不校验 [服务端更改]
+231 - 时效修改后后，需要保持会员价，需要手动选择会员【前端更改】
+232 - 请问下是否是还没有开始填写收件信息的时候，就不要提醒它 【前端改提醒】
+228 - 广告位，检查下前后台状态 【检查前后台状态】
+229 - 广告位设置 [后台修改] 【增加时间的修改】
+233 - boss下单 【已解决】
+238 - 海南重货 【客户已经取消】
+239 - 从业务上来说，周末的重货极少，暂时限制，下单周末时统一去掉加急时效，显示加急打电话 【周末不显示】
+240 - 给顺丰的都是快件类型 [后台修改]
+241 - 后台/官网下单，增加了vip的优惠，球包没有计算 【前端和后台配置】
+
+---券包问题：
+1. 短信验证码 ok
+
+
+--- 后台开发的地址 boss下单
+http://192.168.0.244:8002/view/index.html
+
+
+---
+
+
+1. 券的使用，提供接口 [后台修改] - feng 
+2. web端的券包活动信息  - andy/feng 明天 1/9
+3. 手机验证的问题  - andy/feng  ok
+
+-==========240bug修复======
+http://qbt.missionsky.cn:6047/system-web/order/update.api
+更改后发送bsp信息：
+OrderController.update()
+
+public void update(OrderDetailVo orderDetail, SysUser sysUser) 
+这里处理下express type
+
+==============
+下单时，使用券包券
+ticket_
+
+OrderPayInfo 里面增加一个 packageTicketId package_ticket_id
+<result column="package_ticket_id" property="packageTicketId" jdbcType="INTEGER" />
+OrderInfo 里面增加一个 packageTicketId
+table里面增加 
+
+
