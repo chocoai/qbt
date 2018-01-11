@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+<meta name="renderer" content="webkit">
+<title>球包通-订单支付</title>
+<!-- Bootstrap -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href="css/normalize.css">
+<!--我的-->
+<link href="{{{/css/globle.css}}}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="css/idangerous.swiper.css">
+<link href="css/newbag.css" rel="stylesheet" type="text/css">
+<link href="{{{/css/shop.css}}}" rel="stylesheet" type="text/css">
+
+<!--[if lte IE 6]>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-ie6.css">
+  <link rel="stylesheet" type="text/css" href="css/ie.css">
+<![endif]-->
+<!--[if lt IE 9]>
+  <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<style>
+.hide{display: none;}
+.panel-green{border-color: #ddd;}
+.panel-green>.panel-heading{background-color: #15ca5f;color: #fff;border: 0;}
+.anchorBL{display: none !important;}
+.badge{background-color: #15ca5f;color: #fff;vertical-align: top;margin-left: 10px;}
+</style>
+</head>
+<body>
+<div id="app">
+<!--头部-->
+<header class="header">
+    <nav class="navbar scrolled">
+      <div class="container">
+          <div class="navbar-header">
+             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                 <span class="sr-only">切换导航</span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+             </button>
+             <a href="/"><img src="images/logo-nav.png" alt="" style="max-height: 32px;margin-top:13px;"></a>
+          </div>
+          <div class="collapse navbar-collapse" id="navbar-collapse">
+              <ul class="nav navbar-nav">
+                  <li><a href="/" class="main-nav-link ">主页</a> </li>
+                  <li><a href="order.html" class="main-nav-link current">球包快递</a></li>
+                  <li><a href="track.html" class="main-nav-link">球包追踪</a></li>
+                  <li><a href="raiders.html" class="main-nav-link">球包通攻略</a></li>
+                  <li><a href="service.html" class="main-nav-link ">客服中心</a></li>
+                  <li><a href="about.html" class="main-nav-link">关于我们</a></li>
+                  <li><a href="/news/" class="main-nav-link ">球包通新闻</a></li>
+                  <li><a href="tel:400-609-0990;" style="font-weight:700;"><img src="images/nav-tel.png" alt="" style="height:25px;margin-right:15px;">400-609-0990</a></li>
+              </ul>
+          </div>
+      </div>
+    </nav>
+</header>
+<!--头部 end-->
+<!--努力建设中-->
+<!-- <section class=" text-center mar-head fixed col-md-12" style="z-index:10; height:100%; top:-25px; background-color: rgba(255,255,255,0.9);"><br /><br /><br />
+<img src="images/build.png" class="center-block bg-f" />
+ <h4 >努力开发中,敬请期待...</h4><br /><br /><br /><br />
+</section> -->
+<!--努力建设中end-->
+
+<section class="book-tit ">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h3>订单支付</h3>
+        <hr />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="row book-box">
+        <div class="col-md-12">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <h3 class="panel-title">订单号:{{detail.number}}</h3>
+                </div>
+                <div class="panel-body">
+                    <h5>微信付款</h5>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>支付金额 <span style="font-size:24px;color:red;margin-left:15px;">{{detail.amount | currency('￥')}}</span></p>
+                                    <p>请您及时付款，以便尽快处理订单！</p>
+                                    <img :src="fBaseUrl + pay_url" alt="" v-if="pay_url" style="width:200px;height:200px;">
+                                </div>
+                                <div class="col-md-6">
+                                    <img src="images/wxpay.png" style="height:300px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-center">
+                    支付成功后，关注球包通微信公众号，可查看订单
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-md-8">
+              <div class="panel panel-green">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">地址信息</h3>
+                  </div>
+                  <div class="panel-body">
+                      <h4>寄包信息</h4>
+                      <div class="row">
+                          <label class="col-sm-2 control-label">姓名</label>{{detail.jContact}}
+                      </div>
+                      <div class="row">
+                          <label class="col-sm-2 control-label">电话</label>{{detail.jMobile}}
+                      </div>
+                      <div class="row" v-show="detail.jAddrType == 4">
+                          <label class="col-sm-2 control-label">地址</label>{{detail.jTreePath}}{{detail.jAddrName}}&nbsp;
+                          <span v-if="detail.jOutRangeType>0" style="background: #15c95f;border-radius: 5px;padding: 2px 5px;color: #ffffff">偏</span>
+                          <span class="badge" v-show="detail.jActivity">满减</span>
+                      </div>
+                      <div class="row" v-show="detail.jAddrType == 1">
+                          <label class="col-sm-2 control-label">球场</label>{{detail.jAddrName}}&nbsp;<span v-if="detail.jOutRangeType>0" style="background: #15c95f;border-radius: 5px;padding: 2px 5px;color: #ffffff">偏</span><span class="badge" v-show="detail.jActivity">满减</span>
+                      </div>
+                      <div class="row">
+                          <label class="col-sm-2 control-label">预约取件</label>{{detail.sendTimeSection}}
+                      </div>
+
+                      <h4>收包信息</h4>
+                      <div class="row">
+                          <label class="col-sm-2 control-label">姓名</label>{{detail.dContact}}
+                      </div>
+                      <div class="row">
+                          <label class="col-sm-2 control-label">电话</label>{{detail.dMobile}}
+                      </div>
+                      <div class="row" v-show="detail.dAddrType == 4">
+                          <label class="col-sm-2 control-label">地址</label>{{detail.dTreePath}}{{detail.dAddrName}}&nbsp;
+                          <span v-if="detail.dOutRangeType>0" style="background: #15c95f;border-radius: 5px;padding: 2px 5px;color: #ffffff">偏</span>
+                          <span class="badge" v-show="detail.dActivity">满减</span>
+                      </div>
+                      <div class="row" v-show="detail.dAddrType == 1">
+                          <label class="col-sm-2 control-label">球场</label>{{detail.dAddrName}}&nbsp;
+                          <span v-if="detail.dOutRangeType>0" style="background: #15c95f;border-radius: 5px;padding: 2px 5px;color: #ffffff">偏</span>
+                          <span class="badge" v-show="detail.dActivity">满减</span>
+                      </div>
+                      <div class="row">
+                          <label class="col-sm-2 control-label">预计到达</label>{{detail.busnissType===2?detail.expressDescribe:detail.deliverTime}}
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="panel panel-green">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">物品</h3>
+                  </div>
+                  <div class="panel-body">
+                      <div class="row">
+                          <label class="col-sm-4 control-label">球包数量</label><span class="col-sm-6 text-right">{{detail.quantity}}</span>
+                      </div>
+                      <div class="row">
+                          <label class="col-sm-4 control-label">球包保价</label><span class="col-sm-6 text-right">{{detail.insureValue}}(万元)</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="panel panel-green">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">订单明细</h3>
+                  </div>
+                  <div class="panel-body">
+                      <div class="row">
+                          <label class="col-sm-4 control-label">保价费</label><span class="col-sm-6 text-right">{{detail.insureFee | currency('￥')}} × {{detail.quantity}}</span>
+                      </div>
+                      <div class="row">
+                          <label class="col-sm-4 control-label">订单金额</label><span class="col-sm-6 text-right">{{detail.totalAmount-detail.outRangeAmount | currency('￥')}} × {{detail.quantity}}</span>
+                         <!--  <div class="col-md-10 text-right" v-if="detail.outRangeAmount > 0">
+                              (含偏远派送费：{{detail.outRangeAmount | currency('￥')}})
+                          </div> -->
+                      </div>
+                      <div class="row" v-if="detail.outRangeAmount > 0">
+                          <label class="col-sm-4 control-label">偏远费</label><span class="col-sm-6 text-right">{{detail.outRangeAmount | currency('￥')}} × {{detail.quantity}}</span>
+                      </div>
+                      <div class="row" v-show="detail.discount > 0">
+                          <label class="col-sm-4 control-label">优惠金额</label><span class="col-sm-6 text-right"> - {{detail.discount | currency('￥')}}</span>
+                      </div>
+                      <div class="row" v-show="detail.vipOrderAmount > 0">
+                          <label class="col-sm-4 control-label">会员优惠</label><span class="col-sm-6 text-right"> - {{detail.vipOrderAmount | currency('￥')}}</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+</section>
+<!--底部-->
+@@include('include/footer.html')
+
+<div style="display:none;margin:0 15px;" id="paysucess">
+    <div class="row text-center">
+        <h3 style="margin-bottom:20px;"><img src="images/pay-succ.png" alt="" style="height:26px;vertical-align:bottom;margin-right:10px;">付款成功!</h3>
+        <p>付款成功后，您可以在“球包追踪”中时刻追踪您的球包位置。</p>
+    </div>
+    <div class="row" style="padding:15px;">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="row">
+                <div class="col-md-6" v-for="item in detail.numbers">
+                    订单号:{{item}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2" id="bmap" style="height:300px;max-width:600px;"></div>
+    </div>
+    <div class="row" style="padding:15px;">
+        <div class="col-md-5 text-center">
+            <p>{{detail.jContact}}</p>
+            <p>{{detail.jTreePath}}</p>
+            <p style="font-size:12px;font-weight:400;">{{detail.jAddrName}}</p>
+        </div>
+        <div class="col-md-2 text-center">
+            <img src="images/from-to.png" alt="" style="width:50px;height:auto;">
+        </div>
+        <div class="col-md-5 text-center">
+            <p>{{detail.dContact}}</p>
+            <p>{{detail.dTreePath}}</p>
+            <p style="font-size:12px;font-weight:400;">{{detail.dAddrName}}</p>
+        </div>
+    </div>
+    <div class="row" style="background-color:#15ca5f;color: #fff;font-size:16px;">
+        <div class="col-md-6 text-center" style="padding:15px;">
+            预约取件：{{detail.sendTimeSection}}
+        </div>
+        <div class="col-md-6 text-center" style="padding:15px;">
+            预计到达：{{detail.deliverTime}}
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+<!--底部 end-->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4CIpHQfLPefMBvMHxzlwQr1pdn1IdYTZ"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
+<script src="assets/jquery.min.js"></script>
+<script src="assets/bootstrap.min.js"></script>
+<script src="assets/vue.min.js"></script>
+<script src="assets/layer/layer.js"></script>
+<script src="js/Popt.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/orderpay.js}}}"></script>
+</html>

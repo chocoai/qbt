@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BasePopUpMapper">
+	<resultMap id="BaseResultMap" type="BasePopUp">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="name" property="name" />
+		<result column="platform" property="platform" />
+		<result column="condition_type" property="conditionType" />
+		<result column="sort" property="sort" />
+		<result column="content_type" property="contentType" />
+		<result column="content" property="content" />
+		<result column="status" property="status" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, name, platform, condition_type, sort,
+		content_type, content,
+		status
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from base_pop_up
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="BasePopUp" keyProperty="id" useGeneratedKeys="true">
+		insert into base_pop_up (
+			create_time, 
+			update_time,
+			name, 
+			platform, 
+			condition_type,
+			sort, 
+			content_type, 
+			content,
+		status
+		) values (
+			#{createTime},
+			#{updateTime},
+			#{name}, 
+			#{platform}, 
+			#{conditionType},
+			#{sort}, 
+			#{contentType},
+			#{content},
+			#{status}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="BasePopUp">
+		update base_pop_up
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="platform != null">
+				platform = #{platform},
+			</if>
+			<if test="conditionType != null">
+				condition_type = #{conditionType},
+			</if>
+			<if test="sort != null">
+				sort = #{sort},
+			</if>
+			<if test="contentType != null">
+				content_type = #{contentType},
+			</if>
+			<if test="content != null">
+				content = #{content},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteById">
+		delete from base_pop_up where id = #{id}
+	</delete>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" /> 
+		from base_pop_up 
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				and name like concat('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.platform != null and condition.platform > 0">
+				and platform = #{condition.platform} 
+			</if>
+			<if test="condition.conditionType != null and condition.conditionType > 0">
+				and condition_type = #{condition.conditionType} 
+			</if>
+			<if test="condition.sort != null and condition.sort > 0">
+				and sort = #{condition.sort} 
+			</if>
+			<if test="condition.contentType != null and condition.contentType > 0">
+				and content_type = #{condition.contentType} 
+			</if>
+			<if test="condition.status != null and condition.status > 0">
+				and status = #{condition.status} 
+			</if>
+		</where>
+		order by id desc
+	</select>
+	
+	<select id="query" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" /> 
+		from base_pop_up where condition_type = #{conditionType} and status = 1
+		<if test="conditionType > 1">
+			and id in(select pop_up_id from base_pop_up_config where condition_type = #{conditionType} and condition_id=#{id})
+		</if>
+		order by sort asc ,id desc
+		
+	</select>
+	
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.ActivityOffMapper">
+
+	<resultMap id="BaseResultMap" type="ActivityOff">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="name" property="name" />
+		<result column="memo" property="memo" />
+		<result column="start_time" property="startTime" />
+		<result column="end_time" property="endTime" />
+		<result column="type" property="type" />
+		<result column="scope" property="scope" />
+		<result column="priority" property="priority" />
+		<result column="status" property="status" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, name, memo, start_time, end_time
+		,type, scope, priority, status 
+	</sql>
+	
+	<insert id="insert" parameterType="ActivityOff" keyProperty="id" useGeneratedKeys="true">
+		insert into activity_off (
+			create_time, 
+			update_time, 
+			name, 
+			memo, 
+			start_time, 
+			end_time, 
+			type, 
+			scope, 
+			priority, 
+			status 
+		) values (
+			#{createTime},
+			#{updateTime},
+			#{name},
+			#{memo},
+			#{startTime},
+			#{endTime},
+			#{type},
+			#{scope},
+			#{priority},
+			#{status}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="ActivityOff">
+		update activity_off 
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="memo != null">
+				memo = #{memo},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteById">
+		delete from activity_off where id = #{id}
+	</delete>
+	
+	<select id="selectById" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from activity_off where id = #{id}
+	</select>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from activity_off 
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				and name like concat('%', #{condition.name}, '%') 
+			</if>
+			<if test="condition.type != null">
+				and type = #{condition.type} 
+			</if>
+			<if test="condition.scope != null">
+				and scope = #{condition.scope} 
+			</if>
+			<if test="condition.status != null">
+				and status = #{condition.status} 
+			</if>
+		</where>
+		order by create_time desc 
+	</select>
+	
+	<select id="checkActivityId" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from activity_off 
+		where status = 1 and scope=#{scope}
+		and id in(select activity_id from activity_off_config where scope_id = #{scopeId}) 
+		and date(start_time)<![CDATA[<=]]>CURDATE() and date(end_time) >= CURDATE()
+		order by start_time asc limit 1
+	</select>
+	
+	<select id="list" resultMap="BaseResultMap">
+		select 
+		id,name,start_time,end_time,type,scope 
+		from activity_off
+		where status = 1 
+		<if test="type == 1">
+			and date(start_time)<![CDATA[<=]]>CURDATE() and date(end_time) >= CURDATE() 
+		</if>
+		<if test="type == 2">
+			and date(start_time) > CURDATE() 
+		</if>
+		<if test="type == 3">
+			<![CDATA[
+				and date(end_time) < CURDATE() and create_time > DATE_SUB(CURDATE(),INTERVAL 3 MONTH) 
+			]]>
+		</if>
+		order by id desc
+	</select>
+</mapper>

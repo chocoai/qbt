@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseCourseSfSiteMapper" >
+  <resultMap id="BaseResultMap" type="com.qbt.persistent.entity.BaseCourseSfSite" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" />
+    <result column="name" property="name"/>
+    <result column="course_id" property="courseId"/>
+    <result column="area_id" property="areaId"/>
+    <result column="tree_path" property="treePath" />
+    <result column="address" property="address"/>
+    <result column="site_number" property="siteNumber"/>
+    <result column="content" property="content"/>
+    <result column="content_mobile" property="contentMobile"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, name, course_id, area_id, tree_path, address, site_number, content, content_mobile
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_course_sf_site
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.qbt.persistent.entity.BaseWorkshop" >
+    insert into base_course_sf_site ( 
+     id,
+     create_time, 
+     name, 
+     course_id, 
+     area_id, 
+     tree_path,
+     address, 
+     site_number, 
+     content, 
+     content_mobile
+      )
+    values (
+      #{id}, 
+      #{createTime}, 
+      #{name}, 
+      #{courseId},
+      #{areaId}, 
+      #{treePath},  
+      #{address},
+      #{siteNumber},
+      #{content},
+      #{contentMobile}
+      )
+  </insert>
+   
+  <update id="updateByPrimaryKeySelective" parameterType="com.qbt.persistent.entity.BaseWorkshop" >
+    update base_course_sf_site
+    <set >
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="courseId != null" >
+        course_id = #{courseId},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId},
+      </if>
+      <if test="treePath != null" >
+        tree_path = #{treePath},
+      </if>
+      <if test="address != null" >
+        address = #{address},
+      </if>
+      <if test="siteNumber != null" >
+        site_number = #{siteNumber},
+      </if>
+      <if test="content != null" >
+        content = #{content},
+      </if>
+      <if test="contentMobile != null" >
+        content_mobile = #{contentMobile},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_course_sf_site 
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.address != null and condition.address != ''">
+				AND address LIKE CONCAT('%',#{condition.address},'%') 
+			</if>
+			<if test="condition.siteNumber != null and condition.siteNumber != ''">
+				AND site_number LIKE CONCAT('%',#{condition.siteNumber},'%') 
+			</if>
+			<if test="condition.content != null and condition.content != ''">
+				AND content LIKE CONCAT('%',#{condition.content},'%') 
+			</if>
+			<if test="condition.contentMobile != null and condition.contentMobile != ''">
+				AND content_mobile LIKE CONCAT('%',#{condition.contentMobile},'%') 
+			</if>
+			<if test="condition.courseId != 0">
+				AND course_id = #{condition.courseId}
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List"></include>
+    from base_course_sf_site
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteById">
+  	delete from base_course_sf_site where id = #{id}
+  </delete>
+</mapper>

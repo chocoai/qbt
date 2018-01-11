@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseSettmtAmountConfigMapper">
+
+	<resultMap id="BaseResultMap" type="BaseSettmtAmountConfig">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="partnerl_id" property="partnerlId" />
+		<result column="max_amount" property="maxAmount" />
+		<result column="rate" property="rate" />
+		<result column="status" property="status" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, partnerl_id, max_amount, rate, status 
+	</sql>
+	
+	<insert id="insert" parameterType="BaseSettmtAmountConfig" keyProperty="id" useGeneratedKeys="true">
+		insert into base_settmt_amount_config (
+			create_time, 
+			partnerl_id, 
+			max_amount, 
+			rate, 
+			status
+		) values (
+			#{createTime},
+			#{partnerlId},
+			#{maxAmount},
+			#{rate},
+			#{status}
+		)
+	</insert>
+	
+	<insert id="insertByBatch">
+		insert into base_settmt_amount_config (
+			create_time, 
+			partnerl_id, 
+			max_amount, 
+			rate, 
+			status
+		) values 
+		<foreach collection="configs" item="config" index="i" separator=",">
+		(
+			#{config.createTime},
+			#{config.partnerlId},
+			#{config.maxAmount},
+			#{config.rate},
+			#{config.status}
+		)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteByPartnerlId">
+		delete from base_settmt_amount_config where partnerl_id = #{partnerlId}
+	</delete>
+	
+	<select id="findByPartnerlId" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from base_settmt_amount_config 
+		where partnerl_id = #{partnerlId}
+	</select>
+	
+	<select id="findByAmount" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from base_settmt_amount_config 
+		where partnerl_id = #{partnerlId} and max_amount <![CDATA[<=]]> #{amount} 
+		order by max_amount desc limit 1
+	</select>
+	
+</mapper>

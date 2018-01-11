@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseAdvertImageMapper">
+	<resultMap id="BaseResultMap" type="com.qbt.persistent.entity.BaseAdvertImage">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="advert_code" property="advertCode" jdbcType="VARCHAR" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="operator_id" property="operatorId" jdbcType="INTEGER" />
+		<result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+		<result column="number" property="number" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_time, update_time, advert_code, image, url, operator_id, 
+		operator_name, number
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from base_advert_image
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<insert id="insert" parameterType="com.qbt.persistent.entity.BaseAdvertImage"
+		keyProperty="id" useGeneratedKeys="true">
+		insert into base_advert_image (
+			id, 
+			create_time, 
+			update_time,
+			advert_code, 
+			image, 
+			url,
+			operator_id, 
+			operator_name,
+			number
+		)values (
+			#{id,jdbcType=INTEGER}, 
+			#{createTime,jdbcType=TIMESTAMP},
+			#{updateTime,jdbcType=TIMESTAMP},
+			#{advertCode,jdbcType=VARCHAR}, 
+			#{image,jdbcType=VARCHAR}, 
+			#{url,jdbcType=VARCHAR},
+			#{operatorId,jdbcType=INTEGER}, 
+			#{operatorName,jdbcType=VARCHAR}
+			#{number}
+		)
+	</insert>
+
+	<update id="updateById" parameterType="com.qbt.persistent.entity.BaseAdvertImage">
+		update base_advert_image
+		<set>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="advertCode != null">
+				advert_code = #{advertCode,jdbcType=VARCHAR},
+			</if>
+			<if test="image != null">
+				image = #{image,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				url = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="operatorId != null">
+				operator_id = #{operatorId,jdbcType=INTEGER},
+			</if>
+			<if test="operatorName != null">
+				operator_name = #{operatorName,jdbcType=VARCHAR},
+			</if>
+			<if test="number != null">
+				number = #{number,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="findListByAdvertCode" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from base_advert_image
+		where advert_code = #{advertCode}
+	</select>
+	
+	<delete id="deleteByAdvertCode">
+		delete from base_advert_image
+		where advert_code = #{advertCode}
+	</delete>
+	
+	<insert id="insertByBatch">
+		insert into base_advert_image(
+			create_time,
+			update_time,
+			advert_code, 
+			image,
+			url, 
+			operator_id, 
+			operator_name,
+			number
+		) values 
+		<foreach collection="configs" item="config" index="i" separator=",">
+		(
+			#{config.createTime},
+			#{config.updateTime},
+			#{config.advertCode},
+			#{config.image},
+			#{config.url},
+			#{config.operatorId},
+			#{config.operatorName},
+			#{config.number}
+		)
+		</foreach>
+	</insert>
+
+</mapper>

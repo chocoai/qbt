@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BagCodeUserMapper">
+	<resultMap id="BaseResultMap" type="BagCodeUser">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="bag_code_partner_id" property="bagCodePartnerId" />
+		<result column="bag_code_partner_name" property="bagCodePartnerName" />
+		<result column="bag_code" property="bagCode" />
+		<result column="user_id" property="userId" />
+		<result column="nickname" property="nickname" />
+		<result column="name" property="name" />
+		<result column="mobile" property="mobile" />
+		<result column="activity_id" property="activityId" />
+		<result column="activity_name" property="activityName" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, bag_code_partner_id, bag_code_partner_name,
+		bag_code,
+		user_id, nickname, name, mobile, activity_id, activity_name
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from bag_code_user
+		where id = #{id}
+	</select>
+	
+	<select id="findIsSenderRandom" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bag_code_user
+		where bag_code = #{bagCode} and name = #{name} and mobile = #{mobile}
+	</select>
+	
+	<select id="findSenderRandom" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bag_code_user
+		where bag_code = #{bagCode} and (name = #{name} or mobile = #{mobile})
+	</select>
+	
+	<insert id="insert" parameterType="BagCodeUser" keyProperty="id" useGeneratedKeys="true">
+		insert into bag_code_user (
+			create_time, 
+			update_time,
+			bag_code_partner_id, 
+			bag_code_partner_name, 
+			bag_code,
+			user_id, 
+			nickname, 
+			name,
+			mobile, 
+			activity_id, 
+			activity_name
+		) values (
+			#{createTime},
+			#{updateTime},
+			#{bagCodePartnerId},
+			#{bagCodePartnerName}, 
+			#{bagCode},
+			#{userId}, 
+			#{nickname},
+			#{name},
+			#{mobile}, 
+			#{activityId}, 
+			#{activityName}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="BagCodeUser">
+		update bag_code_user
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bag_code_user 
+		<where>
+			<if test="condition.bagCodePartnerId != null and condition.bagCodePartnerId > 0">
+				and bag_code_partner_id = #{condition.bagCodePartnerId} 
+			</if>
+			<if test="condition.keyword != null and condition.keyword != ''">
+				and (
+					nickname like concat('%',#{condition.keyword},'%') 
+					or name like concat('%',#{condition.keyword},'%') 
+					or mobile like concat('%',#{condition.keyword},'%') 
+				) 
+			</if>
+			<if test="condition.startTime != null">
+				and date(create_time) <![CDATA[>=]]> date(#{condition.startTime}) 
+			</if>
+			<if test="condition.endTime != null">
+				and date(create_time) <![CDATA[<=]]> date(#{condition.endTime}) 
+			</if>
+		</where>
+		order by id desc
+	</select>
+	
+</mapper>

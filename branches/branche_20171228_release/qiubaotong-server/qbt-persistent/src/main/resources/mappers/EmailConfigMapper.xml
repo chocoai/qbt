@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.EmailConfigMapper">
+	<resultMap id="BaseResultMap" type="EmailConfig">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="platform" property="platform" />
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="host" property="host" />
+		<result column="port" property="port" />
+		<result column="username" property="username" />
+		<result column="password" property="password" />
+		<result column="send_from" property="sendFrom" />
+		<result column="send_to" property="sendTo" />
+		<result column="send_to_cc" property="sendToCc" />
+		<result column="operator_id" property="operatorId" />
+		<result column="operator_name" property="operatorName" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, platform, code, name, host, port, username,
+		password, send_from, send_to, send_to_cc, operator_id, operator_name
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from email_config
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="EmailConfig" keyProperty="id" useGeneratedKeys="true">
+		insert into email_config (
+			create_time, 
+			update_time,
+			platform, 
+			code, 
+			name,
+			host, 
+			port, 
+			username,
+			password, 
+			send_from, 
+			send_to, 
+			send_to_cc,
+			operator_id,
+			operator_name 
+		) values (
+			#{createTime},
+			#{updateTime},
+			#{platform}, 
+			#{code}, 
+			#{name},
+			#{host}, 
+			#{port},
+			#{username},
+			#{password}, 
+			#{sendFrom}, 
+			#{sendTo},
+			#{sendToCc},
+			#{operatorId},
+			#{operatorName} 
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="EmailConfig">
+		update email_config
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="platform != null">
+				platform = #{platform},
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="host != null">
+				host = #{host},
+			</if>
+			<if test="port != null">
+				port = #{port},
+			</if>
+			<if test="username != null">
+				username = #{username},
+			</if>
+			<if test="password != null">
+				password = #{password},
+			</if>
+			<if test="sendFrom != null">
+				send_from = #{sendFrom},
+			</if>
+			<if test="sendTo != null">
+				send_to = #{sendTo},
+			</if>
+			<if test="sendToCc != null">
+				send_to_cc = #{sendToCc},
+			</if>
+			<if test="operatorId != null">
+				operator_id = #{operatorId},
+			</if>
+			<if test="operatorName != null">
+				operator_name = #{operatorName},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="findByCode" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from email_config
+		where code = #{code}
+	</select>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from email_config
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				and name like concat('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.platform != null and condition.platform != ''">
+				and platform = #{condition.platform} 
+			</if>
+		</where>
+		order by id desc
+	</select>
+	
+</mapper>

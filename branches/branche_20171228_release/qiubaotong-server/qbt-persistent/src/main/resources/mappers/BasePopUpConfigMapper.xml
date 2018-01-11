@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BasePopUpConfigMapper">
+	<resultMap id="BaseResultMap" type="BasePopUpConfig">
+		<id column="id" property="id" />
+		<result column="pop_up_id" property="popUpId" />
+		<result column="pop_up_name" property="popUpName" />
+		<result column="condition_type" property="conditionType" />
+		<result column="condition_id" property="conditionId" />
+		<result column="condition_name" property="conditionName" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, pop_up_id, pop_up_name, condition_type,condition_id, condition_name
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from base_pop_up_config
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="BasePopUpConfig" keyProperty="id" useGeneratedKeys="true">
+		insert into base_pop_up_config (
+			pop_up_id, 
+			pop_up_name,
+			condition_type,
+			condition_id, 
+			condition_name
+		) values (
+			#{popUpId},
+			#{popUpName},
+			#{conditionType}, 
+			#{conditionId}, 
+			#{conditionName}
+		)
+	</insert>
+	
+	<insert id="insertBatch">
+		insert into base_pop_up_config (
+			pop_up_id, 
+			pop_up_name,
+			condition_type, 
+			condition_id, 
+			condition_name
+		) values 
+		<foreach collection="configs" item="config" index="i" separator=",">
+			(
+				#{config.popUpId},
+				#{config.popUpName},
+				#{config.conditionType}, 
+				#{config.conditionId}, 
+				#{config.conditionName}
+			)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteByPopUpId">
+		delete from base_pop_up_config where pop_up_id = #{popUpId}
+	</delete>
+	
+	<select id="findByPopUpId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from base_pop_up_config
+		where pop_up_id = #{popUpId}
+		order by id desc
+	</select>
+	
+</mapper>

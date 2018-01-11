@@ -1,0 +1,6 @@
+{
+    "static_url" : "http://qbt.missionsky.cn:6047",
+    "wechat_api" : "192.168.0.88:6048",
+    "boss_api" : "192.168.0.88:6047",
+    "file_url" : "http://192.168.0.88/file"
+}

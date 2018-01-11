@@ -1,0 +1,14 @@
+next(null,{
+    "code":"0000",
+    "msg":"",
+    "datas":{
+        "id":1,
+        "createTime":1474337764000,
+        "kfLevel":4,
+        "sfPackLevel":5,
+        "sfDeliverLevel":5,
+        "sfServiceLevel":4,
+        "content":"评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价评价",
+        "imgUrls":['/images/20160921/fdc12d3df7aa43228a41f6f3324384b3.jpg']
+    }
+})

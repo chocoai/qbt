@@ -1,0 +1,78 @@
+<template id="send-city">
+<div class="section">
+    <!--头-->
+    <div class="header tex-c">
+      <a href="javascript:;" class="back"><img src="/img/back.png" @click="goView('/')"/></a>
+      选择球场城市
+    </div>
+    <!--搜索-->
+    <div class="searchbar" style="position:absolute;top:50px;left:0;right:0;z-index:999;">
+      <div class="weui_search_bar" id="search_bar">
+            <div class="weui_search_outer" style="height:32px;line-height:32px;">
+                <div class="weui_search_inner">
+                    <i class="weui_icon_search" style="line-height:34px;"></i>
+                    <input type="search" class="weui_search_input"  placeholder="查询球场" readonly="readonly" @click="quickSearch()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="scroll" style="padding-top:94px;">
+    <!--头 end-->
+        <div class="courtBanner">
+            <div class="swiper-container" v-if="ads.length > 1">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for="item in ads"><img :src="fbaseUrl + item.image" data-src="{{item.url}}"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <img :src="fbaseUrl + ads[0].image" v-if="ads.length == 1">
+        </div>
+        <!--常用球场-->
+        <div v-show="course.length>0 && course_finished">
+            <div class="court-place">
+                <h3>常用球场</h3>
+                <!-- <ul>
+                    <li style="width:auto;float:none;" v-for="item in course">
+                        <a href="javascript:;" style="padding:0 10px;width:auto;display:inline-block;" @click="save(item)">{{item.name}}</a>
+                    </li>
+                </ul> -->
+            </div>
+            <div class="bg-white">
+                <ul class=" send-ci-place">
+                    <li v-for="item in course">
+                        <a href="javascript:;" @click="save(item)">{{item.name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--城市-->
+        <div v-show="course_finished">
+            <div class="court-place">
+                <h3>当前位置</h3>
+                <ul>
+                    <li @click="selectCity(geo_city)"><a href="javascript:;">{{geo_city}}</a></li>
+                </ul>
+            </div>
+            <div class="court-place">
+                <h3>热门城市</h3>
+                <ul>
+                    <li v-for="item in c_citys" @click="selectCity(item + '市')"><a href="javascript:;">{{item}}</a></li>
+                </ul>
+            </div>
+            <div class="weui_cells_title  pad-lr font-color font-blod">国内城市</div>
+            <div class="bg-white">
+                <ul class=" send-ci-place">
+                    <li v-for="item in city_list" :class="{'send-ci-place-on':item.name == provice_selected}">
+                        <a href="javascript:;" @click="toggle(item.name)">{{item.name}}
+                            <div class="weui_cell_ft"></div>
+                        </a>
+                        <ul class="" v-show="item.name == provice_selected">
+                            <li v-for="subitem in item.items" @click="selectCity(subitem.name)"><a href="javascript:;">{{subitem.name}}</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</template>

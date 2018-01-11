@@ -1,0 +1,13 @@
+next(null,{"code":"0000","msg":"ok",
+	"datas":[{
+		"id":5,
+		"createTime":1476947066000,
+		"srcProvince":"江苏",
+		"srcCity":"苏州市",
+		"srcCountry":"工业园",
+		"srcAreaId":null,
+		"destProvince":"江苏",
+		"destCity":"苏州市",
+		"destCountry":"吴中区",
+		"destAreaId":null
+	},{"id":2,"createTime":1476860572000,"srcProvince":"安徽","srcCity":"安庆市","srcCountry":"123","srcAreaId":null,"destProvince":"安徽","destCity":"亳州市","destCountry":"456","destAreaId":null},{"id":1,"createTime":1476860185000,"srcProvince":"安徽","srcCity":"安庆市","srcCountry":"asdf","srcAreaId":null,"destProvince":"安徽","destCity":"安庆市","destCountry":"asdf","destAreaId":null}],"page":{"pageNo":1,"pageSize":10,"totalCount":3,"totalPages":1,"hasNext":false,"lastRecordId":0}})

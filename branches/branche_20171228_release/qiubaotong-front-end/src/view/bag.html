@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>球包通</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Cache-Control" content="max-age=0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="{{{/css/main.min.css}}}">
+</head>
+<body class="bg" ontouchstart id="app">
+<div class="container" id="container">
+<component :is="currentView" keep-alive transition="fade"  transition-mode="out-in"></component>
+<!--申请球包助理-->
+@@include('include/bag-workaddr.html')
+@@include('include/bag-apply.html')
+<!--选择地址-->
+@@include('include/bag-address.html')
+<!--订单-->
+@@include('include/bag-login.html')
+@@include('include/bag-orderlist.html')
+@@include('include/bag-orderdetail.html')
+<!--审核-->
+@@include('include/bag-audit.html')
+@@include('include/bag-applying.html')
+@@include('include/bag-applyfail.html')
+<!--销售-->
+@@include('include/sale-apply.html')
+@@include('include/sale-info.html')
+@@include('include/sale-data.html')
+@@include('include/sale-commission.html')
+@@include('include/sale-report.html')
+</div>
+</body>
+<script src="/assets/js/libs.min.js?v2"></script>
+<script src="/assets/js/swiper-3.3.1.jquery.min.js"></script>
+<script src="/assets/js/jweixin-1.0.0.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/bag.js}}}"></script>
+
+</html>

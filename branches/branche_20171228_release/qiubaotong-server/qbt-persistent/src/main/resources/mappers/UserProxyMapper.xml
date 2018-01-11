@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.UserProxyMapper">
+
+	<resultMap id="BaseResultMap" type="UserProxy">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime"/>
+		<result column="user_id" property="userId" />
+		<result column="proxy_user_id" property="proxyUserId" />
+		<result column="name" property="name" />
+		<result column="mobile" property="mobile" />
+		<result column="nickname" property="nickname" />
+		<result column="head_img_url" property="headImgUrl" />
+		<result column="order_day_value" property="orderDayValue" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, create_time, user_id, proxy_user_id, name, mobile, nickname, head_img_url, order_day_value
+	</sql>
+
+	<select id="findById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_proxy
+		where id = #{id}
+	</select>
+	
+	<select id="findByProxyUserId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_proxy
+		where proxy_user_id = #{proxyUserId} order by id desc
+	</select>
+
+	<insert id="insert" parameterType="UserProxy" keyProperty="id" useGeneratedKeys="true">
+		insert into user_proxy (
+			create_time,
+			user_id,
+			proxy_user_id,
+			name,
+			mobile,
+			nickname,
+			head_img_url,
+			order_day_value
+		)
+		values (
+			#{createTime},
+			#{userId},
+			#{proxyUserId},
+			#{name},
+			#{mobile},
+			#{nickname},
+			#{headImgUrl},
+			#{orderDayValue}
+		)
+	</insert>
+
+	<update id="update" parameterType="UserProxy">
+		update user_proxy
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="nickname != null">
+				nickname = #{nickname},
+			</if>
+			<if test="headImgUrl != null">
+				head_img_url = #{headImgUrl},
+			</if>
+		</set>
+		where user_id = #{userId} and proxy_user_id = #{proxyUserId}
+	</update>
+
+	<select id="findByUserId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_proxy
+		where proxy_user_id = #{proxyUserId} and user_id = #{userId}
+	</select>
+	
+	<select id="findByKeyword" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_proxy 
+		<where>
+			<![CDATA[
+			TIMESTAMPDIFF(DAY, create_time, now()) <= order_day_value
+			]]>
+			<if test="proxyUserId != null and proxyUserId > 0">
+				and proxy_user_id = #{proxyUserId} 
+			</if>
+			<if test="keyword != null and keyword != ''">
+				and (user_id like concat('%',#{keyword},'%') 
+					or name like concat('%',#{keyword},'%') 
+					or mobile like concat('%',#{keyword},'%')
+					or nickname like concat('%',#{keyword},'%')
+					) 
+			</if>
+		</where>
+		order by id desc
+	</select>
+	
+</mapper>

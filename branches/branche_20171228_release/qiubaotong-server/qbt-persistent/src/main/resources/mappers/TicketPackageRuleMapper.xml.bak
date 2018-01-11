@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.TicketPackageRuleMapper" >
+
+  <resultMap id="BaseResultMap" type="com.qbt.persistent.entity.TicketPackageRule" >
+    <id column="id" property="id" />
+    <result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="price" property="price" jdbcType="FLOAT" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="is_storage_service" property="isStorageService" jdbcType="INTEGER" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="insert" parameterType="TicketPackageRule" keyProperty="id" useGeneratedKeys="true">
+		insert into ticket_package_rule (
+			rule_name, 
+			price, 
+			status, 
+			is_storage_service,
+			description,
+			create_time, 
+			update_time, 
+			operator
+			
+		) values (
+			#{ruleName},
+			#{price},
+			#{status},
+			#{isStorageService},
+			#{description},
+			#{createTime},
+			#{updateTime},
+			#{operator}
+		)
+	</insert>
+	
+  
+  <select id="findByPage" resultMap="BaseResultMap" parameterType="TicketPackageRule">
+  
+	  	SELECT
+			id,
+			rule_name,
+			price,
+			STATUS,
+			description,
+			is_storage_service
+		
+		FROM
+			ticket_package_rule
+	  <where>
+			<if test="condition.ruleName != null and condition.ruleName != ''">
+				and rule_name like concat('%',#{condition.ruleName,jdbcType=VARCHAR},'%') 
+			</if>
+	</where>
+  </select>
+  
+    <select id="findByRuleName" resultMap="BaseResultMap" parameterType="TicketPackageRule">
+	  	SELECT
+			id,
+			rule_name,
+			price,
+			STATUS,
+			description,
+			is_storage_service
+		
+		FROM
+			ticket_package_rule
+		where 	1=1
+				and rule_name = #{ruleName}
+				and status = 1	limit 1
+  
+  </select>
+  
+  
+  
+    <select id="findById" resultMap="BaseResultMap" parameterType="TicketPackageRule">
+	  	SELECT
+			id,
+			rule_name,
+			price,
+			STATUS,
+			description,
+			is_storage_service
+		
+		FROM
+			ticket_package_rule
+		where 	1=1
+				and id = #{id}			
+  				
+  </select>
+  
+  </mapper>

@@ -1,0 +1,70 @@
+<template id="send-address">
+<div class="pad-b">
+<!--头-->
+<div class="header tex-c">
+  <a href="javascript:;" class="back" @click="goView('/')"><img src="/img/back.png" /></a>
+  选择{{isJ ? '寄' : '收'}}球包地址
+</div>
+<div class="scroll marhead">
+    <!--头 end-->
+    <!-- <div style="position: relative;">
+    <div class="weui_cells marhead font14">
+          <div class="weui_cell pad-lr">
+              <div class="weui_cell_bd mar-r">
+                  <p style="border-right: 1px solid #d9d9d9; padding-right: 15px;" @click="goView('/addrcity')">{{geo_city2 || (geo_city ? geo_city : '定位中..')}}</p>
+              </div>
+              <div class="weui_cell_ft weui_cell_primary add-search">
+                    <div class="weui_search_bar" id="search_bar">
+                        <div class="weui_search_outer">
+                            <div class="weui_search_inner">
+                                <input type="text" class="weui_search_input weui_search_focusing" id="search_input" placeholder="搜索地址" v-model="search_msg">
+                                <a href="javascript:" class="weui_icon_clear" id="search_clear" @click="searchClear()"></a>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+          </div>
+    </div>
+    <div class="weui_cell_ft weui_cell_primary ad-history ">
+          <div class="weui_cells weui_cells_access" id="search_show" v-show="search_list.length>0" style="margin-top:0;font-size:14px;">
+            <div class="weui_cell" v-for="item in search_list" @click="selectPlace(item)">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>{{item.name}}</p>
+                    <p>{{item.city}}  {{item.district}}</P>
+                </div>
+            </div>
+          </div>
+    </div>
+    </div> -->
+
+    <!-- <div class="weui_panel" v-show="geo_city">
+        <ul class=" send-ci-place">
+           <li>
+             <a href="javascript:;" @click="selectGeo()">{{geo_city}}{{geo_district}}{{geo_addr}}
+               <div class="weui_cell_ft"></div>
+              </a>
+           </li>
+        </ul>
+    </div> -->
+
+    <div class="weui_panel weui_panel_access mar-t0 " v-show="addr_list.length>0 && search_list.length==0">
+          <div class="weui_panel_bd">
+              <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg address-lay pad-lr pd-tb0 " @click="save(item)" v-for="item in addr_list">
+                  <div class="weui_media_bd">
+                      <h4 class="weui_media_title font14"><span class="mar-r">{{item.name}}</span>  {{item.mobile}} </h4>
+                      <p class="weui_media_desc"><span class="font-blue" v-show="item.def">(默认地址)</span>{{item.cityName}}{{item.address}}</p>
+                  </div>
+                  <div class="weui_media_hd mar-r0" @click.stop="goEditAddr(item)">
+                      <img class="" src="/img/address.png" alt="">
+                  </div>
+              </a>
+          </div>
+     </div>
+
+</div>
+<div class="add-new-flex" style="position:absolute;bottom:0px;z-index:0;">
+   <a href="javascript:;" class="weui_btn weui_btn_plain_primary" @click="goNewAddr()">新增地址</a>
+</div>
+</div>
+
+</template>

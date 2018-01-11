@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	http://www.springframework.org/schema/task 
+	http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+  
+	<context:component-scan base-package="com.qbt.web.contorller" />
+	
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<bean class="com.qbt.web.spring.MappingJacksonHttpMessageConverter"></bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	<context:annotation-config />
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="ignoreAcceptHeader" value="true" />
+		<property name="order" value="1" />
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json" />
+			</map>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<!-- JSON View -->
+				<bean class="com.qbt.web.spring.MappingJsonView">
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设置上传文件的最大尺寸为1MB -->
+		<property name="maxUploadSize">
+			<value>10485760</value>
+		</property>
+	</bean>
+	
+	<bean id="exceptionResolver"
+		class="com.qbt.web.spring.JsonHandlerExceptionResolver" p:order="1">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">500,上传文件大小超限</prop>
+				<prop key="org.springframework.http.converter.HttpMessageNotReadableException">608</prop>
+				<prop key="java.lang.Exception">500,系统错误</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 免登录 -->
+	<mvc:interceptors>
+		<mvc:interceptor>  
+			<mvc:mapping path="/**" />
+			<bean id="logsInterceptor" class="com.qbt.web.interceptor.LogsInterceptor"/>
+		</mvc:interceptor>
+		
+        <mvc:interceptor>  
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/login.api"/>
+			<mvc:exclude-mapping path="/newsCategory/findList.api"/>
+			<mvc:exclude-mapping path="/common/**"/>
+			<mvc:exclude-mapping path="/baseNews/list.api"/>
+			<mvc:exclude-mapping path="/baseNews/findByPageOfficial.api"/>
+			<mvc:exclude-mapping path="/baseNews/findByIdOfficial.api"/>
+			<mvc:exclude-mapping path="/baseLink/list.api"/>
+			<mvc:exclude-mapping path="/baseNews/listGroupByCategoryId.api"/>
+			<bean id="loginInterceptor" class="com.qbt.web.interceptor.LoginInterceptor"/>
+		</mvc:interceptor>
+		
+	</mvc:interceptors>
+    
+</beans>

@@ -1,0 +1,86 @@
+<template id="vip-apply">
+<section class="section bg" id="vip" style="padding-bottom:50px;">
+<!--头-->
+<div class="header tex-c bg-white">
+    <a href="javascript:history.back();" class="back"><img src="/img/back.png" /></a>
+    会员卡申请
+</div>
+<div class="scroll marhead">
+<div class="weui_cells weui_cells_form mar-t">
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">姓名：</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="text" placeholder="请输入您的姓名" v-model="name" maxlength="8">
+        </div>
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">手机号：</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入您的手机号码" v-model="mobile">
+        </div>
+    </div>
+    <div class="weui_cell weui_cell_select weui_select_after">
+        <div class="weui_cell_hd"><label class="weui_label">会员卡类型：</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <select class="weui_select" v-model="type">
+                <option value="{{item.id}}" v-for="item in vipList">{{item.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="weui_cell font-green02">
+        <div class="weui_cell_hd" style="margin-right:20px;">会员卡价格：{{selected.amount | currency '￥'}}</div>
+        <div class="weui_cell_bd">有效期：{{selected.validDesc}}</div>
+    </div>
+    <div class="weui_cell weui_cell_select weui_select_after" @click="goView('/pic')">
+        <div class="weui_cell_hd"><label class="weui_label">指定球包：</label></div>
+        <div class="weui_cell_bd weui_cell_primary"></div>
+        <img style="width:auto;height:40px;position:absolute;top:5px;right:25px;bottom:5px;" v-if="vip_img" :src="fbaseUrl + vip_img">
+    </div>
+</div>
+
+<article class="weui_article bg-white mar-t">
+    <section>
+        <h3>会员卡属性</h3>
+        <div v-html="selected.rules">
+        </div>
+    </section>
+    <div class="weui_cells weui_cells_checkbox mar-t0">
+        <div class="flex">
+            <div class="weui_cell_bd weui_cell_primary tex-r">
+                <p style="display:inline-block;color:blue;" @click="goView('/agreement')">《球包通VIP会员服务协议》</p>
+            </div>
+            <label class="weui_check_label" for="s11" style="margin-left:20px;display:flex;display:-webkit-flex;">
+                <div class="weui_cell_bd" style="line-height:24px;">已阅读</div>
+                <div class="weui_cell_hd" style="margin-left:10px;">
+                    <input type="checkbox" class="weui_check" name="checkbox1" id="s11"  v-model="isRead">
+                    <i class="weui_icon_checked"></i>
+                </div>
+            </label>
+        </div>
+        <div class="flex">
+            <div class="weui_cell_bd weui_cell_primary tex-r">
+                <p style="display:inline-block;color:blue;" @click="goView('/agreement2')">《球包通VIP会员服务协议实施细则》</p>
+            </div>
+            <label class="weui_check_label" for="s12" style="margin-left:20px;display:flex;display:-webkit-flex;">
+                <div class="weui_cell_bd" style="line-height:24px;">已阅读</div>
+                <div class="weui_cell_hd" style="margin-left:10px;">
+                    <input type="checkbox" class="weui_check" name="checkbox1" id="s12"  v-model="isRead2">
+                    <i class="weui_icon_checked"></i>
+                </div>
+            </label>
+        </div>
+    </div>
+</article>
+</div>
+
+<div class="submit flex tex-c bg-white weui_cells_checkbox" style="position: absolute; bottom:0;">
+    <div class="flex-1">
+        支付金额 <span class="font-red">{{selected.amount | currency '￥'}}</span>
+    </div>
+    <div class="flex-1">
+        <a href="javascript:;" style="background-color:#09bb07" @click="pay()">购买会员卡</a>
+    </div>
+</div>
+
+</section>
+</template>

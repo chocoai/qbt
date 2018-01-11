@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>球包通</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Cache-Control" content="max-age=0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="{{{/css/main.min.css}}}">
+</head>
+<body ontouchstart id="app">
+  <div class="container">
+    <!--头-->
+    <div class="header tex-c bg-white">
+      <a href="javascript:locationTo('order.html');" class="back"><img src="/img/back.png" /></a>
+      评价
+    </div>
+    <!--头 end-->
+    <div class="scroll" style="padding-top:50px;" v-infinite-scroll="getMore()" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+        <!--1-->
+        <div class="watch" v-for="item in list">
+            <div class="weui_cells">
+                   <div class="weui_cell">
+                       <div class="weui_cell_hd"><img :src="item.headImgUrl" alt="" style="width:48px;margin-right:10px;display:block;border-radius:50%"></div>
+                       <div class="weui_cell_bd weui_cell_primary">
+                           <p>{{item.userName}}</p>
+                       </div>
+                       <div class="weui_cell_ft evaluate">
+                           <div class="eva-star-s">
+                               <i class="star-solid" v-show="item.totalLevel>=1" style="margin-right:5px;"></i>
+                               <i class="star-solid" v-show="item.totalLevel>=2" style="margin-right:5px;"></i>
+                               <i class="star-solid" v-show="item.totalLevel>=3" style="margin-right:5px;"></i>
+                               <i class="star-solid" v-show="item.totalLevel>=4" style="margin-right:5px;"></i>
+                               <i class="star-solid" v-show="item.totalLevel>=5" style="margin-right:5px;"></i>
+                           </div>
+                       </div>
+                   </div>
+            </div>
+
+            <div class="weui_cells">
+                <div class="weui_cell">
+                    <p>{{item.content}}</p>
+                </div>
+            </div>
+            <div class="weui_cells weui_cells_form" v-if="item.imgUrls.length>0">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <img class="weui_uploader_file" v-for="sub in item.imgUrls" :src="fbaseUrl + sub" alt="" style="margin-bottom:0px;height:auto;" @click="showPic(sub,item.imgUrls)"></img>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui_cells">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd font12 font-gray">{{item.jTreePath}} <i class="fly"></i>{{item.dTreePath}}</div>
+                    <div class="weui_cell_bd weui_cell_primary font12 tex-r">
+                        <p style="color:#d0d0d0;"> {{item.createTime | dateFormat 'yyyy-MM-dd hh:mm'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells" v-if="item.memo">
+                <div class="weui_cell" style="padding-top: 10px;">
+                    <p class="font-gray reply" style="background:#f5f5f5; font-size: 12px;">客服解答：{{item.memo}}</p>
+                </div>
+            </div>
+        </div>
+        <p style="margin-top:80px;text-align:center;font-size:18px;color:#d8d8d8;" v-if="errMsg">{{errMsg}}</p>
+    </div>
+  </div>
+</body>
+<script src="/assets/js/libs.min.js?v2"></script>
+<script src="/assets/js/vue-infinite-scroll.js"></script>
+<script src="/assets/js/jweixin-1.0.0.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/comment.js}}}"></script>
+</html>

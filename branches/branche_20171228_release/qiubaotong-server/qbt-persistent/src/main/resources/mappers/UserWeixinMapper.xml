@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.UserWeixinMapper">
+	<resultMap id="BaseResultMap" type="UserWeixin">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="INTEGER" />
+		<result column="salt" property="salt" jdbcType="VARCHAR" />
+		<result column="accept_push" property="acceptPush" jdbcType="BIT" />
+		<result column="accept_promotion" property="acceptPromotion" jdbcType="BIT" />
+		<result column="is_validated" property="isValidated" jdbcType="BIT" />
+		<result column="openid" property="openid" jdbcType="VARCHAR" />
+		<result column="nickname" property="nickname" jdbcType="VARCHAR" />
+		<result column="head_img_url" property="headImgUrl" jdbcType="VARCHAR" />
+		<result column="lastlon" property="lastlon" jdbcType="VARCHAR" />
+		<result column="lastlat" property="lastlat" jdbcType="VARCHAR" />
+		<result column="coordsrc" property="coordsrc" jdbcType="VARCHAR" />
+		<result column="province" property="province" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="county" property="county" jdbcType="VARCHAR" />
+		<result column="first_letter" property="firstLetter" jdbcType="VARCHAR" />
+		<result column="subscribe_status" property="subscribeStatus"/>
+		<result column="salesman_code" property="salesmanCode"/>
+		<result column="salesman_id" property="salesmanId"/>
+		<result column="subscribe_time" property="subscribeTime"/>
+		<result column="un_subscribe_time" property="unSubscribeTime"/>
+		<result column="channel_qrcode_code" property="channelQrcodeCode"/>
+	</resultMap>
+	
+	<resultMap id="BaseResultMapId" type="Integer">
+		<id column="id" property="id" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, create_time, name, email, mobile, password, sex, salt, accept_push,
+		accept_promotion,
+		is_validated, openid, nickname, head_img_url, lastlon, lastlat, coordsrc, province,
+		city, county, first_letter,subscribe_status,salesman_code,salesman_id,subscribe_time,un_subscribe_time, channel_qrcode_code
+	</sql>
+
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user_weixin
+		where id = #{id}
+	</select>
+
+	<select id="selectByOpenId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_weixin
+		where openid = #{openid}
+	</select>
+
+	<insert id="insert" parameterType="UserWeixin" useGeneratedKeys="true" keyProperty="id">
+		insert into user_weixin (create_time, name,
+		email, mobile, password,
+		sex, salt, accept_push,
+		accept_promotion, is_validated, openid,
+		nickname, head_img_url, lastlon,
+		lastlat, coordsrc, province,
+		city, county, first_letter,subscribe_status,salesman_code,salesman_id,subscribe_time,un_subscribe_time, channel_qrcode_code
+		)
+		values (#{createTime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{sex,jdbcType=INTEGER}, #{salt,jdbcType=VARCHAR}, #{acceptPush,jdbcType=BIT},
+		#{acceptPromotion,jdbcType=BIT}, #{isValidated,jdbcType=BIT},
+		#{openid,jdbcType=VARCHAR},
+		#{nickname,jdbcType=VARCHAR}, #{headImgUrl,jdbcType=VARCHAR}, #{lastlon,jdbcType=VARCHAR},
+		#{lastlat,jdbcType=VARCHAR}, #{coordsrc,jdbcType=VARCHAR},
+		#{province,jdbcType=VARCHAR},
+		#{city,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{firstLetter,jdbcType=VARCHAR},
+		#{subscribeStatus},#{salesmanCode},#{salesmanId},#{subscribeTime},#{unSubscribeTime}, #{channelQrcodeCode}
+		)
+	</insert>
+
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM user_weixin
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%') or nickname LIKE CONCAT('%',#{condition.name},'%')
+			</if>
+			<if test="condition.mobile != null and condition.mobile != ''">
+				AND mobile LIKE CONCAT('%',#{condition.mobile},'%')
+			</if>
+			<if test="condition.nickname != null and condition.nickname != ''">
+				AND nickname LIKE CONCAT('%',#{condition.nickname},'%')
+			</if>
+			<if test="condition.channelQrcodeCode != null and condition.channelQrcodeCode != ''">
+				AND channel_qrcode_code LIKE CONCAT('%',#{condition.channelQrcodeCode},'%')
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+
+	<update id="updateById" parameterType="UserWeixin">
+		UPDATE user_weixin
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="nickname != null">
+				nickname = #{nickname},
+			</if>
+			<if test="lastlon != null">
+				lastlon = #{lastlon},
+			</if>
+			<if test="lastlat != null">
+				lastlat = #{lastlat},
+			</if>
+			<if test="headImgUrl != null">
+				head_img_url = #{headImgUrl},
+			</if>
+			<if test="subscribeStatus !=null and subscribeStatus > 0">
+				subscribe_status = #{subscribeStatus},
+			</if>
+			<if test="subscribeTime != null">
+				subscribe_time = #{subscribeTime},
+			</if>
+			<if test="unSubscribeTime != null">
+				un_subscribe_time = #{unSubscribeTime},
+			</if>
+			<if test="salesmanCode != null and salesmanCode != ''">
+				salesman_code = #{salesmanCode},salesman_id = #{salesmanId}
+			</if>
+		</set>
+		WHERE id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="findByKfType" resultMap="BaseResultMap">
+		select w.*
+		from user_weixin w left join user_kf k on w.id=k.user_id 
+		where k.type=#{kfType} 
+	</select>
+	
+	<select id="list" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from user_weixin
+	</select>
+	
+	<select id="isWeiXinUser" resultMap="BaseResultMap">
+		select id from user_weixin where mobile =#{mobile} 
+	</select>
+	
+	<select id="findByMobileList" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from user_weixin 
+		where 
+			mobile in 
+		<foreach collection="mobileList" item="mobile" index="i" separator="," open="(" close=")">
+			#{mobile}
+		</foreach>
+	</select>
+	
+</mapper>

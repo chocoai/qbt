@@ -1,0 +1,74 @@
+<template id="bag-orderlist">
+<section class="pad-b" style="padding-bottom:0px!important">
+
+    <div class="header tex-c" style="background-color:#fff;">
+      <a href="javascript:;" class="back" @click="goView('bag_login_view')"><img src="/img/back.png" /></a>
+      {{applyName}}
+    </div>
+
+    <div class="od-arrive-head bg-white marhead" style="position: absolute; top:0; left:0;z-index:4;">
+        <div class="weui_cell od-a-input" style="padding-top:5px;">
+            <div class="weui_cell_hd"><label class="weui_label"><a href="javascript:;" @click="searchText=''">全部></a></label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" placeholder="请输入电话号码或姓名" maxlength="11" v-model="searchText">
+            </div>
+        </div>
+    </div>
+    <div class="scroll" >
+    <div class="navbar" id="navbar" style="margin-top:95px;">
+        <!--信息-->
+        <div class="od-arrive bg-white mar-t" v-for="item in orderList | filterBy searchText in 'dUserName' 'dMobile' 'jUserName' 'jMobile'" @click="detail(item)">
+            <div class="weui_cells font14">
+               <div class="weui_cell">
+                  <div class="weui_cell_ft">订单编号：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                      <p>{{item.number}}</p>
+                    </div>
+               </div>
+            </div>
+            <div class="weui_cells font14">
+               <div class="weui_cell">
+                  <div class="weui_cell_ft">寄件人：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                      <p>{{item.jUserName}} {{item.jMobile}}</p>
+                    </div>
+               </div>
+            </div>
+            <div class="weui_cells font14">
+               <div class="weui_cell">
+                  <div class="weui_cell_ft">寄件地址：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                      <p>{{item.jCityName}}{{item.jAddressName}}</p>
+                    </div>
+               </div>
+            </div>
+            <div class="weui_cells font14">
+               <div class="weui_cell">
+                  <div class="weui_cell_ft">收件人：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                      <p>{{item.dUserName}} {{item.dMobile}}</p>
+                    </div>
+               </div>
+            </div>
+            <div class="weui_cells font14">
+               <div class="weui_cell">
+                  <div class="weui_cell_ft">预计到达：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                      <p>{{item.dCityName}}{{item.dAddressName}} </p>
+                    </div>
+               </div>
+            </div>
+            <div class="weui_cells font14">
+               <div class="weui_cell">
+                  <div class="weui_cell_ft">球包状态：</div>
+                    <div class="weui_cell_bd weui_cell_primary tex-l">
+                      <p>{{item.orderStatus | commFilter 'order_type'}}</p>
+                    </div>
+               </div>
+            </div>
+         </div>
+        <!--信息 end-->
+    </div>
+    </div>
+</sction>
+</template>

@@ -1,0 +1,16 @@
+next(null,{
+    "code":"0000",
+    "msg":"ok",
+    "datas":{
+        "id":30,"name":"铁岭龙山高尔夫球场满减",
+        "memo":"满300元和300元以上减50元，满200元和200元以上不到300元减30元，满100元和100元以上不到200元减20元。",
+        "startTime":1472659200000,
+        "endTime":1475164800000,"type":3,"scope":1,
+        "configs":[{"id":40,"activityId":30,"activityName":"铁岭龙山高尔夫球场满减","scopeId":932,"scopeName":"辽宁铁岭龙山高尔夫球场"}],
+        "amountConfigs":[
+            {"id":46,"activityId":30,"activityName":"满300.0减50.0","amount":50.0,"limitAmount":300.0},
+            {"id":45,"activityId":30,"activityName":"满200.0减30.0","amount":30.0,"limitAmount":200.0},
+            {"id":44,"activityId":30,"activityName":"满100.0减10.0","amount":10.0,"limitAmount":100.0}
+        ]
+    }
+})

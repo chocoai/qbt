@@ -1,0 +1,27 @@
+<template id="freight-starttime" >
+<div class="pad-b" style="padding-bottom:0px !important;">
+<!--头-->
+<div class="header tex-c bd-b">
+  <a href="javascript:;" class="back" @click="goView('freight_view')"><img src="/img/back.png" /></a>
+  预约取球包
+</div>
+<!--头 end-->
+<div class="scroll bg-white">
+<div class=" marhead">
+    <div class="weui_cell pad-lr">
+        <div class="weui_cell_bd weui_cell_primary">
+            <p>实际上门取件时间可能会有出入</p>
+        </div>
+    </div>
+</div>
+<div class="booktime ">
+    <div class="weui_cell_bd bo-tit">
+        <a href="javascript:;" v-for="item in day_list" :class="{'book-on': item.day == selectDay}" @click="checkDay(item.day)">{{item.prefix}} {{item.day}}</a>
+    </div>
+    <div class="weui_cell_ft bo-main">
+        <a href="javascript:;" v-for="item in time_list" @click="checkTime(item)">{{item}}</a>
+    </div>
+</div>
+</div>
+</div>
+</template>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="saleCodeManageDetailCtrl">
+<div class="container containerWidthAuto">
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="form-inline applyCheckSearch">
+                <div class="form-group marginRight5">
+                    <label>销售人员号：</label>
+                    <input type="text" ng-model="salesmanCode" class="form-control" placeholder="输入销售人员号">
+                </div>
+                <div class="form-group marginRight5">
+                    <label>申请状态：</label>
+                    <select ng-model="applyStatus" class="form-control">
+                        <option value="">全部</option>
+                        <option ng-repeat="item in appStatus" value="{{item.type}}">{{item.desc}}</option>
+                    </select>
+                </div>
+                <div class="form-group marginRight5">
+                    <button id="search" class="btn btn-primary" ng-click="getList()">搜索</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <th>销售人员号</th>
+                    <th>申请状态</th>
+                    <th>销售人员工作单位</th>
+                    <th>销售人员二维码</th>
+                    <th>提成方式</th>
+                    <th>代下单每单提成</th>
+                    <th>首单提成方式</th>
+                    <th>首单提成</th>
+                    <th>代下单日类型</th>
+                    <th>天数</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in list track by $index">
+                        <td>
+                            <a ng-show="item.saleUserId" ng-click="detail(item.saleUserId,item.name)" href="javascript:;">{{item.salesmanCode}}</a>
+                            <span ng-hide="item.saleUserId">{{item.salesmanCode}}</span>
+                        </td>
+                        <td>{{item.applyStatus | commFilter:'app_Status'}}</td>
+                        <td>{{item.company}}</td>
+                        <td>
+                        <a ng-click="imgShow(fBaseUrl + item.qrcode)" class="fa" href="javascript:void(0)"><img class="applyCheckImg" ng-src="{{fBaseUrl + item.qrcode}}" ng-if="fBaseUrl + item.qrcode" alt=""></a>
+                        </td>
+                        <td>{{item.type | commFilter:'sale_method'}}</td>
+                        <td>{{item.typeValue | number:1}}</td>
+                        <td>{{item.firstType | commFilter:'sale_method'}}</td>
+                        <td>{{item.firstTypeValue | number : 1}}</td>
+                        <td>{{item.orderDayType == 1 ? '不限' : '有限'}}</td>
+                        <td>{{item.orderDayType == 1 ? '—' : item.orderDayValue}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination page="page" change="getList(page)"></pagination>
+        </div>
+    </div>
+</div>
+<img id="picShow" ng-click="picRotate()" ng-src="{{imgToBig}}">
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/saleCodeManageDetailCtrl.js}}}"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderMemoMapper">
+
+	<resultMap id="BaseResultMap" type="OrderMemo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="order_id" property="orderId" jdbcType="INTEGER" />
+		<result column="account_id" property="accountId" jdbcType="INTEGER" />
+		<result column="account_name" property="accountName" jdbcType="VARCHAR" />
+		<result column="memo" property="memo" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, order_id, account_id, account_name, memo
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from order_memo
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<insert id="insert" parameterType="OrderMemo" keyProperty="id" useGeneratedKeys="true">
+		insert into order_memo (create_time, order_id,
+		account_id, account_name, memo
+		)
+		values (#{createTime,jdbcType=TIMESTAMP},
+		#{orderId,jdbcType=INTEGER},
+		#{accountId,jdbcType=INTEGER}, #{accountName,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="OrderMemo">
+		update order_memo
+		<set>
+			<if test="accountId != null">
+				account_id = #{accountId,jdbcType=INTEGER},
+			</if>
+			<if test="accountName != null">
+				account_name = #{accountName,jdbcType=VARCHAR},
+			</if>
+			<if test="memo != null">
+				memo = #{memo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="selectByOrderId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from order_memo
+		where order_id = #{orderId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="findMemoByOrderDate" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from order_memo 
+		where order_id in (
+			select id from order_info 
+			<where>
+				<if test="startDate != null">
+					<![CDATA[
+					and create_time >= #{startDate} 
+					]]>
+				</if>
+				<if test="endDate != null">
+					<![CDATA[
+					and create_time < DATE_ADD(#{endDate}, INTERVAL 1 DAY) 
+					]]>
+				</if>
+			</where>
+		) 
+	</select>
+	
+</mapper>

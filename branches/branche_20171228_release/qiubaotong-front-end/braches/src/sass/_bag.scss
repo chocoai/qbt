@@ -1,0 +1,126 @@
+.od-arrive,.od-arrive-head {
+  .weui_cell {
+    padding: 0 20px;
+  }
+  .weui_cells {
+    margin-top: 0;
+    margin-bottom: 5px;
+    line-height: 24px;
+  }
+  .weui_cells:before {
+    border: 0;
+  }
+  .weui_cells:after {
+    border: 0;
+  }
+}
+.od-arrive {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  .weui_cell_ft {
+    width: 70px;
+    text-align: left;
+  }
+}
+.od-arrive-head {
+  padding-bottom: 4px;
+  padding-top: 4px;
+  .weui_cell {
+    font-size: 22px;
+    h4 {
+      font-size: 18px;
+      color: #333333;
+    }
+  }
+  .od-a-input {
+    font-size: 16px;
+    a {
+      color: #333333;
+      display: block;
+    }
+    input {
+      font-family: inherit;
+      background-color: #f2f2f2;
+      padding-left: 15px;
+      height: 35px;
+      border-radius: 4px;
+    }
+    .weui_label {
+      width: auto;
+      padding-right: 20px;
+      border-right: 1px solid #f2f2f2;
+      margin-right: 20px;
+      font-weight: normal;
+    }
+  }
+}
+.lo-btn-lay {
+  margin-top: 80px;
+  a {
+    display: block;
+    color: #666;
+    text-align: center;
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+  }
+}
+.Apply {
+  margin: 70px 10px 0;
+  .weui_cell {
+    padding:10px 20px;
+    .weui_label {
+      color: $fontColor;
+      width: 80px;
+      padding-right: 20px;
+    }
+  }
+  .weui_label_warn{
+      color: #f43530
+  }
+  .weui_cell:before {
+    left:0;
+  }
+  a {
+    background-color: $mainColor;
+    padding: 4px 0;
+    margin-top: 20px;
+  }
+  a:active {
+    background-color: transparent;
+    color: $mainColor !important;
+    border: 1px solid ;
+    border-color: $mainColor;
+  }
+  .yan {
+    height: auto;
+    margin: 0;
+    color: #fff;
+    font-size: 12px;
+    position: absolute;
+    right: 20px;
+    top: 8px;
+    padding:  4px;
+    border-radius: 6px;
+  }
+}
+.Apply > div {
+  border-radius: 6px;
+}
+.inform-head {
+  text-align: center;
+  color: $mainColor;
+  margin-top: 80px;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.examine {
+  padding: 0 20px;
+  font-color: $fontColor;
+  line-height: 2;
+}

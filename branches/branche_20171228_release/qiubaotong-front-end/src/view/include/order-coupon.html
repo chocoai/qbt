@@ -1,0 +1,98 @@
+<template id="order-coupon">
+<section class="section bg">
+<!--头-->
+<div class="header tex-c bg-white">
+  <a href="javascript:;" class="back" @click="goBack()"><img src="/img/back.png" /></a>
+  我的优惠券
+</div>
+<div class="scroll marhead">
+    <!--头 end-->
+    <div class="navbar my-coupon scroll mar-t0">
+      <div class="bd" style="height: 100%;">
+          <div class="weui_tab">
+              <div class="weui_navbar bg-white">
+                  <div class="weui_navbar_item" :class="{'weui_bar_item_on':tab == 1}" @click="toggleTab(1)">
+                      未使用
+                  </div>
+                  <div class="weui_navbar_item" :class="{'weui_bar_item_on':tab == 2}" @click="toggleTab(2)">
+                      已使用
+                  </div>
+                  <div class="weui_navbar_item" :class="{'weui_bar_item_on':tab == 3}" @click="toggleTab(3)">
+                      已过期
+                  </div>
+              </div>
+              <div class="weui_tab_bd">
+                <!--未使用-->
+                  <div v-show="tab == 1">
+                    <div class="flex" v-for="item in coupons" v-bind:class="{ 'my-money-invalid': order_amt && order_amt < item.limitAmount,'my-coupon-checked' : coupon_use.childCode == item.childCodes[0] }">
+                      <div class="my-money" >
+                          <span>现金券</span>
+                          <i></i>
+                          <p>￥ <strong class="font-green02">{{item.chlidAmount}}</strong> 元</p>
+                          <div class="tex-r">数量:{{item.couponCount}}</div>
+                      </div>
+                      <div class="tex-c my-quan flex-1" @click="use(item)">
+                        <i></i>
+                          <p><a href="javascript:;" class=" font-green02" >立即使用</a></p>
+                          <p>{{item.startTime | dateFormat 'yyyy.MM.dd'}}-{{item.endTime | dateFormat 'yyyy.MM.dd'}}</p>
+                          <p style="color:#228b22;" v-if="item.limitAmount>0">满{{item.limitAmount}}元可使用</p>
+                          <p>各大球场的任意订单都可以使用</p>
+                      </div>
+                    </div>
+                    <div class="order-none tex-c" v-show="coupons.length == 0">
+                      <img src="/img/nocoupon.png" alt="" />
+                      <p>无优惠券信息</p>
+                    </div>
+                  </div>
+                <!--已使用-->
+                  <div v-show="tab == 2">
+                    <div class="flex" v-for="item in coupons_used">
+                      <!--已使用图片--><div class="quan-over" style="background-image:url('/img/quan-icon.png');"></div>
+                      <div class="my-money" style="border-right-color: #888;">
+                          <span>现金券</span>
+                          <i></i>
+                          <p>￥ <strong>{{item.chlidAmount}}</strong> 元</p>
+                          <div class="tex-r">数量:{{item.couponCount}}</div>
+                      </div>
+                      <div class="tex-c my-quan flex-1">
+                        <i></i>
+                          <p>已使用</p>
+                          <p>{{item.startTime | dateFormat 'yyyy.MM.dd'}}-{{item.endTime | dateFormat 'yyyy.MM.dd'}}</p>
+                          <p>各大球场的任意订单都可以使用</p>
+                      </div>
+                    </div>
+                    <div class="order-none tex-c" v-show="coupons_used.length == 0">
+                      <img src="/img/nocoupon.png" alt="" />
+                      <p>没有该类型优惠券</p>
+                    </div>
+                  </div>
+                <!--已过期-->
+                  <div v-show="tab == 3">
+                    <div class="flex" v-for="item in coupons_expire">
+                      <!--已使用图片--><div class="quan-over" style="background-image:url('/img/quan-icon02.png');"></div>
+                      <div class="my-money" style="border-right-color: #888;">
+                          <span>现金券</span>
+                          <i></i>
+                          <p>￥ <strong>{{item.chlidAmount}}</strong> 元</p>
+                          <div class="tex-r">数量:{{item.couponCount}}</div>
+                      </div>
+                      <div class="tex-c my-quan flex-1">
+                        <i></i>
+                          <p>已过期</p>
+                          <p>{{item.startTime | dateFormat 'yyyy.MM.dd'}}-{{item.endTime | dateFormat 'yyyy.MM.dd'}}</p>
+                          <p>各大球场的任意订单都可以使用</p>
+                      </div>
+                    </div>
+                    <div class="order-none tex-c" v-show="coupons_expire.length == 0">
+                      <img src="/img/nocoupon.png" alt="" />
+                      <p>没有该类型优惠券</p>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+</section>
+</template>

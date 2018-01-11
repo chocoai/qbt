@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="advertiseCheckCtrl">
+<div class="container containerWidthAuto">
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="form-inline applyCheckSearch">
+                <div class="form-group marginRight5">
+                    <label>图片名称：</label>
+                    <input ng-model="name" type="search" class="form-control"placeholder="输入图片名称">
+                  </div>
+                  <div class="form-group marginRight5">
+                    <label>类型：</label>
+                    <select class="form-control" ng-model="type">
+                        <option value="">全部</option>
+                        <option value="wx">微信</option>
+                        <option value="pc">PC</option>
+                    </select>
+                  </div>
+                  <div class="form-group marginRight5">
+                    <label>位置：</label>
+                    <select class="form-control" ng-model="position">
+                        <option value="">全部</option>
+                        <option ng-repeat="seats in advertise_seat" value={{seats.type}}>
+                            {{seats.desc}}
+                        </option>
+                    </select>
+                  </div>
+                  <div class="form-group marginRight5">
+                    <button id="search" class="btn btn-primary" ng-click="getList()">搜索</button>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" ng-click="addAdv()">新增</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <th>图片名称</th>
+                    <th>图片</th>
+                    <th>广告URL</th>
+                    <th class="qbt-font2">类型</th>
+                    <th>位置</th>
+                    <th>顺序</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </thead>
+                <tbody >
+                    <tr ng-repeat="item in list track by $index">
+                        <td><a ng-click="updateAdv(item.id)" class="fa" href="javascript:void(0)">{{item.name}}</a></td>
+                        <td>
+                            <a ng-click="imgShow(fBaseUrl + item.image)" class="fa" href="javascript:void(0)"><img class="applyCheckImg" ng-src="{{fBaseUrl + item.image}}" alt=""></a>
+                        </td>
+                        <td>{{item.url}}</td>
+                        <td>{{item.type == 'wx' ? '微信' : 'PC'}}</td>
+                        <td>{{item.position | commFilter : 'advertise_seat'}}</td>
+                        <td>{{item.number}}</td>
+                        <td>{{item.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>
+                            <button ng-click="layerDeleteAdv(item.id)" class="btn btn-danger btn-sm">删除</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination page="page" change="getList(page)"></pagination>
+        </div>
+    </div>
+</div>
+
+<img id="picShow" style="cursor:auto" ng-src="{{imgToBig}}">
+
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/advertiseCheckCtrl.js}}}"></script>
+</body>
+</html>

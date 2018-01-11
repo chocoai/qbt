@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.UserKfTimeRangeMapper">
+
+	<resultMap id="BaseResultMap" type="UserKfTimeRange">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="week_day" property="weekDay" jdbcType="INTEGER" />
+		<result column="begin" property="begin" jdbcType="INTEGER" />
+		<result column="end" property="end" jdbcType="INTEGER" />
+		<result column="service_id" property="serviceId" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, week_day, begin, end, service_id 
+	</sql>
+
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM user_kf_time_range 
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<insert id="insert" parameterType="UserKfTimeRange" keyProperty="id" useGeneratedKeys="true">
+		INSERT into user_kf_time_range (
+			week_day, 
+			begin,
+			end, 
+			service_id
+		) VALUES (
+			#{weekDay,jdbcType=INTEGER},
+			#{begin,jdbcType=INTEGER},
+			#{end,jdbcType=INTEGER}, 
+			#{serviceId,jdbcType=INTEGER}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="UserKfTimeRange">
+		UPDATE user_kf_time_range 
+		<set>
+			<if test="weekDay != null">
+				week_day = #{weekDay,jdbcType=INTEGER},
+			</if>
+			<if test="begin != null">
+				begin = #{begin,jdbcType=INTEGER},
+			</if>
+			<if test="end != null">
+				end = #{end,jdbcType=INTEGER},
+			</if>
+			<if test="serviceId != null">
+				service_id = #{serviceId,jdbcType=INTEGER},
+			</if>
+		</set>
+		WHERE id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM user_kf_time_range WHERE id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<delete id="deleteByServiceId" parameterType="java.lang.Integer">
+		DELETE FROM user_kf_time_range WHERE service_id = #{serviceId,jdbcType=INTEGER}
+	</delete>
+	
+	<select id="findAll" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM user_kf_time_range 
+	</select>
+	
+	<select id="findByCondition" parameterType="UserKfTimeRange" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM user_kf_time_range 
+		<where>
+			<if test="weekDay != null">
+				week_day = #{weekDay,jdbcType=INTEGER} 
+			</if>
+			<if test="begin != null">
+				begin = #{begin,jdbcType=INTEGER} 
+			</if>
+			<if test="end != null">
+				end = #{end,jdbcType=INTEGER} 
+			</if>
+			<if test="serviceId != null">
+				service_id = #{serviceId,jdbcType=INTEGER} 
+			</if>
+		</where>
+	</select>
+	
+</mapper>

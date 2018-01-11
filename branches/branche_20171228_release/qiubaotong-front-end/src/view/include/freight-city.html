@@ -1,0 +1,46 @@
+<template id="freight-city">
+<section class="pad-b" style="padding-bottom:0px !important;">
+    <!--头-->
+    <div class="header tex-c" style="background-color:#fff;">
+      <a href="javascript:;" class="back" @click="goView('freight_view')"><img src="/img/back.png" /></a>
+      选择所在地区
+    </div>
+    <!--头 end-->
+    <div class="scroll">
+    <div class="order-ad-tab  tex-c ">
+      <ul class="flex bg-white  ">
+        <li class="flex-1"><a href="javascript:;" :class="{'order-ad-tab-on' : tab == 1}" @click="changeTab(1)">{{provice || '选择省'}}<span></span></a>
+        </li>
+        <li class="flex-1"><a href="javascript:;" :class="{'order-ad-tab-on' : tab == 2}" @click="changeTab(2)">{{city || '选择市'}}<span></span></a>
+        </li>
+        <li class="flex-1"><a href="javascript:;" :class="{'order-ad-tab-on' : tab == 3}">{{district || '选择区'}}<span></span></a>
+        </li>
+      </ul>
+    <!--内容1-->
+      <div class="mar-t order-ad-td bg-white" v-show="tab == 1">
+         <ul>
+           <li v-for="item in addr_list"><a href="javascript:;" @click="bindProvice(item.name)">{{item.name}}</a></li>
+           <div class="clear-div"></div>
+         </ul>
+      </div>
+    <!--内容1-->
+    <!--内容2-->
+        <div class="mar-t order-ad-td bg-white" v-show="tab == 2">
+           <ul>
+             <li v-for="item in city_list"><a href="javascript:;" @click="bindCity(item.name)">{{item.name}}</a></li>
+             <div class="clear-div"></div>
+           </ul>
+        </div>
+    <!--内容2-->
+    <!--内容3-->
+          <div class="mar-t order-ad-td bg-white" v-show="tab == 3">
+             <ul>
+               <li v-for="item in district_list"><a href="javascript:;" @click="save(item.name,item.id)">{{item.name}}</a></li>
+               <div class="clear-div"></div>
+             </ul>
+          </div>
+      <!--内容3-->
+    </div>
+</div>
+</section>
+</template>

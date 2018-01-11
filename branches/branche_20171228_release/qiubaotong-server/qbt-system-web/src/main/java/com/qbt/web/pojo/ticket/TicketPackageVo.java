@@ -1,0 +1,127 @@
+package com.qbt.web.pojo.ticket;
+
+import java.util.Date;
+import java.util.List;
+
+public class TicketPackageVo {
+	int id;
+	Integer orderId; //订单id
+	String activityName;
+	Integer type;
+	Date expirationTime;
+	Integer effectiveDay;
+	Date activateTime;
+	String activateUser;  
+	String activatePhoneNumber;						
+	String code;
+	Integer codeStatus;
+	Integer status;//(0 - inactive; 1 - active)
+	Integer activeStatus;// 激活状态
+	Integer ticketType;
+	String operatorId;
+	String operatorName;
+	List<TicketVo> ticketVos;
+	
+	public List<TicketVo> getTicketVos() {
+		return ticketVos;
+	}
+	public void setTicketVos(List<TicketVo> ticketVos) {
+		this.ticketVos = ticketVos;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Integer getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+	public String getActivityName() {
+		return activityName;
+	}
+	public void setActivityName(String activityName) {
+		this.activityName = activityName;
+	}
+	public Integer getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = type;
+	}
+	public Date getExpirationTime() {
+		return expirationTime;
+	}
+	public void setExpirationTime(Date expirationTime) {
+		this.expirationTime = expirationTime;
+	}
+	public Integer getEffectiveDay() {
+		return effectiveDay;
+	}
+	public void setEffectiveDay(Integer effectiveDay) {
+		this.effectiveDay = effectiveDay;
+	}
+	public Date getActivateTime() {
+		return activateTime;
+	}
+	public void setActivateTime(Date activateTime) {
+		this.activateTime = activateTime;
+	}
+	public String getActivateUser() {
+		return activateUser;
+	}
+	public void setActivateUser(String activateUser) {
+		this.activateUser = activateUser;
+	}
+	public String getActivatePhoneNumber() {
+		return activatePhoneNumber;
+	}
+	public void setActivatePhoneNumber(String activatePhoneNumber) {
+		this.activatePhoneNumber = activatePhoneNumber;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public Integer getCodeStatus() {
+		return codeStatus;
+	}
+	public void setCodeStatus(Integer codeStatus) {
+		this.codeStatus = codeStatus;
+	}
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	public Integer getActiveStatus() {
+		return activeStatus;
+	}
+	public void setActiveStatus(Integer activeStatus) {
+		this.activeStatus = activeStatus;
+	}
+	public Integer getTicketType() {
+		return ticketType;
+	}
+	public void setTicketType(Integer ticketType) {
+		this.ticketType = ticketType;
+	}
+	public String getOperatorId() {
+		return operatorId;
+	}
+	public void setOperatorId(String operatorId) {
+		this.operatorId = operatorId;
+	}
+	public String getOperatorName() {
+		return operatorName;
+	}
+	public void setOperatorName(String operatorName) {
+		this.operatorName = operatorName;
+	}
+}

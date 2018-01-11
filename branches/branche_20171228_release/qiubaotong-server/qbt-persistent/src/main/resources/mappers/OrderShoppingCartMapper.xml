@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderShoppingCartMapper" >
+  <resultMap id="BaseResultMap" type="OrderShoppingCart" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="order_source" property="orderSource" jdbcType="INTEGER" />
+    <result column="send_sf_user_time" property="sendSfUserTime" jdbcType="TIMESTAMP" />
+    <result column="freight" property="freight" jdbcType="DECIMAL" />
+    <result column="deliver_date" property="deliverDate" jdbcType="VARCHAR" />
+    <result column="send_time_section" property="sendTimeSection" jdbcType="CHAR" />
+    <result column="insured_value" property="insuredValue" jdbcType="DECIMAL" />
+    <result column="insured_rates" property="insuredRates" jdbcType="DECIMAL" />
+    <result column="insured_fee" property="insuredFee" jdbcType="DECIMAL" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="j_addr_type" property="jAddrType" jdbcType="INTEGER" />
+    <result column="j_addr_id" property="jAddrId" jdbcType="INTEGER" />
+    <result column="j_addr_name" property="jAddrName" jdbcType="VARCHAR" />
+    <result column="j_contact" property="jContact" jdbcType="VARCHAR" />
+    <result column="j_mobile" property="jMobile" jdbcType="VARCHAR" />
+    <result column="j_area_id" property="jAreaId" jdbcType="INTEGER" />
+    <result column="j_tree_path" property="jTreePath" jdbcType="VARCHAR" />
+    <result column="j_address" property="jAddress" jdbcType="VARCHAR" />
+    <result column="d_addr_type" property="dAddrType" jdbcType="INTEGER" />
+    <result column="d_addr_id" property="dAddrId" jdbcType="INTEGER" />
+    <result column="d_addr_name" property="dAddrName" jdbcType="VARCHAR" />
+    <result column="d_contact" property="dContact" jdbcType="VARCHAR" />
+    <result column="d_mobile" property="dMobile" jdbcType="VARCHAR" />
+    <result column="d_area_id" property="dAreaId" jdbcType="INTEGER" />
+    <result column="d_tree_path" property="dTreePath" jdbcType="VARCHAR" />
+    <result column="d_address" property="dAddress" jdbcType="VARCHAR" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="express_type" property="expressType" jdbcType="INTEGER" />
+    <result column="md5" property="md5" jdbcType="VARCHAR" />
+    <result column="proxy_user_id" property="proxyUserId"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, update_time, user_id, order_source, send_sf_user_time, freight, 
+    deliver_date, send_time_section, insured_value, insured_rates, insured_fee, remark, 
+    j_addr_type, j_addr_id, j_addr_name, j_contact, j_mobile, j_area_id, j_tree_path, 
+    j_address, d_addr_type, d_addr_id, d_addr_name, d_contact, d_mobile, d_area_id, d_tree_path, 
+    d_address, quantity, express_type,md5,proxy_user_id
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_shopping_cart
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="OrderShoppingCart" useGeneratedKeys="true" keyProperty="id">
+    insert into order_shopping_cart ( create_time, update_time, 
+      user_id, order_source, send_sf_user_time, 
+      freight, deliver_date, send_time_section, 
+      insured_value, insured_rates, insured_fee, 
+      remark, j_addr_type, j_addr_id, 
+      j_addr_name, j_contact, j_mobile, 
+      j_area_id, j_tree_path, j_address, 
+      d_addr_type, d_addr_id, d_addr_name, 
+      d_contact, d_mobile, d_area_id, 
+      d_tree_path, d_address, quantity, express_type,md5,proxy_user_id)
+    values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=INTEGER}, #{orderSource,jdbcType=INTEGER}, #{sendSfUserTime,jdbcType=TIMESTAMP}, 
+      #{freight,jdbcType=DECIMAL}, #{deliverDate,jdbcType=VARCHAR}, #{sendTimeSection,jdbcType=CHAR}, 
+      #{insuredValue,jdbcType=DECIMAL}, #{insuredRates,jdbcType=DECIMAL}, #{insuredFee,jdbcType=DECIMAL}, 
+      #{remark,jdbcType=VARCHAR}, #{jAddrType,jdbcType=INTEGER}, #{jAddrId,jdbcType=INTEGER}, 
+      #{jAddrName,jdbcType=VARCHAR}, #{jContact,jdbcType=VARCHAR}, #{jMobile,jdbcType=VARCHAR}, 
+      #{jAreaId,jdbcType=INTEGER}, #{jTreePath,jdbcType=VARCHAR}, #{jAddress,jdbcType=VARCHAR}, 
+      #{dAddrType,jdbcType=INTEGER}, #{dAddrId,jdbcType=INTEGER}, #{dAddrName,jdbcType=VARCHAR}, 
+      #{dContact,jdbcType=VARCHAR}, #{dMobile,jdbcType=VARCHAR}, #{dAreaId,jdbcType=INTEGER}, 
+      #{dTreePath,jdbcType=VARCHAR}, #{dAddress,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{expressType},
+      #{md5,jdbcType=VARCHAR},#{proxyUserId})
+  </insert>
+  
+  <update id="updateById" parameterType="OrderShoppingCart" >
+    update order_shopping_cart
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP} ,
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="orderSource != null" >
+        order_source = #{orderSource,jdbcType=INTEGER},
+      </if>
+      <if test="sendSfUserTime != null" >
+        send_sf_user_time = #{sendSfUserTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="freight != null" >
+        freight = #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="deliverDate != null" >
+        deliver_date = #{deliverDate,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTimeSection != null" >
+        send_time_section = #{sendTimeSection,jdbcType=CHAR},
+      </if>
+      <if test="insuredValue != null" >
+        insured_value = #{insuredValue,jdbcType=DECIMAL},
+      </if>
+      <if test="insuredRates != null" >
+        insured_rates = #{insuredRates,jdbcType=DECIMAL},
+      </if>
+      <if test="insuredFee != null" >
+        insured_fee = #{insuredFee,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="jAddrType != null" >
+        j_addr_type = #{jAddrType,jdbcType=INTEGER},
+      </if>
+      <if test="jAddrId != null" >
+        j_addr_id = #{jAddrId,jdbcType=INTEGER},
+      </if>
+      <if test="jAddrName != null" >
+        j_addr_name = #{jAddrName,jdbcType=VARCHAR},
+      </if>
+      <if test="jContact != null" >
+        j_contact = #{jContact,jdbcType=VARCHAR},
+      </if>
+      <if test="jMobile != null" >
+        j_mobile = #{jMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="jAreaId != null" >
+        j_area_id = #{jAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="jTreePath != null" >
+        j_tree_path = #{jTreePath,jdbcType=VARCHAR},
+      </if>
+      <if test="jAddress != null" >
+        j_address = #{jAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dAddrType != null" >
+        d_addr_type = #{dAddrType,jdbcType=INTEGER},
+      </if>
+      <if test="dAddrId != null" >
+        d_addr_id = #{dAddrId,jdbcType=INTEGER},
+      </if>
+      <if test="dAddrName != null" >
+        d_addr_name = #{dAddrName,jdbcType=VARCHAR},
+      </if>
+      <if test="dContact != null" >
+        d_contact = #{dContact,jdbcType=VARCHAR},
+      </if>
+      <if test="dMobile != null" >
+        d_mobile = #{dMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="dAreaId != null" >
+        d_area_id = #{dAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="dTreePath != null" >
+        d_tree_path = #{dTreePath,jdbcType=VARCHAR},
+      </if>
+      <if test="dAddress != null" >
+        d_address = #{dAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="md5 != null" >
+        md5 = #{md5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findByUserId" resultMap="BaseResultMap">
+	select * from  order_shopping_cart where user_id=#{userId} order by id desc
+  </select>
+  
+   <select id="findByIds" resultMap="BaseResultMap">
+		select * from  order_shopping_cart where user_id=#{userId} and id in(
+	  	<foreach collection="ids" item="id" index="i" separator=",">
+	  	#{id}
+	  	</foreach>
+	  	)
+   </select>
+
+  <delete id="deleteByIds">
+  	delete from order_shopping_cart where user_id=#{userId} and id in(
+  	<foreach collection="ids" item="id" index="i" separator=",">
+  	#{id}
+  	</foreach>
+  	)
+  </delete>
+  
+  <select id="checkExists" resultType="int">
+  	select id from  order_shopping_cart where user_id=#{userId} and md5=#{md5}
+  </select>
+  
+   <select id="count" resultType="int">
+  	select IF(SUM(quantity) IS NULL,0,SUM(quantity)) from  order_shopping_cart where user_id=#{userId}
+  </select>
+  
+  <select id="countNotIn" resultType="int">
+  	select IF(SUM(quantity) IS NULL,0,SUM(quantity)) from  order_shopping_cart where user_id=#{userId} and id not in(
+  	<foreach collection="ids" item="id" index="i" separator=",">
+  	#{id}
+  	</foreach>
+  	)
+  </select>
+  
+  <update id="updateQuantity">
+  	  update order_shopping_cart set  quantity = #{quantity,jdbcType=INTEGER} where id = #{id,jdbcType=INTEGER} and user_id=#{userId}
+  </update>
+  
+  <update id="addQuantity">
+  	  update order_shopping_cart set  quantity = quantity+#{quantity} where id = #{id}
+  </update>
+  
+</mapper>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseBallTeamMapper" >
+  <resultMap id="BaseResultMap" type="com.qbt.persistent.entity.BaseBallTeam" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" />
+    <result column="tree_path" property="treePath"  />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="group" property="group" jdbcType="VARCHAR" />
+    <result column="sign_way" property="signWay" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="member_number" property="memberNumber" jdbcType="INTEGER" />
+    <result column="activity_rate" property="activityRate" jdbcType="VARCHAR" />
+    <result column="join_qbt_way" property="joinQbtWay" jdbcType="VARCHAR" />
+    <result column="type_number" property="typeNumber" jdbcType="INTEGER" />
+    <result column="value_total" property="valueTotal" jdbcType="VARCHAR" />
+    <result column="course_manager" property="courseManager" jdbcType="VARCHAR" />
+    <result column="secretary_manager" property="secretaryManager" jdbcType="VARCHAR" />
+    <result column="brif" property="brif" jdbcType="VARCHAR" />
+    <result column="activity" property="activity" jdbcType="VARCHAR" />
+    <result column="is_back_logo" property="isBackLogo" jdbcType="BIT" />
+    <result column="is_single_ad" property="isSingleAd" jdbcType="BIT" />
+    <result column="is_wechat_declare" property="isWechatDeclare" jdbcType="BIT" />
+    <result column="qbt_way" property="qbtWay" jdbcType="VARCHAR" />
+    <result column="is_declare_service" property="isDeclareService" jdbcType="BIT" />
+    <result column="is_wechat_group_declare" property="isWechatGroupDeclare" jdbcType="BIT" />
+    <result column="is_news" property="isNews" jdbcType="BIT" />
+    <result column="is_web" property="isWeb" jdbcType="BIT" />
+    <result column="is_note" property="isNote" jdbcType="BIT" />
+    <result column="is_declare" property="isDeclare" jdbcType="BIT" />
+    <result column="is_ylb" property="isYlb" jdbcType="BIT" />
+    <result column="found_time" property="foundTime" jdbcType="TIMESTAMP"/>
+    <result column="lon" property="lon" jdbcType="TIMESTAMP"/>
+    <result column="lat" property="lat" jdbcType="TIMESTAMP"/>
+    <result column="manage_mobile" property="manageMobile" />
+    <result column="secretary_manager_mobile" property="secretaryManagerMobile"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, area_id, tree_path, address, `group`, sign_way, create_time, member_number, 
+    activity_rate, join_qbt_way, type_number, value_total, course_manager, secretary_manager, 
+    brif, activity, is_back_logo, is_single_ad, is_wechat_declare, qbt_way, is_declare_service, 
+    is_wechat_group_declare, is_news, is_web, is_note, is_declare, is_ylb, found_time,
+    lon, lat, manage_mobile, secretary_manager_mobile
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_ball_team
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.qbt.persistent.entity.BaseBallTeam" >
+    insert into base_ball_team (id, name, area_id, 
+      tree_path, address, 
+      `group`, sign_way, create_time, 
+      member_number, activity_rate, join_qbt_way, 
+      type_number, value_total, course_manager, 
+      secretary_manager, brif, activity, 
+      is_back_logo, is_single_ad, is_wechat_declare, 
+      qbt_way, is_declare_service, is_wechat_group_declare, 
+      is_news, is_web, is_note, is_declare, 
+      is_ylb, found_time, lon, lat, manage_mobile, secretary_manager_mobile)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{areaId,jdbcType=INTEGER}, 
+      #{treePath,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{group,jdbcType=VARCHAR}, #{signWay,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{memberNumber,jdbcType=INTEGER}, #{activityRate,jdbcType=VARCHAR}, #{joinQbtWay,jdbcType=VARCHAR}, 
+      #{typeNumber,jdbcType=INTEGER}, #{valueTotal,jdbcType=VARCHAR}, #{courseManager,jdbcType=VARCHAR}, 
+      #{secretaryManager,jdbcType=VARCHAR}, #{brif,jdbcType=VARCHAR}, #{activity,jdbcType=VARCHAR}, 
+      #{isBackLogo,jdbcType=BIT}, #{isSingleAd,jdbcType=BIT}, #{isWechatDeclare,jdbcType=BIT}, 
+      #{qbtWay,jdbcType=VARCHAR}, #{isDeclareService,jdbcType=BIT}, #{isWechatGroupDeclare,jdbcType=BIT}, 
+      #{isNews,jdbcType=BIT}, #{isWeb,jdbcType=BIT}, #{isNote,jdbcType=BIT}, #{isDeclare,jdbcType=BIT}, 
+      #{isYlb,jdbcType=BIT}, #{foundTime,jdbcType=TIMESTAMP},
+      #{lon,jdbcType=BOOLEAN}, #{lon,jdbcType=BOOLEAN}, #{manageMobile,jdbcType=VARCHAR}, #{manageMobile,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qbt.persistent.entity.BaseBallTeam" >
+    update base_ball_team
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=VARCHAR},
+      </if>
+      <if test="treePath != null" >
+        tree_path = #{treePath,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="group != null" >
+        `group` = #{group,jdbcType=VARCHAR},
+      </if>
+      <if test="signWay != null" >
+        sign_way = #{signWay,jdbcType=VARCHAR},
+      </if>
+      <if test="memberNumber != null" >
+        member_number = #{memberNumber,jdbcType=INTEGER},
+      </if>
+      <if test="activityRate != null" >
+        activity_rate = #{activityRate,jdbcType=VARCHAR},
+      </if>
+      <if test="joinQbtWay != null" >
+        join_qbt_way = #{joinQbtWay,jdbcType=VARCHAR},
+      </if>
+      <if test="typeNumber != null" >
+        type_number = #{typeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="valueTotal != null" >
+        value_total = #{valueTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="courseManager != null" >
+        course_manager = #{courseManager,jdbcType=VARCHAR},
+      </if>
+      <if test="secretaryManager != null" >
+        secretary_manager = #{secretaryManager,jdbcType=VARCHAR},
+      </if>
+      <if test="brif != null" >
+        brif = #{brif,jdbcType=VARCHAR},
+      </if>
+      <if test="activity != null" >
+        activity = #{activity,jdbcType=VARCHAR},
+      </if>
+      <if test="isBackLogo != null" >
+        is_back_logo = #{isBackLogo,jdbcType=BIT},
+      </if>
+      <if test="isSingleAd != null" >
+        is_single_ad = #{isSingleAd,jdbcType=BIT},
+      </if>
+      <if test="isWechatDeclare != null" >
+        is_wechat_declare = #{isWechatDeclare,jdbcType=BIT},
+      </if>
+      <if test="qbtWay != null" >
+        qbt_way = #{qbtWay,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeclareService != null" >
+        is_declare_service = #{isDeclareService,jdbcType=BIT},
+      </if>
+      <if test="isWechatGroupDeclare != null" >
+        is_wechat_group_declare = #{isWechatGroupDeclare,jdbcType=BIT},
+      </if>
+      <if test="isNews != null" >
+        is_news = #{isNews,jdbcType=BIT},
+      </if>
+      <if test="isWeb != null" >
+        is_web = #{isWeb,jdbcType=BIT},
+      </if>
+      <if test="isNote != null" >
+        is_note = #{isNote,jdbcType=BIT},
+      </if>
+      <if test="isDeclare != null" >
+        is_declare = #{isDeclare,jdbcType=BIT},
+      </if>
+      <if test="isYlb != null" >
+        is_ylb = #{isYlb,jdbcType=BIT},
+      </if>
+         <if test="lon != null" >
+        lon = #{lon,jdbcType=BIT},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=BIT},
+      </if>
+      <if test="manageMobile != null" >
+        manage_mobile = #{manageMobile,jdbcType=BIT},
+      </if>
+      <if test="secretaryManagerMobile != null" >
+        secretary_manager_mobile = #{secretaryManagerMobile,jdbcType=BIT},
+      </if>
+      <if test="foundTime != null" >
+        found_time = #{foundTime,jdbcType=VARCHAR},
+      </if>
+      
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qbt.persistent.entity.BaseBallTeam" >
+    update base_ball_team
+    set name = #{name,jdbcType=VARCHAR},
+      area_id = #{areaId,jdbcType=VARCHAR},
+      tree_path = #{treePath,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      `group` = #{group,jdbcType=VARCHAR},
+      sign_way = #{signWay,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      member_number = #{memberNumber,jdbcType=INTEGER},
+      activity_rate = #{activityRate,jdbcType=VARCHAR},
+      join_qbt_way = #{joinQbtWay,jdbcType=VARCHAR},
+      type_number = #{typeNumber,jdbcType=INTEGER},
+      value_total = #{valueTotal,jdbcType=VARCHAR},
+      course_manager = #{courseManager,jdbcType=VARCHAR},
+      secretary_manager = #{secretaryManager,jdbcType=VARCHAR},
+      brif = #{brif,jdbcType=VARCHAR},
+      activity = #{activity,jdbcType=VARCHAR},
+      is_back_logo = #{isBackLogo,jdbcType=BIT},
+      is_single_ad = #{isSingleAd,jdbcType=BIT},
+      is_wechat_declare = #{isWechatDeclare,jdbcType=BIT},
+      qbt_way = #{qbtWay,jdbcType=VARCHAR},
+      is_declare_service = #{isDeclareService,jdbcType=BIT},
+      is_wechat_group_declare = #{isWechatGroupDeclare,jdbcType=BIT},
+      is_news = #{isNews,jdbcType=BIT},
+      is_web = #{isWeb,jdbcType=BIT},
+      is_note = #{isNote,jdbcType=BIT},
+      is_declare = #{isDeclare,jdbcType=BIT},
+      is_ylb = #{isYlb,jdbcType=BIT},
+      found_time = #{foundTime,jdbcType=TIMESTAMP}
+      lon = #{lon,jdbcType=BOOLEAN},
+      lat = #{lat,jdbcType=BOOLEAN},
+      manage_mobile = #{manageMobile,jdbcType=VARCHAR},
+      secretary_manager_mobile = #{secretaryManagerMobile,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_ball_team
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE CONCAT('%',#{condition.name},'%') 
+			</if>
+			<if test="condition.address != null and condition.address != ''">
+				AND address LIKE CONCAT('%',#{condition.address},'%') 
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List"></include>
+    from base_ball_team
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteById">
+  	delete from base_ball_team where id = #{id}
+  </delete>
+</mapper>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>球包通管理系统</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="/assets/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{{/css/main.min.css}}}">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    .login-tit {
+    	width: 100%;
+    	margin: 40px auto;
+        padding-left: 10%;
+    }
+    .login-box {
+    	width: 100%;
+    	margin: 0 auto;
+    	height: 380px;
+    	color: #fff;
+    	background-color: #0068b7;
+    }
+    .login-bd {
+    	width: 100%;
+    	height: 380px;
+    	margin: 0 auto;
+    	background: url(/img/bg.png) no-repeat center center;
+    	background-size: contain;
+    	position: relative;
+    }
+    .login {
+    	width: 310px;
+    	height: 328px;
+    	position: absolute;
+    	top: 0;
+    	bottom: 0;
+    	right: 5%;
+    	margin: auto;
+    	background-color: #fff;
+    	overflow: hidden;
+    	font-size: 14px;
+    	color: #333;
+    }
+    .login h3 {
+    	line-height: 60px;
+    	font-size: 18px;
+    	color: #333;
+    	margin: 0 auto;
+        padding:0px 34px;
+    	font-weight: normal;
+    }
+    a.login-btn {
+    	background-color: #0074cc;
+    	border-radius: 4px;
+    	color: #fff;
+    	line-height: 42px;
+    	display: block;
+    	width: 246px;
+    	margin: 20px auto 0;
+    }
+    a.login-btn:active {
+    	background-color: #00C;
+    }
+    .login-foot {
+    	position: fixed;
+    	bottom: 0;
+    	left: 0;
+    	line-height: 30px;
+    	width: 100%;
+        background-color: #f8f8f8;
+    }
+    @media (max-width: 500px) {
+        .login-foot {
+            position: relative;
+        }
+    }
+    </style>
+</head>
+<body ng-controller="loginCtrl">
+	<div class="login-tit">
+		<img src="/img/logo.png" />
+	</div>
+	<div class="login-box">
+		<div class="login-bd">
+			<div class="login">
+				<h3>用户登录</h3>
+				<div style="margin:auto 20px;">
+                    <div class="form-group">
+                        <input class="form-control" ng-model="mobile" type="text" placeholder="请输入手机号码" name="LoginName" autofocus maxlength="32"/>
+                    </div>
+                    <div class="form-group">
+    					<input class="form-control" ng-model="pwd" type="password" placeholder="请输入密码" name="password" maxlength="16"/>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" ng-model="platform">
+                            <option value="{{item.type}}" ng-repeat="item in platforms">{{item.desc}}</option>
+                        </select>
+                    </div>
+				</div>
+				<p style="text-align:right; padding-right: 30px; margin-top: 20px;">记住账号
+					<input ng-model="remember" type="checkbox" value="Remember Me" name="remember"/>
+				</p>
+				<a ng-click="login()" class="login-btn text-center">登 录</a>
+			</div>
+		</div>
+	</div>
+	<div class="login-foot text-center">
+        <p>Copyright © 2014-2016 上海格灵信息科技有限公司 All Rights Reserved 备案号：沪ICP备14030722号-1</p>
+	</div>
+    <!-- jQuery -->
+    <script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+    <!-- Angular -->
+    <script src="/assets/angular/angular.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/assets/metisMenu/dist/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="/assets/admin/js/sb-admin-2.js"></script>
+    <script src="/assets/layer/layer.js"></script>
+    <script src="{{{/js/RSA.js}}}"></script>
+    <script src="{{{/js/app.js}}}"></script>
+    <script src="{{{/js/loginCtrl.js}}}"></script>
+
+</body>
+
+</html>

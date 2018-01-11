@@ -1,0 +1,15 @@
+--QBT-226
+更改数据库 reminder
+
+--QBT-228
+/apps/QiuBaoTong/braches_20171206/qiubaotong-server/qbt-web/src/main/java/com/qbt/web/support/impl/BaseAdvertSupportImpl.java
+/apps/QiuBaoTong/braches_20171206/qiubaotong-front-end/src/js/v3/index.js
+
+--QBT-241
+/apps/QiuBaoTong/braches_20171206/qiubaotong-front-end-boss/src/js/orderDownCtrl.js
+/apps/QiuBaoTong/braches_20171206/qiubaotong-front-end-boss/src/view/orderDown.html
+
+--QBT-240
+/apps/QiuBaoTong/braches_20171206/qiubaotong-server/qbt-common/src/main/java/com/qbt/common/enums/ExpressTypeEnum.java
+/apps/QiuBaoTong/braches_20171206/qiubaotong-server/qbt-system-web/src/main/java/com/qbt/web/support/impl/OrderSupportImpl.java
+/apps/QiuBaoTong/braches_20171206/qiubaotong-server/qbt-web/src/main/java/com/qbt/web/support/impl/OrderV2SupportImpl.java

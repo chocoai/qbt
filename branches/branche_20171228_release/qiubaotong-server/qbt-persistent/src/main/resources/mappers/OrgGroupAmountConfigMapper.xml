@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrgGroupAmountConfigMapper">
+	<resultMap id="BaseResultMap" type="OrgGroupAmountConfig">
+		<id column="id" property="id" />
+		<result column="org_id" property="orgId" />
+		<result column="type" property="type" />
+		<result column="min_amount" property="minAmount" />
+		<result column="max_amount" property="maxAmount" />
+		<result column="discount" property="discount" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, org_id, type, min_amount, max_amount, discount
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from org_group_amount_config
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="OrgGroupAmountConfig" keyProperty="id" useGeneratedKeys="true">
+		insert into org_group_amount_config (
+			org_id, 
+			type,
+			min_amount, 
+			max_amount, 
+			discount
+		) values (
+			#{orgId},
+			#{type},
+			#{minAmount}, 
+			#{maxAmount}, 
+			#{discount}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="OrgGroupAmountConfig">
+		update org_group_amount_config
+		<set>
+			<if test="orgId != null">
+				org_id = #{orgId},
+			</if>
+			<if test="type != null">
+				type = #{type},
+			</if>
+			<if test="minAmount != null">
+				min_amount = #{minAmount},
+			</if>
+			<if test="maxAmount != null">
+				max_amount = #{maxAmount},
+			</if>
+			<if test="discount != null">
+				discount = #{discount},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="selectByOrgId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from org_group_amount_config
+		where org_id = #{orgId}
+	</select>
+	
+	<delete id="deleteByOrgId">
+		delete from org_group_amount_config where org_id = #{orgId}
+	</delete>
+	
+	<insert id="insertByBatch">
+		insert into org_group_amount_config (
+			org_id, 
+			type,
+			min_amount, 
+			max_amount, 
+			discount
+		) values 
+		<foreach collection="configs" item="config" index="i" separator=",">
+		(
+			#{config.orgId},
+			#{config.type},
+			#{config.minAmount}, 
+			#{config.maxAmount}, 
+			#{config.discount}
+		)
+		</foreach>
+	</insert>
+	
+	<select id="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from org_group_amount_config 
+	</select>
+	
+	<select id="selectProperAmountConfig" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from org_group_amount_config 
+		<where>
+			org_id = #{orgId}
+			<![CDATA[
+				and	min_amount <= #{amount} and max_amount >= #{amount}
+			]]>
+		</where>
+	</select>
+	
+</mapper>

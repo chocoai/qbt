@@ -1,0 +1,77 @@
+<template id="order-sublist">
+<div class="section">
+<!--头-->
+<div class="header tex-c" style="background-color:#fff;">
+  <a href="javascript:history.back();" class="back" ><img src="/img/back.png" /></a>
+  我的订单
+</div>
+<!--头 end-->
+<div class="scroll marhead bg">
+<!--tab-->
+  <div class="bd" style="height: 100%; ">
+            <!--全部-->
+      <div class="order-all-lay mar-t" v-for="item in order_list1">
+          <div @click="detail(item.number,item.orderStatus)">
+            <div class="weui_cells font14">
+                 <div class="weui_cell">
+                   <div class="flex-1"></div>
+                   <div class="o-p-state tex-c" style="background-color:#fd5959;" v-if="item.orderStatus != 3">
+                     {{item.orderStatus | commFilter 'order_type'}}
+                   </div>
+                   <div class="o-p-state tex-c" style="background-color:#04be02;" v-if="item.orderStatus == 3 && item.deliveryStatus != 7">
+                     {{item.deliveryStatus | commFilter 'sf_type'}}
+                   </div>
+                   <div class="o-p-state tex-c" style="background-color:#a664e2;" v-if="item.orderStatus == 3 && item.deliveryStatus == 7">
+                     {{item.dAddrType == 4 ? '已签收' : '代签收'}}
+                   </div>
+                 </div>
+            </div>
+            <div class="weui_cells font14">
+                 <div class="weui_cell">
+                   <div class="weui_cell_ft">订单编号：</div>
+                     <div class="weui_cell_bd weui_cell_primary tex-l">
+                         <p>{{item.number}}</p>
+                     </div>
+                 </div>
+             </div>
+             <div class="weui_cells font14">
+                  <div class="weui_cell">
+                    <div class="weui_cell_ft">创建时间：</div>
+                      <div class="weui_cell_bd weui_cell_primary tex-l">
+                          <p>{{item.createTime | dateFormat 'yyyy-MM-dd hh:mm:ss'}}</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="weui_cells font14">
+                   <div class="weui_cell">
+                     <div class="weui_cell_ft">取包信息：</div>
+                       <div class="weui_cell_bd weui_cell_primary tex-l">
+                           <p>{{item.jUserName}} {{item.jMobile}}</p>
+                           <p>{{item.jCityName}}{{item.jAddressName}}</p>
+                       </div>
+                   </div>
+               </div>
+               <div class="weui_cells font14">
+                    <div class="weui_cell">
+                      <div class="weui_cell_ft">送包信息：</div>
+                        <div class="weui_cell_bd weui_cell_primary tex-l">
+                            <p>{{item.dUserName}} {{item.dMobile}}</p>
+                            <p>{{item.dCityName}}{{item.dAddressName}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells ">
+                 <div class="weui_cell o-p-btn font14">
+                   <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="delete(item)" v-show="showDelete(item.orderStatus,item.deliveryStatus)">删除</a>
+                   <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="cancel(item)" v-show="showCancel(item.orderStatus,item.deliveryStatus)">取消</a>
+                   <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="redo(item,2)">返程</a>
+                   <a href="javascript:;" class="weui_btn weui_btn_plain_default" @click="redo(item,1)">重运</a>
+                   <div class="clear-div"></div>
+                 </div>
+             </div>
+       </div>
+   </div>
+</div>
+</div>
+</template>

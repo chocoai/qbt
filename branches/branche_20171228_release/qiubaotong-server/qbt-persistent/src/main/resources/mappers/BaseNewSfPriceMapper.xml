@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BaseNewSfPriceMapper">
+
+	<resultMap id="BaseResultMap" type="BaseNewSfPrice">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="start_area" property="startArea" />
+		<result column="end_area" property="endArea" />
+		<result column="cichen_favourable_price" property="cichenFavourablePrice" />
+		<result column="cichen_qbt_price" property="cichenQbtPrice" />
+		<result column="ciri_favourable_price" property="ciriFavourablePrice" />
+		<result column="ciri_qbt_price" property="ciriQbtPrice" />
+		<result column="geri_favourable_price" property="geriFavourablePrice" />
+		<result column="geri_qbt_price" property="geriQbtPrice" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, create_time, update_time, start_area, end_area,
+		cichen_favourable_price, cichen_qbt_price,
+		ciri_favourable_price, ciri_qbt_price, geri_favourable_price, geri_qbt_price
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from base_new_sf_price
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="BaseNewSfPrice" useGeneratedKeys="true" keyProperty="id">
+		insert into base_new_sf_price (
+			create_time, 
+			update_time,
+			start_area, 
+			end_area, 
+			cichen_favourable_price,
+			cichen_qbt_price, 
+			ciri_favourable_price, 
+			ciri_qbt_price,
+			geri_favourable_price, 
+			geri_qbt_price
+		) values (
+			#{createTime},
+			#{updateTime},
+			#{startArea}, 
+			#{endArea},
+			#{cichenFavourablePrice},
+			#{cichenQbtPrice},
+			#{ciriFavourablePrice},
+			#{ciriQbtPrice},
+			#{geriFavourablePrice},
+			#{geriQbtPrice}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="BaseNewSfPrice">
+		update base_new_sf_price
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="startArea != null">
+				start_area = #{startArea},
+			</if>
+			<if test="endArea != null">
+				end_area = #{endArea},
+			</if>
+			<if test="cichenFavourablePrice != null">
+				cichen_favourable_price = #{cichenFavourablePrice},
+			</if>
+			<if test="cichenQbtPrice != null">
+				cichen_qbt_price = #{cichenQbtPrice},
+			</if>
+			<if test="ciriFavourablePrice != null">
+				ciri_favourable_price = #{ciriFavourablePrice},
+			</if>
+			<if test="ciriQbtPrice != null">
+				ciri_qbt_price = #{ciriQbtPrice},
+			</if>
+			<if test="geriFavourablePrice != null">
+				geri_favourable_price = #{geriFavourablePrice},
+			</if>
+			<if test="geriQbtPrice != null">
+				geri_qbt_price = #{geriQbtPrice},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="findByArea" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from base_new_sf_price 
+		<where>
+			start_area = #{startArea} 
+			and end_area = #{endArea} 
+		</where>
+		order by ciri_favourable_price limit 1
+	</select>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_new_sf_price
+		<where>
+			<if test="condition.startArea != null and condition.startArea != ''">
+				AND start_area LIKE CONCAT('%',#{condition.startArea},'%') 
+			</if>
+			<if test="condition.endArea != null and condition.endArea != ''">
+				AND end_area LIKE CONCAT('%',#{condition.endArea},'%') 
+			</if>
+		</where>
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}
+			</when>
+			<otherwise>
+				ORDER BY create_time desc 
+			</otherwise>
+		</choose>
+	</select>
+	
+	<delete id="delete">
+	 delete from base_new_sf_price where id = #{id}
+	</delete>
+	
+</mapper>

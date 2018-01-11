@@ -1,0 +1,1 @@
+alter table reminder drop index name_unique;

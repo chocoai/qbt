@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.BagCodeOrderMapper">
+	<resultMap id="BaseResultMap" type="BagCodeOrder">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="bag_code_partner_id" property="bagCodePartnerId" />
+		<result column="bag_code_partner_name" property="bagCodePartnerName" />
+		<result column="bag_code" property="bagCode" />
+		<result column="user_id" property="userId" />
+		<result column="nickname" property="nickname" />
+		<result column="name" property="name" />
+		<result column="mobile" property="mobile" />
+		<result column="activity_id" property="activityId" />
+		<result column="activity_name" property="activityName" />
+		<result column="order_id" property="orderId" />
+		<result column="order_number" property="orderNumber" />
+		<result column="status" property="status" />
+		<result column="result" property="result" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, update_time, bag_code_partner_id, bag_code_partner_name,
+		bag_code,
+		user_id, nickname, name, mobile, activity_id, activity_name, order_id,
+		order_number,
+		status, result
+	</sql>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from bag_code_order
+		where id = #{id}
+	</select>
+	
+	<select id="findByOrderId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bag_code_order
+		where order_id = #{orderId}
+	</select>
+	
+	<insert id="insert" parameterType="BagCodeOrder" keyProperty="id" useGeneratedKeys="true">
+		insert into bag_code_order (
+			create_time, 
+			update_time,
+			bag_code_partner_id, 
+			bag_code_partner_name, 
+			bag_code,
+			user_id, 
+			nickname, 
+			name,
+			mobile, 
+			activity_id, 
+			activity_name,
+			order_id, 
+			order_number, 
+			status,
+			result
+		) values (
+			#{createTime},
+			#{updateTime},
+			#{bagCodePartnerId},
+			#{bagCodePartnerName}, 
+			#{bagCode},
+			#{userId}, 
+			#{nickname},
+			#{name},
+			#{mobile}, 
+			#{activityId}, 
+			#{activityName},
+			#{orderId}, 
+			#{orderNumber},
+			#{status},
+			#{result}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="BagCodeOrder">
+		update bag_code_order
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="result != null">
+				result = #{result},
+			</if>
+			<if test="orderId != null">
+				order_id = #{orderId},
+			</if>
+			<if test="orderNumber != null">
+				order_number = #{orderNumber},
+			</if>
+			<if test="activityId != null">
+				activity_id = #{activityId},
+			</if>
+			<if test="activityName != null">
+				activity_name = #{activityName},
+			</if>
+			<if test="bagCodePartnerId != null">
+				bag_code_partner_id = #{bagCodePartnerId},
+			</if>
+			<if test="bagCodePartnerName != null">
+				bag_code_partner_name = #{bagCodePartnerName},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bag_code_order 
+		<where>
+			<if test="condition.startTime != null">
+				and date(create_time) <![CDATA[>=]]> date(#{condition.startTime}) 
+			</if>
+			<if test="condition.endTime != null">
+				and date(create_time) <![CDATA[<=]]> date(#{condition.endTime}) 
+			</if>
+			<if test="condition.bagCode != null and condition.bagCode != ''">
+				and bag_code like concat('%',#{condition.bagCode},'%')
+			</if>
+			<if test="condition.keyword != null and condition.keyword != ''">
+				and (
+					nickname like concat('%',#{condition.keyword},'%') 
+					or name like concat('%',#{condition.keyword},'%') 
+					or mobile like concat('%',#{condition.keyword},'%') 
+				) 
+			</if>
+			<if test="condition.status != null">
+				and status = #{condition.status} 
+			</if>
+			<if test="condition.orderNumber != null and condition.orderNumber != ''">
+				and order_number like concat('%',#{condition.orderNumber},'%')
+			</if>
+		</where>
+		order by id desc
+	</select>
+	
+</mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.SfNotifyConfigMapper">
+
+	<resultMap id="BaseResultMap" type="SfNotifyConfig">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />		
+		<result column="order_number" property="orderNumber" />
+		<result column="operator" property="operator" />
+		<result column="operator_name" property="operatorName" />			
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, create_time, order_number, operator, operator_name		
+	</sql>
+	
+	<insert id="insert" parameterType="SfNotifyConfig" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO sf_notify_config (
+			create_time,
+			update_time, 
+			order_number,
+			operator,
+			operator_name 
+		)
+		VALUES (
+			#{createTime},
+			#{updateTime},
+			#{orderNumber},
+			#{operator},
+			#{operatorName}
+		)
+	</insert>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM sf_notify_config 
+		<where>
+			<if test="condition.orderNumber != null and condition.orderNumber != ''">
+				AND order_number = #{condition.orderNumber}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findByOrderNumber" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM sf_notify_config 
+		<where>
+			<if test="orderNumber != null and orderNumber != ''">
+				AND order_number = #{orderNumber} 
+			</if>
+		</where>
+	</select>
+	
+	<delete id="deleteById">
+		delete from sf_notify_config where id=#{id}
+	</delete>	
+	
+</mapper>

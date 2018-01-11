@@ -1,0 +1,126 @@
+<template id="shoplist-detail">
+<section class="section">
+<!--头-->
+<div class="header tex-c bg-white">
+  <a href="javascript:history.back();" class="back"><img src="/img/back.png" /></a>
+  球包详情
+</div>
+<!--头 end-->
+<div class="scroll" style="padding-bottom:50px;">
+<div class="marhead">
+<!--内容-->
+<!--订单失效时显示-->
+<section class="bg-pink" v-if="detail.status == 2">
+    <div class="weui_cells mar-t0">
+        <div class="weui_cell font-fff bg-pink font12">
+            {{detail.remark}}
+        </div>
+    </div>
+</section>
+<!--订单失效时显示end-->
+<!--地址-->
+<section class="ma-bag-address mar-t bg-white">
+    <div class="weui_cells">
+         <div class="weui_cell ">
+             <div class="weui_cell_ft weui_cell_bd">
+                 <img src="/img/home-icon.png?v2" atl="" style="max-height:32px;"/>
+             </div>
+             <div class="weui_cell_bd font14">
+                 {{detail.jContact}} {{detail.jMobile}}</br>
+                 {{detail.jTreePath}}{{detail.jAddrName || detail.jAddress}}
+             </div>
+         </div>
+    </div>
+    <div class="weui_cells">
+         <div class="weui_cell ">
+             <div class="weui_cell_ft weui_cell_bd">
+                <img src="/img/home-icon02.png?v2" atl="" style="max-height:32px;"/>
+             </div>
+             <div class="weui_cell_bd font14">
+                 {{detail.dContact}} {{detail.dMobile}}</br>
+                 {{detail.dTreePath}}{{detail.dAddrName || detail.dAddress}}
+             </div>
+         </div>
+    </div>
+</section>
+<!--人-->
+<section class="ma-bag-name">
+    <div class=" bg-white mar-t">
+        <div class="weui_cells font14">
+            <div class="weui_cell">
+              <div class="weui_cell_ft">预约取件：</div>
+                <div class="weui_cell_bd weui_cell_primary tex-l">
+                    <p>{{detail.sendTimeSection}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="weui_cells font14">
+            <div class="weui_cell">
+              <div class="weui_cell_ft">预计到达：</div>
+                <div class="weui_cell_bd weui_cell_primary tex-l">
+                    <p >{{detail.deliverDate}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="weui_cells font14">
+            <div class="weui_cell">
+              <div class="weui_cell_ft">球包数量：</div>
+                <div class="weui_cell_bd weui_cell_primary tex-l">
+                    <p >{{detail.quantity}}个</p>
+                </div>
+            </div>
+        </div>
+        <div class="weui_cells font14">
+            <div class="weui_cell">
+              <div class="weui_cell_ft">保价金额：</div>
+                <div class="weui_cell_bd weui_cell_primary tex-l">
+                    <p>{{detail.insuredValue}}万</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ma-bag-name mar-b">
+    <div class="weui_cells font14 mar-t or-d-main bg-white">
+        <div class="weui_cells font14">
+            <div class="weui_cell">
+              <div class="weui_cell_ft weui_cell_primary tex-l">保价费：</div>
+                <div class="weui_cell_bd font-red">
+                    <p>{{detail.insuredFee | currency '￥'}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="weui_cells font14">
+            <div class="weui_cell">
+              <div class="weui_cell_ft weui_cell_primary tex-l">单价：</div>
+                <div class="weui_cell_bd font-red">
+                    <p>{{detail.freight | currency '￥'}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="weui_cells font14">
+            <div class="weui_cell">
+              <div class="weui_cell_ft weui_cell_primary tex-r">x{{detail.quantity}}</div>
+            </div>
+        </div>
+        <div class="border-co-f2"></div>
+        <div class="weui_cells font16">
+            <div class="weui_cell">
+              <div class="weui_cell_ft weui_cell_primary font-red ">总计：</div>
+                <div class="weui_cell_bd ">
+                    <p class="font-red">{{total | currency '￥'}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--内容end-->
+</div>
+</div>
+<div class="submit flex tex-c bg-white weui_cells_checkbox" style="position: absolute; bottom:0;">
+  <div class="flex-1 ">
+    <a href="javascript:history.back();" class="bg-white" style="color:#808080;">返回清单</a>
+  </div>
+</div>
+</section>
+</template>

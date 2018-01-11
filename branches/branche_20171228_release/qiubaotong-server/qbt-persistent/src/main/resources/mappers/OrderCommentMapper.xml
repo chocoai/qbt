@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderCommentMapper" >
+
+	<resultMap type="OrderComment" id="BaseResultMap">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="order_id" property="orderId" />
+		<result column="order_number" property="orderNumber" />
+		<result column="j_tree_path" property="jTreePath" />
+		<result column="d_tree_path" property="dTreePath" />
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="head_img_url" property="headImgUrl" />
+		<result column="kf_level" property="kfLevel" />
+		<result column="sf_pack_level" property="sfPackLevel" />
+		<result column="sf_deliver_level" property="sfDeliverLevel" />
+		<result column="sf_service_level" property="sfServiceLevel" />
+		<result column="total_level" property="totalLevel" />
+		<result column="content" property="content" />
+		<result column="url1" property="url1" />
+		<result column="url2" property="url2" />
+		<result column="url3" property="url3" />
+		<result column="status" property="status" />
+		<result column="is_top" property="isTop" />
+		<result column="sys_user_id" property="sysUserId" />
+		<result column="sys_user_name" property="sysUserName" />
+		<result column="memo" property="memo" />
+	</resultMap>
+	
+	<sql id="Base_Column_List" >
+		id, create_time, order_id, order_number, j_tree_path, d_tree_path, user_id, user_name, head_img_url, 
+		kf_level, sf_pack_level, sf_deliver_level, sf_service_level, total_level, 
+		content,url1, url2, url3, status, is_top, sys_user_id, sys_user_name, memo 
+	</sql>
+	
+	<insert id="insert" parameterType="OrderComment" keyProperty="id" useGeneratedKeys="true">
+		insert into order_comment (
+			create_time,
+			order_id,
+			order_number,
+			j_tree_path,
+			d_tree_path,
+			user_id,
+			user_name,
+			head_img_url,
+			kf_level,
+			sf_pack_level,
+			sf_deliver_level,
+			sf_service_level,
+			total_level,
+			content,
+			url1,
+			url2,
+			url3,
+			status,
+			is_top,
+			sys_user_id,
+			sys_user_name,
+			memo
+		) values (
+			#{createTime},
+			#{orderId},
+			#{orderNumber},
+			#{jTreePath},
+			#{dTreePath},
+			#{userId},
+			#{userName},
+			#{headImgUrl},
+			#{kfLevel},
+			#{sfPackLevel},
+			#{sfDeliverLevel},
+			#{sfServiceLevel},
+			#{totalLevel},
+			#{content},
+			#{url1},
+			#{url2},
+			#{url3},
+			#{status},
+			#{isTop},
+			#{sysUserId},
+			#{sysUserName},
+			#{memo}
+		)
+	</insert>
+	
+	<update id="updateById" parameterType="OrderComment">
+		update order_comment 
+		<set>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="isTop != null">
+				is_top = #{isTop},
+			</if>
+			<if test="sysUserId != null">
+				sys_user_id = #{sysUserId},
+			</if>
+			<if test="sysUserName != null">
+				sys_user_name = #{sysUserName},
+			</if>
+			<if test="memo != null">
+				memo = #{memo},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from order_comment 
+		<where>
+			<if test="condition.orderNumber != null and condition.orderNumber != ''">
+				and order_number like concat('%',#{condition.orderNumber},'%') 
+			</if>
+			<if test="condition.userName != null and condition.userName != ''">
+				and user_name like concat('%',#{condition.userName},'%') 
+			</if>
+			<if test="condition.content != null and condition.content != ''">
+				and content like concat('%',#{condition.content},'%') 
+			</if>
+			<if test="condition.status != null and condition.status > 0">
+				and status = #{condition.status} 
+			</if>
+			<if test="condition.isTop != null">
+				and is_top = #{condition.isTop} 
+			</if>
+		</where>
+		order by id desc 
+	</select>
+	
+	<select id="queryForWechat" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from order_comment 
+		<where>
+			status = 2 
+			<if test="lastRecordId > 0">
+			<![CDATA[
+				and id < #{lastRecordId}
+			]]>
+			</if>
+		</where>
+		order by id desc limit ${pageSize}
+	</select>
+	
+	<select id="findByOrderNumber" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from order_comment 
+		where order_number = #{orderNumber}
+	</select>
+	
+</mapper>

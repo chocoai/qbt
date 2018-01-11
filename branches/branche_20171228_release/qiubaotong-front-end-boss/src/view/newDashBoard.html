@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/admin/css/sb-admin-2.css" rel="stylesheet">
+  <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="/assets/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+  <link href="{{{/css/main.min.css}}}" rel="stylesheet" type="text/css" >
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body ng-controller="newDashboardCtrl" class="body1366">
+  <div class="container containerWidthAuto">
+    <!--<div class="row">-->
+      <!--<div class="col-sm-12">-->
+        <!--<table class="table table-bordered">-->
+          <!--<thead>-->
+            <!--<tr>-->
+              <!--<th>订单分组名称</th>-->
+              <!--<th>待分配</th>-->
+              <!--<th>已分配</th>-->
+              <!--<th>未处理</th>-->
+            <!--</tr>-->
+          <!--</thead>-->
+          <!--<tbody>-->
+            <!--<tr>-->
+              <!--<td>A</td>-->
+              <!--<td>11</td>-->
+              <!--<td>33</td>-->
+              <!--<td>22</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+              <!--<td>B</td>-->
+              <!--<td>11</td>-->
+              <!--<td>33</td>-->
+              <!--<td>22</td>-->
+            <!--</tr>-->
+          <!--</tbody>-->
+        <!--</table>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div class="row rowMarginBottom">
+      <div class="col-sm-4">
+        <div class="form-inline">
+          <label>搜索条件：</label>
+          <button type="button" class="btn btn-sm btn-primary" ng-click="showSearch()">{{searchVal}}</button>
+        </div>
+      </div>
+    </div>
+    <div id="toSearch" class="fade">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group">
+              <label class="control-label">预约取件开始时间：</label>
+              <div class="inputDateClose">
+                <input type="text" class="form-control date-picker" readonly placeholder="选择取件开始时间" ng-model="order.jTime">
+                <button ng-click="clearStartTime()" class="clearTime">x</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group">
+              <label style="min-width:62px;" class="control-label">订单号：</label>
+              <input type="text" class="form-control" placeholder="输入订单号" ng-model="order.orderId">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group">
+              <label class="control-label">物流状态：</label>
+              <select style="min-width:196px" class="form-control" ng-model="order.sf_type">
+                <option value="">全部</option>
+                <option value="{{item.type}}" ng-repeat="item in sf_type">{{item.desc}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group positionRelative">
+              <label class="control-label">预约取件结束时间：</label>
+              <div class="inputDateClose">
+                <input type="text" class="form-control date-picker" readonly placeholder="选择取件结束时间" ng-model="order.jTimeEnd">
+                <button ng-click="clearEndTime()" class="clearTime">x</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group marginRight5">
+              <label style="min-width:62px;" class="control-label">运单号：</label>
+              <input type="text" class="form-control" placeholder="输入运单号" ng-model="mailNo">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group">
+              <label class="control-label">订单状态：</label>
+              <select style="min-width:196px" class="form-control" ng-model="order.order_type">
+                <option value="">全部</option>
+                <option value="{{item.type}}" ng-repeat="item in order_type">{{item.desc}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group positionRelative">
+              <label class="control-label">预计到达开始时间：</label>
+              <div class="inputDateClose">
+                <input type="text" class="form-control date-picker" readonly placeholder="选择到达开始时间" ng-model="deliverStartTime">
+                <button ng-click="clearDstartTime()" class="clearTime">x</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group marginRight5">
+              <label style="min-width:62px;" class="control-label">关键词：</label>
+              <input type="text" class="form-control" placeholder="输入关键词" ng-model="order.query">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group positionRelative">
+              <label style="min-width:62px;" class="control-label">分配状态：</label>
+              <select class="form-control" ng-model="offerStatus" style="min-width: 196px">
+                <option value="">全部</option>
+                <option value="0">未分配</option>
+                <option value="1">已分配</option>
+              </select>
+            </div>
+          </div>
+          <!--<div class="form-inline mb8">-->
+            <!--<div class="form-group">-->
+              <!--<label class="control-label">BSP状态：</label>-->
+              <!--<select style="min-width:196px" class="form-control" ng-model="order.bps_type">-->
+                <!--<option value="">全部</option>-->
+                <!--<option value="{{item.type}}" ng-repeat="item in bps_type">{{item.desc}}</option>-->
+              <!--</select>-->
+            <!--</div>-->
+          <!--</div>-->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group positionRelative">
+              <label class="control-label">预计到达结束时间：</label>
+              <div class="inputDateClose">
+                <input type="text" class="form-control date-picker" readonly placeholder="选择到达结束时间" ng-model="deliverEndTime">
+                <button ng-click="clearDendTime()" class="clearTime">x</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group positionRelative">
+              <label style="min-width:62px;" class="control-label">处理状态：&nbsp;</label>
+              <select class="form-control" ng-model="handleStatus" style="min-width: 171px">
+                <option value="">全部</option>
+                <option value="0">未处理</option>
+                <option value="1">处理中</option>
+                <option value="2">已处理</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group">
+              <label>偏远球场：</label>
+              <select style="min-width:196px" class="form-control" ng-model="order.outRangeType" style="min-width:162px">
+                <option value="">全部</option>
+                <option value="1">是</option>
+                <option value="0">否</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group positionRelative">
+              <label class="control-label">下单开始时间：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+              <div class="inputDateClose">
+                <input type="text" class="form-control date-picker" readonly placeholder="选择下单开始时间" ng-model="begCreateTime">
+                <button ng-click="clearBegCreateTime()" class="clearTime">x</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group marginRight5">
+              <label style="min-width:62px;">订单来源：</label>
+              <select style="min-width:173px" ng-model="orderSource" class="form-control">
+                <option value="">全部</option>
+                <option ng-repeat="item in order_source" value="{{item.type}}">{{item.desc}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group">
+              <label>物流渠道：</label>
+              <select style="min-width:196px" class="form-control" ng-model="mailChannel" style="min-width:162px">
+                <option value="">全部</option>
+                <option ng-repeat="channel in channelList" value="{{channel.id}}">{{channel.channelName}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group positionRelative">
+              <label class="control-label">下单结束时间：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+              <div class="inputDateClose">
+                <input type="text" class="form-control date-picker" readonly placeholder="选择下单结束时间" ng-model="endCreateTime">
+                <button ng-click="clearEndCreateTime()" class="clearTime">x</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group positionRelative">
+              <label style="min-width:62px;" class="control-label">机构群：</label>
+              <select class="form-control" ng-model="orgId" style="min-width: 173px">
+                <option value="">全部</option>
+                <option value="{{org.id}}" ng-repeat="org in orgList">{{org.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!--先注释-->
+        <div class="col-sm-4">
+          <div class="form-inline mb8">
+            <div class="form-group positionRelative">
+              <label style="min-width:62px;" class="control-label">第三方渠道：</label>
+              <select class="form-control" ng-model="thirdOrg" style="min-width: 182px">
+                <option value="">全部</option>
+                <option value="{{obj.id}}" ng-repeat="obj in thirdChannel">{{obj.organizationName}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--<div class="row">-->
+        <!--<div class="col-sm-4">-->
+          <!--<div class="form-inline mb8">-->
+            <!--<div class="form-group positionRelative">-->
+              <!--<label style="min-width:62px;" class="control-label">分配状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>-->
+              <!--<select class="form-control" ng-model="offerStatus" style="min-width: 169px">-->
+                <!--<option value="">全部</option>-->
+                <!--<option value="0">未分配</option>-->
+                <!--<option value="1">已分配</option>-->
+              <!--</select>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-sm-4">-->
+          <!--&lt;!&ndash;<div class="form-inline mb8">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="form-group positionRelative">&ndash;&gt;-->
+              <!--&lt;!&ndash;<label style="min-width:62px;" class="control-label">分配人：&nbsp;</label>&ndash;&gt;-->
+              <!--&lt;!&ndash;<input type="text" class="form-control" style="min-width: 173px" ng-model="offerName" placeholder="输入分配人">&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="col-sm-4">-->
+          <!--<div class="form-inline mb8">-->
+            <!--<div class="form-group positionRelative">-->
+              <!--<label style="min-width:62px;" class="control-label">处理状态：&nbsp;</label>-->
+              <!--<select class="form-control" ng-model="handleStatus" style="min-width: 190px">-->
+                <!--<option value="">全部</option>-->
+                <!--<option value="0">未处理</option>-->
+                <!--<option value="1">处理中</option>-->
+                <!--<option value="1">已处理</option>-->
+              <!--</select>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-8">
+          <div class="form-group pull-right">
+            <button id="search" type="submit" class="btn btn-primary" ng-click="getList()" >搜索</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table table-bordered table-striped table-hover table-condensed">
+          <thead>
+            <tr class="qbt-tr-padding10">
+              <th>操作</th>
+              <th class="qbt-font3">订单号</th>
+              <th class="qbt-font3">下单时间</th>
+              <th class="qbt-font3">预约取件</th>
+              <th class="qbt-font3">预约送达</th>
+              <th class="qbt-font3">运单号</th>
+              <th class="qbt-font3">订单状态</th>
+              <th class="qbt-font3">物流状态</th>
+              <th class="qbt-font3">BSP状态</th>
+              <th class="qbt-font3">用户名</th>
+              <th class="qbt-font3">取包信息</th>
+              <th class="qbt-font3">送包信息</th>
+              <th class="qbt-font3">当前事件</th>
+              <th class="qbt-font3">当前预警</th>
+              <th class="qbt-font3">分配状态</th>
+              <th class="qbt-font3">分配人</th>
+              <th class="qbt-font3">处理状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in list">
+              <!-- <tr> -->
+              <td>
+                <button type="button" class="btn btn-primary btn-sm" ng-click="offerTask(item.orderId)" style="margin-bottom:5px;">分配</button>
+                <button ng-click="applyTask(item.id);" type="button" class="btn btn-primary btn-sm" style="margin-bottom:5px;">申领</button>
+                <button ng-click="deleteTask(item.id);" type="button" class="btn btn-primary btn-sm">释放</button>
+              </td>
+              <td><a href="javascript:void(0)" ng-click="detail(item.id)">{{item.number}}<i style="display:inline" ng-show="item.isVip" class="fa"><img class="vip-icon" src="../img/vip.png"></i></a>
+                <p ng-show="item.thirdType != 1"><br>
+                  <a href="javascript:void(0)" ng-click="travelDetail(item.thirdId)">{{item.thirdName}}({{item.langEname | commFilter : 'langEname_type'}})</a>
+                </p>
+                <p ng-show="item.proxyUserId">
+                  代下单人：<a href="javascript:void(0)" ng-click="daiUserDetail(item.saleUserId,item.saleUserName)">{{item.saleUserName}}</a>
+                </p>
+              </td>
+              <td>{{item.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+              <td>{{item.sendSfUserTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+              <td>{{item.deliverDate}}</td>
+              <td>
+                <a href="javascript:void(0)" ng-click="detail(item.id)">{{item.mailChannel===1?item.mailNo:item.mailNumber}}</a>
+              </td>
+              <td>{{item.orderStatus | commFilter:'order_type'}}<br><br>
+                <label ng-class="{'font-default':item.mailChannel===1}">{{item.mailChannel===1?'顺丰':(item.mailChannel===2?'德邦':(item.mailChannel===3?'跨越':'宅急送'))}}</label>
+              </td><!--订单状态-->
+              <td>
+                <label ng-show="item.deliveryStatus != 2" class="label padding7-10" ng-class="{'label-info':item.deliveryStatus == 1,'label-blue':item.deliveryStatus == 3,'label-green':item.deliveryStatus == 4,'label-success':item.deliveryStatus == 5,'label-primary':item.deliveryStatus == 6,'label-warning':item.deliveryStatus == 7,}">{{item.deliveryStatus | commFilter:'sf_type'}}</label>
+                <label ng-show="item.deliveryStatus == 2" ng-click="layerSendStatus2To4(item.id)" class="label padding7-10 label-default" style="cursor:pointer">
+                  {{item.deliveryStatus | commFilter:'sf_type'}}
+                </label>
+              </td><!--物流状态-->
+              <td>
+                <label class="label padding7-10" ng-class="{'label-primary':item.bpsStatus == 1,'label-success':item.bpsStatus == 2,'label-danger':item.bpsStatus == 3}">{{item.bpsStatus | commFilter:'bps_type'}}</label>
+              </td><!--BSP状态-->
+              <td><a href="javascript:;" ng-click="userDetail(item.userId)">{{item.userName}}</a></td><!--用户名-->
+              <td ng-if="item.jAddrType == 4">
+                <a ng-click="isWeixin(item.jMobile,item.id)" href="javascript:void(0)">{{item.jContact}}<br/>{{item.jMobile}}</a>
+                <br/>{{item.jTreePath}}{{item.jAddress}}<label>{{item.jOutRangeType>0 ? '(偏)' : ''}}</label>
+                <br><br><label ng-if="item.orgName">{{item.orgName}}</label>
+              </td><!--取包信息-->
+              <td ng-if="item.jAddrType != 4"><a ng-click="isWeixin(item.jMobile,item.id)" href="javascript:void(0)">{{item.jContact}}<br/>{{item.jMobile}}</a>
+                <br/>
+                <label class="label" ng-class="{'label-success':item.jCourseStatus   == 1,'label-warning':item.jCourseStatus   == 2,'label-danger':item.jCourseStatus   == 3,'label-default':item.jCourseStatus   == 4}">
+                  <i ng-if="item.jAddrType == 1" class="fa"><img src="../img/golf.png"></i>
+                  <a style="color:#fff" href="javascript:void(0);" ng-if="item.jAddrType == 1" ng-click="courseDetail(item.jAddrId,item.jAddrType)">{{item.jAddrName}}{{item.jOutRangeType===1 ? '(偏)' : ''}}</a>
+                </label>
+                <span ng-if="item.jAddrType != 1">{{item.jAddrName}}<label>{{item.jOutRangeType>0 ? '(偏)' : ''}}</label></span>
+                <br><br><label ng-if="item.orgName">{{item.orgName}}</label>
+              </td><!--取包信息-->
+              <td ng-if="item.dAddrType == 4">
+                <a ng-click="isWeixin(item.dMobile,item.id)" href="javascript:void(0)">{{item.dContact}}<br/>{{item.dMobile}}</a>
+                <br/>{{item.dTreePath}}{{item.dAddress}}<label>{{item.dOutRangeType>0 ? '(偏)' : ''}}</label>
+              </td><!--送包信息-->
+              <td ng-if="item.dAddrType != 4">
+                <a ng-click="isWeixin(item.dMobile,item.id)" href="javascript:void(0)">{{item.dContact}}<br/>{{item.dMobile}}</a>
+                <br/>
+                <label class="label" ng-class="{'label-success':item.dCourseStatus  == 1,'label-warning':item.dCourseStatus  == 2,'label-danger':item.dCourseStatus  == 3,'label-default':item.dCourseStatus  == 4}">
+                  <i ng-if="item.dAddrType == 1" class="fa"><img src="../img/golf.png"></i>
+                  <a style="color:#fff" href="javascript:void(0);" ng-if="item.dAddrType == 1" ng-click="courseDetail(item.dAddrId,item.dAddrType)">{{item.dAddrName}}{{item.dOutRangeType===1 ? '(偏)' : ''}}</a>
+                </label>
+                <span ng-if="item.dAddrType != 1">{{item.dAddrName}}<label>{{item.dOutRangeType>0 ? '(偏)' : ''}}</label></span>
+              </td><!--送包信息-->
+              <td>
+                <div ng-repeat="obj in item.events track by $index"><label class="label padding7-10" ng-class="{'label-info':(item.events[$index].status===0||item.events[$index].status===1),'label-success':item.events[$index].status===2}">{{item.events[$index].name}}</label><br><br></div>
+              </td><!--当前事件-->
+              <td>
+                <div ng-repeat="obj in item.warnings track by $index"><label class="label padding7-10" ng-class="{'label-danger':(item.warnings[$index].status===0 || item.warnings[$index].status===1),'label-success':item.warnings[$index].status===2}">{{item.warnings[$index].name}}</label><br><br></div>
+              </td><!--当前预警-->
+              <td>{{item.distributionStatus === 0 ? '未分配' : item.distributionStatus === 1 ? '已分配' : '处理中'}}</td><!--分配状态-->
+              <td>{{item.distributorName}}</td><!--分配人-->
+              <td>{{item.handleExceptionStatus === 0 ? '未处理' : item.handleExceptionStatus === 1 ? '处理中' : '已处理'}}</td><!--处理状态-->
+            </tr>
+          </tbody>
+        </table>
+        <pagination page="page" change="getList(page)"></pagination>
+      </div>
+    </div>
+    <!--<div>-->
+      <!--<div style="border: 1px solid #ccc;margin-bottom: 10px;border-radius: 5px;" class="row" id="orderPage" ng-repeat="obj in mid track by $index">-->
+        <!--<label style="margin: 15px 0 15px 10px;font-size: 17px">订单{{mid[$index]}}</label>-->
+        <!--<div class="col-sm-12" style="padding: 0 10px 0 10px">-->
+          <!--<div class="row">-->
+            <!--<div class="col-sm-3">-->
+              <!--<label>分配状态:</label>-->
+              <!--<span></span>-->
+            <!--</div>-->
+            <!--<div class="col-sm-3">-->
+              <!--<label>所属客服:</label>-->
+              <!--<span></span>-->
+            <!--</div>-->
+            <!--<div class="col-sm-3">-->
+              <!--<label>处理状态:</label>-->
+              <!--<span></span>-->
+            <!--</div>-->
+            <!--<div class="col-sm-3">-->
+              <!--<button class="btn btn-info">{{isDone===true?'处理锁定':'撤销处理'}}</button>-->
+              <!--<button class="btn btn-primary" ng-click="hideCont($index)">{{isHide}}</button>-->
+            <!--</div>-->
+          <!--</div><hr>-->
+          <!--<div class="row" id="orderList{{$index}}">-->
+            <!--<div class="col-sm-12">-->
+              <!--<iframe style="width: 100%;min-height: 900px;" src="orderDetail.html?id="+{{mid.$index}} frameborder="0"></iframe>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  </div>
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/assets/layer/layer.js"></script>
+<script src="{{{/js/app.js}}}"></script>
+<script src="{{{/js/newDashboardCtrl.js}}}"></script>
+</body>
+</html>

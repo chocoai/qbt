@@ -1,0 +1,9 @@
+next(null,{"code":"0000","msg":"ok",
+	"datas":[
+	{"id":1,"imageUrl":"/img/bg.png"},
+	{"id":2,"imageUrl":"/img/golf.png"},
+	{"id":3,"imageUrl":"/img/logo.png"},
+	{"id":4,"imageUrl":"/img/logo1.png"},
+	{"id":5,"imageUrl":"/img/vip.png"},
+	{"id":6,"imageUrl":"/img/vip.png"}]
+})

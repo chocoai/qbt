@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderExceptionBookMapper">
+
+	<resultMap id="BaseResultMap" type="OrderExceptionBook">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="order_id" property="orderId" jdbcType="INTEGER" />
+		<result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+		<result column="is_dealed" property="isDealed" jdbcType="BIT" />
+		<result column="sys_user_id" property="sysUserId" jdbcType="INTEGER" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="LONGVARCHAR" />
+		<result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, create_time, update_time, order_id, order_number, type, order_status,
+		is_dealed,
+		sys_user_id, user_name
+	</sql>
+
+	<sql id="Blob_Column_List">
+		description, remark
+	</sql>
+
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from order_exception_book
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<insert id="insert" parameterType="OrderExceptionBook" useGeneratedKeys="true" keyProperty="id">
+		insert into order_exception_book (create_time, update_time,
+		order_id, order_number, type,
+		order_status, is_dealed, sys_user_id,
+		user_name, description, remark
+		)
+		values (#{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{orderId,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},
+		#{orderStatus,jdbcType=INTEGER}, #{isDealed,jdbcType=BIT},
+		#{sysUserId,jdbcType=INTEGER},
+		#{userName,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+
+	<update id="updateById" parameterType="OrderExceptionBook">
+		update order_exception_book
+		<set>
+			<if test="updateTime != null">
+				update_time = now(),
+			</if>
+			<if test="orderStatus != null">
+				order_status = #{orderStatus,jdbcType=INTEGER},
+			</if>
+			<if test="isDealed != null">
+				is_dealed = #{isDealed,jdbcType=BIT},
+			</if>
+			<if test="sysUserId != null">
+				sys_user_id = #{sysUserId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from order_exception_book
+		<where>
+			<if test="condition.isDealed != null">
+				and is_dealed = #{condition.isDealed}
+			</if>
+		</where>
+		order by create_time desc
+	</select>
+	
+	
+	
+</mapper>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderAddressTypeMapper">
+
+	<resultMap id="BaseResultMap" type="OrderAddressType">
+		<id column="id" property="id" />
+		<result column="create_time" property="createTime" />
+		<result column="order_id" property="orderId" />
+		<result column="order_time" property="orderTime" />
+		<result column="user_order_address_id" property="userOrderAddressId" />
+		<result column="user_order_address_uuid" property="userOrderAddressUuid" />
+		<result column="type" property="type" />
+	</resultMap>
+	
+	<resultMap id="PageResultMap" type="OrderAddressTypePageDto">
+		<result column="user_id" property="userId" />
+		<result column="addr_type" property="addrType" />
+		<result column="country_area_id" property="countryAreaId" />
+		<result column="country_area_name" property="countryAreaName" />
+		<result column="province_area_id" property="provinceAreaId" />
+		<result column="province_area_name" property="provinceAreaName" />
+		<result column="city_area_id" property="cityAreaId" />
+		<result column="city_area_name" property="cityAreaName" />
+		<result column="district_area_id" property="districtAreaId" />
+		<result column="district_area_name" property="districtAreaName" />
+		<result column="tree_path" property="treePath" />
+		<result column="addr_id" property="addrId" />
+		<result column="addr_name" property="addrName" />
+		<result column="address" property="address" />
+		<result column="contact" property="contact" />
+		<result column="mobile" property="mobile" />
+		<result column="order_count" property="orderCount" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id,create_time,order_id,order_time,user_order_address_id,
+		user_order_address_uuid,type
+	</sql>
+
+	<insert id="insert" parameterType="OrderAddressType" keyProperty="id" useGeneratedKeys="true">
+		insert into order_address_type (
+			create_time,
+			order_id,
+			order_time,
+			user_order_address_id,
+			user_order_address_uuid,
+			type
+		)values(
+			#{createTime},
+			#{orderId},
+			#{orderTime},
+			#{userOrderAddressId},
+			#{userOrderAddressUuid},
+			#{type}
+		)
+	</insert>
+	
+	<!-- 获取最新的订单时间 -->
+	<select id="findMaxDate" resultType="java.lang.String">
+		select max(date(order_time)) from order_address_type
+	</select>
+	
+	<select id="findByPageForUserSummary" resultMap="PageResultMap">
+		select 
+			a.user_id,
+			a.addr_type,
+			a.country_area_id,
+			a.country_area_name,
+			a.province_area_id,
+			a.province_area_name,
+			a.city_area_id,
+			a.city_area_name,
+			a.district_area_id,
+			a.district_area_name,
+			a.addr_id,
+			a.addr_name,
+			a.address,
+			a.contact,
+			a.mobile,
+			count(1) order_count 
+		from order_address_type t left join user_order_address a on t.user_order_address_id = a.id 
+		<where>
+			<if test="condition.startOrderTime != null">
+				<![CDATA[
+				and date(t.order_time) >= date(#{condition.startOrderTime}) 
+				]]>
+			</if>
+			<if test="condition.endOrderTime != null">
+				<![CDATA[
+				and date(t.order_time) <= date(#{condition.endOrderTime}) 
+				]]>
+			</if>
+			<if test="condition.type != null and condition.type > 0">
+				and t.type = #{condition.type} 
+			</if>
+			<if test="condition.userId != null and condition.userId > 0">
+				and a.user_id = #{condition.userId} 
+			</if>
+			<if test="condition.addrType != null and condition.addrType > 0">
+				and a.addr_type = #{condition.addrType} 
+			</if>
+			<if test="condition.contact != null and condition.contact != ''">
+				and a.contact like concat('%',#{condition.contact},'%') 
+			</if>
+			<if test="condition.mobile != null and condition.mobile != ''">
+				and a.mobile like concat('%',#{condition.mobile},'%') 
+			</if>
+		</where>
+		group by 
+			a.user_id,
+			a.addr_type,
+			a.country_area_id,
+			a.province_area_id,
+			a.city_area_id,
+			a.district_area_id,
+			a.addr_id,
+			a.address,
+			a.addr_name,
+			a.contact,
+			a.mobile
+		<choose>
+			<when test="orderByColumn != null and orderByType != null">
+				ORDER BY ${orderByColumn} ${orderByType}, order_count desc
+			</when>
+			<otherwise>
+				ORDER BY order_count desc 
+			</otherwise>
+		</choose>
+	</select>
+	
+</mapper>

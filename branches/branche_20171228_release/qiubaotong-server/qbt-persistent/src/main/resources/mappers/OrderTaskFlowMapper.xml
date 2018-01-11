@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.OrderTaskFlowMapper">
+
+	<resultMap id="BaseResultMap" type="OrderTaskFlow">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="order_id" property="orderId" jdbcType="INTEGER"/>
+		<result column="type" property="type" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, create_time, order_id, type 
+	</sql>
+
+	<insert id="insert" parameterType="OrderTaskFlow" keyProperty="id" useGeneratedKeys="true">
+		insert into order_task_flow (
+			create_time,
+			order_id,
+			type
+		) values (
+			#{createTime},
+			#{orderId},
+			#{type}
+		)
+	</insert>
+	
+	<delete id="deleteById">
+		delete from order_task_flow where id=#{id}
+	</delete>
+	
+	<select id="findByType" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from order_task_flow where type=#{type}
+	</select>
+	
+	<delete id="deleteByDay">
+		<![CDATA[
+		delete from order_task_flow where create_time<DATE_SUB(now(),INTERVAL #{day} DAY)
+		]]>
+	</delete>
+	
+</mapper>

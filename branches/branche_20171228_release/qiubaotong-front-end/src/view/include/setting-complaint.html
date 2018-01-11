@@ -1,0 +1,31 @@
+<template id="setting_compiaint_view">
+<div class="pad-b">
+  <!--头-->
+  <div class="header tex-c bg-white bd-b">
+    <a href="javascript:;" class="back" @click="goView('setting_view')"><img src="/img/back.png" /></a>
+    投诉与建议
+  </div>
+  <!--头 end-->
+  <div class="scroll">
+  <div class="complaint flex-box">
+    <div class="marhead set-up">
+      <div class="weui_cells weui_cells_form">
+          <div class="weui_cell">
+              <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input font14" type="text" pattern="[0-9]*" placeholder="请输入手机号" maxlength="11" v-model="mobile">
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="mar-t weui_cell bg-white">
+        <div class="weui_cell_bd weui_cell_primary">
+            <textarea class="weui_textarea font14" type="text" placeholder="请填写您的投诉或者建议" maxlength="200" v-model="content" style="height: 180px;width: 100%;"></textarea>
+            <div class="weui_textarea_counter"><span>{{content.length}}</span>/200</div>
+        </div>
+    </div>
+
+    <a href="javascript:;" class="weui_btn weui_btn_primary btn mar-t20" @click="add()">提 交</a>
+</div>
+</div>
+</div>
+</template>

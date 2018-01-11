@@ -1,0 +1,182 @@
+<template id="orderListTpl">
+    <section class="page">
+        <tel-contact></tel-contact>
+        <div class="weui-tab">
+            <tab v-show="true" bar-active-color="#15ca5f" active-color="#15ca5f">
+               <!--  <tab-item :selected="orderStatus==0" @on-item-click="getOrderListType(0)">全部</tab-item> -->
+                <tab-item :selected="orderStatus==1" @on-item-click="getOrderListType(1)">待付款</tab-item>
+                <tab-item :selected="orderStatus==4" @on-item-click="getOrderListType(4)">待取件</tab-item>
+                <tab-item :selected="orderStatus==2" @on-item-click="getOrderListType(2)">运输中</tab-item>
+                <tab-item :selected="orderStatus==3" @on-item-click="getOrderListType(3)">已送达</tab-item>
+            </tab>
+            <div class="weui-tab__panel" style="height: 100%">
+                <!--0-全部 1-待付款-->
+                <scroller v-if="orderStatus==0 || orderStatus==1" height="-50" lock-x @on-scroll-bottom="onScrollBottom" ref="scrollerBottom_a" :scroll-bottom-offst="0">
+                    <div>
+                        <p v-for="(item,index) in scroller_a" class="weui-panel weui-panel_access">
+                            <span class="weui-panel__bd" @click="showDetails_a(index)">
+                                <span style="display: block;font-weight:bold" class="weui-panel__hd">
+                                    {{item.createTime | dateFormat('yyyy-MM-dd')}}
+                                    <span style="float: right;background-color:#dadada;    border-radius: 0 0 6px 6px;color: #ffffff;width: 60px;padding: 2px 0;font-size: 12px;line-height: 2;text-align: center;position: relative;top:-13px" v-if="orderStatus==0" :style="{background:item.orderStatus==2?'#dadada':item.payStatus==1?'#e9573e':'#04be02'}">{{item.orderStatus==2?'订单关闭':item.payStatus==1?'待支付':'支付成功'}}</span>
+                                    <span v-if="orderStatus==1" style="float:right;color:#e9573e">待付款</span>
+                                </span>
+                                <span class="weui-panel__bd">
+                                    <span style="display: block;padding: 5px 15px;" class="weui-flex">
+                                        <span style="display: inline-block;width:50px;vertical-align: top;font-weight: bold;">寄包</span>
+                                        <span style="display: inline-block;" class="weui-flex__item">
+                                            <span style="display: block;">{{item.jContact}}&nbsp;{{item.jMobile}}</span>
+                                            <span style="display: block;">{{item.jTreePath}}</span>
+                                            <span style="display: block;">{{item.jAddrName}}</span>
+                                        </span>
+                                    </span>
+                                    <span style="display: block;padding: 5px 15px;" class="weui-flex">
+                                        <span  style="display: inline-block;width:50px;vertical-align: top;font-weight: bold;">收包</span>
+                                        <span style="display: inline-block;" class="weui-flex__item">
+                                            <span style="display: block;">{{item.dContact}}&nbsp;{{item.dMobile}}</span>
+                                            <span style="display: block;">{{item.dTreePath}}</span>
+                                            <span style="display: block;">{{item.dAddrName}}</span>
+                                        </span>
+                                    </span>
+                                    <span class="weui-flex" style="padding:5px 15px;display: block;">
+                                        <span style="width:50px;display: inline-block;font-weight: bold;">数量</span>
+                                        <span style="display: inline-block;" class="weui-flex__item">{{item.quantity}}个</span>
+                                    </span>
+                                </span>
+                            </span>
+                            <span class="weui-panel__ft" style="padding : 5px 15px;border-top:1px solid #e5e5e5;text-align:right;display: block;">
+                                <a @click="showDetails_a(index)" style="border: 1px solid #15ca5f;background: none;color: #15ca5f;" href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">详情</a>
+                             <!--    <a style="border: 1px solid #999999;background: none;color: #999999;" href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default" @click="cancel(item,1)">取消</a> -->
+                            </span>
+                        </p>
+                        <p v-show="glob.showNotOrderImg" class="order-none tex-c" style="text-align: center;padding:80px 0 15px;display: none;" v-if="glob.showNotOrderImg">
+                            <img style="max-height: 60px" src="/img/file.png" alt="" />
+                            <span style="display: block;color:#d8d8d8;font-size:18px">没有该类型订单</span>
+                        </p>
+                        <load-more v-if="!glob.showNotOrderImg" :show-loading="glob.hasNext" :tip="glob.hasNext?'':'已加载完毕'" background-color="#fbf9fe"></load-more>
+                    </div>
+               <!--  <div class="weui-panel weui-panel_access">
+                    <div class="weui-panel__hd">
+                        2017-03-07<span style="float:right;">待付款</span>
+                    </div>
+                    <div class="weui-panel__bd">
+                        <div class="weui-flex" style="padding:5px 15px;">
+                            <div style="width:50px;">寄包</div>
+                            <div class="weui-flex__item">
+                                <p>姓名</p>
+                                <p>地区</p>
+                                <p>地址</p>
+                            </div>
+                        </div>
+                        <div class="weui-flex" style="padding:5px 15px;">
+                            <div style="width:50px;">收包</div>
+                            <div class="weui-flex__item">
+                                <p>姓名</p>
+                                <p>地区</p>
+                                <p>地址</p>
+                            </div>
+                        </div>
+                        <div class="weui-flex" style="padding:5px 15px;">
+                            <div style="width:50px;">数量</div>
+                            <div class="weui-flex__item">1包</div>
+                        </div>
+                    </div>
+                    <div class="weui-panel__ft" style="padding : 5px 15px;border-top:1px solid #e5e5e5;text-align:right;">
+                        <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">操作</a>
+                    </div>
+                </div> -->                        
+                </scroller>
+                 <!-- 4-待取件 2-运输中 3-已送达 -->
+                <scroller v-if="orderStatus==2 || orderStatus==3 || orderStatus==4" height="-50" lock-x @on-scroll-bottom="onScrollBottom" ref="scrollerBottom_b" :scroll-bottom-offst="0">
+                    <div>
+                        <p v-for="(item,index) in scroller_b" class="weui-panel weui-panel_access">
+                            <span style="display: block;font-weight:bold" class="weui-panel__hd">
+                                {{item.createTime | dateFormat('yyyy-MM-dd')}}<span style="float:right;" :style="{color:orderStatus==2?'#13b2f4':orderStatus==3?'#15ca5f':'#ff9600'}">{{orderStatus==2?'运输中':orderStatus==3?'已送达':'待取件'}}</span>
+                            </span>
+                            <span class="weui-panel__bd" @click="showDetails_b(index,1)">
+                                <span style="display: block;padding: 5px 15px;" class="weui-flex">
+                                    <span style="display: inline-block;width:50px;vertical-align: top;font-weight: bold;">寄包</span>
+                                    <span style="display: inline-block;" class="weui-flex__item">
+                                        <span style="display: block;">{{item.jUserName}}&nbsp;{{item.jMobile}}</span>
+                                        <span style="display: block;">{{item.jCityName}}</span>
+                                        <span style="display: block;">{{item.jAddressName}}</span>
+                                    </span>
+                                </span>
+                                <span style="display: block;padding: 5px 15px;" class="weui-flex">
+                                    <span  style="display: inline-block;width:50px;vertical-align: top;font-weight: bold;">收包</span>
+                                    <span style="display: inline-block;" class="weui-flex__item">
+                                        <span style="display: block;">{{item.dUserName}}&nbsp;{{item.dMobile}}</span>
+                                        <span style="display: block;">{{item.dCityName}}</span>
+                                        <span style="display: block;">{{item.dAddressName}}</span>
+                                    </span>
+                                </span>
+                                <span class="weui-flex" style="padding:5px 15px;display: block;">
+                                    <span style="width:50px;display: inline-block;font-weight: bold;">数量</span>
+                                    <span style="display: inline-block;" class="weui-flex__item">1个</span>
+                                </span>
+                            </span>
+                            <span class="weui-panel__ft" style="padding : 5px 15px;border-top:1px solid #e5e5e5;text-align:right;display: block;">
+                                <a v-if="orderStatus==4 && isReplace == 0" @click="backOrder(item)" style="border: 1px solid #999999;background: none;color: #999999;" href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">返程</a>
+                                <a v-if="orderStatus==4 && item.cancelAble==true && isReplace == 0" style="border: 1px solid #999999;background: none;color: #999999;" href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default" @click="cancel(item,4)">取消</a>
+                                <a v-if="isReplace==0 && item.isConfirmReceive!=true" v-show="orderStatus==3 || orderStatus==2" @click="confirmReceive(item.id)" style="border: 1px solid #15ca5f;background: none;color: #15ca5f;" href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">确认已送达</a>
+                                <a @click="showDetails_b(index,2)" style="border: 1px solid #15ca5f;background: none;color: #15ca5f;" href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">{{orderStatus==2?'物流追踪':'详情'}}</a>
+                            </span>
+                        </p>
+                        <p v-show="glob.showNotOrderImg" class="order-none tex-c" style="text-align: center;padding:80px 0 15px;display: none;" v-if="glob.showNotOrderImg">
+                            <img style="max-height: 60px" src="/img/file.png" alt="" />
+                            <span style="display: block;color:#d8d8d8;font-size:18px">没有该类型订单</span>
+                        </p>
+                        <load-more v-if="!glob.showNotOrderImg" :show-loading="glob.hasNext" :tip="glob.hasNext?'':'已加载完毕'" background-color="#fbf9fe"></load-more>
+                    </div>
+                </scroller>
+            </div>
+        </div>
+        <popup height="100%" :show-mask="false" id="popupDetail" v-model="showDetail" style="overflow: auto">
+            <div style="padding-bottom: 60px">
+                <p v-for="(item,index) in scroller_c" class="weui-panel weui-panel_access">
+                    <span style="display: block;font-weight:bold" class="weui-panel__hd">
+                        {{item.createTime | dateFormat('yyyy-MM-dd')}}
+                        <span style="float: right;background-color:#dadada;    border-radius: 0 0 6px 6px;color: #ffffff;width: 60px;padding: 2px 0;font-size: 12px;line-height: 2;text-align: center;position: relative;top:-13px" :style="{background:showStart(item,2)}">{{showStart(item,1)}}</span>
+                    </span>
+                    <span class="weui-panel__bd" @click="showDetails_c(index,1)">
+                        <span style="display: block;padding: 5px 15px;" class="weui-flex">
+                            <span style="display: inline-block;width:50px;vertical-align: top;font-weight: bold;">寄包</span>
+                            <span style="display: inline-block;" class="weui-flex__item">
+                                <span style="display: block;">{{item.jUserName}}&nbsp;{{item.jMobile}}</span>
+                                <span style="display: block;">{{item.jCityName}}</span>
+                                <span style="display: block;">{{item.jAddressName}}</span>
+                            </span>
+                        </span>
+                        <span style="display: block;padding: 5px 15px;" class="weui-flex">
+                            <span  style="display: inline-block;width:50px;vertical-align: top;font-weight: bold;">收包</span>
+                            <span style="display: inline-block;" class="weui-flex__item">
+                                <span style="display: block;">{{item.dUserName}}&nbsp;{{item.dMobile}}</span>
+                                <span style="display: block;">{{item.dCityName}}</span>
+                                <span style="display: block;">{{item.dAddressName}}</span>
+                            </span>
+                        </span>
+                        <span class="weui-flex" style="padding:5px 15px;display: block;">
+                            <span style="width:50px;display: inline-block;font-weight: bold;">数量</span>
+                            <span style="display: inline-block;" class="weui-flex__item">1个</span>
+                        </span>
+                    </span>
+                    <span @click="showDetails_c(index,2)" class="weui-panel__ft" style="padding : 5px 15px;border-top:1px solid #e5e5e5;text-align:right;display: block;">
+                        <a  style="border: 1px solid #15ca5f;background: none;color: #15ca5f;" href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">{{showStart(item,1)=='运输中'?'物流追踪':'详情'}}</a>
+                    </span>
+                </p>
+            </div> 
+            <div class="weui-flex footer">
+                <div class="weui-flex__item footer-cancel">
+                    <p @click="showDetail = false">返回</p>
+                </div>
+            </div>
+        </popup>
+        <!--开发票按钮-->
+        <footer class="footer" v-show="orderStatus==3 && isReplace==0">
+            <div class="weui-flex">
+                <a href="javascript:locationTo('invoice.html');" class="weui-flex__item footer-confirm">
+                    <p>开发票</p>
+                </a>
+            </div>
+        </footer>
+    </section>
+</template>

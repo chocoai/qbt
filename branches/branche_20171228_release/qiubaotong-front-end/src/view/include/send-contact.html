@@ -1,0 +1,32 @@
+<template id="send-contact">
+<div class="pad-b">
+  <!--头-->
+  <div class="header tex-c bg-white bd-b">
+    <a href="javascript:history.back();" class="back"><img src="/img/back.png" /></a>
+    修改联系人
+  </div>
+  <!--头 end-->
+  <div class="scroll">
+      <div class="Apply mar">
+        <div class="bg-white">
+        <div class="weui_cell">
+              <div class="weui_cell_hd"><label class="weui_label">姓名：</label></div>
+              <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" type="text" placeholder="姓名" maxlength="8" v-model="name" v-bind:value="isJ ? send_addr.name : collect_addr.name"/>
+              </div>
+        </div>
+        <div class="weui_cell">
+              <div class="weui_cell_hd"><label class="weui_label" style="padding-right:0px;">联系电话：</label></div>
+              <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" type="text" placeholder="手机号码或固定电话" maxlength="15" v-model="mobile" v-bind:value="isJ ? send_addr.mobile : collect_addr.mobile"/>
+              </div>
+        </div>
+        </div>
+        <div class="font12 mar-t" style="color:#15ca5f;">
+            温馨提示:姓名请填写球包主人真实姓名
+        </div>
+        <a href="javascript:;" class="weui_btn weui_btn_primary font14" @click="save()">保 存</a>
+      </div>
+  </div>
+</div>
+</template>

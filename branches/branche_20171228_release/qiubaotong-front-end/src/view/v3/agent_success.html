@@ -1,0 +1,40 @@
+<template id="agent_success">
+  <section>
+    <div class="page" style="background: #f9f8f8;">
+      <div style="padding-top:60px;text-align: center;width: 100%;z-index: 19;position: absolute;top:0;left:0">
+        <h3 style="font-size: 28px;color: #E9573E;font-weight: normal;">谢谢您的订单！</h3>
+        <p style="color: #666666;font-size: 16px;padding:15px 0;margin-left: 62px;margin-right: 40px;text-align: left; ">预计 <strong>{{adate}}</strong>&nbsp;<strong>{{atime}}</strong>&nbsp;上门取包，请让客户准备好球包，取出<a @click="showDanger = true;" style="color: #FC7D73;text-decoration: underline" href="javascript:;">违禁品</a></p>
+        <!--<p v-if="isWin" style="padding:0 15px;font-size: 16px;">恭喜您获得一张优惠券，球包签收后生效。可在“个人中心－我的优惠券”查看。</p>-->
+        <div style="padding: 10px 0">
+          <div @click="goOrderList" style="display: inline-block;width: 240px;height: 60px;line-height: 60px;background: #15ca5f;color: #ffffff;font-size: 24px;font-weight: bold;margin-top: 50px;"><a style="color: #ffffff" href="javascript:;">订单详情</a></div>
+        </div>
+        <div style="padding: 10px 0;">
+          <div style="display: inline-block;width: 240px;height: 60px;line-height: 60px;background: #ffffff;color: #000000;font-size: 24px;font-weight: bold;border: 1px solid #dadada"><a style="color: #000000" href="agent_v3.html">返回销售通道</a></div>
+        </div>
+      </div>
+      <!--<div style="position: absolute;left:0;bottom: 0"><img src="/img/su_bga.png" style="display: block;width: 100%" /></div>-->
+      <!--<div style="position: absolute;left:45%;bottom: 8%;display: inline-block;z-index: 3"><img src="/img/su_bgc.png" width="170" /></div>-->
+      <!--<div style="position: absolute;left:10%;bottom: 26%;display: inline-block;z-index: 1"><img src="/img/su_bgb.png" width="70" /></div>-->
+      <popup  @on-show="compatible_ios_show()" @on-hide="compatible_ios_hide()" v-model="showDanger" position="bottom" height="400px">
+        <div style="text-align: center;padding: 15px;background-color:#ffffff;">
+          <p @click="showDanger = false;" style="font-size: 20px;float: left">返回</p>
+          <h3 style="font-size: 20px">寄球包注意事项</h3>
+        </div>
+        <div style="padding: 15px;font-size: 16px;height: 100%;overflow: auto">
+          <p style="margin-bottom: 5px">因航空运输要求，违禁品不能随包寄出，请将以下物品拿出</p>
+          <ul style="list-style: none">
+            <li>1.化妆品</li>
+            <li>2.液体</li>
+            <li>3.膏状物品（防晒霜、面膜、Mark笔等）</li>
+            <li>4.磁性物（带磁的MARK、果岭叉、球杆套等）</li>
+            <li>5.含锂电池的电子产品（测距仪等）</li>
+            <li>6.其他（打火机、纸币、硬币等）</li>
+          </ul>
+          <p style="text-align: left">
+            <img src="/img/attention_send.jpg" width="100%">
+          </p>
+        </div>
+      </popup>
+    </div>
+  </section>
+</template>

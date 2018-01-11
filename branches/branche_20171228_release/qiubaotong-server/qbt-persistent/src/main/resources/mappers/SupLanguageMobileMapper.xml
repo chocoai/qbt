@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbt.persistent.mapper.SupLanguageMobileMapper">
+
+	<resultMap id="BaseResultMap" type="SupLanguageMobile">
+		<id column="id" property="id" />
+		<result column="mobile" property="mobile"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, mobile
+	</sql>
+	
+	<select id="findByMobile" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM sup_language_mobile 
+		WHERE mobile=#{mobile}
+	</select>
+	
+	<insert id="insert" parameterType="SupLanguageMobile" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO sup_language_mobile (
+			mobile
+		)
+		VALUES (
+			#{mobile}
+		)
+	</insert>
+	
+	<select id="findByPage" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM sup_language_mobile 
+		<where>
+			<if test="condition.mobile != null and condition.mobile != ''">
+				AND mobile LIKE CONCAT('%',#{condition.mobile},'%') 
+			</if>
+		</where>
+		order by id desc
+	</select>
+	
+	<delete id="delete">
+		delete FROM sup_language_mobile  where mobile=#{mobile}
+	</delete>
+	
+	<select id="findAllMobile" resultType="java.lang.String">
+		select mobile from sup_language_mobile
+	</select>
+	
+</mapper>
