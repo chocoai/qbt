@@ -89,7 +89,7 @@ public interface MyTicketPackageSupport {
 	 * @param webpath
 	 * @return 
 	 */
-	public String qrcode(int packageId,String qrCode,String url,String webpath);
+	public String qrcode(int packageId,String qrCode,String url);
 	
 	/**
 	 * @Title: useTicket

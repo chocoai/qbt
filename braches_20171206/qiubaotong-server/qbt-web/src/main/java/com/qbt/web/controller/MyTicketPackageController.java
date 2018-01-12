@@ -23,7 +23,6 @@ import com.qbt.web.pojo.ticketPackageRule.TicketPackageRuleVo;
 import com.qbt.web.pojo.ticketpackage.req.TicketPackageReq;
 import com.qbt.web.support.LoginSupport;
 import com.qbt.web.support.MyTicketPackageSupport;
-import com.qbt.web.util.ZxingUtil;
 
 /**
  * @ClassName: MyTicketPackageController
@@ -33,114 +32,111 @@ import com.qbt.web.util.ZxingUtil;
 @Controller
 @RequestMapping("/myTicketPackage")
 public class MyTicketPackageController {
-	
+
 	@Resource
 	private MyTicketPackageSupport myTicketPackageSupport;
-	
+
 	@Resource
 	private LoginSupport loginSupport;
-	
-	
+
 	/**
-	  * @Title: listNotActive
-	  * @Description: Search (active_status=0 and package_type=0))
-	  * @author: andy.li
-	  * @return List<UserActivityPackageVo>
-	  */
+	 * @Title: listNotActive
+	 * @Description: Search (active_status=0 and package_type=0))
+	 * @author: andy.li
+	 * @return List<UserActivityPackageVo>
+	 */
 	@RequestMapping("/listNotActive")
-	public Result<List<UserActivityPackageVo>> listNotActive(HttpServletRequest request){
+	public Result<List<UserActivityPackageVo>> listNotActive(HttpServletRequest request) {
 		Result<List<UserActivityPackageVo>> result = new Result<List<UserActivityPackageVo>>();
 		try {
 			String openid = String.valueOf(request.getAttribute("openid"));
 			UserWeixin userWeixin = loginSupport.findByOpenId(openid);
 			result.setDatas(myTicketPackageSupport.findlistNotActive(userWeixin.getId()));
-		}catch (WechatException e) {
+		} catch (WechatException e) {
 			result.setCode(e.getCode());
 			result.setMsg(e.getMsg());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			result.setCode(ErrorCodeEnum.ERROR.getCode());
 			result.setMsg(ErrorCodeEnum.ERROR.getMsg());
-			LogCvt.error(e.getMessage(),e);
+			LogCvt.error(e.getMessage(), e);
 		}
 		return result;
 	}
-	
-	
+
 	/**
-	  * @Title: listUsed
-	  * @Description: Search (active_status=1 or package_type in(1,2) or(active_status=1 and today>expiration_time))
-	  * @author: andy.li
-	  * @return List<UserActivityPackageVo>
+	 * @Title: listUsed
+	 * @Description: Search (active_status=1 or package_type in(1,2)
+	 *               or(active_status=1 and today>expiration_time))
+	 * @author: andy.li
+	 * @return List<UserActivityPackageVo>
 	 */
 	@RequestMapping("/listUsed")
-	public Result<List<UserActivityPackageVo>> listUsed(HttpServletRequest request){
+	public Result<List<UserActivityPackageVo>> listUsed(HttpServletRequest request) {
 		Result<List<UserActivityPackageVo>> result = new Result<List<UserActivityPackageVo>>();
 		try {
 			String openid = String.valueOf(request.getAttribute("openid"));
 			UserWeixin userWeixin = loginSupport.findByOpenId(openid);
 			result.setDatas(myTicketPackageSupport.findlistUsed(userWeixin.getId()));
-		}catch (WechatException e) {
+		} catch (WechatException e) {
 			result.setCode(e.getCode());
 			result.setMsg(e.getMsg());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			result.setCode(ErrorCodeEnum.ERROR.getCode());
 			result.setMsg(ErrorCodeEnum.ERROR.getMsg());
-			LogCvt.error(e.getMessage(),e);
+			LogCvt.error(e.getMessage(), e);
 		}
 		return result;
 	}
-	
+
 	/**
 	 * @Title: listAvailableTicket
 	 * @author: andy.li
 	 * @return List<UserPackageTicketVo>
 	 */
 	@RequestMapping("/listAvailableTicket")
-	public Result<List<UserPackageTicketVo>> listAvailableTicket(HttpServletRequest request){
+	public Result<List<UserPackageTicketVo>> listAvailableTicket(HttpServletRequest request) {
 		Result<List<UserPackageTicketVo>> result = new Result<List<UserPackageTicketVo>>();
 		try {
 			String openid = String.valueOf(request.getAttribute("openid"));
 			UserWeixin userWeixin = loginSupport.findByOpenId(openid);
 			result.setDatas(myTicketPackageSupport.findlistAvailableTicket(userWeixin.getId()));
-		}catch (WechatException e) {
+		} catch (WechatException e) {
 			result.setCode(e.getCode());
 			result.setMsg(e.getMsg());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			result.setCode(ErrorCodeEnum.ERROR.getCode());
 			result.setMsg(ErrorCodeEnum.ERROR.getMsg());
-			LogCvt.error(e.getMessage(),e);
+			LogCvt.error(e.getMessage(), e);
 		}
 		return result;
-		
 	}
-	
+
 	/**
 	 * @Title: listDisableTicket
 	 * @author: andy.li
 	 * @return List<UserPackageTicketVo>
 	 */
 	@RequestMapping("/listDisableTicket")
-	public Result<List<UserPackageTicketVo>> listDisableTicket(HttpServletRequest request){
+	public Result<List<UserPackageTicketVo>> listDisableTicket(HttpServletRequest request) {
 		Result<List<UserPackageTicketVo>> result = new Result<List<UserPackageTicketVo>>();
 		try {
 			String openid = String.valueOf(request.getAttribute("openid"));
 			UserWeixin userWeixin = loginSupport.findByOpenId(openid);
 			result.setDatas(myTicketPackageSupport.findlistDisableTicket(userWeixin.getId()));
-		}catch (WechatException e) {
+		} catch (WechatException e) {
 			result.setCode(e.getCode());
 			result.setMsg(e.getMsg());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			result.setCode(ErrorCodeEnum.ERROR.getCode());
 			result.setMsg(ErrorCodeEnum.ERROR.getMsg());
-			LogCvt.error(e.getMessage(),e);
+			LogCvt.error(e.getMessage(), e);
 		}
 		return result;
 	}
-	
-	
+
 	/**
 	 * @Title: activate
-	 * @Description:update active_status  = 1
+	 * @Description:update active_status = 1
 	 * @param packageId
 	 * @param activateUser
 	 * @param activatePhoneNumber
@@ -148,21 +144,21 @@ public class MyTicketPackageController {
 	 * @return
 	 */
 	@RequestMapping("/activate")
-	public Result<String> activate(@RequestBody TicketPackageReq req){
+	public Result<String> activate(@RequestBody TicketPackageReq req) {
 		Result<String> result = new Result<String>();
 		try {
-			result.setDatas(myTicketPackageSupport.activate(req.getPackageId(),req.getActivateUser(),req.getActivatePhoneNumber()));
-		}catch (WechatException e) {
+			result.setDatas(myTicketPackageSupport.activate(req.getPackageId(),req.getActivateUser(), req.getActivatePhoneNumber()));
+		} catch (WechatException e) {
 			result.setCode(e.getCode());
 			result.setMsg(e.getMsg());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			result.setCode(ErrorCodeEnum.ERROR.getCode());
 			result.setMsg(ErrorCodeEnum.ERROR.getMsg());
-			LogCvt.error(e.getMessage(),e);
+			LogCvt.error(e.getMessage(), e);
 		}
 		return result;
 	}
-	
+
 	/**
 	 * @Title: cancel
 	 * @Description:update package_type = 0
@@ -171,93 +167,78 @@ public class MyTicketPackageController {
 	 * @return
 	 */
 	@RequestMapping("/cancel")
-	public Result<String> cancel(@RequestBody TicketPackageReq req){
+	public Result<String> cancel(@RequestBody TicketPackageReq req) {
 		Result<String> result = new Result<String>();
 		try {
 			result.setDatas(myTicketPackageSupport.cancel(req.getPackageId()));
-		}catch (WechatException e) {
+		} catch (WechatException e) {
 			result.setCode(e.getCode());
 			result.setMsg(e.getMsg());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			result.setCode(ErrorCodeEnum.ERROR.getCode());
 			result.setMsg(ErrorCodeEnum.ERROR.getMsg());
-			LogCvt.error(e.getMessage(),e);
+			LogCvt.error(e.getMessage(), e);
 		}
 		return result;
 	}
-	
-	
+
 	/**
 	 * @Title: recieve
-	 * @Description:
-	 *  update package_type = 2
-		copy a new package to current user
-	 * @param 接受方的user name
-	 * @param 接受方的user mobile
+	 * @Description: update package_type = 2 copy a new package to current user
+	 * @param 接受方的user
+	 *            name
+	 * @param 接受方的user
+	 *            mobile
 	 * @param 赠送方的packageId
 	 * @param qrCode
 	 * @return
 	 */
 	@RequestMapping("/recieve")
-	public Result<String> recieve(HttpServletRequest request,@RequestBody TicketPackageReq req){
+	public Result<String> recieve(HttpServletRequest request,@RequestBody TicketPackageReq req) {
 		Result<String> result = new Result<String>();
 		try {
 			String openid = String.valueOf(request.getAttribute("openid"));
 			UserWeixin userWeixin = loginSupport.findByOpenId(openid);
-			if(userWeixin.getName().equals(req.getRecieveUserName())&&userWeixin.getMobile().equals(req.getRecieveUserMobile())){
-				result.setDatas(myTicketPackageSupport.recieve(userWeixin.getId(),userWeixin.getName(),req.getPackageId(),req.getQrCode()));
-			}else{
+			if (userWeixin.getName().equals(req.getRecieveUserName()) && userWeixin.getMobile().equals(req.getRecieveUserMobile())) {
+				result.setDatas(myTicketPackageSupport.recieve(userWeixin.getId(), userWeixin.getName(),req.getPackageId(), req.getQrCode()));
+			} else {
 				result.setDatas("无效的接受用户!");
 			}
-		}catch (WechatException e) {
+		} catch (WechatException e) {
 			result.setCode(e.getCode());
 			result.setMsg(e.getMsg());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			result.setCode(ErrorCodeEnum.ERROR.getCode());
 			result.setMsg(ErrorCodeEnum.ERROR.getMsg());
-			LogCvt.error(e.getMessage(),e);
+			LogCvt.error(e.getMessage(), e);
 		}
 		return result;
 	}
-	
-	
+
 	/**
 	 * @Title: qrcode
-	 * @Description: post :package_id (update qrcode to user_activity_package, update package_type = 1)
+	 * @Description: post :package_id (update qrcode to user_activity_package,
+	 *               update package_type = 1)
 	 * @param url
 	 * @author: andy.li
-	 * @return 
+	 * @return
 	 */
 	@RequestMapping("/qrcode")
-	public Result<String> qrcode(@RequestBody TicketPackageReq req,HttpServletRequest request){
-		Result<String> result=new Result<String>();
-		String webpath=request.getSession().getServletContext().getRealPath("/")+"WEB-INF/qrCodeImg/";
-		String[] params=ZxingUtil.getParamsByUrl(req.getUrl());
+	public Result<String> qrcode(@RequestBody TicketPackageReq req) {
+		Result<String> result = new Result<String>();
 		try {
-			if(params!=null){
-			result.setDatas(myTicketPackageSupport.qrcode(Integer.parseInt(params[0]),params[1], req.getUrl(), webpath));
-			}else{
-			result.setDatas("请求参数错误!");
-			}
-		}catch (WechatException e) {
+			result.setDatas(myTicketPackageSupport.qrcode(req.getPackageId(),req.getQrCode(), req.getUrl()));
+		} catch (WechatException e) {
 			result.setCode(e.getCode());
 			result.setMsg(e.getMsg());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			result.setCode(ErrorCodeEnum.ERROR.getCode());
 			result.setMsg(ErrorCodeEnum.ERROR.getMsg());
-			LogCvt.error(e.getMessage(),e);
+			LogCvt.error(e.getMessage(), e);
 		}
-		//清除tomcat服务器下二维码临时图片
-		try {
-			ZxingUtil.deletefile(webpath);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	
 		return result;
 	}
-	
-	
+
 	/**
 	 * @Title: useTicket
 	 * @Description update table user_package_ticket,set used_quantity+1
@@ -266,21 +247,21 @@ public class MyTicketPackageController {
 	 * @return
 	 */
 	@RequestMapping("/useTicket")
-	public Result<String> useTicket(@RequestBody TicketPackageReq req){
+	public Result<String> useTicket(@RequestBody TicketPackageReq req) {
 		Result<String> result = new Result<String>();
 		try {
 			result.setDatas(myTicketPackageSupport.useTicket(req.getTicketId()));
-		}catch (WechatException e) {
+		} catch (WechatException e) {
 			result.setCode(e.getCode());
 			result.setMsg(e.getMsg());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			result.setCode(ErrorCodeEnum.ERROR.getCode());
 			result.setMsg(ErrorCodeEnum.ERROR.getMsg());
-			LogCvt.error(e.getMessage(),e);
+			LogCvt.error(e.getMessage(), e);
 		}
 		return result;
 	}
-	
+
 	/**
 	 * @Title: findPackageById
 	 * @Description find details Package info by packageId
@@ -289,22 +270,21 @@ public class MyTicketPackageController {
 	 * @return ActivityTicketPackage
 	 */
 	@RequestMapping("/findPackageById")
-	public Result<ActivityTicketPackage> findPackageById(@RequestBody TicketPackageReq req){
+	public Result<ActivityTicketPackage> findPackageById(@RequestBody TicketPackageReq req) {
 		Result<ActivityTicketPackage> result = new Result<ActivityTicketPackage>();
 		try {
 			result.setDatas(myTicketPackageSupport.findPackageById(req.getPackageId()));
-		}catch (WechatException e) {
+		} catch (WechatException e) {
 			result.setCode(e.getCode());
 			result.setMsg(e.getMsg());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			result.setCode(ErrorCodeEnum.ERROR.getCode());
 			result.setMsg(ErrorCodeEnum.ERROR.getMsg());
-			LogCvt.error(e.getMessage(),e);
+			LogCvt.error(e.getMessage(), e);
 		}
 		return result;
 	}
-	
-	
+
 	/**
 	 * @Title: findPaperPackageList
 	 * @Description get all paper package list(contain qrcode url)
@@ -312,21 +292,21 @@ public class MyTicketPackageController {
 	 * @return
 	 */
 	@RequestMapping("/findPaperPackageList")
-	public Result<List<UserActivityPackageVo>> findPaperPackageList(){
+	public Result<List<UserActivityPackageVo>> findPaperPackageList() {
 		Result<List<UserActivityPackageVo>> result = new Result<List<UserActivityPackageVo>>();
 		try {
 			result.setDatas(myTicketPackageSupport.findPaperPackageList());
-		}catch (WechatException e) {
+		} catch (WechatException e) {
 			result.setCode(e.getCode());
 			result.setMsg(e.getMsg());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			result.setCode(ErrorCodeEnum.ERROR.getCode());
 			result.setMsg(ErrorCodeEnum.ERROR.getMsg());
-			LogCvt.error(e.getMessage(),e);
+			LogCvt.error(e.getMessage(), e);
 		}
 		return result;
 	}
-	
+
 	/**
 	 * @Title: packageActivityFindByPage
 	 * @Description get activity list
@@ -335,15 +315,12 @@ public class MyTicketPackageController {
 	 * @return
 	 */
 	@RequestMapping("/packageActivityFindByPage")
-	public PageResult<List<TicketPackageActivityVo>> packageActivityFindByPage(@RequestBody TicketPackageActivityPageReqVo reqVo){
-		
+	public PageResult<List<TicketPackageActivityVo>> packageActivityFindByPage(@RequestBody TicketPackageActivityPageReqVo reqVo) {
 		PageResult<List<TicketPackageActivityVo>> result = new PageResult<List<TicketPackageActivityVo>>();
-		try{
-			
+		try {
 			List<TicketPackageActivityVo> ticketPackageActivitys = myTicketPackageSupport.packageActivityFindByPage(reqVo);
-			
-			if(ticketPackageActivitys != null) {
-				for(TicketPackageActivityVo ticketPackage: ticketPackageActivitys) {
+			if (ticketPackageActivitys != null) {
+				for (TicketPackageActivityVo ticketPackage : ticketPackageActivitys) {
 					try {
 						TicketPackageRuleVo ticketPackageRuleVo = myTicketPackageSupport.packageActivityFindByRuleId(ticketPackage.getRuleId());
 						ticketPackage.setTicketPackageRule(ticketPackageRuleVo);
@@ -354,13 +331,12 @@ public class MyTicketPackageController {
 			}
 			result.setDatas(ticketPackageActivitys);
 			result.setPage(reqVo);
-		}catch(Exception e)
-		{
+		} catch (Exception e) {
 			String errMsg = "券包活动查询异常";
 			LogCvt.error(errMsg, e);
 			result.setCode(ErrorCodeEnum.ERROR_SYS.getCode());
 			result.setMsg(errMsg);
-		
+
 		}
 		return result;
 	}

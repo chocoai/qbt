@@ -260,7 +260,7 @@
 		<result column="price" property="price" />
 
 		<collection property="tickets" column="id"
-			select="com.qbt.persistent.mapper.TicketPackageActivityMapper.findTicketsByPackageId">
+			select="com.qbt.persistent.mapper.UserPackageTicketMapper.findTicketsByPackageId">
 		</collection>
 	</resultMap>
 	

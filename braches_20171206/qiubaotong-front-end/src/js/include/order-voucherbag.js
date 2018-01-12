@@ -7,6 +7,7 @@ var order_voucherbag_view = Vue.extend({
             voucher_tab: 1, //切换tab栏
             notActiveList: [], //未激活券包
             activedList: [], //可使用券包
+            codeImage: '', //二维码照片
         }
     },
     created() {
@@ -23,60 +24,54 @@ var order_voucherbag_view = Vue.extend({
             this.voucher_tab = tab;
         },
         //激活券包
-        active: function() {
-            var self = this; //vue实例
-            
-            console.log($('.tankuang').find('#cellphone').val());
-            layer.open({  //激活券包弹窗
-              anim: 'scale',
-              content: $('.tankuang').html(),
-              btn: ['确认激活'],
-              shade: 'background-color: rgba(0,0,0,.5)',
-              success: function(elem){
-                
-                console.log($(elem).find('#cellphone').val());
-                $(elem).find('.activeCode').click(function(){
-                    var _this = this; //激活按钮自身
-                    // if(!$.comReg.isMobile(phoneNumber)) {
-                    //     $.toast('电话号码不正确');
-                    //     return;
-                    // }
-                    $.commonAjax({
-                        url : '/smsCommon/getSmsCode.api',
-                        data : {mobile:phoneNumber},
-                        success : function(data){
-                            var smsToken = data.datas;
-                            var TIME_COUNT = 59;
-                            if (!self.timer) {
-                                self.count = TIME_COUNT;
-                                var that = self;
-                                this.timer = setInterval(function() {
-                                    if (that.count > 0 && that.count <= TIME_COUNT) {
-                                        that.count--;
-                                        $(_this).find('span').html('剩余 '+self.count+' s');
-                                    } else {
-                                        clearInterval(that.timer);
-                                        that.timer = null;
-                                        $(_this).find('span').html('验证码');
-                                    }
-                                }, 1000);
-                            }
-                        }    
-                    });    
-                });
-              },
-              yes: function(index){
-                layer.close(index);
-              }    
+        active: function(id) {
+            var self = this;
+            $.commonAjax({
+                url : '/myTicketPackage/activate.api',
+                type: 'POST',
+                data : {
+                    packageId:"62",
+                    activateUser:"andytest",
+                    activatePhoneNumber:"18617245418"
+                },
+                success : function(data){
+                    self.toggleTab(2);
+                },
+                error : function(err){
+                    $.toast(err);
+                }
             });
         },
         //券包二维码赠送
         codeSend: function() {
-            layer.open({
-              anim: 'scale',
-              content: 'voucherCode',
-              btn: ['确认赠送'],
-              shade: 'background-color: rgba(0,0,0,.5)',
+            var self = this;
+            $.commonAjax({
+                url : 'myTicketPackage/qrcode.api',
+                type: 'POST',
+                data : {
+                    url:"http://www.baidu.com?packageId=98&qrCode=431815ad70a69540ba1a1d26b1d629e3",
+                    packageId:"98",
+                    qrCode:"431815ad70a69540ba1a1d26b1d629e3"
+                },
+                success : function(data){
+                    var datas = 'http://qbt.missionsky.cn:6047/file' + data.datas;
+                    self.codeImage = datas;
+                    console.log(self.codeImage);
+                    setTimeout(function(){
+                        layer.open({
+                            anim: 'scale',
+                            content: $('.codeImage').html(),
+                            btn: ['确认赠送'],
+                            shade: 'background-color: rgba(0,0,0,.5)',
+                            success: function(){
+    
+                            }
+                          });
+                    },300);
+                },
+                error : function(err){
+                    $.toast(err);
+                }
             });
         },
         //获取未激活券包

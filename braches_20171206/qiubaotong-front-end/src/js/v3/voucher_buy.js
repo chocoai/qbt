@@ -101,14 +101,14 @@ var voucher_buy_view = Vue.extend({
         },
         //获取验证码
         getSecurityCode: function() {
-            if(!$.comReg.isMobile($('.receivePhone').val())) {
+            if(!$.comReg.isMobile($('.receivePhone').val().trim())) {
                 $.toast('电话号码不正确');
                 return;
             }
             var self = this;
             $.commonAjax({
                 url : '/smsCommon/getSmsCode.api',
-                data : {mobile:$('.receivePhone').val()},
+                data : {mobile:$('.receivePhone').val().trim()},
                 success : function(data){
                     var smsToken = data.datas;
                     self.securityCode = true;
@@ -133,8 +133,8 @@ var voucher_buy_view = Vue.extend({
                             url : '/smsCommon/checkSmsCode.api',
                             type: 'POST',
                             data : {
-                                mobile:$('.receivePhone').val(),
-                                smsCode:$('.cellphoneCode').val(),
+                                mobile:$('.receivePhone').val().trim(),
+                                smsCode:$('.cellphoneCode').val().trim(),
                                 smsToken:smsToken
                             },
                             success : function(data){
@@ -176,9 +176,9 @@ var voucher_buy_view = Vue.extend({
 	                activityId: this.activityId,
 	                activityAmount: this.voucherCount,
 	                activityName:this.activityName,
-	                purchaser:$('.adminName').val(),
-	                purchaserAddress: $('.address').val(),
-                    purchaserNumber:$('.receivePhone').val(),
+	                purchaser:$('.adminName').val().trim(),
+	                purchaserAddress: $('.address').val().trim(),
+                    purchaserNumber:$('.receivePhone').val().trim(),
                     buyActive: this.buyActive
                 },
                 success : function(data){
@@ -202,13 +202,13 @@ var voucher_buy_view = Vue.extend({
                                 signType: data.datas.signType,
                                 paySign: data.datas.paySign,
                                 success: function (res) {
-                                    //var hach='/success/'+self.order_detail.sendTimeSection+'/'+self.order_detail.orderId;
-                                    //self.goV2Nav('index.html',hach);
-    
-                                    //todo 跳转到我的券包
+                                    //跳转到个人中心我的券包
+                                    self.canGoPay = false;
                                     $.toast("支付成功!");
+                                    locationTo('order.html');
                                 },
                                 fail: function (err) {
+                                    self.canGoPay = false;
                                     $.toast("支付失败!");
                                 }
                             });

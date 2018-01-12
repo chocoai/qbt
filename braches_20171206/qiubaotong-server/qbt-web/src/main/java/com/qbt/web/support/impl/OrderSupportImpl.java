@@ -2531,6 +2531,7 @@ public class OrderSupportImpl implements OrderSupport {
 		
 		// 加急费
 		Integer urgentFee = 0;
+		boolean isUrgent = "3".equals(orderConfirm.getBusiness_type());
 		
 		// 加急价格
 		if("3".equals(orderConfirm.getBusiness_type())) {
@@ -2609,6 +2610,12 @@ public class OrderSupportImpl implements OrderSupport {
 		VipOrderConfirmResponse vipOrderConfirm = vipCommonSupport.checkVipOrder(vipOrderConfirmRequest);
 		int num = vipOrderConfirm.getNum();
 		boolean isVipOrder = vipOrderConfirm.isVipOrder();
+		
+		if(isUrgent) {
+			num = 0;
+			isVipOrder = false;
+		}
+		
 		int[] vipIds = vipOrderConfirm.getVipId();
 		double[] vipOrderAmounts = vipOrderConfirm.getVipOrderAmount();
 		double outRangeAmount = vipOrderConfirm.getOutRangeAmount();
